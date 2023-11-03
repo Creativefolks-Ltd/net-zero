@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 export default function HomeBanner({ children }: { children?: ReactNode }) {
   return (
-    <header className="relative h-screen bg-brand" style={{ background: "url(/images/homepage_banner.jpg) cover no-repeat" }}>
+    <header className="relative h-screen bg-brand" style={{ background: "url(/images/homepage_banner.jpg) no-repeat" }}>
       {children}
       <div className="container h-full flex items-center">
         <div className="w-1/2">
