@@ -1,8 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function HomeBanner() {
+export default function HomeBanner({ children }: { children?: ReactNode }) {
   return (
-    <header className="h-screen bg-black">
+    <header className="relative h-screen bg-brand" style={{ background: "url(/images/homepage_banner.jpg) cover no-repeat" }}>
+      {children}
       <div className="container h-full flex items-center">
         <div className="w-1/2">
           <h1 className="text-7xl mb-12 font-bold text-white">The Anthos Net Zero project</h1>
