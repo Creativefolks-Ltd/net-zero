@@ -12,6 +12,7 @@ const config: Config = {
           light: "hsl(93, 49%, 95%)",
           DEFAULT: "hsl(93, 49%, 53%)",
           secondary: "#84A98C",
+          dark: "#2C2B34",
         },
         error: "#FF0000",
         grey: {
