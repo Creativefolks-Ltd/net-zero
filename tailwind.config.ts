@@ -16,8 +16,11 @@ const config: Config = {
         },
         error: "#FF0000",
         grey: {
+          lighter: "#F9F9F9",
           light: "hsl(0, 0%, 95%)",
           DEFAULT: "hsl(0, 0%, 51%)",
+          dark: "#CAD2C5",
+          darker: "#D9D9D9"
         },
         dark: "#31405A",
       },
