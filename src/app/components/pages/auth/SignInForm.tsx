@@ -5,7 +5,7 @@ import Button from "../../core/Button";
 
 export default function SignInForm() {
   return (
-    <form className="w-1/4">
+    <form className="md:w-1/4 text-start">
       <Heading
         level={1}
         withUnderline

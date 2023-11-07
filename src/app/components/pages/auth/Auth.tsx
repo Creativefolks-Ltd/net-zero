@@ -8,8 +8,8 @@ export default function Auth() {
   const [signInTab, setSignInTab] = useState(true as boolean);
 
   return (
-    <div className="bg-grey-lighter relative rounded-xl pt-12 pb-32 px-24">
-      <div className="flex mb-3">
+    <div className="md:bg-grey-lighter relative rounded-xl pt-12 pb-32 px-8 md:px-24">
+      <div className="flex justify-center md:justify-start mb-3">
         <button
           className={`p-4 text-2xl relative text-grey-dark duration-300 transition-all font-bold   auth-tab  cursor-pointer ${
             signInTab && "auth-tab-selected"
@@ -29,8 +29,8 @@ export default function Auth() {
           Register
         </button>
       </div>
-      <div className="pl-5">
-        <span className="text-sm">
+      <div className="pl-5 text-center md:text-start">
+        <span className="text-sm ">
           Admin port login{" "}
           <a href="/admin-login" className="underline">
             here
@@ -38,7 +38,7 @@ export default function Auth() {
         </span>
         {signInTab ? <SignInForm /> : <RegisterForm />}
       </div>
-      <div className="absolute -right-40 top-[40px]">
+      <div className="hidden md:block absolute -right-40 top-[40px]">
         <figure className="relative w-full h-[600px] aspect-square">
           <Image
             src={"/images/Login - pexels-cameron-casey-1157255.jpg"}
