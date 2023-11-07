@@ -49,3 +49,21 @@ p {
 section.section {
   @apply py-16 xl:py-32;
 }
+
+.auth-tab::after {
+  content: "";
+  @apply absolute border-[inherit] rounded w-[105%] border-b-[7px] md:border-b-4  left-0 bottom-0;
+}
+
+.auth-tab-selected {
+  @apply text-brand;
+}
+
+.auth-tab-selected::after {
+  @apply border-brand z-50;
+}
+
+.heading-underline::after {
+  content: "";
+  @apply absolute bottom-0 w-1/2 border left-0 border-brand-dark;
+}
