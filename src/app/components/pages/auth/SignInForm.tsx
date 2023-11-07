@@ -5,7 +5,7 @@ import Button from "../../core/Button";
 
 export default function SignInForm() {
   return (
-    <form className="md:w-1/4 text-start">
+    <form className="md:w-1/2 lg:w-1/4 text-start">
       <Heading
         level={1}
         withUnderline
@@ -17,8 +17,12 @@ export default function SignInForm() {
       <Input placeholder="Email address" className="mb-5 mt-12" />
       <Input placeholder="Password" type="password" className="" />
       <div className="flex flex-col items-center mt-12">
-        <a href="/forgot-password">Forgot your password</a>
-        <Button className="min-w-[150px] mt-4 text-center">Sign in</Button>
+        <a href="/forgot-password" className="underline">
+          Forgot your password?
+        </a>
+        <Button className="min-w-[150px] mt-10 md:mt-4 text-center">
+          Sign in
+        </Button>
       </div>
     </form>
   );

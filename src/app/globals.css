@@ -52,7 +52,7 @@ section.section {
 
 .auth-tab::after {
   content: "";
-  @apply absolute border-[inherit] rounded w-[105%] border-b-4  left-0 bottom-0;
+  @apply absolute border-[inherit] rounded w-[105%] border-b-[7px] md:border-b-4  left-0 bottom-0;
 }
 
 .auth-tab-selected {
