@@ -3,7 +3,7 @@ import SavedFormDrawer from "./SavedFormDrawer";
 
 export default function SavedForms() {
   return (
-    <div className="w-1/2">
+    <div className="md:w-1/2">
       <h2 className="text-4xl text-brand-dark font-light mb-5">Saved forms</h2>
       <div className="flex flex-col gap-2">
         <SavedFormDrawer submitted />

@@ -28,9 +28,11 @@ export default function PersonalInformationForm() {
         className="bg-white"
         placeholder="*********"
         type="password"
-        wrapperClassname="mb-5"
+        wrapperClassname="mb-5 md:mb-16 "
       />
-      <Button className="min-w-[130px] mt-10">Save</Button>
+      <Button className="min-w-[130px] block m-auto md:m-[unset] mt-10">
+        Save
+      </Button>
     </form>
   );
 }

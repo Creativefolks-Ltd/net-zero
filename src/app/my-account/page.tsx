@@ -7,11 +7,11 @@ export default function MyAccount() {
   return (
     <>
       <Header />
-      <main className="container pt-16 pb-36">
-        <h1 className="font-bold text-brand-dark text-5xl mb-16">
+      <main className="container px-12 pt-16 pb-36">
+        <h1 className="font-bold text-brand-dark text-4xl md:text-5xl mb-8 md:mb-16">
           My account{" "}
         </h1>
-        <div className="flex gap-12">
+        <div className="flex md:flex-row flex-col gap-12">
           <PersonalInformation />
           <SavedForms />
         </div>
