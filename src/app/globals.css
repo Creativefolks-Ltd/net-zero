@@ -67,3 +67,47 @@ section.section {
   content: "";
   @apply absolute bottom-0 w-1/2 border left-0 border-brand-dark;
 }
+
+table th {
+  @apply text-white text-xl font-normal
+}
+
+table thead {
+  @apply bg-grey-dark2
+}
+
+table th:first-child{
+  border-top-left-radius: 15px;
+}
+
+table th {
+  @apply py-3;
+}
+
+table th:last-child{
+  border-top-right-radius: 15px;
+}
+
+table td {
+  @apply py-4 text-center text-lg font-light border-r border-grey-dark2;
+}
+
+table td:last-child {
+  @apply border-r-0
+}
+
+tbody tr:nth-child(even){
+  @apply bg-white
+}
+
+tbody tr:nth-child(odd) {
+ @apply bg-grey-light
+}
+
+table tr:last-child td:last-child { 
+  border-bottom-right-radius: 15px;
+}
+
+table tr:last-child td:first-child { 
+  border-bottom-left-radius: 15px;
+}

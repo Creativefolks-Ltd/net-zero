@@ -29,7 +29,8 @@ const config: Config = {
           light: "hsl(0, 0%, 95%)",
           DEFAULT: "hsl(0, 0%, 51%)",
           dark: "#CAD2C5",
-          darker: "#D9D9D9"
+          darker: "#D9D9D9",
+          dark2: "#818181"
         },
         dark: "#31405A",
       },

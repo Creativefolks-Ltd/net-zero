@@ -1,5 +1,6 @@
 import React from "react";
 import PersonalInformation from "@/components/pages/my-account/PersonalInformation";
+import Submissions from "@/components/pages/dashboard/Submissions";
 
 export default function Dashboard() {
   return (
@@ -10,6 +11,7 @@ export default function Dashboard() {
       <div className="flex md:flex-row flex-col gap-12">
         <PersonalInformation halfWidthLayout />
       </div>
+      <Submissions />
     </main>
   );
 }
