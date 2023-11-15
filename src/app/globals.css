@@ -35,7 +35,7 @@ h6 {
 p {
   font-size: 1.2rem;
   line-height: 1.7;
-  margin-bottom: 2rem;
+  @apply md:mb-8
 }
 
 .container {
@@ -111,3 +111,16 @@ table tr:last-child td:last-child {
 table tr:last-child td:first-child { 
   border-bottom-left-radius: 15px;
 }
+
+.result-rows > div:nth-child(even) {
+  @apply bg-white;
+}
+
+.result-rows > div:nth-child(odd) {
+  @apply bg-grey-light;
+}
+
+.result-rows >div:last-child {
+  @apply rounded-bl-xl rounded-br-xl
+}
+

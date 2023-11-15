@@ -1,10 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import { BsArrowRight } from "react-icons/bs";
 
 export default function SubmissionsTable() {
   return (
-    <table className="w-full">
+    <table className="w-full hidden md:table">
       <thead>
         <th>Form name</th>
         <th>User email address</th>
