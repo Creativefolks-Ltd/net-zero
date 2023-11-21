@@ -1,6 +1,9 @@
 import Image from "next/image";
 import React from "react";
 
+const rightArrow = "/images/arrow-right.png";
+const uploadIcon = "/images/upload-icon.png";
+
 export default function SubmissionsTable() {
   return (
     <table className="w-full hidden md:table">
@@ -17,10 +20,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
@@ -32,10 +35,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
@@ -47,10 +50,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
@@ -62,10 +65,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
@@ -77,10 +80,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
@@ -92,10 +95,10 @@ export default function SubmissionsTable() {
             <div className="flex gap-2 items-center justify-center">
               View form{" "}
               <figure className="h-4 w-6 relative">
-                <Image src={"/images/arrow-right.png"} alt="arrow-right" fill />
+                <Image src={rightArrow} alt="arrow-right" fill />
               </figure>
               <figure className=" h-7 w-6 relative ml-5">
-                <Image src={"/images/upload-icon.png"} alt="upload" fill />
+                <Image src={uploadIcon} alt="upload" fill />
               </figure>
             </div>
           </td>
