@@ -1,8 +1,9 @@
 import React from "react";
 import PersonalInformation from "@/components/pages/my-account/PersonalInformation";
 import Submissions from "@/components/pages/dashboard/Submissions";
+import { withAuth } from "../../../withAuth";
 
-export default function Dashboard() {
+function Dashboard() {
   return (
     <main className="container px-12 pt-16 pb-36">
       <h1 className="font-bold text-brand-dark text-4xl md:text-5xl mb-8 md:mb-16">
@@ -15,3 +16,5 @@ export default function Dashboard() {
     </main>
   );
 }
+
+export default withAuth(Dashboard);
