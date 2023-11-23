@@ -4,7 +4,7 @@ import { GoArrowLeft } from "react-icons/go";
 
 export default function SubmissionPage() {
   return (
-    <section className="container pt-24 pb-48 px-12 lg:px-0">
+    <section className="container pt-24 pb-48 px-12 lg:px-8">
       <div className="bg-grey-lighter px-12 md:px-24 py-12 md:py-24 rounded-xl">
         <div className="flex flex-col-reverse items-center md:items-start md:flex-row justify-between">
           <div className="font-bold text-4xl mt-5 md:mt-0">Form name</div>
