@@ -50,7 +50,8 @@ const Login = () => {
         event.preventDefault();
         console.log(" login data", { email, password })
         try {
-            const apiUrl = 'http://192.168.0.129:8000/api/login';
+
+            const apiUrl = 'https://netzero.digital4design.in/api/login';
 
             const response = await axios.post(apiUrl, { email: email, password: password });
 

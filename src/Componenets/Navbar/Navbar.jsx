@@ -10,8 +10,7 @@ import profile_img from '../Assets/grey_profile_img.png'
 export default function Navbar({transparent}) {
     const navbarStyle={
         background: transparent ? "transparent" :"#ffffff",
-        boxShadow:transparent ? "none": "1px 1px 6.5px rgba(0,0,0,0.16)"
-       
+        boxShadow:transparent ? "none": "1px 1px 6.5px rgba(0,0,0,0.16)",
     }
     return (
         <>

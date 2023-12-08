@@ -7,6 +7,7 @@ import Layout from './Componenets/Layout/Layout';
 import Login from './Componenets/Login/Login'; 
 import My_Account_Dashboard from './Componenets/My_Account_Dashboard/My_Account_Dashboard';
 // import 'react-modal/styles.css';
+import "./index.css"
 
 import {
   createBrowserRouter,

@@ -17,142 +17,152 @@ import Footer from '../Footer/Footer'
 import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
-
+import imageUrl from "../Assets/home_img1.png"
 const Homepage = () => {
+    const containerStyle = {
+        backgroundImage: `url(${imageUrl})`,
+       
+    };
+
     return (
         <>
         <Navbar transparent={true}/>
-        <div className='container'>
-            <div className='homepage-f'>
-                <div className='homepage-navbar'>
-                    {/* <nav className="navbar">
-                        <span><img src={anthos_logo} alt="" /></span>
-                        <ul>
-                            <li> <img src={profile_img} alt="" /></li>
-                            <li><FontAwesomeIcon icon={faBars} size='4x' color='white'></FontAwesomeIcon></li>
 
-                        </ul>
-
-                    </nav> */}
-                    <div className="homepage-content">
-                        <div className='para1'>
-                            <p>The Anthos</p>
-                            <p>Net Zero Project</p>
-                        </div>
-                        <div className="para2">
-                            <p>Created to provied an ongoing</p>
-                            <p style={{ lineHeight: '15px' }} >service to help all family members</p>
-                        </div>
+        <section className='home-banner' style={containerStyle}>
+            {/* <img src={imageUrl} alt="" /> */}
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-lg-6">
+                        <h1>The Anthos<br></br> Net Zero Project</h1>
+                        <p>Created to provied an ongoing <br/> service to help all family members</p>
                     </div>
                 </div>
             </div>
-            <div className="homepage-s">
-                <div className='homepage-s-p1'><p>The Future of Sustainability</p></div>
-                <div className='homepage-s-p2'><p>Your personal carbon footprint calculator</p></div>
-                <div className="homepage-s-content">
-                    <div className="homepage-s-img">
-                        <img src={anthos_bulb} alt="" />
+        </section>
+
+        <section className='personal-carbon'>
+            <div className="container">
+                <div className="carbon-top">
+                    <div className="row">
+                        <div className="col-lg-10 offset-lg-2">
+                            <div className="title-block">
+                                <h2>
+                                    <span className='sub-title'>The Future of Sustainability</span>
+                                    Your personal carbon footprint calculator
+                                </h2>
+                            </div>
+                            
+                        </div>
                     </div>
-                    <div className="homepage-s-para">
-                        <img src={s_text} alt="" />
-                        {/* <p>
-                            <span>Understand the shape and size if your carbon footprint. </span>
-                            <br/>
-                            <span> Connect with an advisory service to discuss and explore
-                                the opportunities or carbin reduction.</span>
-                            <span> Understand the shape and size if your carbon footprint.</span>
-                            <span> Select from a choice of carbon offsets to compensate for
-                                emission and become carbon neutral.</span>
-                            <span>Repeat the process on an annual basis and track progress
-                                through time</span>
-                        </p> */}
-                        <div><Link to="/loginpage"><button className='homepage-s-btn'>Calculate your footprint</button></Link></div>
+                </div>
+
+                <div className="carbon-contant">
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div className="img-col">
+                                <img src={anthos_bulb} alt="" />
+                            </div>
+                        </div>
+                        <div className="col-lg-8">
+                            <div className="text-col">
+                                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                                <b>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</b>
+                                <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <p> It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets </p>
+                                <p>containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-
             </div>
-            <div className="homepage-t">
-                <div className='homepage-t-left' >
-                    <div className='homepage-t-p1'><p>How to complete the form</p></div>
-                    <div className='homepage-t-p2'><p>Form Essentails</p></div>
-                    <div className='homepage-t-p3'>
-                        {/* <img src={t_text} alt="" /> */}
-                        <p>The first step is to provode the information through the  tailored form ,related to your home,travel,<br />
-                            shopping and assets. Information is encrypted and held on <span>secure server*</span> and the form should <br />
-                            take no more than 15 minutes to complete.On each page there are some sections are <br />
-                            required and others that are optional. The optinal sections are for activities that we expect aren't<br />
-                            the biggest source of emissions or which take more time to complete. However, adding this<br />
-                            information will give you more accurate carbon footprint and more tailored recommendations.
-                        </p>
-                    </div>
-                    <div className="homepage-t-p4">
-                        <div className='homepage-t-img1'>
-                            <img src={t_house} alt="" />
-                            <p>Your resdidential <br />
-                                energy consumption<br />
-                                (electricity/natural gas/<br />
-                                hitting oil,anyother)</p>
-                        </div>
-                        <div className='homepage-t-img1'>
-                            <img src={t_plan} alt="" />
-                            <p>Your air travel use<br />
-                                (number of flights/<br />
-                                distance travelled)</p>
-                        </div>
-                        <div className='homepage-t-img1'>
-                            <img src={t_car} alt="" />
-                            <p>Your road travel use<br />
-                                (vehicle informatioon/<br />
-                                distance travelled)</p>
-                        </div>
-                    </div>
-                    <div className="homepage-t-p6">
-                        <div>
-                            {/* <img src={t_text2} alt="" /> */}
-                            <p>You can save your responses if you are not able to complete the form, and return to it later. Once<br />
-                                you have submitted the informatioon the net zero team will respond with the initial result and <br />
-                                suggected action , and invitations and arrnage a consultation for discuss</p>
-                            <p>The tool has been built by Google Businessa and its principles of Greenhouse Gas
-                                Protocol.It has <br /> been developed specially for Anthos and give family members a tailored and
-                                personal service , <br /> and making it stand out from the many carbon calculators available online</p>
-                        </div>
-                    </div>
-                    <div className="homepage-t-btn">
-                        <Link to="/loginpage"><button>Calculate your footprint</button></Link>
-                    </div>
+        </section>
 
-                </div>
-                <div className="homepage-t-right">
-                    <div className='t-img'><img src={david} alt="" /></div>
-                </div>
-            </div>
-            <div className="homepage-fth">
-                <div className='homepage-fth-p1'><p>Protecting your data</p></div>
-                <div className='homepage-fth-p2'>
 
-                    <p>All of your  response in this survey will be encrypted in this TLS and only access by the Net Zero team for<br />
-                        the purpose of calculating your footprint and provode recommendation to reduce it. You can find more <br />
-                        information in Good Business' Policy here.the tool met the high data security requirements for <br />
-                        penetartion testing in March 2022.
-                        the penetration
-                    </p></div>
-                <div className='homepage-t-content'>
-                    <div className="content-left"><img src={security_fth} alt="" /></div>
-                    <div className="content-right">
-                        {/* <img src={fth_text} alt="" /> */}
-                        <p>Lorem ipsum dolor sit amet qui consectetur, adipisicing<br/> elit. Neque error aspernatur amet hic veniam iure ut<br/> repudiandae minima error deleniti tempore diam<br/> 
-                        libero ratione nam  fugit! Placeat, qui justo.
-                        </p>
-                        <p>
-                        Sadipscing ipsum dolor sit amet consectetur tempor <br/> invidut Perspiciatis possimus ui fuga quod laudantium sed <br/> diam porro! Quibusdam ea, doloribus quo cumque duo<br/> doloar's, soluta quo  praesentium eum libero eos!no <br/> asperiores eius corrupti beatae nquis veniam et<br/>cumque beatae nobis  odio justo.
-                        </p>
+        <section className='form-assential'>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-10">
+                        <div className="title-block">
+                            <h2>
+                                <span className='sub-title'>How to complete the form</span>
+                                Form essentials
+                            </h2>
+                        </div>
+                        <div className="text-col">
+                            <p>The first step is to provide information through the tailored form, relating to your home, travel, shopping and assets. Information is encrypted and held on a secure server* and the form should take no more than 15 minutes to complete. On each page there are some sections that are required and others that are optional. The optional sections are for activities that we expect aren’t the biggest sources of emissions or which taken more time to complete. However, adding this information will give you a more accurate carbon footprint and more tailored recommendations.  </p>
+                            <p>To make the process quicker and easier, gather the following details before starting:</p>
+                        </div>
+                        <div className="icon-with-contant">
+                            <div className="row">
+                                <div className="col-lg-4">
+                                    <div className="icon">
+                                        <img src={t_house} alt="" />
+                                    </div>
+                                    <div className="text">
+                                        <p>Your resdidential energy consumptio (electricity/natural gas hitting oil,anyother)</p>
+                                    </div>
+                                </div>
+                                <div className="col-lg-4">
+                                    <div className="icon">
+                                        <img src={t_plan} alt="" />
+                                    </div>
+                                    <div className="text">
+                                        <p>Your air travel use (number of flights/distance travelled)</p>
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-4">
+                                    <div className="icon">
+                                        <img src={t_car} alt="" />
+                                    </div>
+                                    <div className="text">
+                                        <p>Your road travel use (vehicle information/ distance travelled)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-col">
+                            <p>You can save your responses if you are not able to complete the form, and return to it later. Once you have submitted the information, the net zero team will respond with initial results and suggested actions, and an invitation to arrange a consultation to discuss.</p>
+                             <p>The tool has been built by Good Business and is based on the principles of the Greenhouse Gas Protocol. It has been developed specifically for Anthos and gives family members a tailored and personal service, making it stand out from the many carbon calculators available online.</p>
+
+                             <Link to="/loginpage"><button className='homepage-s-btn btn'>Calculate your footprint</button></Link>
+                        </div>
                     </div>
-
                 </div>
             </div>
-            
-        </div>
+        </section>
+        <section className='protecting-data'>
+            <div className="container">
+                <div className="data-top">
+                    <div className="row">
+                        <div className="col-lg-12 text-center">
+                            <h2>Protecting your data</h2>
+                            <p>All of your responses in this survey will be encrypted with TLS and only accessed by the Net-Zero team for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ privacy policy here. The tool met the high data security requirements for penetration testing in March 2022.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="data-bottom">
+                    <div className="row">
+                        <div className="col-lg-5">
+                            <div className="img-col">
+                                <img src={security_fth} alt="" />
+                            </div>
+                        </div>
+                        <div className="col-lg-7">
+                            <div className="text-col">
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo. Sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> 
+                                    <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor et accusam et dolores justo.</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo. Sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
     <Footer/>
      </>
     )
