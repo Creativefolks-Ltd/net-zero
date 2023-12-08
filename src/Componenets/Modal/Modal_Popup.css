@@ -1,0 +1,28 @@
+Modal{
+    width: 1400px;
+    border-radius: 2px;
+}
+.modalcontent{
+   border-radius: 3px;
+}
+.popup-btn{
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 28px;
+    font-family: 'Halcom';
+    height: 55px;
+}
+.popup-btn1{
+    font-size: 28px;
+    font-family: 'Halcom';
+    height: 55px;
+    margin-right: -42pc;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+}
+.modalfooter input{
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+}

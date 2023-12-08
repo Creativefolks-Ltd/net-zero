@@ -1,0 +1,10 @@
+NavLink{
+    color: green;
+}
+ul{
+    display:block;
+}
+ul li{
+    list-style: none;
+    text-decoration: none;
+}
