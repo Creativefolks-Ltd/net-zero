@@ -2,6 +2,7 @@ import React from 'react'
 import anthos_logo from '../Assets/anthos2_logo.png';
 import profile_img from '../Assets/profile_img.png'
 import david from '../Assets/david.png'
+import Layout from '../Layout/Layout';
 // import './Homepage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -14,14 +15,17 @@ import t_car from '../Assets/t_car.svg'
 import security_fth from '../Assets/Security_fth.png'
 import Footer from '../Footer/Footer'
 import { Link } from 'react-router-dom'
-
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 
 const Homepage = () => {
     return (
+        <>
+        <Navbar transparent={true}/>
         <div className='container'>
             <div className='homepage-f'>
                 <div className='homepage-navbar'>
-                    <nav className="navbar">
+                    {/* <nav className="navbar">
                         <span><img src={anthos_logo} alt="" /></span>
                         <ul>
                             <li> <img src={profile_img} alt="" /></li>
@@ -29,7 +33,7 @@ const Homepage = () => {
 
                         </ul>
 
-                    </nav>
+                    </nav> */}
                     <div className="homepage-content">
                         <div className='para1'>
                             <p>The Anthos</p>
@@ -115,7 +119,7 @@ const Homepage = () => {
                         </div>
                     </div>
                     <div className="homepage-t-btn">
-                        <button>Calculate your footprint</button>
+                        <Link to="/loginpage"><button>Calculate your footprint</button></Link>
                     </div>
 
                 </div>
@@ -147,11 +151,10 @@ const Homepage = () => {
 
                 </div>
             </div>
-            <div className="homepage-footer">
-                
-            </div>
+            
         </div>
-
+    <Footer/>
+     </>
     )
 }
 

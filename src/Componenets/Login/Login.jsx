@@ -7,6 +7,7 @@ import './Login.css'
 import { signUpSchema } from '../schema'
 import axios from 'axios'
 import { Button, Modal } from 'antd';
+import Layout from '../Layout/Layout'
 
 const initialValues1 = {
     email: '',
@@ -126,6 +127,8 @@ const Login = () => {
     const [confirm_password, setconfirm_password] = useState('');
 
     return (
+        <>
+        <Navbar transparent={false}/>
         <section className="welcome-sec">
             <div className='container'>
 
@@ -151,7 +154,7 @@ const Login = () => {
                                     <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setpassword(e.target.value)} />
 
                                     <span ><p className='p4'>Forgot your password?</p></span>
-                                    <button className='formbtn btn' type='submit' onClick={showModal}>Sign in</button>
+                                    <button className='formbtn btn' type='submit' onClick={getformdata}>Sign in</button>
                                 </form></>) :
 
                                 activebtn === "register" ? (<> <p className='p2'> Register Page</p>
@@ -187,7 +190,7 @@ const Login = () => {
                                             <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setpassword(e.target.value)} />
 
                                             <span ><p className='p4'>Forgot your password?</p></span>
-                                            <button className='formbtn btn' type='submit' onClick={() => { getformdata(); showModal() }}>Sign in</button>
+                                            <button className='formbtn btn' type='submit' onClick={()=>getformdata}>Sign in</button>
                                         </form></>)
 
                             }
@@ -209,6 +212,8 @@ const Login = () => {
 
             </Modal>
         </section>
+        <Footer/>
+        </>
     )
 }
 

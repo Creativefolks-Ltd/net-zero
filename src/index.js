@@ -27,8 +27,8 @@ import Confirmation_page from './Componenets/Confirmation_page/Confirmation_page
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route path='/homepage' element={<Homepage />} />
+    <Route>
+      <Route path='/' element={<Homepage />} />
       <Route path='/loginpage' element={<Login />} />
       <Route path='/my_acc_dashboard' element={<My_Account_Dashboard />} />
       <Route path='/admin_dashboard' element={<Admin_Dashboard/>}/>

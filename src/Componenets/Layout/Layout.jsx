@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import Login from '../Login/Login'
 
+
 const Layout = () => {
   return (
     <div>
@@ -30,11 +31,12 @@ const Layout = () => {
         <Outlet></Outlet>
       </main> */}
 
-   <Navbar/>
+   
    <div className="content">
-    <Outlet></Outlet>
+    <Outlet>
+      
+    </Outlet>
    </div>
-   <Footer/>
     </div>
   )
 }

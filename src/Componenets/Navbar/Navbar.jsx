@@ -7,13 +7,18 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import profile_img from '../Assets/grey_profile_img.png'
 
 
-export default function Navbar() {
+export default function Navbar({transparent}) {
+    const navbarStyle={
+        background: transparent ? "transparent" :"#ffffff",
+        boxShadow:transparent ? "none": "1px 1px 6.5px rgba(0,0,0,0.16)"
+       
+    }
     return (
         <>
-          <header className='site-header'>
+          {/* <header className={`site-header ${ transparent ? 'red':'pink'}`}> */}
+          <header className='site-header' style={navbarStyle }>
             <div className="container">
                 <nav class="navbar ">
-            
                     
                         <img src={anthos_logo} alt="" />
                         <div class="navbar-toggler"   >
