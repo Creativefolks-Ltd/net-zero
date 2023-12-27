@@ -5,18 +5,14 @@ import Swal from "sweetalert2";
 import SuccessImg from "../assets/images/Group 9106.png";
 import { useNavigate } from "react-router-dom";
 import { formvalidation } from "../helpers/validations/Schema";
-import generalImg from "../assets/images/user.svg";
-import houseImg from "../assets/images/t_house.svg";
-import foodImg from "../assets/images/food.svg";
-import carImg from "../assets/images/t_car.svg";
-import financialImg from "../assets/images/financial .svg";
 import { generalFormSubmit, getCountry } from "../redux-store/actions/user";
 import CountryOptions from "../components/CountryOptions";
+import FormActionTabs from "../components/FormActionTabs";
 
 const General = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [activeTab, setActiveTab] = useState("general")
+    // const [activeTab, setActiveTab] = useState("general")
     const [disabled, setDisabled] = useState(false)
     const user = useSelector((state) => state.auth);
     const details = useSelector((state) => state.users);
@@ -187,61 +183,13 @@ const General = () => {
 
     return (
         <>
-            <section className="information mt-80 mb-80">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="information-header">
-                                <div className="col">
-                                    <div className="information-icon-box">
-                                        <div className={`information-cricle-box ${activeTab === "general" ? "active" : ""}`} onClick={() => setActiveTab("general")}>
-                                            <img src={generalImg} alt="" />
-                                        </div>
-                                        <p>General Information</p>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="information-icon-box">
-                                        <div className={`information-cricle-box ${activeTab === "home" ? "active" : ""}`} onClick={() => setActiveTab("home")}>
-                                            <img src={houseImg} alt="" />
-                                        </div>
-                                        <p>Your Home</p>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="information-icon-box">
-                                        <div className={`information-cricle-box ${activeTab === "travel" ? "active" : ""}`} onClick={() => setActiveTab("travel")}>
-                                            <img src={carImg} alt="" />
-                                        </div>
-                                        <p>Travel</p>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="information-icon-box">
-                                        <div className={`information-cricle-box ${activeTab === "food" ? "active" : ""}`} onClick={() => setActiveTab("food")}>
-                                            <img src={foodImg} alt="" />
-                                        </div>
-                                        <p>Food and Shopping</p>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="information-icon-box">
-                                        <div className={`information-cricle-box ${activeTab === "financial" ? "active" : ""}`} onClick={() => setActiveTab("financial")}>
-                                            <img src={financialImg} alt="" />
-                                        </div>
-                                        <p>Financial assets</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            <FormActionTabs selectedTab={"general"}/>
             <form>
                 <section className="general-form mt-80 mb-80">
                     <div className="container ">
-                        <h1>General information</h1>
+                        <div className="sub-heading">
+                        <h2>General information</h2>
+                        </div>
                         <div className="bg-lightgray-color">
                             <div className="row">
                                 <div className="col-lg-12">
@@ -552,11 +500,13 @@ const General = () => {
                                                     </div>
                                                 </div>
                                                 <div className="form-div">
+                                                <div class="form-label-div">
                                                     <label htmlFor="homeCount">
                                                         <strong>8.</strong> How many children under 18 living with you?
                                                         <span>*</span>{" "}
-                                                        <p>(As of 31st December of selected year)</p>
                                                     </label>
+                                                    <p>(As of 31st December of selected year)</p>
+                                                    </div>
                                                     <select
                                                         name="num_of_children_under_18"
                                                         id="num_of_children_under_18"
@@ -586,11 +536,14 @@ const General = () => {
                                                     ) : null}
                                                 </div>
                                                 <div className="form-div">
+                                                    <div class="form-label-div">
                                                     <label htmlFor="other_dependants">
-                                                        <strong>9. </strong>     Do you have any other dependants who live with you
+                                                        <strong>9. </strong> Do you have any other dependants who live with you
                                                         all of the time or most of the time?<span>*</span>{" "}
-                                                        <p>(grand-parents etc)</p>
+                                                       
                                                     </label>
+                                                    <p>(grand-parents etc)</p>
+                                                    </div>
                                                     <select
                                                         name="other_dependants"
                                                         id="other_dependants"
@@ -618,7 +571,7 @@ const General = () => {
                                                 {formik.values.other_dependants === "Yes" && (
                                                     <div className="form-div">
                                                         <label htmlFor="other_dependants_details">
-                                                            <strong>9a.</strong>   Please specify <span>*</span>
+                                                            <strong>9a.</strong> Please specify <span>*</span>
                                                         </label>
                                                         <input
                                                             type="other_dependants_details"
@@ -653,7 +606,9 @@ const General = () => {
 
                 <section className="Additional mb-80">
                     <div className="container">
+                    <div className="sub-heading">
                         <h2>Additional information</h2>
+                        </div>
                         <div className="bg-lightgray-color">
                             <div className="row justify-content-center">
                                 <div className="col-lg-12">

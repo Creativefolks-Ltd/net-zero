@@ -10,7 +10,7 @@ const Layout = () => {
 
     const [bgTransparent, setBgTransparent] = useState(false);
     const location = useLocation();
-    const pathname = location.pathname.substring(1);
+    const pathname = location.pathname === "/" ? "home" : location.pathname.substring(1);
     useEffect(() => {
         const bgTransparentType = location.pathname === "/" ? true : false
         setBgTransparent(bgTransparentType)

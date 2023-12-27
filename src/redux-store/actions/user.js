@@ -9,7 +9,25 @@ export const generalFormSubmit = createAsyncThunk('general', async (data, thunkA
     } catch (error) {
         return error;
     }
-});   
+});
+
+export const travelFormSubmit = createAsyncThunk('travel', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/user/travel/form/submit", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const foodFormSubmit = createAsyncThunk('food', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/user/food/form/submit", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
 
 export const getCountry = createAsyncThunk('getCountry', async (data, thunkAPI) => {
     try {

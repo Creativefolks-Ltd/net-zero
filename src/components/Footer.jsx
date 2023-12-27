@@ -14,17 +14,22 @@ const Footer = () => {
                         <Link to="/">
                             <img src={footerLogoImg} alt="" />
                         </Link>
+                      
+                        <div className="footer-content-privacy"><p>Privacy &nbsp;| &nbsp; Terms & Cookies</p></div>
+                        
                     </div>
+                  
                     <div className="footer-box">
                         <h2>Any questions?</h2>
                         <p>Please contact</p>
                         <a href="#">netzero@good.business</a>
                     </div>
+                    
+                    
                 </div>
-                <hr />
                 <div className="footer-lower">
-                    <div className="footer-content"><p> &#169; {year} Net Zero All Right|Website Design By Creative Folks</p></div>
-                    <div className="footer-content"><p>Privacy &nbsp;| &nbsp; Terms & Cookies</p></div>
+                    <div className="footer-content"><p> &#169; {year} Net Zero All Rights | Website Design By CREATIVEFOLKS</p></div>
+                    <div className="footer-content-div"><p>Privacy&nbsp;|&nbsp;Terms & Cookies</p></div>
                 </div>
             </div>
         </footer>
