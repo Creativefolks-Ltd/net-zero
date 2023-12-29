@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import "./assets/css/styles.css"
 import General from "./pages/General";
 import Homeform from "./pages/Homeform";
-import ProtectedRoute from "./routes/ProtectedRoute";
+// import ProtectedRoute from "./routes/ProtectedRoute";
 import Travel from "./pages/Travel";
 import FoodAndShopping from "./pages/FoodAndShopping";
 import Financial from "./pages/Financial";
@@ -16,6 +16,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import MyAccount from "./pages/MyAccount";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import AdminView from "./pages/AdminView.jsx";
 
 
 function App() {
@@ -35,6 +37,10 @@ function App() {
           <Route path="/food-shopping" element={<FoodAndShopping />} />
           <Route path="/financial" element={<Financial />} />
           <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/admindashboard" element={<AdminDashboard/>} />
+          <Route path="/admin-view" element={<AdminView/>} />
+          
+
         </Route>
       </Routes>
     </div>

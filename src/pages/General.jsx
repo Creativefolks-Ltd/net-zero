@@ -147,7 +147,7 @@ const General = () => {
                     cancelButtonColor: "#d33",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate("/")
+                        navigate("/home-form")
                     }
                 });
             } else {

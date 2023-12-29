@@ -1,16 +1,162 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormActionTabs from "../components/FormActionTabs";
 import travel_img from "../assets/images/travel_img.png";
+import { travelformvalidation } from "../helpers/validations/Schema";
+import { useFormik } from "formik";
+import { travelFormSubmit } from "../redux-store/actions/user";
+import SuccessImg from "../assets/images/Group 9106.png";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Travel = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth);
+  const [disabled, setDisabled] = useState(false);
+
+  const vehicalTypes = ["Motorbike", "Bicycle", "Passenger Ferry", "Train", "Private Yacht", "Private hire vehicles (taxis, transfers, limos, etc)", "Helicopter"];
+
+  const flightStandards = ["Economy", "Business", "First Class", "Private"];
+
+  const flightTypes = ["Short Flights", "Medium Flights", "Long Flights", "Extended Flights"];
+
+  const flights = {
+    short_flights: { economy: '', business: '', firstClass: '', private: '' },
+    medium_flights: { economy: '', business: '', firstClass: '', private: '' },
+    long_flights: { economy: '', business: '', firstClass: '', private: '' },
+    extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+  };
+  const flights2 = {
+    partner_children_short_flights: { economy: '', business: '', firstClass: '', private: '' },
+    partner_children_medium_flights: { economy: '', business: '', firstClass: '', private: '' },
+    partner_children_long_flights: { economy: '', business: '', firstClass: '', private: '' },
+    partner_children_extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      general_information_id: 1,
+      short_flights: { economy: '', business: '', firstClass: '', private: '' },
+      medium_flights: { economy: '', business: '', firstClass: '', private: '' },
+      long_flights: { economy: '', business: '', firstClass: '', private: '' },
+      extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+      proportion_offset_flights: null,
+      how_many_cars: null,
+      cars_detail: [],
+      partner_children_short_flights: { economy: '', business: '', firstClass: '', private: '' },
+      partner_children_medium_flights: { economy: '', business: '', firstClass: '', private: '' },
+      partner_children_long_flights: { economy: '', business: '', firstClass: '', private: '' },
+      partner_children_extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+      partner_offset_flights: null,
+      additional_vehicles_by_partner_children: null,
+      additional_vehicles_by_partner_detail: [],
+      transport_selected_year: [], //"car,bike.name" //string,
+      transport_selected_year_details: [],
+      hotel_nights: null,
+      other_travel_info: ""
+    },
+
+    validationSchema: travelformvalidation,
+
+    onSubmit: (values) => {
+    }
+  });
+
+  // useEffect(() => {
+  //   if (formik?.values?.how_many_cars !== null && formik?.values?.how_many_cars !== "") {
+  //     formik.setValues((prevValues) => ({
+  //       ...prevValues,
+  //       cars_detail: Array.from({ length: formik.values.how_many_cars }).map(() => ({
+  //         makeAndModel: '',
+  //         vehicalType: '',
+  //         kmsInSelectedYear: ''
+  //       }))
+  //     }));
+  //   }
+  // }, [formik.values.how_many_cars]);
+
+  const validateAndFilterFields = (values) => {
+    const {
+      proportion_offset_flights,
+      how_many_cars,
+      partner_offset_flights,
+      additional_vehicles_by_partner_children,
+      transport_selected_year,
+      hotel_nights,
+      ...rest
+    } = values;
+
+    // const user_id = Number(user.userInfo.user_id);
+    const filteredValues = {
+      ...rest,
+      proportion_offset_flights: parseFloat(proportion_offset_flights),
+      how_many_cars: Number(how_many_cars),
+      partner_offset_flights: Number(partner_offset_flights),
+      additional_vehicles_by_partner_children: Number(additional_vehicles_by_partner_children),
+      transport_selected_year: transport_selected_year.toString(),
+      hotel_nights: Number(hotel_nights),
+      // user_id: user_id,
+    };
+    return filteredValues;
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const { values, isValid, errors } = formik;
+    formik.handleSubmit();
+    if (isValid) {
+      setDisabled(true)
+      const filteredValues = await validateAndFilterFields(values);
+      const response = await dispatch(travelFormSubmit(filteredValues));
+      setDisabled(false)
+      if (!response?.payload?.error && response?.payload?.data) {
+        Swal.fire({
+          title: "Success!",
+          text: "Form submitted successfully",
+          imageUrl: SuccessImg,
+          imageWidth: 100,
+          imageHeight: 100,
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/food-shopping")
+          }
+        });
+      } else {
+        setDisabled(false)
+        const errorMsg = response?.payload?.response?.data?.errorMsg;
+        if (errorMsg) {
+          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+          if (errorMessages.length > 0) {
+            const errorMessage = errorMessages.join("\n");
+            Swal.fire({
+              title: "Failed!",
+              html: errorMessage || "Failed to form submit, please try again",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+            });
+          }
+        }
+      }
+
+    }
+
+
+  }
+
   return (
     <>
-      <FormActionTabs selectedTab={"travel"}/>
+      <FormActionTabs selectedTab={"travel"} />
       <form>
         <section className="economy-table">
           <div className="container">
-          <div className="sub-heading">
-            <h2>Travel</h2>
+            <div className="sub-heading">
+              <h2>Travel</h2>
             </div>
             <div className=" bg-color">
               <div className="card card-par">
@@ -24,18 +170,18 @@ const Travel = () => {
                   </label>
                   <ul>
                     <li class="main-li">
-                      Please include all flights you took in a personal capacity
+                      Please include all flights you took in a personal capacity<br></br>
                       (i.e. not for a business you work for).{" "}
                     </li>
                     <li class="main-li">
                       Include return flights as two flights and use the
-                      following guide for length:​
+                      following guide for length:
                       <ul class="inner-li">
                         <li>
-                          Short flights: shorter than 3,000 km or 4 hours​
+                          Short flights: shorter than 3,000 km or 4 hours
                         </li>
                         <li>
-                          Medium flights: 3,000 to 7,000 km or 4 to 10 hours​
+                          Medium flights: 3,000 to 7,000 km or 4 to 10 hours
                         </li>
                         <li>
                           Long flights: 7,000 to 12,000 km or 10 to 14 hours
@@ -49,169 +195,160 @@ const Travel = () => {
                 </div>
 
                 <div className="economy-row-main">
-                  <div className="economy-row">
-                    <div className="label-block">Short Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Medium Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
+                  {Object.keys(flights).map((flightType, index) => (
+                    <div key={index} className="economy-row">
+                      <div className="label-block">{flightTypes[index]}</div>
+                      <div className="input-block">
+                        <div className="input-row">
+                          {Object.keys(flights[flightType]).map((classType, i) => (
+                            <div className="input-col" key={`${classType}-${i}`}>
+                              <label className="text-nowrap">{flightStandards[i]}</label>
+                              <input
+                                type="text"
+                                placeholder="00"
+                                name={`${flightType}.${classType}`}
+                                value={formik.values[flightType][classType]}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.errors[flightType]?.[classType] &&
+                                formik.touched[flightType]?.[classType] && (
+                                  <span className="input-error-msg">
+                                    {formik.errors[flightType][classType]}
+                                  </span>
+                                )}
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Long Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Extended Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <div class="form-div">
-                  <label for="www">
-                    <strong>2.</strong>What proportion of your flights do you
-                    offset ?<span>*</span>
+                  <div class="form-label-div">
+                    <label for="proportion_offset_flights">
+                      <strong>2.</strong>What proportion of your flights do you
+                      offset ?<span>*</span>
+                    </label>
                     <p>(estimated % by distance)</p>
-                  </label>
+                  </div>
                   <input
                     type="text"
-                    name="www"
-                    id="www"
+                    id="proportion_offset_flights"
                     class="form-control undefined"
-                    placeholder=""
-                    value=""
+                    name={`proportion_offset_flights`}
+                    value={formik.values.proportion_offset_flights}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.errors.proportion_offset_flights &&
+                    formik.touched.proportion_offset_flights && (
+                      <span className="input-error-msg">
+                        {formik.errors.proportion_offset_flights}
+                      </span>
+                    )}
                 </div>
 
                 <div className="form-div">
                   <div class="form-label-div">
-                    <label htmlFor="other_dependants">
+                    <label htmlFor="how_many_cars">
                       <strong>3. </strong> How many cars do you use ?
                       <span>*</span>
                     </label>
                   </div>
-                  <select className="form-control ">
+                  <select className="form-control "
+                    name={`how_many_cars`}
+                    id={`how_many_cars`}
+                    value={formik.values.how_many_cars}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}>
                     <option value="">Select option</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
+                    {Array(10)
+                      .fill()
+                      .map((opt, index) => (
+                        <option
+                          value={index + 1}
+                          key={"opt" + index}
+                        >
+                          {" "}
+                          {index + 1}{" "}
+                        </option>
+                      ))}
 
+                  </select>
+                  {formik.errors.how_many_cars &&
+                    formik.touched.how_many_cars && (
+                      <span className="input-error-msg">
+                        {formik.errors.how_many_cars}
+                      </span>
+                    )}
+                </div>
                 <div className="modal-row-main">
-                  <div className="modal-row">
-                    <div className="modal-label-block">Car 1</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
+                  {formik.values?.how_many_cars &&
+                    Array(Number(formik.values?.how_many_cars))
+                      .fill()
+                      .map((opt, index) => (
+                        <div className="modal-row" key={index}>
+                          <div className="modal-label-block">Car {index + 1}</div>
+                          <div className="modal-input-block">
+                            <div className="modal-input-row">
+                              <div className="modal-input-col">
+                                <label>Make & Model</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`cars_detail.${index}.makeAndModel`}
+                                  value={formik.values.cars_detail[index]?.makeAndModel || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.cars_detail?.[index]?.makeAndModel &&
+                                  formik.touched.cars_detail?.[index]?.makeAndModel && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.cars_detail[index].makeAndModel}
+                                    </span>
+                                  )}
+                              </div>
+                              <div className="modal-input-col">
+                                <label>Vehical Type</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`cars_detail.${index}.vehicalType`}
+                                  value={formik.values.cars_detail[index]?.vehicalType || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.cars_detail?.[index]?.vehicalType &&
+                                  formik.touched.cars_detail?.[index]?.vehicalType && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.cars_detail[index].vehicalType}
+                                    </span>
+                                  )}
+                              </div>
+                              <div className="modal-input-col">
+                                <label>KMs in selected year</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`cars_detail.${index}.kmsInSelectedYear`}
+                                  value={formik.values.cars_detail[index]?.kmsInSelectedYear || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.cars_detail?.[index]?.kmsInSelectedYear &&
+                                  formik.touched.cars_detail?.[index]?.kmsInSelectedYear && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.cars_detail[index].kmsInSelectedYear}
+                                    </span>
+                                  )}
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>KMs in selected year</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-row">
-                    <div className="modal-label-block">Car 2</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Vehicle Type</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>KMs in selected year</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      ))}
+
                 </div>
               </div>
             </div>
@@ -220,8 +357,8 @@ const Travel = () => {
 
         <section className="economy-table economy-table-tow">
           <div className="container">
-          <div className="sub-heading">
-            <h2>Additional information</h2>
+            <div className="sub-heading">
+              <h2>Additional information</h2>
             </div>
             <div className=" bg-color">
               <div className="card">
@@ -239,13 +376,13 @@ const Travel = () => {
                     </li>
                     <li class="main-li">
                       Include return flights as two flights and use the
-                      following guide for length:​​
+                      following guide for length:
                       <ul class="inner-li">
                         <li>
-                          Short flights: shorter than 3,000 km or 4 hours​
+                          Short flights: shorter than 3,000 km or 4 hours
                         </li>
                         <li>
-                          Medium flights: 3,000 to 7,000 km or 4 to 10 hours​
+                          Medium flights: 3,000 to 7,000 km or 4 to 10 hours
                         </li>
                         <li>
                           Long flights: 7,000 to 12,000 km or 10 to 14 hours
@@ -259,7 +396,36 @@ const Travel = () => {
                 </div>
 
                 <div className="economy-row-main">
-                  <div className="economy-row">
+                  {Object.keys(flights2).map((flightType, index) => (
+                    <div key={index} className="economy-row">
+                      <div className="label-block">{flightTypes[index]}</div>
+                      <div className="input-block">
+                        <div className="input-row">
+                          {Object.keys(flights2[flightType]).map((classType, i) => (
+                            <div className="input-col" key={`${classType}-${i}`}>
+                              <label className="text-nowrap">{flightStandards[i]}</label>
+                              <input
+                                type="text"
+                                placeholder="00"
+                                name={`${flightType}.${classType}`}
+                                value={formik.values[flightType][classType]}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                              />
+                              {formik.errors[flightType]?.[classType] &&
+                                formik.touched[flightType]?.[classType] && (
+                                  <span className="input-error-msg">
+                                    {formik.errors[flightType][classType]}
+                                  </span>
+                                )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* <div className="economy-row">
                     <div className="label-block">Short Flights</div>
                     <div className="input-block">
                       <div className="input-row">
@@ -350,23 +516,33 @@ const Travel = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div class="form-div">
-                  <label for="www">
-                    <strong>5.</strong>What proportion of these flights did you
-                    offset?
+                  <div class="form-label-div">
+                    <label for="partner_offset_flights">
+                      <strong>5.</strong>What proportion of these flights did you
+                      offset?
+                    </label>
                     <p>(estimated % by distance)</p>
-                  </label>
+                  </div>
                   <input
                     type="text"
-                    name="www"
-                    id="www"
+                    name="partner_offset_flights"
+                    id="partner_offset_flights"
                     class="form-control undefined"
-                    placeholder=""
-                    value=""
+                    value={formik.values.partner_offset_flights}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+
                   />
+                  {formik.errors.partner_offset_flights &&
+                    formik.touchederrors.partner_offset_flights && (
+                      <span className="input-error-msg">
+                        {formik.errors.partner_offset_flights}
+                      </span>
+                    )}
                 </div>
 
                 <div className="form-div">
@@ -376,52 +552,91 @@ const Travel = () => {
                       your partner/children?
                     </label>
                   </div>
-                  <select className="form-control ">
+                  <select className="form-control "
+                    name={`additional_vehicles_by_partner_children`}
+                    value={formik.values.additional_vehicles_by_partner_children}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}>
                     <option value="">Select option</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                    {Array(10)
+                      .fill()
+                      .map((opt, index) => (
+                        <option
+                          value={index + 1}
+                          key={"opt" + index}
+                        >
+                          {" "}
+                          {index + 1}{" "}
+                        </option>
+                      ))}
+
                   </select>
                 </div>
 
                 <div className="modal-row-main">
-                  <div className="modal-row">
-                    <div className="modal-label-block">Car 1</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
+                  {formik.values?.additional_vehicles_by_partner_children &&
+                    Array(Number(formik.values?.additional_vehicles_by_partner_children))
+                      .fill()
+                      .map((opt, index) => (
+                        <div className="modal-row" key={index}>
+                          <div className="modal-label-block">Car {index + 1}</div>
+                          <div className="modal-input-block">
+                            <div className="modal-input-row">
+                              <div className="modal-input-col">
+                                <label>Make & Model</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`additional_vehicles_by_partner_detail.${index}.makeAndModel`}
+                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.makeAndModel &&
+                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.makeAndModel && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.additional_vehicles_by_partner_detail[index].makeAndModel}
+                                    </span>
+                                  )}
+                              </div>
+                              <div className="modal-input-col">
+                                <label>Vehical Type</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
+                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.vehicalType &&
+                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.vehicalType && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.additional_vehicles_by_partner_detail[index].vehicalType}
+                                    </span>
+                                  )}
+                              </div>
+                              <div className="modal-input-col">
+                                <label>KMs in selected year</label>{" "}
+                                <input
+                                  type="text"
+                                  placeholder=""
+                                  name={`additional_vehicles_by_partner_detail.${index}.kmsInSelectedYear`}
+                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                />
+                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear &&
+                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear && (
+                                    <span className="input-error-msg">
+                                      {formik.errors.additional_vehicles_by_partner_detail[index].kmsInSelectedYear}
+                                    </span>
+                                  )}
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>KMs in selected year</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-row">
-                    <div className="modal-label-block">Car 2</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>Make & Model</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Vehicle Type</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>KMs in selected year</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      ))}
                 </div>
 
                 {/********checkbox********/}
@@ -435,120 +650,80 @@ const Travel = () => {
                       </label>
                     </div>
                     <div className="sub-btn">
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Motorbike</label>
-                      </div>
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Bicycle</label>
-                      </div>
-
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Passenger Ferry</label>
-                      </div>
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Train</label>
-                      </div>
-
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Private Yacht</label>
-                      </div>
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>
-                          Private hire vehicles (taxis, transfers, limos, etc)
-                        </label>
-                      </div>
-                      <div class="check-input">
-                        <input type="checkbox" name="" />
-                        <label>Helicopter</label>
-                      </div>
+                      {vehicalTypes.map((type, index) => (
+                        <div className="check-input" key={index}>
+                          <input
+                            id={type + "1"}
+                            type="checkbox"
+                            name="transport_selected_year"
+                            value={type}
+                            checked={formik.values.transport_selected_year.includes("Don't know") ? formik.values?.transport_selected_year?.splice(0, formik?.values?.transport_selected_year?.length, "Don't know") : formik.values.transport_selected_year.includes(type)}
+                            onChange={formik.handleChange}
+                          />
+                          <label htmlFor={type + "1"} className={`${formik.values.transport_selected_year.includes(type) ? "active" : ""}`}>
+                            {type}
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
 
                 <div className="modal-row-main">
-                  <div className="modal-row">
-                    <div className="modal-label-block">Motorbike</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>My KMs</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Notes</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Partner/children KMs</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-row">
-                    <div className="modal-label-block">Train</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>My KMs</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Notes</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Partner/children KMs</label>{" "}
-                          <input type="text" placeholder="" />
+                  {formik.values.transport_selected_year?.map((item, index) => (
+                    <div className="modal-row" key={index}>
+                      <div className="modal-label-block">{item}</div>
+                      <div className="modal-input-block">
+                        <div className="modal-input-row">
+                          <div class="modal-input-col">
+                            <label>My KMs</label>{" "}
+                            <input type="text" placeholder=""
+                              name={`transport_selected_year_details.${index}.kms`}
+                              value={formik.values.transport_selected_year_details[index]?.kms || ''}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur} />
+                          </div>
+                          <div class="modal-input-col">
+                            <label>Notes</label>{" "}
+                            <input type="text" placeholder=""
+                              name={`transport_selected_year_details.${index}.notes`}
+                              value={formik.values.transport_selected_year_details[index]?.notes || ''}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur} />
+                          </div>
+                          <div class="modal-input-col">
+                            <label>Partner/children KMs</label>{" "}
+                            <input type="text" placeholder=""
+                              name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
+                              value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur} />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="modal-row">
-                    <div className="modal-label-block">Private hire</div>
-                    <div className="modal-input-block">
-                      <div className="modal-input-row">
-                        <div class="modal-input-col">
-                          <label>My KMs</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Notes</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                        <div class="modal-input-col">
-                          <label>Partner/children KMs</label>{" "}
-                          <input type="text" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <div className="Additional-box">
                   <div class="form-div">
-                    <label for="www">
-                      <strong>5. </strong>
+                    <label for="hotel_nights">
+                      <strong>8. </strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
                       selected year? Please include stays in Mettingen.
                     </label>
                     <input
                       type="text"
-                      name="www"
-                      id="www"
+                      name="hotel_nights"
+                      id="hotel_nights"
                       class="form-control undefined"
-                      placeholder=""
-                      value=""
+                      value={formik.values.hotel_nights}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                     />
                   </div>
-                  <label htmlFor="forest_or_farmland_details">
+                  <label htmlFor="other_travel_info">
                     <strong>9.</strong>
                     Is there any other travel information that you would like to
                     tell us about (e.g. family stays in hotels, spend on
@@ -557,15 +732,17 @@ const Travel = () => {
                     distance traveled here.
                   </label>
                   <textarea
-                    id="forest_or_farmland_details"
-                    name="forest_or_farmland_details"
+                    id="other_travel_info"
+                    name="other_travel_info"
                     rows="6"
                     className="form-control"
                     cols="50"
+                    value={formik.values.other_travel_info}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></textarea>
-
                   <div className="Additional-bottom-btn">
-                    <button className="btn" type="submit">
+                    <button className="btn" type="submit" onClick={submitHandler} disabled={disabled}>
                       Save progress
                     </button>
                     <button className="btn" type="button">

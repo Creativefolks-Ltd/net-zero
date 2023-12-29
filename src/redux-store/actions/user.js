@@ -11,6 +11,15 @@ export const generalFormSubmit = createAsyncThunk('general', async (data, thunkA
     }
 });
 
+export const homeFormSubmit = createAsyncThunk('home', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/user/home/form/submit", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
 export const travelFormSubmit = createAsyncThunk('travel', async (data, thunkAPI) => {
     try {
         const response = await axios.post("/api/user/travel/form/submit", data);

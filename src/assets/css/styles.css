@@ -11,9 +11,11 @@ h1,h2,h3,h4,h5,h6{
     font-family: 'PT Mono', monospace;
 }
 h1, .h1{ 
-    font-size: 103px;
-    line-height: 116px;
+    font-size: 81px;
+    line-height: 91px;
+    font-weight: 600;
 }
+
 h2, .h2{ 
     font-size: 60px;
     line-height: 62px;
@@ -153,6 +155,9 @@ input{
 .login-form{
     position: relative;
     margin-bottom: 130px;
+}
+.login-form .bg-lightgray-color {
+    border-radius: 20px;
 }
 .Protecting {
     padding-bottom: 130px !important;
@@ -309,7 +314,7 @@ border-bottom: none !important;
 }
 .form button, .submit-btn  {
     margin-top: 20px;
-    padding: 13px 74px;
+    padding: 15px 74px;
     border-radius: 15px;
     background: #81C14B;
     color: #fff;
@@ -870,6 +875,9 @@ textarea {
     margin-bottom: 40px;
     text-align: left;
 }
+.Additional {
+    margin-bottom: 130px;
+} 
 
 .Additional-bottom-btn {
     display: flex;
@@ -1010,7 +1018,7 @@ select {
     text-align: center;
 }
 
-.login-form .form-control {
+.login-form .form-control, .submission-form .form-div input {
     color: #2C2B34;
     background-color: #cacaca;
 }
@@ -1154,6 +1162,7 @@ select {
 }
 .modal-row-main {
     margin-top: 15px;
+    margin-bottom: 45px;
 }
 
 .economy-table .modal-label-block {
@@ -1316,6 +1325,7 @@ select {
 .personal-heading {
     display: flex;
     align-items: center;
+    margin-bottom: 40px;
 }
 .Personal-information {
     margin-bottom: 130px;
@@ -1374,6 +1384,10 @@ select {
     font-weight: 300;
     margin-bottom: 10px;
     color: #81C14B;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row-reverse;
 }
 .title-accodion a {
     font-size: 33px;
@@ -1381,6 +1395,10 @@ select {
     font-weight: 500;
     text-decoration: none;
     color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row-reverse;
 }
 .title-accodion span:before {
     content: "";
@@ -1390,6 +1408,7 @@ select {
     height: 26px;
     float: right;
     margin: 0 6px 0 13px;
+    background-size: cover;
     
 }
 .title-accodion a:before {
@@ -1400,8 +1419,166 @@ select {
     height: 28px;
     float: right;
     /* margin: 0 6px 0 13px; */
-    
+    margin-left: 14px;
+    background-size: cover;
 }
+
+/****************** admindashboard ******************/
+
+.admin-dashboard,.submissions-bg-color {
+    background: #F8FAF8;
+    border-radius: 20px;
+    padding: 80px;
+}
+
+.admin-dashboard .information-box {
+    background: none;
+    padding: 0;
+}
+.admin-dashboard .submit-btn {
+    margin: 0;
+    width: fit-content;
+}
+.Personal-information h1 {
+    text-align: left;
+}
+/**************admindashboard-submissions ***************/
+.submissions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.submissions-header-btn {
+    display: flex;
+    /* gap: 32px; */
+    flex-wrap: wrap;
+}
+.submissions-header-btn .submit-btn {
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+}
+.submission-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.submissions .information-box .submit-btn {
+    margin-top: 16px;
+}
+.submissions .information-box {
+    padding: 0;
+}
+.submissions .submission-form .form-div {
+    width: 73%;
+}
+/**************admin-view ***************/
+
+.admin-view-header {}
+
+.admin-view-header .sub-heading h2 {
+    color: #000;
+    margin-bottom: 0;
+}
+
+.admin-view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 108px;
+}
+
+.admin-header-btn .btn {
+    background: transparent;
+    border: 2px solid #000;
+    color: #000;
+}
+
+.admin-view-bg-color {
+    background: #F8F8F8;
+    padding: 130px 0;
+    border-radius: 20px;
+}
+
+.admin-view {
+    margin-top: 80px;
+    margin-bottom: 130px;
+}
+
+.admin-view-content {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.admin-text-btn {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.admin-text-btn .btn {
+    margin-bottom: 30px;
+    width: 100%;
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+}
+.admin-text-btn .btn:hover {
+    background: #81c14b;
+    color: #fff;
+}
+.admin-text p {
+    font-size: 31px;
+    line-height: 40px;
+    font-weight: 400;
+    margin-bottom: 13px;
+}
+.admin-header-btn .btn:before {
+    content: "";
+    width: 32px;
+    height: 23px;
+    background-image: url(../images/btn_arrow.svg);
+    position: absolute;
+}
+/*********************table******************/
+
+.submissions .customers {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+  }
+  
+  .submissions .customers td, .submissions .customers th {
+    
+    padding: 8px;
+    text-align: center !important;
+  }
+  .submissions .customers td{
+    border: 1px solid #707070;
+  }
+ 
+  .submissions .customers tr:nth-child(odd){background-color: #F1F1F1;}
+  
+  /* .submissions .customers tr:hover {background-color: #ddd;} */
+ 
+  .submissions .customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #818181;
+    color: white;
+  }
+
+
+
+
+
 
 
 
@@ -1420,6 +1597,12 @@ select {
     .information-header-nav ul li a { 
         font-size: 30px;
         line-height: 38px;
+    }
+    .economy-row .input-col label {
+        font-size: 30px !important;
+    }
+    .economy-table .label-block, .economy-table .modal-label-block {
+        width: 22%;
     }
 }
 
@@ -1465,8 +1648,66 @@ select {
     .information-header-nav ul li {
         padding: 22px 29px 
       }
+      .economy-table .label-block {
+        width: 27%;
+    }
+    .economy-table .modal-label-block{
+        width: 33%;
+    }
+    .economy-row .input-col label {
+        font-size: 24px !important;
+    }
+    .modal-input-col label {
+        font-size: 24px !important;
+    }
+}
+@media (max-width:1024px){
+.economy-table .label-block {
+    width: 22%;
+}
+.economy-table .label-block, .economy-table .modal-label-block {
+    font-size: 22px;
+}
+.economy-row .input-col label {
+    font-size: 22px !important;
+}
+.modal-input-col label {
+    font-size: 22px !important;
+}
+.title-accodion span, .title-accodion a {
+    font-size: 26px;
+    line-height: 36px;
+}
+.title-accodion span:before {
+    width: 30px;
+    height: 22px;
+}
+.title-accodion a:before {
+    width: 36px;
+    height: 26px;
+}
+.accordion-img img {
+    width: 38px;
+    height: 48px;
+}
+.information-box {
+    margin-bottom: 37px;
+}
 }
 @media (max-width:991px){
+    .economy-table .label-block {
+        width: 23%;
+    }
+    .modal-input-col label {
+        font-size: 21px !important;
+    }
+    .economy-row .input-col label {
+        font-size: 21px !important;
+    }
+    .economy-table .main-li, .food-shopping .main-li {
+        font-size: 24px;
+        line-height: 32px;
+    }
     .login-img {
         position: unset;
     }
@@ -1501,6 +1742,9 @@ select {
       .information-header-nav ul li {
         padding: 22px 29px 
       }
+      .information-box , .admin-dashboard{
+      padding: 40px;
+     }
 
       /*********************** forgotpaddword *********************/
 
@@ -1528,9 +1772,7 @@ select {
     .navbar-toggler {
       padding-right: 0;
     }
-    .site-header .navbar {
-        padding: 0 27px 0 27px;
-    }
+    
     .btn {
         font-size: 18px;
         padding: 9px 16px;
@@ -1541,6 +1783,9 @@ select {
     }
     label, label p {
         font-size: 17px !important;
+    }
+    .home-banner-content, .site-header .navbar, .form-content, .login-form .card,.Personal-information, .general-form, .Additional, .economy-table, .food-shopping, .investments {
+        padding: 0 15px;
     }
     .information .information-icon-box .information-cricle-box {
         margin-bottom: 20px;
@@ -1577,20 +1822,20 @@ select {
    
     
     .mb-80 {
-        margin-bottom: 40px;
+        margin-bottom: 60px;
     }
     .mt-80 {
-        margin-top: 40px;
+        margin-top: 60px;
     }
     .pb-70 {
-        padding-bottom: 40px;
+        padding-bottom: 60px;
     }
     .pt-70 {
-        padding-top: 40px;
+        padding-top: 60px;
     }
     h1, .h1 {
         font-size: 31px;
-        line-height: 37px;
+        line-height: 34px;
         font-weight: 600;
         /* color: #2C2B34; */
     }
@@ -1606,14 +1851,22 @@ select {
         font-size: 14px;
         line-height: 18px;
     }
-    .general-form, .Additional  {
+    .sub-heading h2 {
+        margin-bottom: 20px;
+    }
+    .home-banner-content h1{
+        font-size: 50px;
+        line-height: 53px;
+        font-weight: 600;
+    }
+    .general-form, .Additional, .economy-table, .food-shopping, .investments  {
         background: #DCE0D9;
-        padding: 0 28px;
         margin-bottom: 0;
     }
-    .general-form .bg-lightgray-color, .Additional .bg-lightgray-color {
+    .general-form .bg-lightgray-color, .Additional .bg-lightgray-color, .economy-table .bg-color, .food-shopping .bg-color, .investments .bg-color{
         background:none;
     }
+
     .general-form{
         margin-bottom: 0;
         padding-top: 35px;
@@ -1622,7 +1875,7 @@ select {
         padding-top: 0px;
         padding-bottom: 0px;
     }
-    .Additional .card {
+    .Additional .card, .card-box-btn {
         padding-bottom: 100px;
     }
     .card.card-par p {
@@ -1657,7 +1910,7 @@ select {
     }
     .information .information-header {
         border-radius: 30px;
-        margin: 0px 22px;
+        margin: 0px 15px;
     }
     .information-cricle-box:after {
        display: none;
@@ -1674,11 +1927,11 @@ select {
      .home-banner::before {
     display: none;
      }
-     .home-banner-content {
+     /* .home-banner-content {
         padding: 0 28px;
-    } 
+    }  */
     .personal-carbon {
-        padding: 50px 28px;
+        padding: 60px 15px;
         background: #F7FBF4;
     }
     .title-block {
@@ -1700,7 +1953,7 @@ select {
     .form-content {
         margin-right: 0px;
         margin-top: 53px;
-        padding: 0 40px;
+        /* padding: 0 40px; */
     }
     .Form-col-div {
         padding-right: 0;
@@ -1723,9 +1976,10 @@ select {
     }
     .Form-essentials{
         padding-top: 0;
+        padding-bottom: 60px;
     }
     .Protecting {
-        padding: 40px 28px 100px 28px;
+        padding: 60px 15px 100px 15px;
     }
     .Protecting-div {
         margin-bottom: 30px;
@@ -1769,7 +2023,7 @@ select {
         word-break: break-all;
     }
     .Form-essentials .title-block, .Protecting h2 {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
     .Form-essentials .form-content span {
         margin-bottom: 25px;
@@ -1817,12 +2071,13 @@ select {
         background:#F8F8F8;
         
     }
-    .login-form .card{
+    /* .login-form .card{
         padding: 28px;
-    }
+    } */
     .login-form  .bg-lightgray-color {
         background:none ;
         padding-bottom: 0;
+        padding-top: 60px
     }
     .login-form .col-lg-7.offset-1 {
         margin-left: 0;
@@ -1830,6 +2085,7 @@ select {
     }
     .tab-content {
         padding-left: 0px;
+        padding-bottom: 60px;
     }
     .nav-pills .nav-link {
         font-size: 21px;
@@ -1844,11 +2100,17 @@ select {
         font-weight: 700;
         line-height: 37px;
     }
+    .login-image-div {
+        padding: 0;
+    }
     .login-img-two {
         display: block;
     }
     .login-img {
         display: none;
+    }
+    .form p {
+        margin-top: 0px;
     }
     select {
         background-position: 95% center;
@@ -1896,6 +2158,7 @@ select {
     .general-form .delete-box {
         padding: 7px 14px;
         margin-top: 28px;
+        width: 74%;
     }
     .check-input {
         width: 48%;
@@ -1909,6 +2172,219 @@ select {
     .additional-form-outer .sub-btn .check-input {
         width: 100%;
     }
+    .economy-table .main-li, .food-shopping .main-li {
+        font-size: 16px;
+        line-height: 18px;
+    }
+    .form-div .inner-li {
+        font-size: 14px !important;
+        line-height: 22px;
+    }
+    .form-div .inner-li {
+        padding-left: 0;
+    }
+    .economy-row-main {
+        border:none; 
+         padding: 0px 0px; 
+         }
+         
+         .economy-row, .economy-table .modal-row {
+    
+        align-items: flex-start;
+        }
+        .economy-table .label-block {
+        width: 34%;
+    }
+    /* .economy-table .input-block {
+        width: 100%;
+    } */
+    .economy-table .input-block .input-row, .economy-table .modal-input-block .modal-input-row {
+        flex-wrap: wrap;
+    }
+    .economy-table .input-block .input-row .input-col, .economy-table .modal-input-block .modal-input-row .modal-input-col {
+        padding: 0 8px;
+        width: 50%;
+        margin-bottom: 13px;
+    }
+    .economy-row .input-col label {
+        font-size: 16px !important;
+        margin-bottom: 7px;
+    }
+    .economy-table .input-block .input-row .input-col label {
+        display: block;
+    }
+    .economy-table .card {
+        width: 100%;
+    }
+    .economy-table .label-block, .economy-table .modal-label-block {
+        text-align: left;
+    }
+    .economy-table .label-block, .economy-table .modal-label-block {
+        font-size: 22px;
+        font-weight: 500;
+        margin-right: 20px;
+    }
+    .economy-row {
+        padding: 0 0 17px;
+        border-bottom: 1px solid #81C14B;
+        margin: 0 0 24px;
+    }
+    .economy-table .modal-row {
+        flex-direction: column;
+    }
+    .economy-table .modal-input-block .modal-input-row .modal-input-col:first-of-type {
+        width: 100%;
+        text-align: left !important;
+    }
+    .modal-input-col label {
+        text-align: left !important;
+        font-size: 14px !important;
+    }
+    .economy-table.economy-table-tow {
+       margin: 0px
+    }
+    .food-shopping.top{
+        margin-bottom: 0;
+        padding-top: 60px;
+    }
+    .food-shopping.top .bg-color {
+        padding-top: 0;
+        margin-bottom: 0px;
+    }
+    .investments .card p {
+        font-size: 16px;
+        line-height: 21px;
+    }
+    .investments .card p:last-of-type {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    .investments h3 {
+        text-align: left;
+        font-size: 23px;
+        line-height: 26px;
+        font-weight: 300;
+        margin-bottom: 20px;
+    }
+    .investments .bg-color{
+        padding-top: 0;
+    }
+    .investments {
+        padding-top: 34px;
+    }
+    /************* accordion css ***********/
+
+    .personal-heading img {
+        width: 25px;
+        height: 25px;
+        margin-right: 14px;
+    }
+    .personal-heading h2 {
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-bottom: 0;
+    }
+    .information-box {
+        margin-bottom: 37px;
+    }
+    .Personal-information h1 {
+        margin-bottom: 28px;
+    }
+    .accordion-button {
+        font-size: 16px;
+        line-height: 21px;
+        }
+        .title-accodion span, .title-accodion a {
+            font-size: 16px;
+            line-height: 21px;
+        }
+        .accordion-img img {
+           display: none;
+        }
+        .accordion-body {
+
+        }
+        .accordion-body {
+            padding: 16px 20px;
+        }
+        .title-accodion span:before {
+            width: 18px;
+            height: 14px;
+            margin: 0 6px 0 12px;
+        }
+        .title-accodion a:before {
+            width: 21px;
+            height: 15px;    
+            margin-left: 12px;
+        }
+        .information-box .submit-btn {
+            margin: 27px 0 0 0;
+        }
+        .Personal-information {
+            margin-top: 40px;
+        }
+        .information-box, .admin-dashboard, .admin-dashboard, .submissions-bg-color {
+            padding: 35px 20px;
+        }
+        .form-input-div .check-input {
+            width: 100%;
+        }
+        .economy-table .bg-color {
+            padding: 0;
+        }
+        .economy-table{
+            padding-top: 60px;
+        }
+        .modal-row-main {
+            margin-bottom: 0px;
+        }
+        .modal-row {
+            margin: 0 0 0px !important;
+        }
+        .economy-table.economy-table-tow {
+            padding-bottom: 100px;
+        }
+        .economy-row:last-child {
+            border-bottom: none;
+        }
+        .economy-row-main { 
+            margin-bottom: 40px;
+        }
+        .economy-table .modal-label-block {
+            width: 40%;
+        }
+        .economy-row .input-col input[type="text"], .economy-table .modal-input-col input[type="text"] {
+             border-radius: 7px;
+        }
+        .modal-input-col {
+            text-align: left;
+        }
+        .modal-input-col label {
+            margin-bottom: 7px;
+        }
+        .economy-table .label-block, .economy-table .modal-label-block {
+            margin-bottom: 7px;
+        }
+        .food-shopping .bg-color{
+            padding-top: 0;
+            padding-bottom: 60px;
+        }
+
+        /**************admin-view ****************/
+        .admin-view-bg-color {
+            padding: 35px 20px;
+        }
+        .admin-view-header .sub-heading {
+            width: 100%;
+        }
+        .admin-view-header {
+          flex-direction: column-reverse;
+        }
+        .admin-view-header {
+           display:unset !important;
+           text-align: center;
+        }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -1922,8 +2398,6 @@ select {
 
 
 /* Range Slider Start */
-
-
 .custom-range {
     -webkit-appearance: none;
     width: 100%;
@@ -1966,6 +2440,12 @@ select {
     max-width: 100%;
     text-align: center !important;
 }
+
+.custom-range.temp_dontKnow {
+    /* background: linear-gradient(to right, #cad2c5 #c0dfa4 ) !important; */
+    background: #cad2c5 !important;
+}
+
 /* Range Slider End */
 .Additional-box .btn {
     margin: 0;

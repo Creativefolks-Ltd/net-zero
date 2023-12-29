@@ -45,7 +45,7 @@ return(
                 </div>
                 <div className="col-lg-6">
 
-                    <h2>Accordions</h2>
+                    <h2>Saved forms</h2>
 
                     <div class="accordion" id="regularAccordionRobots">
 
@@ -76,12 +76,21 @@ return(
                     <div class="accordion-item"> 
                         <h2 class="accordion-header" id="regularHeadingSecond">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#regularCollapseSecond" aria-expanded="false" aria-controls="regularCollapseSecond">
-                            The Social Impact of Collective Artificial Intelligence
+                        2.Second form name
                         </button>
                         </h2>
                         <div id="regularCollapseSecond" class="accordion-collapse collapse" aria-labelledby="regularHeadingSecond" data-bs-parent="#regularAccordionRobots">
                         <div class="accordion-body">
-                            Throughout history, robots have both embraced and rejected the act of working with other robots in a collective. While science has shown that collective artificial intelligence helps both intellectual and technological development, it has also shown that some robots really want to just be and think by themselves. How do we harness the benefits of both while avoiding the downfall of each?
+                        <div className="accordion-content">
+                               <div className="title-accodion">
+                                   <span>Form submitted</span>
+                                   <a href="#">View form</a>
+                               </div>
+                               <div className="accordion-img">
+                                  <img src={share_img} alt="" />
+                                  <img src={delete2_img} alt="" />
+                               </div>
+                           </div>
                         </div>
                         </div>
                     </div>
