@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import "./assets/css/styles.css"
 import General from "./pages/General";
 import Homeform from "./pages/Homeform";
-// import ProtectedRoute from "./routes/ProtectedRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import Travel from "./pages/Travel";
 import FoodAndShopping from "./pages/FoodAndShopping";
 import Financial from "./pages/Financial";
@@ -18,7 +18,7 @@ import MyAccount from "./pages/MyAccount";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminView from "./pages/AdminView.jsx";
-
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} /> */}
-          <Route path="/general" element={<General />} />
+          <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} />
+          {/* <Route path="/general" element={<General />} /> */}
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/home-form" element={<Homeform />} />
@@ -37,9 +37,9 @@ function App() {
           <Route path="/food-shopping" element={<FoodAndShopping />} />
           <Route path="/financial" element={<Financial />} />
           <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/admindashboard" element={<AdminDashboard/>} />
-          <Route path="/admin-view" element={<AdminView/>} />
-          
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/admin-view" element={<AdminView />} />
+
 
         </Route>
       </Routes>

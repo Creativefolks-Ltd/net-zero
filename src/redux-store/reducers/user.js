@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../actions/auth";
-import { getCountry } from "../actions/user";
+import { formlist, getCountry, getUserDetails } from "../actions/user";
 
 const userSlice = createSlice({
     name: "fetchUsers",
     initialState: {
         isLoading: false,
         data: [],
+        formList: [],
         countries: [],
         isError: false
     },
@@ -18,6 +19,25 @@ const userSlice = createSlice({
             state.data = action.payload;
         }).addCase(fetchUsers.rejected, (state, action) => {
             state.isError = true;
+
+        }).addCase(formlist.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(formlist.fulfilled, (state, action) => {
+            state.formList = action.payload.data;
+            state.isLoading = false;
+        }).addCase(formlist.rejected, (state, action) => {  
+            state.isError = true;
+            state.isLoading = false;
+
+        }).addCase(getUserDetails.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(getUserDetails.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.isLoading = false;
+        }).addCase(getUserDetails.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoading = false;
+
         }).addCase(getCountry.pending, (state, action) => {
             state.isLoading = true;
         }).addCase(getCountry.fulfilled, (state, action) => {

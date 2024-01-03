@@ -151,6 +151,7 @@ input{
     height: 664px;
     max-width: 100%;
     max-height: 100%;
+   
 }
 .login-form{
     position: relative;
@@ -747,18 +748,7 @@ section.protecting-data {
 
 /********************information css*********************/
 
-/****** line no.578 css*******/
-/* .cricle-box{ 
-    width: 134px;
-    height: 134px;
-    margin-bottom: 30px;
-    border-radius: 50%;
-    border: 4px solid #81c14b;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
+
 .information .information-icon-box .information-cricle-box {
     width: 116px;
     height: 116px;
@@ -794,7 +784,10 @@ section.protecting-data {
     right: -36px;
     box-shadow: -1px -1px 3px 0px #0000001f;
 }
-.information-header .col:last-child .information-cricle-box:after {
+.information-header .col-div:last-child .information-cricle-box:after {
+    display: none;
+}
+.information-header .col:last-child{
   display: none;
 }
 /****** line no.574 css*******/
@@ -816,8 +809,8 @@ form {
     text-align: center;
 }
 
-.form input.invalidInput, .form select.invalidInput, .Additional-box textarea.invalidInput {
-    border: 2px solid #fd0200;
+.form input.invalidInput, .form select.invalidInput, .Additional-box textarea.invalidInput, .economy-table input.invalidInput,.economy-table select.invalidInput  {
+    border: 2px solid #fd0200 !important;
 }
 .form .input-error-msg, span.input-error-msg {
     color: #fd0200;
@@ -1328,11 +1321,17 @@ select {
     margin-bottom: 40px;
 }
 .Personal-information {
-    margin-bottom: 130px;
+    margin-bottom: 80px;
     margin-top: 80px;
+}
+.bg-My-Account .Personal-information{
+    margin-bottom: 13   0px;
 }
 .information-box .submit-btn {
     margin: 100px 0 0 0;
+}
+.submissions {
+    margin-bottom: 130px;
 }
 
 /*****************accordion****************/
@@ -1459,7 +1458,9 @@ select {
     background: transparent;
     color: #000;
     border: 2px solid #000;
+    margin-left: 25px;
 }
+
 .submission-form {
     display: flex;
     align-items: center;
@@ -1575,11 +1576,22 @@ select {
     color: white;
   }
 
+/****************** password-eye-css ******************/
 
 
-
-
-
+.login-pass-filed{
+    position: relative;
+}
+.login-pass-filed .fa-eye-slash{
+	position: absolute;
+    right: 15px;
+    top: 22px;
+}
+.login-pass-filed .fa-eye{
+	position: absolute;
+    right: 15px;
+    top: 22px;
+}
 
 
 
@@ -1603,6 +1615,9 @@ select {
     }
     .economy-table .label-block, .economy-table .modal-label-block {
         width: 22%;
+    }
+    .submissions .submission-form .form-div {
+        width: 70%;
     }
 }
 
@@ -1661,6 +1676,13 @@ select {
         font-size: 24px !important;
     }
 }
+
+@media (max-width:1080px){
+.submissions .submission-form .form-div {
+    width: 62%;
+}
+}
+
 @media (max-width:1024px){
 .economy-table .label-block {
     width: 22%;
@@ -1693,6 +1715,9 @@ select {
 .information-box {
     margin-bottom: 37px;
 }
+.admin-dashboard, .submissions-bg-color {
+    padding: 40px;
+}
 }
 @media (max-width:991px){
     .economy-table .label-block {
@@ -1714,6 +1739,7 @@ select {
     .login-img img {
         width: 100%;
         margin-top: 70px;
+        object-fit: cover;
     }
     /* .Additional h2 {
         font-size: 40px;
@@ -2126,6 +2152,16 @@ select {
         padding: 19px 26px;
         width:50%;
     }
+    .information-header-nav ul li:nth-child(2), .information-header-nav ul li:nth-child(4) {
+        border-right: 0px solid #fff;
+    }
+    
+    .information-header-nav ul li:nth-child(1), .information-header-nav ul li:nth-child(2) {
+        border-bottom: 2px solid #fff;
+    }
+    .information-header-nav ul li:nth-child(4) {
+        display: none;
+    }
     .information-header-nav ul li a {
         font-size: 18px;
         line-height: 21px;
@@ -2323,7 +2359,9 @@ select {
         }
         .Personal-information {
             margin-top: 40px;
+            margin-bottom: 40px;
         }
+        
         .information-box, .admin-dashboard, .admin-dashboard, .submissions-bg-color {
             padding: 35px 20px;
         }
@@ -2372,8 +2410,15 @@ select {
         }
 
         /**************admin-view ****************/
+        .admin-view {       
+            margin-bottom: 100px 
+        }
         .admin-view-bg-color {
-            padding: 35px 20px;
+            padding: 35px 15px;
+        }
+        .admin-view-content{
+            justify-content: center;
+            margin-top: 30px;
         }
         .admin-view-header .sub-heading {
             width: 100%;
@@ -2382,8 +2427,44 @@ select {
           flex-direction: column-reverse;
         }
         .admin-view-header {
-           display:unset !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+        .admin-view-content .admin-text {
+            margin-bottom: 30px;
+        }
+        .admin-header-btn .btn {
+            margin-bottom: 25px;
+        }
+        .slider-labels span {
+            font-size: 11px;
+        }
+        .submissions .container {
+            padding: 0;
+        }
+        .submissions-bg-color {
+            border-radius: 0;
+        }
+        .submissions {
+            margin-bottom: 0px;
+        }
+        .submissions-header-btn .submit-btn {
+            width: 92%;
+            margin: 0 auto;
+        }
+        .submissions-header-btn .submit-btn:first-of-type{
+           margin-bottom: 25px;
+        }
+        .submissions-header, .submission-form  {
+            justify-content: center;
+        }
+        .form-div label {
            text-align: center;
+        }
+        .bg-My-Account .Personal-information{
+            margin-bottom: 100px;
         }
     /*********************** forgotpaddword *********************/
 

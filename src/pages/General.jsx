@@ -168,6 +168,8 @@ const General = () => {
                 }
             }
         } catch (error) {
+            setDisabled(false)
+            console.log(error,"//////")
             Swal.fire({
                 title: "Failed!",
                 text: "Something went wrong, please check the form.",
@@ -520,11 +522,11 @@ const General = () => {
                                                         value={formik.values.num_of_children_under_18}
                                                     >
                                                         <option value="">Select option</option>
-                                                        {Array(20)
+                                                        {Array(21)
                                                             .fill()
                                                             .map((opt, index) => (
-                                                                <option value={index + 1} key={"opt" + index}>
-                                                                    {index + 1}
+                                                                <option value={index} key={"opt" + index}>
+                                                                    {index}
                                                                 </option>
                                                             ))}
                                                     </select>

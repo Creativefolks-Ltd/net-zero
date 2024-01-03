@@ -256,11 +256,8 @@ export const travelformvalidation = Yup.object().shape({
             kmsInSelectedYear: Yup.string().required(requiredMsg),
         })
     ),
-
-   
-    // Food Form 
-    // vehicle_detail: Yup.string().required(requiredMsg),
-
 });
 
-
+export const foodFormValidation = Yup.object().shape({
+    vehicle_detail: Yup.string().required(requiredMsg),
+})

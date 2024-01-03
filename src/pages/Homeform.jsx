@@ -20,6 +20,7 @@ const Homeform = () => {
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
   const user = useSelector((state) => state.auth);
+
   const [disabled, setDisabled] = useState(false);
 
 
@@ -45,15 +46,13 @@ const Homeform = () => {
       ...rest
     } = values;
 
-    const user_id = Number(user?.userInfo?.user_id) || 1;
+    const general_information_id = Number(user?.generalInfoId);
     const filteredValues = {
       ...rest,
-      // ...(num_of_homes >= 1 ? { first_home_country } : {}),
-
       heating_type: heating_type?.toString(),
       property_features: property_features?.toString(),
       additional_property_features: additional_property_features?.toString(),
-      user_id,
+      general_information_id,
     };
     return filteredValues;
   };
@@ -61,7 +60,6 @@ const Homeform = () => {
   const formik = useFormik({
 
     initialValues: {
-      general_information_id: "1",
       location: "",
       heating_type: [],
       zero_carbon_energy_tariff: "",
@@ -224,7 +222,7 @@ const Homeform = () => {
                             ) : null}
                           </div>
                           <div className="form-div">
-                            <div class="form-label-div">
+                            <div className="form-label-div">
                               <label htmlFor="heating_type">
                                 <strong>2.</strong> How is the home heated?
                                 <span>*</span>
@@ -256,7 +254,7 @@ const Homeform = () => {
                           </div>
                         </div>
                         <div className="form-div">
-                          <div class="form-label-div">
+                          <div className="form-label-div">
                             <label htmlFor="zero_carbon_energy_tariff">
                               <strong>3. </strong> Was your electricity supplied
                               under a zero-carbon energy tariff? <span>*</span>{" "}
@@ -392,7 +390,7 @@ const Homeform = () => {
 
                             {(formik.values.electricity_usage_known === "" || formik.values.electricity_usage_known === "Yes, for part of the year") && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="electricity_usage_time_period">
                                     <strong>4b. </strong> Please specify the time
                                     period for which you have electricity bills{" "}
@@ -426,7 +424,7 @@ const Homeform = () => {
 
                             {formik.values.electricity_usage_known === "No" && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="electricity_annual_spend">
                                     <strong>4b. </strong> Do you know what the annual spend was for electricity in the selected year? <span>*</span>{" "}
                                   </label>
@@ -512,7 +510,7 @@ const Homeform = () => {
                               </div>
                             )}
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="electricity_supplier">
                                   <strong>5. </strong> Who was your electricity
                                   supplier? <span>*</span>{" "}
@@ -544,7 +542,7 @@ const Homeform = () => {
                               ) : null}
                             </div>
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="on_site_renewable_energy">
                                   <strong>6.</strong> Do you know if any of the
                                   property's electricity was generated from onsite
@@ -648,7 +646,7 @@ const Homeform = () => {
                         <div className="form ">
                           <div className="row">
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="natural_gas_usage_known">
                                   <strong>7.</strong> Do you know how much natural
                                   gas was used at the home in the selected year?
@@ -733,7 +731,7 @@ const Homeform = () => {
 
                             {(formik.values.natural_gas_usage_known === "" || formik.values.natural_gas_usage_known === "Yes, for part of the year") && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="natural_gas_usage_time_period">
                                     <strong>7b. </strong> Please specify the time
                                     period for which you have gas bills{" "}
@@ -767,7 +765,7 @@ const Homeform = () => {
 
                             {formik.values.natural_gas_usage_known === "No" && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="">
                                     <strong>7b. </strong> Do you know what the annual spend was on gas at property in the selected year? <span>*</span>{" "}
                                   </label>
@@ -849,7 +847,7 @@ const Homeform = () => {
                               </div>
                             )}
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="gas_consumption_offset">
                                   <strong>8.</strong> Has your gas consumption been
                                   offset by your supplier?<span>*</span>
@@ -899,7 +897,7 @@ const Homeform = () => {
                         <div className="form ">
                           <div className="row">
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="oil_usage_known">
                                   <strong>9.</strong> Do you know how much oil was
                                   used at the home last year?<span>*</span>
@@ -981,7 +979,7 @@ const Homeform = () => {
                             </div>
                             {formik.values.oil_usage_known === "No" && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="">
                                     <strong>9b. </strong> Do you know what the annual spend was on oil at property in the selected year? <span>*</span>{" "}
                                   </label>
@@ -1146,7 +1144,7 @@ const Homeform = () => {
                             </div>
                             {formik.values.wood_usage_known === "No" && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="">
                                     <strong>10b. </strong> Do you know what the annual spend was on wood at property in the selected year? <span>*</span>{" "}
                                   </label>
@@ -1312,7 +1310,7 @@ const Homeform = () => {
                             </div>
                             {formik.values.coal_usage_known === "No" && (
                               <div className="form-div">
-                                <div class="form-label-div">
+                                <div className="form-label-div">
                                   <label htmlFor="">
                                     <strong>11b. </strong> Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
                                   </label>
@@ -1465,7 +1463,7 @@ const Homeform = () => {
                     <div className="card">
                       <div className="form ">
                         <div className="row">
-                          <div class="Additional-box title-p">
+                          <div className="Additional-box title-p">
                             <p>
                               This section is optional, however it will allow us
                               to make your carbon footprint more complete and
@@ -1474,7 +1472,7 @@ const Homeform = () => {
                           </div>
                           <div className="col-lg-7 additional-form-outer">
                             <div className="form-div">
-                              <div class="form-label-div">
+                              <div className="form-label-div">
                                 <label htmlFor="property_features">
                                   <strong>13.</strong> Does the property have any
                                   of the folllowing?
@@ -1567,7 +1565,7 @@ const Homeform = () => {
                             ) : null}
                           </div>
                           <div className="form-div">
-                            <div class="form-label-div">
+                            <div className="form-label-div">
                               <label htmlFor="winter_temperature">
                                 <strong>17. </strong>What temprature was the home
                                 kept in the winter?
@@ -1733,13 +1731,12 @@ const Homeform = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="card card-box-btn">
-                    <div class="Additional-box">
-                      <div class="Additional-bottom-btn">
-                        <button class="btn" type="submit" onClick={(e) => submitHandler(e)} disabled={disabled}>
-                          Save progress{" "}
-                        </button>
-                        <button class="btn" type="button">
+                  <div className="card card-box-btn">
+                    <div className="Additional-box">
+                      <div className="Additional-bottom-btn">
+                        <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button>
+                        <button className="btn" type="button">
                           Continue
                         </button>
                       </div>

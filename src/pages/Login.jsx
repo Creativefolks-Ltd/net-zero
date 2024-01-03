@@ -8,10 +8,11 @@ import Swal from 'sweetalert2';
 import SuccessImg from "../assets/images/Group 9106.png"
 import { Link, useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
+import PasswordInput from '../components/PasswordInput'
 
 const signupValidate = values => {
     const errors = {};
-       const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!values.first_name?.trim()) {
         errors.first_name = 'First Name field is required';
@@ -68,8 +69,15 @@ const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [loginActive, setLoginActive] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showSPassword, setShowSPassword] = useState(false)
+    const [showSCPassword, setShowSCPassword] = useState(false)
     const { loading, userInfo, error } = useSelector((state) => state.auth)
 
+
+    const navigateToHome = () => {
+        navigate("/")
+    }
     const loginFormik = useFormik({
         initialValues: {
             email: '',
@@ -92,10 +100,7 @@ const Login = () => {
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate("/")
-                        }
+                        didClose: navigateToHome
                     });
                 } else {
                     Swal.fire({
@@ -147,11 +152,7 @@ const Login = () => {
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate("/")
-                        }
+                        didClose: navigateToHome
                     });
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -215,8 +216,9 @@ const Login = () => {
                                                                 onBlur={loginFormik.handleBlur} value={loginFormik.values.email} />
                                                             {loginFormik.errors.email && loginFormik.touched.email ? <span className='input-error-msg'>{loginFormik.errors.email}</span> : null}
                                                         </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="password" className={`form-control ${loginFormik.errors.password && loginFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" onChange={loginFormik.handleChange} onBlur={loginFormik.handleBlur} value={loginFormik.values.password} />
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="password" className={`form-control ${loginFormik.errors.password && loginFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={loginFormik.handleChange} blurHandler={loginFormik.handleBlur} value={loginFormik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+
                                                             {loginFormik.errors.password && loginFormik.touched.password ? <span className='input-error-msg'>{loginFormik.errors.password}</span> : null}
                                                         </div>
                                                         <p><Link to="/forgot-password">Forgot your password?</Link></p>
@@ -241,12 +243,12 @@ const Login = () => {
                                                             <input type="text" name="email" className={`form-control ${signupFormik.errors.email && signupFormik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.email} />
                                                             {signupFormik.errors.email && signupFormik.touched.email ? <span className='input-error-msg'>{signupFormik.errors.email}</span> : null}
                                                         </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="password" className={`form-control ${signupFormik.errors.password && signupFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.password} />
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="password" className={`form-control ${signupFormik.errors.password && signupFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={signupFormik.handleChange} blurHandler={signupFormik.handleBlur} value={signupFormik.values.password} showPassword={showSPassword} setShowPassword={() => setShowSPassword(!showSPassword)} />
                                                             {signupFormik.errors.password && signupFormik.touched.password ? <span className='input-error-msg'>{signupFormik.errors.password}</span> : null}
                                                         </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="cpassword" className={`form-control ${signupFormik.errors.cpassword && signupFormik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.cpassword} />
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="cpassword" className={`form-control ${signupFormik.errors.cpassword && signupFormik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={signupFormik.handleChange} blurHandler={signupFormik.handleBlur} value={signupFormik.values.cpassword} showPassword={showSCPassword} setShowPassword={() => setShowSCPassword(!showSCPassword)} />
                                                             {signupFormik.errors.cpassword && signupFormik.touched.cpassword ? <span className='input-error-msg'>{signupFormik.errors.cpassword}</span> : null}
                                                         </div>
 
@@ -264,7 +266,7 @@ const Login = () => {
                                     <img src={login_img} alt="" />
                                 </div>
                                 <div class="login-img-two">
-                                     <img src={login_img1} alt="" />
+                                    <img src={login_img1} alt="" />
                                 </div>
                             </div>
                         </div>

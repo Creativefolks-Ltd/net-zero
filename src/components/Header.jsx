@@ -29,7 +29,7 @@ const Header = ({ bgTransparent }) => {
     }
 
     const navbarHandler = (status) => {
-        if(authUser?.userInfo){
+        if (authUser?.userInfo) {
             setOpenNavbar(status)
         }
     }
@@ -44,17 +44,17 @@ const Header = ({ bgTransparent }) => {
                             <img src={homePage ? White_Anthos_logo : Anthos_logo} alt="" className="logo-img" />
                         </Link>
                         {/* {!authUser && ( */}
-                            <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
-                                <ul>
+                        <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
+                            <ul>
 
-                                    <li className="nav-item">My account</li>
-                                    <li className="nav-item">Footprint Calculator</li>
-                                    <li className="nav-item">T&Cs</li>
-                                    <li className="nav-item emain-div">netzero@good.business</li>
-                                    <li className="nav-item" onClick={() => logoutHandler()}>Logout</li>
-                                    <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}><img src={closeImage} /></li>
-                                </ul>
-                            </div>
+                                <li className="nav-item"><Link to="/my-account"> My account</Link></li>
+                                <li className="nav-item">Footprint Calculator</li>
+                                <li className="nav-item">T&Cs</li>
+                                <li className="nav-item emain-div">netzero@good.business</li>
+                                <li className="nav-item" onClick={() => logoutHandler()}>Logout</li>
+                                <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}><img src={closeImage} /></li>
+                            </ul>
+                        </div>
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>

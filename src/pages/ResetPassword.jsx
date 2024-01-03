@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import SuccessImg from "../assets/images/Group 9106.png"
 import { useNavigate, useParams } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
+import PasswordInput from '../components/PasswordInput'
 
 
 const validate = values => {
@@ -33,12 +34,13 @@ const validate = values => {
 };
 
 
-
 const ResetPassword = () => {
     const { token } = useParams();
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { loading, userInfo, error } = useSelector((state) => state.auth)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showCPassword, setShowCPassword] = useState(false)
+    const [disabled, setDisabled] = useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -54,6 +56,7 @@ const ResetPassword = () => {
                 return false
             }
             try {
+                setDisabled(true)
 
                 const requestData = {
                     email: "ravichaudhary.d4d@gmail.com",
@@ -63,6 +66,7 @@ const ResetPassword = () => {
                 }
 
                 const response = await dispatch(resetPassword(requestData));
+                setDisabled(false)
                 if (!response?.payload?.error && response?.payload?.data) {
                     Swal.fire({
                         title: "Success!",
@@ -97,6 +101,7 @@ const ResetPassword = () => {
                     }
                 }
             } catch (error) {
+                setDisabled(false)
                 Swal.fire({
                     title: "Failed!",
                     text: "Something went wrong!",
@@ -129,15 +134,15 @@ const ResetPassword = () => {
                                             <div className={`tab-pane fade show active `} id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                                 <div className="form ">
                                                     <form onSubmit={formik.handleSubmit}>
-                                                        <div className="form-div">
-                                                            <input type="text" name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
                                                             {formik.errors.password && formik.touched.password ? <span className='input-error-msg'>{formik.errors.password}</span> : null}
                                                         </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.cpassword} />
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
                                                             {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
                                                         </div>
-                                                        <button className="submit-btn" type='submit' >Submit {loading ? <div className="spinner-border text-primary" role="status">
+                                                        <button className="submit-btn" type='submit' disabled={disabled} >Submit {disabled ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
                                                     </form>
                                                 </div>
@@ -157,99 +162,7 @@ const ResetPassword = () => {
                         </div>
                     </div>
                 </div >
-
             </section >
-
-
-
-
-            {/* <section className="login-form  mt-80 mb-80">
-                <div className="container ">
-                    <div className="bg-lightgray-color pt-80 pb-80 ">
-                        <div className="row">
-                            <div className="col-xl-7 col-lg-6">
-                                <div className="d-flex justify-content-center align-items-center login-form-div">
-                                    <div className="card">
-                                        <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                            <li className="nav-item text-center" onClick={() => setLoginActive(true)}>
-                                                <a className={`nav-link btl ${loginActive && "active"}`} id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Sign in</a>
-                                            </li>
-                                            <li className="nav-item text-center" onClick={() => setLoginActive(false)}>
-                                                <a className={`nav-link btr ${!loginActive && "active"}`} id="pills-profile-tab" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">Register</a>
-                                            </li>
-                                        </ul>
-                                        <div className="tab-content" id="pills-tabContent">
-                                            <div className={`tab-pane fade ${loginActive && "show active"}`} id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                                <div className="form-heading">
-                                                    <p>Admin port login <a href="#">here</a></p>
-                                                    <h1>Welcome back</h1>
-                                                    <p>Sign in to continue </p>
-                                                </div>
-                                                <div className="form">
-                                                    <form onSubmit={loginFormik.handleSubmit}>
-                                                        <div className="form-div">
-                                                            <input type="text" name="email" className={`form-control ${loginFormik.errors.email && loginFormik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={loginFormik.handleChange}
-                                                                onBlur={loginFormik.handleBlur} value={loginFormik.values.email} />
-                                                            {loginFormik.errors.email && loginFormik.touched.email ? <span className='input-error-msg'>{loginFormik.errors.email}</span> : null}
-                                                        </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="password" className={`form-control ${loginFormik.errors.password && loginFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" onChange={loginFormik.handleChange} onBlur={loginFormik.handleBlur} value={loginFormik.values.password} />
-                                                            {loginFormik.errors.password && loginFormik.touched.password ? <span className='input-error-msg'>{loginFormik.errors.password}</span> : null}
-                                                        </div>
-                                                        <p><Link to="/forgot-password">Forgot your password?</Link></p>
-                                                        <button className="submit-btn " type='submit' >Login {loading ? <div class="spinner-border text-primary" role="status">
-                                                        </div> : ''}</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div className={`tab-pane fade ${!loginActive && "show active"}`} id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                                <div className="form ">
-                                                    <form onSubmit={signupFormik.handleSubmit}>
-                                                        <div className="form-div">
-                                                            <input type="text" name="first_name" className={`form-control ${signupFormik.errors.first_name && signupFormik.touched.first_name ? "invalidInput" : ""} `} placeholder="First Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.first_name} />
-                                                            {signupFormik.errors.first_name && signupFormik.touched.first_name ? <span className='input-error-msg'>{signupFormik.errors.first_name}</span> : null}
-
-                                                        </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="last_name" className={`form-control ${signupFormik.errors.last_name && signupFormik.touched.last_name ? "invalidInput" : ""} `} placeholder="Last Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.last_name} />
-                                                            {signupFormik.errors.last_name && signupFormik.touched.last_name ? <span className='input-error-msg'>{signupFormik.errors.last_name}</span> : null}
-                                                        </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="email" className={`form-control ${signupFormik.errors.email && signupFormik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.email} />
-                                                            {signupFormik.errors.email && signupFormik.touched.email ? <span className='input-error-msg'>{signupFormik.errors.email}</span> : null}
-                                                        </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="password" className={`form-control ${signupFormik.errors.password && signupFormik.touched.password ? "invalidInput" : ""} `} placeholder="Password" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.password} />
-                                                            {signupFormik.errors.password && signupFormik.touched.password ? <span className='input-error-msg'>{signupFormik.errors.password}</span> : null}
-                                                        </div>
-                                                        <div className="form-div">
-                                                            <input type="text" name="cpassword" className={`form-control ${signupFormik.errors.cpassword && signupFormik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.cpassword} />
-                                                            {signupFormik.errors.cpassword && signupFormik.touched.cpassword ? <span className='input-error-msg'>{signupFormik.errors.cpassword}</span> : null}
-                                                        </div>
-
-                                                        <button className="submit-btn" type='submit' >Signup {loading ? <div className="spinner-border text-primary" role="status">
-                                                        </div> : ''}</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-7 offset-1">
-                                <div className="login-img">
-                                    <img src={login_img} alt="" />
-                                </div>
-                                <div class="login-img-two">
-                                     <img src={login_img1} alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div >
-
-            </section > */}
-
         </>
     )
 }

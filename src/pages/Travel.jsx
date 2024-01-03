@@ -36,7 +36,6 @@ const Travel = () => {
 
   const formik = useFormik({
     initialValues: {
-      general_information_id: 1,
       short_flights: { economy: '', business: '', firstClass: '', private: '' },
       medium_flights: { economy: '', business: '', firstClass: '', private: '' },
       long_flights: { economy: '', business: '', firstClass: '', private: '' },
@@ -87,7 +86,8 @@ const Travel = () => {
       ...rest
     } = values;
 
-    // const user_id = Number(user.userInfo.user_id);
+    const general_information_id = Number(user?.generalInfoId);
+
     const filteredValues = {
       ...rest,
       proportion_offset_flights: parseFloat(proportion_offset_flights),
@@ -96,7 +96,7 @@ const Travel = () => {
       additional_vehicles_by_partner_children: Number(additional_vehicles_by_partner_children),
       transport_selected_year: transport_selected_year.toString(),
       hotel_nights: Number(hotel_nights),
-      // user_id: user_id,
+      general_information_id
     };
     return filteredValues;
   };
@@ -145,8 +145,6 @@ const Travel = () => {
       }
 
     }
-
-
   }
 
   return (
@@ -210,6 +208,8 @@ const Travel = () => {
                                 value={formik.values[flightType][classType]}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                className={formik.errors[flightType]?.[classType] &&
+                                  formik.touched[flightType]?.[classType] ? "invalidInput" : ""}
                               />
                               {formik.errors[flightType]?.[classType] &&
                                 formik.touched[flightType]?.[classType] && (
@@ -236,7 +236,11 @@ const Travel = () => {
                   <input
                     type="text"
                     id="proportion_offset_flights"
-                    class="form-control undefined"
+                    className={`form-control ${formik.errors.proportion_offset_flights &&
+                      formik.touched.proportion_offset_flights
+                      ? "invalidInput"
+                      : ""
+                      } `}
                     name={`proportion_offset_flights`}
                     value={formik.values.proportion_offset_flights}
                     onChange={formik.handleChange}
@@ -257,9 +261,14 @@ const Travel = () => {
                       <span>*</span>
                     </label>
                   </div>
-                  <select className="form-control "
+                  <select
                     name={`how_many_cars`}
                     id={`how_many_cars`}
+                    className={`form-control ${formik.errors.how_many_cars &&
+                      formik.touched.how_many_cars
+                      ? "invalidInput"
+                      : ""
+                      } `}
                     value={formik.values.how_many_cars}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}>
@@ -572,72 +581,72 @@ const Travel = () => {
 
                   </select>
                 </div>
-
-                <div className="modal-row-main">
-                  {formik.values?.additional_vehicles_by_partner_children &&
-                    Array(Number(formik.values?.additional_vehicles_by_partner_children))
-                      .fill()
-                      .map((opt, index) => (
-                        <div className="modal-row" key={index}>
-                          <div className="modal-label-block">Car {index + 1}</div>
-                          <div className="modal-input-block">
-                            <div className="modal-input-row">
-                              <div className="modal-input-col">
-                                <label>Make & Model</label>{" "}
-                                <input
-                                  type="text"
-                                  placeholder=""
-                                  name={`additional_vehicles_by_partner_detail.${index}.makeAndModel`}
-                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                />
-                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.makeAndModel &&
-                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.makeAndModel && (
-                                    <span className="input-error-msg">
-                                      {formik.errors.additional_vehicles_by_partner_detail[index].makeAndModel}
-                                    </span>
-                                  )}
-                              </div>
-                              <div className="modal-input-col">
-                                <label>Vehical Type</label>{" "}
-                                <input
-                                  type="text"
-                                  placeholder=""
-                                  name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
-                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                />
-                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.vehicalType &&
-                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.vehicalType && (
-                                    <span className="input-error-msg">
-                                      {formik.errors.additional_vehicles_by_partner_detail[index].vehicalType}
-                                    </span>
-                                  )}
-                              </div>
-                              <div className="modal-input-col">
-                                <label>KMs in selected year</label>{" "}
-                                <input
-                                  type="text"
-                                  placeholder=""
-                                  name={`additional_vehicles_by_partner_detail.${index}.kmsInSelectedYear`}
-                                  value={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                />
-                                {formik.errors.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear &&
-                                  formik.touched.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear && (
-                                    <span className="input-error-msg">
-                                      {formik.errors.additional_vehicles_by_partner_detail[index].kmsInSelectedYear}
-                                    </span>
-                                  )}
+                {formik.values.additional_vehicles_by_partner_children?.length > 0 && (
+                  <div className="modal-row-main">
+                    {formik.values?.additional_vehicles_by_partner_children &&
+                      Array(Number(formik.values?.additional_vehicles_by_partner_children))
+                        .fill()
+                        .map((opt, index) => (
+                          <div className="modal-row" key={index}>
+                            <div className="modal-label-block">Car {index + 1}</div>
+                            <div className="modal-input-block">
+                              <div className="modal-input-row">
+                                <div className="modal-input-col">
+                                  <label>Make & Model</label>{" "}
+                                  <input
+                                    type="text"
+                                    placeholder=""
+                                    name={`additional_vehicles_by_partner_detail.${index}.makeAndModel`}
+                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                  />
+                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.makeAndModel &&
+                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.makeAndModel && (
+                                      <span className="input-error-msg">
+                                        {formik.errors.additional_vehicles_by_partner_detail[index].makeAndModel}
+                                      </span>
+                                    )}
+                                </div>
+                                <div className="modal-input-col">
+                                  <label>Vehical Type</label>{" "}
+                                  <input
+                                    type="text"
+                                    placeholder=""
+                                    name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
+                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                  />
+                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.vehicalType &&
+                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.vehicalType && (
+                                      <span className="input-error-msg">
+                                        {formik.errors.additional_vehicles_by_partner_detail[index].vehicalType}
+                                      </span>
+                                    )}
+                                </div>
+                                <div className="modal-input-col">
+                                  <label>KMs in selected year</label>{" "}
+                                  <input
+                                    type="text"
+                                    placeholder=""
+                                    name={`additional_vehicles_by_partner_detail.${index}.kmsInSelectedYear`}
+                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                  />
+                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear &&
+                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear && (
+                                      <span className="input-error-msg">
+                                        {formik.errors.additional_vehicles_by_partner_detail[index].kmsInSelectedYear}
+                                      </span>
+                                    )}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                </div>
+                        ))}
+                  </div>)}
 
                 {/********checkbox********/}
 
@@ -669,41 +678,44 @@ const Travel = () => {
                   </div>
                 </div>
 
-                <div className="modal-row-main">
-                  {formik.values.transport_selected_year?.map((item, index) => (
-                    <div className="modal-row" key={index}>
-                      <div className="modal-label-block">{item}</div>
-                      <div className="modal-input-block">
-                        <div className="modal-input-row">
-                          <div class="modal-input-col">
-                            <label>My KMs</label>{" "}
-                            <input type="text" placeholder=""
-                              name={`transport_selected_year_details.${index}.kms`}
-                              value={formik.values.transport_selected_year_details[index]?.kms || ''}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur} />
-                          </div>
-                          <div class="modal-input-col">
-                            <label>Notes</label>{" "}
-                            <input type="text" placeholder=""
-                              name={`transport_selected_year_details.${index}.notes`}
-                              value={formik.values.transport_selected_year_details[index]?.notes || ''}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur} />
-                          </div>
-                          <div class="modal-input-col">
-                            <label>Partner/children KMs</label>{" "}
-                            <input type="text" placeholder=""
-                              name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
-                              value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur} />
+
+                {formik.values?.transport_selected_year?.length > 0 && (
+                  <div className="modal-row-main">
+                    {formik.values?.transport_selected_year?.map((item, index) => (
+                      <div className="modal-row" key={index}>
+                        <div className="modal-label-block">{item}</div>
+                        <div className="modal-input-block">
+                          <div className="modal-input-row">
+                            <div class="modal-input-col">
+                              <label>My KMs</label>{" "}
+                              <input type="text" placeholder=""
+                                name={`transport_selected_year_details.${index}.kms`}
+                                value={formik.values.transport_selected_year_details[index]?.kms || ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur} />
+                            </div>
+                            <div class="modal-input-col">
+                              <label>Notes</label>{" "}
+                              <input type="text" placeholder=""
+                                name={`transport_selected_year_details.${index}.notes`}
+                                value={formik.values.transport_selected_year_details[index]?.notes || ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur} />
+                            </div>
+                            <div class="modal-input-col">
+                              <label>Partner/children KMs</label>{" "}
+                              <input type="text" placeholder=""
+                                name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
+                                value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur} />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="Additional-box">
                   <div class="form-div">
@@ -742,9 +754,8 @@ const Travel = () => {
                     onBlur={formik.handleBlur}
                   ></textarea>
                   <div className="Additional-bottom-btn">
-                    <button className="btn" type="submit" onClick={submitHandler} disabled={disabled}>
-                      Save progress
-                    </button>
+                    <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button>
                     <button className="btn" type="button">
                       Continue
                     </button>

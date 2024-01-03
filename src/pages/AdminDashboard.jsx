@@ -78,7 +78,7 @@ const AdminDashboard = () => {
               </button>
             </div>
               </form>
-          <table class="customers" style={{borderRadius:'20px'}}>
+          {/* <table class="customers" style={{borderRadius:'20px'}}>
               <tr style={{borderRadius:'20px'}}>
                 <th style={{width:'25%'}}>Form name</th>
                 <th style={{width:'50%'}}>User email address</th>
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
                 <td>myfullnameexample@emailaddress.co.uk</td>
                 <td>View form</td>
               </tr>
-          </table>
+          </table> */}
             </div>
             </div>  
             </div>
