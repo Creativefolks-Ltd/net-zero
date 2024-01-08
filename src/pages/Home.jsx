@@ -135,7 +135,7 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <p>You can save your responses if you are not able to complete the form, and return to it later. Once you have submitted the information, the net zero team will respond with initial results and suggested actions, and an invitation to arrange a consultation to discuss.</p>
-                                <p>The tool has been built by Good Business and is based on the principles of the Greenhouse Gas Protocol. It has been developed specifically for Anthos and gives family members a tailored and personal service, making it stand out from the many carbon calculators available online.</p>
+                             
                                 <Link to="/general" className="btn">Calculate your footprint</Link>
                             </div>
                         </div>
@@ -159,7 +159,7 @@ const Home = () => {
                         <div className="col-lg-10">
                             <div className="title-block">
                                 <h2>Protecting your data</h2>
-                                <p>All of your responses in this survey will be encrypted with TLS and only accessed by the Net-Zero team for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ privacy policy here. The tool met the high data security requirements for penetration testing in March 2022.</p>
+                                
                             </div>
                         </div>
                     </div>
