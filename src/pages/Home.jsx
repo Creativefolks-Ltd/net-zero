@@ -134,7 +134,8 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <p>You can save your responses if you are not able to complete the form, and return to it later. Once you have submitted the information, the net zero team will respond with initial results and suggested actions, and an invitation to arrange a consultation to discuss.</p>
+                                <p>You can save your responses if you are not able to complete the form, and return to it later. 
+Once you have submitted the information, the Good Business team will respond with initial results and suggested actions in their report, and an invitation to arrange a consultation to discuss your form.</p>
                              
                                 <Link to="/general" className="btn">Calculate your footprint</Link>
                             </div>
