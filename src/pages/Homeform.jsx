@@ -37,12 +37,34 @@ const Homeform = () => {
     dispatch(getCountry());
   }, []);
 
+  const getWinterTemperature = (temprature) => {
+    switch (temprature) {
+      case 1: {
+        return "< 14%"
+      }
+      case 2: {
+        return "14% - 17%"
+      }
+      case 3: {
+        return "18% - 21%"
+      }
+      case 4: {
+        return "> 21%"
+      }
+      case 5: {
+        return "Don't know"
+      }
+      default:
+        return ""
+    }
+  }
 
   const validateAndFilterFields = (values) => {
     const {
       heating_type,
       property_features,
       additional_property_features,
+      winter_temperature,
       ...rest
     } = values;
 
@@ -52,6 +74,7 @@ const Homeform = () => {
       heating_type: heating_type?.toString(),
       property_features: property_features?.toString(),
       additional_property_features: additional_property_features?.toString(),
+      winter_temperature: getWinterTemperature(),
       general_information_id,
     };
     return filteredValues;
@@ -168,6 +191,41 @@ const Homeform = () => {
     }
   };
 
+  const deleteHandler = async () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Home deleted successfully",
+          icon: "success"
+        });
+        // await dispatch(formDelete(form_id))
+        // dispatch(formlist(userId));
+      }
+    });
+  }
+
+  const genSlideStyle = (value) => {
+    return {
+      point: {
+        left: `calc(${value * 20}% - ${5 + 3 * value}px)`,
+      },
+      range: {
+        width: `${value * 20}%`,
+      },
+    };
+  };
+
+  const slideStyle = genSlideStyle(formik.values.winter_temperature);
+
   return (
     <>
       <FormActionTabs selectedTab={"home"} />
@@ -182,9 +240,9 @@ const Homeform = () => {
                     <div className="card card-par">
                       <div className=" home-title-div">
                         <div className="home-title">
-                          <h2>Home2</h2>
+                          <h2>Home 1</h2>
                         </div>
-                        <div className="delete-box">
+                        <div className="delete-box" onClick={deleteHandler}>
                           <span>Delete this home</span>
                           <img src={delete_img} alt="" />
                         </div>
@@ -295,7 +353,7 @@ const Homeform = () => {
             </div>
             {/* Electricity Section */}
             {formik.values.heating_type.includes("Electricity") && (
-              <div className="bg-lightgray-color mt-80 mb-80">
+              <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-center align-items-center">
@@ -637,7 +695,7 @@ const Homeform = () => {
             )}
             {/* Gas Section */}
             {formik.values.heating_type.includes("Gas") && (
-              <div className="bg-lightgray-color">
+              <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-center align-items-center">
@@ -887,7 +945,7 @@ const Homeform = () => {
             )}
             {/* Other energy Section */}
             {(formik.values.heating_type.includes("Oil") || formik.values.heating_type.includes("Coal") || formik.values.heating_type.includes("Wood")) && (
-              <div className="bg-lightgray-color mt-80 mb-80">
+              <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="d-flex justify-content-center align-items-center">
@@ -896,500 +954,513 @@ const Homeform = () => {
 
                         <div className="form ">
                           <div className="row">
-                            <div className="form-div">
-                              <div className="form-label-div">
-                                <label htmlFor="oil_usage_known">
-                                  <strong>9.</strong> Do you know how much oil was
-                                  used at the home last year?<span>*</span>
-                                </label>
-                                <p>(mains supply)</p>
-                              </div>
-                              <select
-                                name="oil_usage_known"
-                                id="oil_usage_known"
-                                className={`form-control ${formik.errors.oil_usage_known &&
-                                  formik.touched.oil_usage_known
-                                  ? "invalidInput"
-                                  : ""
-                                  } `}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.oil_usage_known}
-                              >
-                                <option value="">Select option</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                              </select>
-                              {formik.errors.oil_usage_known &&
-                                formik.touched.oil_usage_known ? (
-                                <span className="input-error-msg">
-                                  {formik.errors.oil_usage_known}
-                                </span>
-                              ) : null}
-                              {formik.values.oil_usage_known !== "No" && (<div className="row electricity-row">
-                                <div className="col-md-6 electricity-col">
-                                  <input
-                                    type="text"
-                                    placeholder="Amount"
-                                    name="oil_usage_amount"
-                                    id="oil_usage_amount"
-                                    className={`form-control ${formik.errors.oil_usage_amount &&
-                                      formik.touched.oil_usage_amount
-                                      ? "invalidInput"
-                                      : ""
-                                      } `}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={formik.values.oil_usage_amount}
-                                  />
-                                  {formik.errors.oil_usage_amount &&
-                                    formik.touched.oil_usage_amount ? (
-                                    <span className="input-error-msg">
-                                      {formik.errors.oil_usage_amount}
-                                    </span>
-                                  ) : null}
-                                </div>
-                                <div className="col-md-6">
+                            {/* Oil */}
+                            {formik.values.heating_type.includes("Oil") && (
+                              <>
+                                <div className="form-div">
+                                  <div className="form-label-div">
+                                    <label htmlFor="oil_usage_known">
+                                      <strong>9.</strong> Do you know how much oil was
+                                      used at the home last year?<span>*</span>
+                                    </label>
+                                    <p>(mains supply)</p>
+                                  </div>
                                   <select
-                                    type="text"
-                                    name="oil_usage_unit"
-                                    id="oil_usage_unit"
-                                    className={`form-control ${formik.errors.oil_usage_unit &&
-                                      formik.touched.oil_usage_unit
+                                    name="oil_usage_known"
+                                    id="oil_usage_known"
+                                    className={`form-control ${formik.errors.oil_usage_known &&
+                                      formik.touched.oil_usage_known
                                       ? "invalidInput"
                                       : ""
                                       } `}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={formik.values.oil_usage_unit}
+                                    value={formik.values.oil_usage_known}
                                   >
-                                    <option value={""}>Select option</option>
-                                    <option value={"Tonnes"}>Tonnes</option>
-                                    <option value={"Tonnes"}>Tonnes</option>
-                                    <option value={"Tonnes"}>Tonnes</option>
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
                                   </select>
-                                  {formik.errors.oil_usage_unit &&
-                                    formik.touched.oil_usage_unit ? (
+                                  {formik.errors.oil_usage_known &&
+                                    formik.touched.oil_usage_known ? (
                                     <span className="input-error-msg">
-                                      {formik.errors.oil_usage_unit}
+                                      {formik.errors.oil_usage_known}
                                     </span>
                                   ) : null}
-                                </div>
-                              </div>)}
-                            </div>
-                            {formik.values.oil_usage_known === "No" && (
-                              <div className="form-div">
-                                <div className="form-label-div">
-                                  <label htmlFor="">
-                                    <strong>9b. </strong> Do you know what the annual spend was on oil at property in the selected year? <span>*</span>{" "}
-                                  </label>
-                                </div>
-                                <select
-                                  name="oil_annual_spend"
-                                  id="oil_annual_spend"
-                                  className={`form-control ${formik.errors.oil_annual_spend &&
-                                    formik.touched.oil_annual_spend
-                                    ? "invalidInput"
-                                    : ""
-                                    } `}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.oil_annual_spend}
-                                >
-                                  <option value="">Select option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                {formik.errors.oil_annual_spend &&
-                                  formik.touched.oil_annual_spend ? (
-                                  <span className="input-error-msg">
-                                    {formik.errors.oil_annual_spend}
-                                  </span>
-                                ) : null}
-                                {formik.values.oil_annual_spend !== "No" && (
-                                  <div className="row electricity-row">
-                                    <div className="col-md-6">
+                                  {formik.values.oil_usage_known !== "No" && (<div className="row electricity-row">
+                                    <div className="col-md-6 electricity-col">
                                       <input
                                         type="text"
                                         placeholder="Amount"
-                                        name="oil_annual_amount"
-                                        id="oil_annual_amount"
-                                        className={`form-control ${formik.errors.oil_annual_amount &&
-                                          formik.touched.oil_annual_amount
+                                        name="oil_usage_amount"
+                                        id="oil_usage_amount"
+                                        className={`form-control ${formik.errors.oil_usage_amount &&
+                                          formik.touched.oil_usage_amount
                                           ? "invalidInput"
                                           : ""
                                           } `}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.oil_annual_amount}
+                                        value={formik.values.oil_usage_amount}
                                       />
-                                      {formik.errors.oil_annual_amount &&
-                                        formik.touched.oil_annual_amount ? (
+                                      {formik.errors.oil_usage_amount &&
+                                        formik.touched.oil_usage_amount ? (
                                         <span className="input-error-msg">
-                                          {formik.errors.oil_annual_amount}
+                                          {formik.errors.oil_usage_amount}
                                         </span>
                                       ) : null}
                                     </div>
                                     <div className="col-md-6">
                                       <select
-                                        name="oil_annual_unit"
-                                        id="oil_annual_unit"
-                                        className={`form-control ${formik.errors.oil_annual_unit &&
-                                          formik.touched.oil_annual_unit
-                                          ? "invalidInput"
-                                          : ""
-                                          } `}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.oil_annual_unit}
-                                      >
-                                        <option value="">Select option</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                      </select>
-                                      {formik.errors.oil_annual_unit &&
-                                        formik.touched.oil_annual_unit ? (
-                                        <span className="input-error-msg">
-                                          {formik.errors.oil_annual_unit}
-                                        </span>
-                                      ) : null}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-
-                            <div className="form-div">
-                              <label htmlFor="wood_usage_known">
-                                <strong>10. </strong> Do you know how much wood
-                                was used at the home in the selected year?{" "}
-                                <span>*</span>{" "}
-                              </label>
-
-                              <select
-                                name="wood_usage_known"
-                                id="wood_usage_known"
-                                className={`form-control ${formik.errors.wood_usage_known &&
-                                  formik.touched.wood_usage_known
-                                  ? "invalidInput"
-                                  : ""
-                                  } `}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.wood_usage_known}
-                              >
-                                <option value="">Select option</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                              </select>
-                              {formik.errors.wood_usage_known &&
-                                formik.touched.wood_usage_known ? (
-                                <span className="input-error-msg">
-                                  {formik.errors.wood_usage_known}
-                                </span>
-                              ) : null}
-                              {formik.values.wood_usage_known !== "No" && (
-                                <div className="row electricity-row">
-                                  <div className="col-md-6 electricity-col">
-                                    <input
-                                      type="text"
-                                      placeholder="Amount"
-                                      name="wood_usage_amount"
-                                      id="wood_usage_amount"
-                                      className={`form-control ${formik.errors.wood_usage_amount &&
-                                        formik.touched.wood_usage_amount
-                                        ? "invalidInput"
-                                        : ""
-                                        } `}
-                                      onChange={formik.handleChange}
-                                      onBlur={formik.handleBlur}
-                                      value={formik.values.wood_usage_amount}
-                                    />
-                                    {formik.errors.wood_usage_amount &&
-                                      formik.touched.wood_usage_amount ? (
-                                      <span className="input-error-msg">
-                                        {formik.errors.wood_usage_amount}
-                                      </span>
-                                    ) : null}
-                                  </div>
-                                  <div className="col-md-6">
-                                    <select
-                                      name="wood_usage_unit"
-                                      id="wood_usage_unit"
-                                      className={`form-control ${formik.errors.wood_usage_unit &&
-                                        formik.touched.wood_usage_unit
-                                        ? "invalidInput"
-                                        : ""
-                                        } `}
-                                      onChange={formik.handleChange}
-                                      onBlur={formik.handleBlur}
-                                      value={formik.values.wood_usage_unit}
-                                    >
-                                      <option value={""}>Select option</option>
-                                      <option value={"Tonnes"}>Tonnes</option>
-                                      <option value={"Tonnes"}>Tonnes</option>
-                                      <option value={"Tonnes"}>Tonnes</option>
-                                    </select>
-                                    {formik.errors.wood_usage_unit &&
-                                      formik.touched.wood_usage_unit ? (
-                                      <span className="input-error-msg">
-                                        {formik.errors.wood_usage_unit}
-                                      </span>
-                                    ) : null}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                            {formik.values.wood_usage_known === "No" && (
-                              <div className="form-div">
-                                <div className="form-label-div">
-                                  <label htmlFor="">
-                                    <strong>10b. </strong> Do you know what the annual spend was on wood at property in the selected year? <span>*</span>{" "}
-                                  </label>
-                                </div>
-                                <select
-                                  name="wood_annual_spend"
-                                  id="wood_annual_spend"
-                                  className={`form-control ${formik.errors.wood_annual_spend &&
-                                    formik.touched.wood_annual_spend
-                                    ? "invalidInput"
-                                    : ""
-                                    } `}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.wood_annual_spend}
-                                >
-                                  <option value="">Select option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                {formik.errors.wood_annual_spend &&
-                                  formik.touched.wood_annual_spend ? (
-                                  <span className="input-error-msg">
-                                    {formik.errors.wood_annual_spend}
-                                  </span>
-                                ) : null}
-                                {formik.values.wood_annual_spend !== "No" && (
-                                  <div className="row electricity-row">
-                                    <div className="col-md-6">
-                                      <input
                                         type="text"
-                                        placeholder="Amount"
-                                        name="wood_annual_amount"
-                                        id="wood_annual_amount"
-                                        className={`form-control ${formik.errors.wood_annual_amount &&
-                                          formik.touched.wood_annual_amount
+                                        name="oil_usage_unit"
+                                        id="oil_usage_unit"
+                                        className={`form-control ${formik.errors.oil_usage_unit &&
+                                          formik.touched.oil_usage_unit
                                           ? "invalidInput"
                                           : ""
                                           } `}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.wood_annual_amount}
-                                      />
-                                      {formik.errors.wood_annual_amount &&
-                                        formik.touched.wood_annual_amount ? (
-                                        <span className="input-error-msg">
-                                          {formik.errors.wood_annual_amount}
-                                        </span>
-                                      ) : null}
-                                    </div>
-                                    <div className="col-md-6">
-                                      <select
-                                        name="wood_annual_unit"
-                                        id="wood_annual_unit"
-                                        className={`form-control ${formik.errors.wood_annual_unit &&
-                                          formik.touched.wood_annual_unit
-                                          ? "invalidInput"
-                                          : ""
-                                          } `}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.wood_annual_unit}
+                                        value={formik.values.oil_usage_unit}
                                       >
-                                        <option value="">Select option</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
+                                        <option value={""}>Select option</option>
+                                        <option value={"Tonnes"}>Tonnes</option>
+                                        <option value={"Tonnes"}>Tonnes</option>
+                                        <option value={"Tonnes"}>Tonnes</option>
                                       </select>
-                                      {formik.errors.wood_annual_unit &&
-                                        formik.touched.wood_annual_unit ? (
+                                      {formik.errors.oil_usage_unit &&
+                                        formik.touched.oil_usage_unit ? (
                                         <span className="input-error-msg">
-                                          {formik.errors.wood_annual_unit}
+                                          {formik.errors.oil_usage_unit}
                                         </span>
                                       ) : null}
                                     </div>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                            <div className="form-div">
-                              <label htmlFor="coal_usage_known">
-                                <strong>11. </strong> Do you know how much coal
-                                was used at the home in the selected year?{" "}
-                                <span>*</span>{" "}
-                              </label>
-
-                              <select
-                                name="coal_usage_known"
-                                id="coal_usage_known"
-                                className={`form-control ${formik.errors.coal_usage_known &&
-                                  formik.touched.coal_usage_known
-                                  ? "invalidInput"
-                                  : ""
-                                  } `}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.coal_usage_known}
-                              >
-                                <option value="">Select option</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                              </select>
-                              {formik.errors.coal_usage_known &&
-                                formik.touched.coal_usage_known ? (
-                                <span className="input-error-msg">
-                                  {formik.errors.coal_usage_known}
-                                </span>
-                              ) : null}
-                              {formik.values.coal_usage_known !== "No" && (
-                                <div className="row electricity-row">
-                                  <div className="col-md-6 electricity-col">
-                                    <input
-                                      type="text"
-                                      placeholder="Amount"
-                                      name="coal_usage_amount"
-                                      id="coal_usage_amount"
-                                      className={`form-control ${formik.errors.coal_usage_amount &&
-                                        formik.touched.coal_usage_amount
-                                        ? "invalidInput"
-                                        : ""
-                                        } `}
-                                      onChange={formik.handleChange}
-                                      onBlur={formik.handleBlur}
-                                      value={formik.values.coal_usage_amount}
-                                    />
-                                    {formik.errors.coal_usage_amount &&
-                                      formik.touched.coal_usage_amount ? (
-                                      <span className="input-error-msg">
-                                        {formik.errors.coal_usage_amount}
-                                      </span>
-                                    ) : null}
-                                  </div>
-                                  <div className="col-md-6">
+                                  </div>)}
+                                </div>
+                                {formik.values.oil_usage_known === "No" && (
+                                  <div className="form-div">
+                                    <div className="form-label-div">
+                                      <label htmlFor="">
+                                        <strong>9b. </strong> Do you know what the annual spend was on oil at property in the selected year? <span>*</span>{" "}
+                                      </label>
+                                    </div>
                                     <select
-                                      type="text"
-                                      placeholder="Tonnes"
-                                      name="coal_usage_unit"
-                                      id="coal_usage_unit"
-                                      className={`form-control ${formik.errors.coal_usage_unit &&
-                                        formik.touched.coal_usage_unit
+                                      name="oil_annual_spend"
+                                      id="oil_annual_spend"
+                                      className={`form-control ${formik.errors.oil_annual_spend &&
+                                        formik.touched.oil_annual_spend
                                         ? "invalidInput"
                                         : ""
                                         } `}
                                       onChange={formik.handleChange}
                                       onBlur={formik.handleBlur}
-                                      value={formik.values.coal_usage_unit}
+                                      value={formik.values.oil_annual_spend}
                                     >
                                       <option value="">Select option</option>
-                                      <option value="Tonnes">Tonnes</option>
-                                      <option value="Tonnes">Tonnes</option>
-                                      <option value="Tonnes">Tonnes</option>
-                                      <option value="Tonnes">Tonnes</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
                                     </select>
-                                    {formik.errors.coal_usage_unit &&
-                                      formik.touched.coal_usage_unit ? (
+                                    {formik.errors.oil_annual_spend &&
+                                      formik.touched.oil_annual_spend ? (
                                       <span className="input-error-msg">
-                                        {formik.errors.coal_usage_unit}
+                                        {formik.errors.oil_annual_spend}
                                       </span>
                                     ) : null}
-                                  </div>
-                                </div>)}
-                            </div>
-                            {formik.values.coal_usage_known === "No" && (
-                              <div className="form-div">
-                                <div className="form-label-div">
-                                  <label htmlFor="">
-                                    <strong>11b. </strong> Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
-                                  </label>
-                                </div>
-                                <select
-                                  name="coal_annual_spend"
-                                  id="coal_annual_spend"
-                                  className={`form-control ${formik.errors.coal_annual_spend &&
-                                    formik.touched.coal_annual_spend
-                                    ? "invalidInput"
-                                    : ""
-                                    } `}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.coal_annual_spend}
-                                >
-                                  <option value="">Select option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                {formik.errors.coal_annual_spend &&
-                                  formik.touched.coal_annual_spend ? (
-                                  <span className="input-error-msg">
-                                    {formik.errors.coal_annual_spend}
-                                  </span>
-                                ) : null}
-                                {formik.values.coal_annual_spend !== "No" && (
-                                  <div className="row electricity-row">
-                                    <div className="col-md-6">
-                                      <input
-                                        type="text"
-                                        placeholder="Amount"
-                                        name="coal_annual_amount"
-                                        id="coal_annual_amount"
-                                        className={`form-control ${formik.errors.coal_annual_amount &&
-                                          formik.touched.coal_annual_amount
-                                          ? "invalidInput"
-                                          : ""
-                                          } `}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.coal_annual_amount}
-                                      />
-                                      {formik.errors.coal_annual_amount &&
-                                        formik.touched.coal_annual_amount ? (
-                                        <span className="input-error-msg">
-                                          {formik.errors.coal_annual_amount}
-                                        </span>
-                                      ) : null}
-                                    </div>
-                                    <div className="col-md-6">
-                                      <select
-                                        name="coal_annual_unit"
-                                        id="coal_annual_unit"
-                                        className={`form-control ${formik.errors.coal_annual_unit &&
-                                          formik.touched.coal_annual_unit
-                                          ? "invalidInput"
-                                          : ""
-                                          } `}
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.coal_annual_unit}
-                                      >
-                                        <option value="">Select option</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                        <option value="Tonnes">Tonnes</option>
-                                      </select>
-                                      {formik.errors.coal_annual_unit &&
-                                        formik.touched.coal_annual_unit ? (
-                                        <span className="input-error-msg">
-                                          {formik.errors.coal_annual_unit}
-                                        </span>
-                                      ) : null}
-                                    </div>
+                                    {formik.values.oil_annual_spend !== "No" && (
+                                      <div className="row electricity-row">
+                                        <div className="col-md-6">
+                                          <input
+                                            type="text"
+                                            placeholder="Amount"
+                                            name="oil_annual_amount"
+                                            id="oil_annual_amount"
+                                            className={`form-control ${formik.errors.oil_annual_amount &&
+                                              formik.touched.oil_annual_amount
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.oil_annual_amount}
+                                          />
+                                          {formik.errors.oil_annual_amount &&
+                                            formik.touched.oil_annual_amount ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.oil_annual_amount}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-md-6">
+                                          <select
+                                            name="oil_annual_unit"
+                                            id="oil_annual_unit"
+                                            className={`form-control ${formik.errors.oil_annual_unit &&
+                                              formik.touched.oil_annual_unit
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.oil_annual_unit}
+                                          >
+                                            <option value="">Select option</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                          </select>
+                                          {formik.errors.oil_annual_unit &&
+                                            formik.touched.oil_annual_unit ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.oil_annual_unit}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                      </div>
+                                    )}
                                   </div>
                                 )}
-                              </div>
+                              </>
+                            )}
+                            {/* Wood */}
+                            {formik.values.heating_type.includes("Wood") && (
+                              <>
+                                <div className="form-div">
+                                  <label htmlFor="wood_usage_known">
+                                    <strong>10. </strong> Do you know how much wood
+                                    was used at the home in the selected year?{" "}
+                                    <span>*</span>{" "}
+                                  </label>
+
+                                  <select
+                                    name="wood_usage_known"
+                                    id="wood_usage_known"
+                                    className={`form-control ${formik.errors.wood_usage_known &&
+                                      formik.touched.wood_usage_known
+                                      ? "invalidInput"
+                                      : ""
+                                      } `}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.wood_usage_known}
+                                  >
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                  </select>
+                                  {formik.errors.wood_usage_known &&
+                                    formik.touched.wood_usage_known ? (
+                                    <span className="input-error-msg">
+                                      {formik.errors.wood_usage_known}
+                                    </span>
+                                  ) : null}
+                                  {formik.values.wood_usage_known !== "No" && (
+                                    <div className="row electricity-row">
+                                      <div className="col-md-6 electricity-col">
+                                        <input
+                                          type="text"
+                                          placeholder="Amount"
+                                          name="wood_usage_amount"
+                                          id="wood_usage_amount"
+                                          className={`form-control ${formik.errors.wood_usage_amount &&
+                                            formik.touched.wood_usage_amount
+                                            ? "invalidInput"
+                                            : ""
+                                            } `}
+                                          onChange={formik.handleChange}
+                                          onBlur={formik.handleBlur}
+                                          value={formik.values.wood_usage_amount}
+                                        />
+                                        {formik.errors.wood_usage_amount &&
+                                          formik.touched.wood_usage_amount ? (
+                                          <span className="input-error-msg">
+                                            {formik.errors.wood_usage_amount}
+                                          </span>
+                                        ) : null}
+                                      </div>
+                                      <div className="col-md-6">
+                                        <select
+                                          name="wood_usage_unit"
+                                          id="wood_usage_unit"
+                                          className={`form-control ${formik.errors.wood_usage_unit &&
+                                            formik.touched.wood_usage_unit
+                                            ? "invalidInput"
+                                            : ""
+                                            } `}
+                                          onChange={formik.handleChange}
+                                          onBlur={formik.handleBlur}
+                                          value={formik.values.wood_usage_unit}
+                                        >
+                                          <option value={""}>Select option</option>
+                                          <option value={"Tonnes"}>Tonnes</option>
+                                          <option value={"Tonnes"}>Tonnes</option>
+                                          <option value={"Tonnes"}>Tonnes</option>
+                                        </select>
+                                        {formik.errors.wood_usage_unit &&
+                                          formik.touched.wood_usage_unit ? (
+                                          <span className="input-error-msg">
+                                            {formik.errors.wood_usage_unit}
+                                          </span>
+                                        ) : null}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                                {formik.values.wood_usage_known === "No" && (
+                                  <div className="form-div">
+                                    <div className="form-label-div">
+                                      <label htmlFor="">
+                                        <strong>10b. </strong> Do you know what the annual spend was on wood at property in the selected year? <span>*</span>{" "}
+                                      </label>
+                                    </div>
+                                    <select
+                                      name="wood_annual_spend"
+                                      id="wood_annual_spend"
+                                      className={`form-control ${formik.errors.wood_annual_spend &&
+                                        formik.touched.wood_annual_spend
+                                        ? "invalidInput"
+                                        : ""
+                                        } `}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={formik.values.wood_annual_spend}
+                                    >
+                                      <option value="">Select option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    {formik.errors.wood_annual_spend &&
+                                      formik.touched.wood_annual_spend ? (
+                                      <span className="input-error-msg">
+                                        {formik.errors.wood_annual_spend}
+                                      </span>
+                                    ) : null}
+                                    {formik.values.wood_annual_spend !== "No" && (
+                                      <div className="row electricity-row">
+                                        <div className="col-md-6">
+                                          <input
+                                            type="text"
+                                            placeholder="Amount"
+                                            name="wood_annual_amount"
+                                            id="wood_annual_amount"
+                                            className={`form-control ${formik.errors.wood_annual_amount &&
+                                              formik.touched.wood_annual_amount
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.wood_annual_amount}
+                                          />
+                                          {formik.errors.wood_annual_amount &&
+                                            formik.touched.wood_annual_amount ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.wood_annual_amount}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-md-6">
+                                          <select
+                                            name="wood_annual_unit"
+                                            id="wood_annual_unit"
+                                            className={`form-control ${formik.errors.wood_annual_unit &&
+                                              formik.touched.wood_annual_unit
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.wood_annual_unit}
+                                          >
+                                            <option value="">Select option</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                          </select>
+                                          {formik.errors.wood_annual_unit &&
+                                            formik.touched.wood_annual_unit ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.wood_annual_unit}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </>)}
+                            {/* Coal */}
+                            {formik.values.heating_type.includes("Coal") && (
+                              <>
+                                <div className="form-div">
+                                  <label htmlFor="coal_usage_known">
+                                    <strong>11. </strong> Do you know how much coal
+                                    was used at the home in the selected year?{" "}
+                                    <span>*</span>{" "}
+                                  </label>
+
+                                  <select
+                                    name="coal_usage_known"
+                                    id="coal_usage_known"
+                                    className={`form-control ${formik.errors.coal_usage_known &&
+                                      formik.touched.coal_usage_known
+                                      ? "invalidInput"
+                                      : ""
+                                      } `}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.coal_usage_known}
+                                  >
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                  </select>
+                                  {formik.errors.coal_usage_known &&
+                                    formik.touched.coal_usage_known ? (
+                                    <span className="input-error-msg">
+                                      {formik.errors.coal_usage_known}
+                                    </span>
+                                  ) : null}
+                                  {formik.values.coal_usage_known !== "No" && (
+                                    <div className="row electricity-row">
+                                      <div className="col-md-6 electricity-col">
+                                        <input
+                                          type="text"
+                                          placeholder="Amount"
+                                          name="coal_usage_amount"
+                                          id="coal_usage_amount"
+                                          className={`form-control ${formik.errors.coal_usage_amount &&
+                                            formik.touched.coal_usage_amount
+                                            ? "invalidInput"
+                                            : ""
+                                            } `}
+                                          onChange={formik.handleChange}
+                                          onBlur={formik.handleBlur}
+                                          value={formik.values.coal_usage_amount}
+                                        />
+                                        {formik.errors.coal_usage_amount &&
+                                          formik.touched.coal_usage_amount ? (
+                                          <span className="input-error-msg">
+                                            {formik.errors.coal_usage_amount}
+                                          </span>
+                                        ) : null}
+                                      </div>
+                                      <div className="col-md-6">
+                                        <select
+                                          type="text"
+                                          placeholder="Tonnes"
+                                          name="coal_usage_unit"
+                                          id="coal_usage_unit"
+                                          className={`form-control ${formik.errors.coal_usage_unit &&
+                                            formik.touched.coal_usage_unit
+                                            ? "invalidInput"
+                                            : ""
+                                            } `}
+                                          onChange={formik.handleChange}
+                                          onBlur={formik.handleBlur}
+                                          value={formik.values.coal_usage_unit}
+                                        >
+                                          <option value="">Select option</option>
+                                          <option value="Tonnes">Tonnes</option>
+                                          <option value="Tonnes">Tonnes</option>
+                                          <option value="Tonnes">Tonnes</option>
+                                          <option value="Tonnes">Tonnes</option>
+                                        </select>
+                                        {formik.errors.coal_usage_unit &&
+                                          formik.touched.coal_usage_unit ? (
+                                          <span className="input-error-msg">
+                                            {formik.errors.coal_usage_unit}
+                                          </span>
+                                        ) : null}
+                                      </div>
+                                    </div>)}
+                                </div>
+                                {formik.values.coal_usage_known === "No" && (
+                                  <div className="form-div">
+                                    <div className="form-label-div">
+                                      <label htmlFor="">
+                                        <strong>11b. </strong> Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
+                                      </label>
+                                    </div>
+                                    <select
+                                      name="coal_annual_spend"
+                                      id="coal_annual_spend"
+                                      className={`form-control ${formik.errors.coal_annual_spend &&
+                                        formik.touched.coal_annual_spend
+                                        ? "invalidInput"
+                                        : ""
+                                        } `}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={formik.values.coal_annual_spend}
+                                    >
+                                      <option value="">Select option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    {formik.errors.coal_annual_spend &&
+                                      formik.touched.coal_annual_spend ? (
+                                      <span className="input-error-msg">
+                                        {formik.errors.coal_annual_spend}
+                                      </span>
+                                    ) : null}
+                                    {formik.values.coal_annual_spend !== "No" && (
+                                      <div className="row electricity-row">
+                                        <div className="col-md-6">
+                                          <input
+                                            type="text"
+                                            placeholder="Amount"
+                                            name="coal_annual_amount"
+                                            id="coal_annual_amount"
+                                            className={`form-control ${formik.errors.coal_annual_amount &&
+                                              formik.touched.coal_annual_amount
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.coal_annual_amount}
+                                          />
+                                          {formik.errors.coal_annual_amount &&
+                                            formik.touched.coal_annual_amount ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.coal_annual_amount}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-md-6">
+                                          <select
+                                            name="coal_annual_unit"
+                                            id="coal_annual_unit"
+                                            className={`form-control ${formik.errors.coal_annual_unit &&
+                                              formik.touched.coal_annual_unit
+                                              ? "invalidInput"
+                                              : ""
+                                              } `}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.coal_annual_unit}
+                                          >
+                                            <option value="">Select option</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Tonnes">Tonnes</option>
+                                          </select>
+                                          {formik.errors.coal_annual_unit &&
+                                            formik.touched.coal_annual_unit ? (
+                                            <span className="input-error-msg">
+                                              {formik.errors.coal_annual_unit}
+                                            </span>
+                                          ) : null}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </>
                             )}
                           </div>
                           <div className="form-div">
@@ -1453,7 +1524,7 @@ const Homeform = () => {
               </div>
             )}
             {/* Additional information Section */}
-            <div className="sub-heading">
+            <div className="sub-heading mt-80">
               <h2>Additional Information</h2>
             </div>
             <div className="bg-lightgray-color additional-box-div-main">
@@ -1565,24 +1636,41 @@ const Homeform = () => {
                             ) : null}
                           </div>
                           <div className="form-div">
-                            <div className="form-label-div">
+                            <div className="form-label-div ">
                               <label htmlFor="winter_temperature">
                                 <strong>17. </strong>What temprature was the home
                                 kept in the winter?
                               </label>
                               <p>(Use slider below)</p>
                             </div>
-                            <input
+                            <div className="range">
+                              <span className={`range-value ${formik.values.winter_temperature > 4 ? "temp_dontKnow" : ""}`} style={slideStyle.range} />
+                              <span className="circle" style={slideStyle.point} />
+                              <input
+                                className={`range-slide `}
+                                name="winter_temperature"
+                                id="winter_temperature"
+                                type="range"
+                                // min="1"
+                                max="5"
+                                value={formik.values.winter_temperature}
+                                step="1"
+                                onBlur={formik.handleBlur}  
+                                onChange={formik.handleChange}
+                              />
+                            </div>
+                            {/* <input
                               type="range"
                               name="winter_temperature"
                               id="winter_temperature"
-                              className={`custom-range ${formik.values.winter_temperature > 21 ? "temp_dontKnow" : ""}`}
+                              className={`custom-range ${formik.values.winter_temperature > 80 ? "temp_dontKnow" : ""}`}
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
-                              min={0}
-                              max={26}
-                              value={formik.values.winter_temperature}
-                            />
+                              min={20}
+                              max={100}
+                              step={20}
+                              value={formik.values.winter_temperature || 20}
+                            /> */}
                             <div className="slider-labels">
                               <span>{"< 14%"}</span>
                               <span>{"14% - 17%"}</span>

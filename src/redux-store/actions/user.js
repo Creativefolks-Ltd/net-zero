@@ -72,6 +72,14 @@ export const getUserDetails = createAsyncThunk('getUserDetails', async (user_id,
         return error;
     }
 });
+export const updateUserDetails = createAsyncThunk('updateUserDetails', async ({ data, user_id }, thunkAPI) => {
+    try {
+        const response = await axios.put(`/api/user/information/${user_id}`, data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});   
 
 export const formlist = createAsyncThunk('formlist', async (user_id, thunkAPI) => {
     try {
@@ -90,12 +98,3 @@ export const formDelete = createAsyncThunk('formDelete', async (form_id, thunkAP
         return error;
     }
 });
-
-export const updateUserDetails = createAsyncThunk('updateUserDetails', async ({ data, user_id }, thunkAPI) => {
-    try {
-        const response = await axios.put(`/api/user/information/${user_id}`, data);
-        return response.data;
-    } catch (error) {
-        return error;
-    }
-});   

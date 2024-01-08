@@ -9,6 +9,7 @@ import closeImage from '../assets/images/close.svg';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux-store/actions/auth";
+import Swal from "sweetalert2";
 
 
 const Header = ({ bgTransparent }) => {
@@ -24,8 +25,26 @@ const Header = ({ bgTransparent }) => {
     // }
 
     const logoutHandler = () => {
-        dispatch(userLogout());
-        setOpenNavbar(false)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to logout",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Logout!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                dispatch(userLogout());
+                setOpenNavbar(false)
+                Swal.fire({
+                    title: "Logout!",
+                    text: "User logout successfully",
+                    icon: "success"
+                });
+            }
+        });
+
     }
 
     const navbarHandler = (status) => {

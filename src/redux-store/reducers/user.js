@@ -29,14 +29,15 @@ const userSlice = createSlice({
             state.isError = true;
             state.isLoading = false;
 
-        }).addCase(getUserDetails.pending, (state, action) => {
-            state.isLoading = true;
-        }).addCase(getUserDetails.fulfilled, (state, action) => {
-            console.log(action.payload);
-            state.isLoading = false;
-        }).addCase(getUserDetails.rejected, (state, action) => {
-            state.isError = true;
-            state.isLoading = false;
+        // }).addCase(getUserDetails.pending, (state, action) => {
+        //     state.isLoading = true;
+        // }).addCase(getUserDetails.fulfilled, (state, action) => {
+        //     console.log(action.payload);
+        //     console.log(state.data);
+        //     state.isLoading = false;
+        // }).addCase(getUserDetails.rejected, (state, action) => {
+        //     state.isError = true;
+        //     state.isLoading = false;
 
         }).addCase(getCountry.pending, (state, action) => {
             state.isLoading = true;

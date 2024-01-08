@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import finance_img from "../assets/images/finance_img.png";
 import FormActionTabs from "../components/FormActionTabs";
 import { finanicialFormSubmit } from "../redux-store/actions/user";
@@ -13,6 +13,7 @@ const Financial = () => {
   const [disabled, setDisabled] = useState(false);
   const user = useSelector((state) => state.auth);
 
+
   const submitHandler = async (e) => {
     e.preventDefault();
     setDisabled(true);
@@ -23,17 +24,28 @@ const Financial = () => {
 
     if (!response?.payload?.error && response?.payload?.data) {
       Swal.fire({
-        title: "Success!",
-        text: "Form submitted successfully",
+        title: "Your form has been submitted successfully",
+        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         imageUrl: SuccessImg,
         imageWidth: 100,
         imageHeight: 100,
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        showCancelButton: true,
+        confirmButtonColor: "#81C14B",
+        cancelButtonColor: "#fff",
+        buttonsStyling: true,
+        confirmButtonText: "View saved forms",
+        cancelButtonText: "Start new form",
+        customClass: {
+          title: "custom-title",
+          cancelButton: 'custom-cancel-button',
+          actions: "action-button-box"
+        }
+
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/");
+          navigate("/my-account");
+        } else {
+          navigate("/general");
         }
       });
     } else {

@@ -169,7 +169,6 @@ const General = () => {
             }
         } catch (error) {
             setDisabled(false)
-            console.log(error,"//////")
             Swal.fire({
                 title: "Failed!",
                 text: "Something went wrong, please check the form.",
@@ -212,7 +211,7 @@ const General = () => {
                                                                 type="text"
                                                                 name="first_name"
                                                                 id="first_name"
-                                                                className={`form-control ${formik.errors.first_name &&
+                                                                className={`text-capitalize form-control ${formik.errors.first_name &&
                                                                     formik.touched.first_name &&
                                                                     "invalidInput"
                                                                     }`}
@@ -238,7 +237,7 @@ const General = () => {
                                                                 type="text"
                                                                 name="last_name"
                                                                 id="last_name"
-                                                                className={`form-control ${formik.errors.last_name &&
+                                                                className={`text-capitalize form-control ${formik.errors.last_name &&
                                                                     formik.touched.last_name &&
                                                                     "invalidInput"
                                                                     }`}
@@ -622,7 +621,7 @@ const General = () => {
                                                 recommendations more specific.
                                             </p>
                                             <label htmlFor="forest_or_farmland_details">
-                                                Other than domestic property, do you own any forest,
+                                            <strong>10. </strong>  Other than domestic property, do you own any forest,
                                                 farmland or other not attached to one of your
                                                 properties? If so, please advise size and location.
                                             </label>

@@ -76,7 +76,7 @@ const Login = () => {
 
 
     const navigateToHome = () => {
-        navigate("/")
+        navigate("/my-account")
     }
     const loginFormik = useFormik({
         initialValues: {
@@ -205,8 +205,7 @@ const Login = () => {
                                         <div className="tab-content" id="pills-tabContent">
                                             <div className={`tab-pane fade ${loginActive && "show active"}`} id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                                 <div className="form-heading">
-                                                    <p>Admin port login <a href="#">here</a></p>
-                                                    <h1>Welcome back</h1>
+                                                    <h1 className='mb-5'>Welcome back</h1>
                                                     <p>Sign in to continue </p>
                                                 </div>
                                                 <div className="form">
@@ -222,8 +221,11 @@ const Login = () => {
                                                             {loginFormik.errors.password && loginFormik.touched.password ? <span className='input-error-msg'>{loginFormik.errors.password}</span> : null}
                                                         </div>
                                                         <p><Link to="/forgot-password">Forgot your password?</Link></p>
-                                                        <button className="submit-btn " type='submit' >Login {loading ? <div class="spinner-border text-primary" role="status">
+                                                        <button className="submit-btn " type='submit' >Sign in {loading ? <div class="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
+                                                        <p>
+                                                            {/* <img src={} alt="" width={40} /> */}
+                                                             Admin login</p>
                                                     </form>
                                                 </div>
                                             </div>
@@ -231,12 +233,12 @@ const Login = () => {
                                                 <div className="form ">
                                                     <form onSubmit={signupFormik.handleSubmit}>
                                                         <div className="form-div">
-                                                            <input type="text" name="first_name" className={`form-control ${signupFormik.errors.first_name && signupFormik.touched.first_name ? "invalidInput" : ""} `} placeholder="First Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.first_name} />
+                                                            <input type="text" name="first_name" className={`text-capitalize form-control ${signupFormik.errors.first_name && signupFormik.touched.first_name ? "invalidInput" : ""} `} placeholder="First Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.first_name} />
                                                             {signupFormik.errors.first_name && signupFormik.touched.first_name ? <span className='input-error-msg'>{signupFormik.errors.first_name}</span> : null}
 
                                                         </div>
                                                         <div className="form-div">
-                                                            <input type="text" name="last_name" className={`form-control ${signupFormik.errors.last_name && signupFormik.touched.last_name ? "invalidInput" : ""} `} placeholder="Last Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.last_name} />
+                                                            <input type="text" name="last_name" className={`text-capitalize form-control ${signupFormik.errors.last_name && signupFormik.touched.last_name ? "invalidInput" : ""} `} placeholder="Last Name" onChange={signupFormik.handleChange} onBlur={signupFormik.handleBlur} value={signupFormik.values.last_name} />
                                                             {signupFormik.errors.last_name && signupFormik.touched.last_name ? <span className='input-error-msg'>{signupFormik.errors.last_name}</span> : null}
                                                         </div>
                                                         <div className="form-div">

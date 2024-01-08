@@ -19,17 +19,19 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminView from "./pages/AdminView.jsx";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} />
-          {/* <Route path="/general" element={<General />} /> */}
+          {/* <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} /> */}
+          <Route path="/general" element={<General />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/home-form" element={<Homeform />} />
@@ -37,7 +39,7 @@ function App() {
           <Route path="/food-shopping" element={<FoodAndShopping />} />
           <Route path="/financial" element={<Financial />} />
           <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin-view" element={<AdminView />} />
 
 
