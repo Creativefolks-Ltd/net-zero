@@ -17,7 +17,7 @@ const Layout = () => {
     }, [])
 
     return (
-        <div className={"bg-" + pathname}>
+        <div className={"main-header bg-" + pathname}>
             <Header bgTransparent={bgTransparent} />
             <Outlet />
             <Footer />

@@ -22,7 +22,7 @@ const Homeform = () => {
   const user = useSelector((state) => state.auth);
 
   const [disabled, setDisabled] = useState(false);
-
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 20;
@@ -84,7 +84,7 @@ const Homeform = () => {
 
     initialValues: {
       location: "",
-      heating_type: [],
+      heating_type: ["Electricity", "Oil", "Coal", "Gas", "Wood"],
       zero_carbon_energy_tariff: "",
       electricity_usage_known: "",
       electricity_usage_amount: null,
@@ -143,6 +143,10 @@ const Homeform = () => {
     onSubmit: (values) => { },
   });
 
+  const navigateToNext = async (e) => {
+    navigate("/travel")
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const { values, isValid, errors } = formik;
@@ -155,6 +159,7 @@ const Homeform = () => {
       const response = await dispatch(homeFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
+        setIsSubmitted(true)
         Swal.fire({
           title: "Success!",
           text: "Form submitted successfully",
@@ -163,11 +168,11 @@ const Homeform = () => {
           imageHeight: 100,
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/travel")
-          }
+          //   cancelButtonColor: "#d33",
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate("/travel")
+          //   }
         });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -225,6 +230,21 @@ const Homeform = () => {
   };
 
   const slideStyle = genSlideStyle(formik.values.winter_temperature);
+
+  const continueHandler = () => {
+    if (isSubmitted) {
+      navigateToNext()
+    } else {
+      Swal.fire({
+        title: "Warning!",
+        text: "Please save you progress before continuing",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      });
+    }
+  }
 
   return (
     <>
@@ -1655,7 +1675,7 @@ const Homeform = () => {
                                 max="5"
                                 value={formik.values.winter_temperature}
                                 step="1"
-                                onBlur={formik.handleBlur}  
+                                onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
                               />
                             </div>
@@ -1725,7 +1745,7 @@ const Homeform = () => {
                               <strong>20. </strong>Do you have any renovations
                               planned this year or next year?{" "}
                             </label>
-                            <div className="col-lg-6">
+                            <div className="col-lg-5">
                               <div className="sub-btn">
                                 <input
                                   type="radio"
@@ -1753,7 +1773,7 @@ const Homeform = () => {
                               <strong>21. </strong>Does the property have any
                               significant land attached?{" "}
                             </label>
-                            <div className="col-lg-6">
+                            <div className="col-lg-5">
                               <div className="sub-btn">
                                 <input
                                   type="radio"
@@ -1824,7 +1844,7 @@ const Homeform = () => {
                       <div className="Additional-bottom-btn">
                         <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button>
-                        <button className="btn" type="button">
+                        <button className="btn" type="button" onClick={continueHandler}>
                           Continue
                         </button>
                       </div>

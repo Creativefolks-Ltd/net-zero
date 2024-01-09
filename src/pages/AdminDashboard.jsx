@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../components/Pagination";
 import arrowImg from "../assets/images/arrow_img.svg"
 import share_img from "../assets/images/share_img.svg";
+import missions_img from "../assets/images/missions_img.svg";
+
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { userFormValidation } from "../helpers/validations/Schema";
@@ -178,7 +180,7 @@ const AdminDashboard = () => {
           <div className="submissions-bg-color">
             <div className="submissions-header">
               <div class="personal-heading">
-                <img src={form_user} alt="" />
+                <img src={missions_img} alt="" />
                 <h2>Submissions</h2>
               </div>
               <div className="submissions-header-btn">

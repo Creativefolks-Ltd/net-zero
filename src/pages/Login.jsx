@@ -9,6 +9,8 @@ import SuccessImg from "../assets/images/Group 9106.png"
 import { Link, useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
+import AdminLoginImg from "../assets/images/admin-login.svg"
+
 
 const signupValidate = values => {
     const errors = {};
@@ -223,9 +225,10 @@ const Login = () => {
                                                         <p><Link to="/forgot-password">Forgot your password?</Link></p>
                                                         <button className="submit-btn " type='submit' >Sign in {loading ? <div class="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
-                                                        <p>
-                                                            {/* <img src={} alt="" width={40} /> */}
-                                                             Admin login</p>
+                                                        <div className='admin-login-icon'>
+                                                            <img src={AdminLoginImg} alt="" width={40} height={40} />
+                                                            <p> Admin login</p>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>

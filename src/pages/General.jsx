@@ -14,6 +14,7 @@ const General = () => {
     const dispatch = useDispatch();
     // const [activeTab, setActiveTab] = useState("general")
     const [disabled, setDisabled] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const user = useSelector((state) => state.auth);
     const details = useSelector((state) => state.users);
 
@@ -55,7 +56,6 @@ const General = () => {
         },
 
         validationSchema: formvalidation,
-
         onSubmit: (values) => {
         }
     });
@@ -104,6 +104,9 @@ const General = () => {
     };
 
 
+    const navigateToNext = async (e) => {
+        navigate("/home-form")
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         formik.handleSubmit()
@@ -125,7 +128,7 @@ const General = () => {
             !values.living_with_partner ||
             !values.num_of_children_under_18 ||
             !values.other_dependants ||
-            (formik.values.other_dependants === "Yes" && !values.other_dependants_details)
+            (values.other_dependants === "Yes" && !values.other_dependants_details)
         ) {
             return false;
         }
@@ -136,6 +139,7 @@ const General = () => {
             const response = await dispatch(generalFormSubmit(filteredValues));
             setDisabled(false)
             if (!response?.payload?.error && response?.payload?.data) {
+                setIsSubmitted(true)
                 Swal.fire({
                     title: "Success!",
                     text: "Form submitted successfully",
@@ -145,10 +149,10 @@ const General = () => {
                     showCancelButton: false,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate("/home-form")
-                    }
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         navigate("/home-form")
+                    //     }
                 });
             } else {
                 const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -169,6 +173,7 @@ const General = () => {
             }
         } catch (error) {
             setDisabled(false)
+            console.log(formik.errors)
             Swal.fire({
                 title: "Failed!",
                 text: "Something went wrong, please check the form.",
@@ -178,18 +183,31 @@ const General = () => {
                 cancelButtonColor: "#d33",
             });
         }
+    }
 
-
+    const continueHandler = () => {
+        if (isSubmitted) {
+            navigateToNext()
+        } else {
+            Swal.fire({
+                title: "Warning!",
+                text: "Please save you progress before continuing",
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+            });
+        }
     }
 
     return (
         <>
-            <FormActionTabs selectedTab={"general"}/>
+            <FormActionTabs selectedTab={"general"} />
             <form>
                 <section className="general-form mt-80 mb-80">
                     <div className="container ">
                         <div className="sub-heading">
-                        <h2>General information</h2>
+                            <h2>General information</h2>
                         </div>
                         <div className="bg-lightgray-color">
                             <div className="row">
@@ -230,7 +248,7 @@ const General = () => {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-div">
-                                                            <label htmlFor="first_name" className="last-name">
+                                                            <label htmlFor="last_name" className="last-name">
                                                                 Fields marked with an * are required
                                                             </label>
                                                             <input
@@ -465,7 +483,7 @@ const General = () => {
                                                             </div>
                                                         ))}
 
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-5">
                                                         <div className="form-div">
                                                             <label htmlFor="living_with_partner">
                                                                 <strong>7.</strong>     Do you live with a partner?<span>*</span>
@@ -501,12 +519,12 @@ const General = () => {
                                                     </div>
                                                 </div>
                                                 <div className="form-div">
-                                                <div class="form-label-div">
-                                                    <label htmlFor="homeCount">
-                                                        <strong>8.</strong> How many children under 18 living with you?
-                                                        <span>*</span>{" "}
-                                                    </label>
-                                                    <p>(As of 31st December of selected year)</p>
+                                                    <div class="form-label-div">
+                                                        <label htmlFor="homeCount">
+                                                            <strong>8.</strong> How many children under 18 living with you?
+                                                            <span>*</span>{" "}
+                                                        </label>
+                                                        <p>(As of 31st December of selected year)</p>
                                                     </div>
                                                     <select
                                                         name="num_of_children_under_18"
@@ -538,12 +556,12 @@ const General = () => {
                                                 </div>
                                                 <div className="form-div">
                                                     <div class="form-label-div">
-                                                    <label htmlFor="other_dependants">
-                                                        <strong>9. </strong> Do you have any other dependants who live with you
-                                                        all of the time or most of the time?<span>*</span>{" "}
-                                                       
-                                                    </label>
-                                                    <p>(grand-parents etc)</p>
+                                                        <label htmlFor="other_dependants">
+                                                            <strong>9. </strong> Do you have any other dependants who live with you
+                                                            all of the time or most of the time?<span>*</span>{" "}
+
+                                                        </label>
+                                                        <p>(grand-parents etc)</p>
                                                     </div>
                                                     <select
                                                         name="other_dependants"
@@ -607,8 +625,8 @@ const General = () => {
 
                 <section className="Additional mb-80">
                     <div className="container">
-                    <div className="sub-heading">
-                        <h2>Additional information</h2>
+                        <div className="sub-heading">
+                            <h2>Additional information</h2>
                         </div>
                         <div className="bg-lightgray-color">
                             <div className="row justify-content-center">
@@ -621,7 +639,7 @@ const General = () => {
                                                 recommendations more specific.
                                             </p>
                                             <label htmlFor="forest_or_farmland_details">
-                                            <strong>10. </strong>  Other than domestic property, do you own any forest,
+                                                <strong>10. </strong>  Other than domestic property, do you own any forest,
                                                 farmland or other not attached to one of your
                                                 properties? If so, please advise size and location.
                                             </label>
@@ -629,24 +647,23 @@ const General = () => {
                                                 id="forest_or_farmland_details"
                                                 name="forest_or_farmland_details"
                                                 rows="6"
-                                                className={`form-control ${formik.errors.forest_or_farmland_details && formik.touched.forest_or_farmland_details ? "invalidInput" : ""}`}
+                                                className={`form-control `}
                                                 cols="50"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxLength={1000}
                                                 value={formik.values.forest_or_farmland_details}
                                             ></textarea>
-                                            {formik.errors.forest_or_farmland_details &&
+                                            {/* {formik.errors.forest_or_farmland_details &&
                                                 formik.touched.forest_or_farmland_details ? (
                                                 <span className="input-error-msg">
                                                     {formik.errors.forest_or_farmland_details}
                                                 </span>
-                                            ) : null}
+                                            ) : null} */}
                                             <div className="Additional-bottom-btn">
-
                                                 <button className="btn" type='submit' disabled={disabled} onClick={handleSubmit} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
-                                                <button className="btn" type="button">
+                                                <button className="btn" type="button" onClick={continueHandler}>
                                                     Continue
                                                 </button>
                                             </div>

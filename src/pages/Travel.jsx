@@ -14,6 +14,7 @@ const Travel = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const [disabled, setDisabled] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const vehicalTypes = ["Motorbike", "Bicycle", "Passenger Ferry", "Train", "Private Yacht", "Private hire vehicles (taxis, transfers, limos, etc)", "Helicopter"];
 
@@ -101,16 +102,21 @@ const Travel = () => {
     return filteredValues;
   };
 
+  const navigateToNext = async (e) => {
+    navigate("/food-shopping")
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    const { values, isValid, errors } = formik;
+    const { values } = await formik;
     formik.handleSubmit();
-    if (isValid) {
+    if (formik.isValid) {
       setDisabled(true)
       const filteredValues = await validateAndFilterFields(values);
       const response = await dispatch(travelFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
+        setIsSubmitted(true)
         Swal.fire({
           title: "Success!",
           text: "Form submitted successfully",
@@ -120,10 +126,10 @@ const Travel = () => {
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/food-shopping")
-          }
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate("/food-shopping")
+          //   }
         });
       } else {
         setDisabled(false)
@@ -144,6 +150,21 @@ const Travel = () => {
         }
       }
 
+    }
+  }
+
+  const continueHandler = () => {
+    if (isSubmitted) {
+      navigateToNext()
+    } else {
+      Swal.fire({
+        title: "Warning!",
+        text: "Please save you progress before continuing",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      });
     }
   }
 
@@ -755,8 +776,8 @@ const Travel = () => {
                   ></textarea>
                   <div className="Additional-bottom-btn">
                     <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
-                    <button className="btn" type="button">
+                    </div> : ''}</button>
+                    <button className="btn" type="button" onClick={continueHandler}>
                       Continue
                     </button>
                   </div>

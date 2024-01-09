@@ -15,7 +15,7 @@ const FoodAndShopping = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const [disabled, setDisabled] = useState(false);
-
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 20;
@@ -65,18 +65,25 @@ const FoodAndShopping = () => {
     onSubmit: (values) => { },
   });
 
+  const navigateToNext = async (e) => {
+    navigate("/financial")
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const { values, isValid, errors } = formik;
     formik.handleSubmit();
 
-    if (isValid) {
+    if (!formik.values?.vehicle_detail?.trim()) {
+      return false
+    } else {
       setDisabled(true);
 
       const filteredValues = await validateAndFilterFields(values);
       const response = await dispatch(foodFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
+        setIsSubmitted(true)
         Swal.fire({
           title: "Success!",
           text: "Form submitted successfully",
@@ -86,10 +93,10 @@ const FoodAndShopping = () => {
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/financial");
-          }
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     navigate("/financial");
+          //   }
         });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -108,10 +115,23 @@ const FoodAndShopping = () => {
           }
         }
       }
-    } else {
-      console.error('Form is not valid', errors);
     }
   };
+
+  const continueHandler = () => {
+    if (isSubmitted) {
+      navigateToNext()
+    } else {
+      Swal.fire({
+        title: "Warning!",
+        text: "Please save you progress before continuing",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      });
+    }
+  }
 
   return (
     <>
@@ -129,7 +149,7 @@ const FoodAndShopping = () => {
                 </p>
                 <div className="Additional-box">
                   <label htmlFor="vehicle_detail">
-                    <strong>1.</strong>
+                    <strong>1. </strong>
                     Please give details of any vehicles purchased in the
                     selected year, such as cars or boats. Please specify the
                     relevant details, such as number and type. You do not need
@@ -384,7 +404,7 @@ const FoodAndShopping = () => {
                 <div className="Additional-bottom-btn">
                   <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                   </div> : ''}</button>
-                  <button className="btn" type="button">
+                  <button className="btn" type="button" onClick={continueHandler}>
                     Continue
                   </button>
                 </div>

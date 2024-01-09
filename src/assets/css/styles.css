@@ -118,6 +118,7 @@ input {
     height: 100vh; */
 }
 
+
 .bg-home-form {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/home-img.png");
     background-size: cover;
@@ -128,7 +129,16 @@ input {
     display: none;
 }
 
-.bg-home .nav-items.active {
+/* .bg-home .nav-items.active { */
+.main-header:not(.bg-home) .nav-items.active{
+    background-color: #000;
+    color: #fff;
+}
+.main-header:not(.bg-home) .nav-items.active .nav-item a{
+    color: #fff;
+}
+
+.nav-items.active {
     background: white;
     color: #000;
     padding: 20px 30px;
@@ -512,7 +522,10 @@ form.registerform {
     border-top: 1px solid #00FF9B;
     padding-top: 20px;
 }
-
+.footer-content-two p{
+    text-align: center;
+    display: none;
+}
 /********Main Home page******/
 body{overflow-x: hidden;}
 .home-banner {
@@ -696,6 +709,21 @@ section.protecting-data {
 
 /******************** login-page ************/
 
+.admin-login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.admin-login-icon p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.admin-login-icon img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
 .card {
 
     width: 75%;
@@ -788,6 +816,9 @@ section.protecting-data {
     height: 1000px;
     direction: ltr;
     height: 300px;
+}
+.text-scroll .p-box p {
+    color: #818181;
 }
 
 /* Scrollbar Styling */
@@ -1885,6 +1916,7 @@ select {
     border-collapse: collapse;
     width: 100%;
     background: #fff;
+    overflow: hidden;
 }
 
 .submissions .customers td,
@@ -1926,7 +1958,33 @@ select {
     color: white;
     font-size: 22px;
 }
+   /*********************submissions-popup***********************/
 
+.submissions .modal-content {
+    background: #2C2B34;
+    color: #fff;
+    padding: 30px 70px;
+    border-radius: 50px;
+    /* width: 1000px; */
+    text-align: center;
+    margin: 0 auto;
+    width: 1000px !important;
+}
+
+.submissions .modal-content h1 {
+    font-size: 40px !important;
+    font-weight: 600;
+    line-height: 50px;
+    margin-bottom: 60px;
+}
+.modal-body {
+    border: 1px solid #48B8B1;
+    padding: 48px 200px;
+    border-style: dashed;
+    background: #3B4149;
+    border-radius: 50px;
+
+}
 /****************** password-eye-css ******************/
 
 
@@ -1964,6 +2022,10 @@ select {
     font-weight: 600;
 }
 
+.bg-home {
+    overflow-x: hidden;
+}
+
 @media(max-width:1660px) {
     .possinend-image {
         position: absolute;
@@ -1975,9 +2037,15 @@ select {
     .Form-col-img img {width: 370px;  height: 1100px;   max-height: 100%;           }
     }
 
+
+
+
 @media (max-width:1440px) {
     .login-img img {
         width: 600px;
+    }
+    .bg-home {
+        overflow-x: hidden;
     }
 
     .Form-col-img img {
@@ -2007,7 +2075,7 @@ select {
     .submissions .submission-form .form-div {
         width: 70%;
     }
-   
+    .sub-btn label{ padding: 13px 40px;}
 }
 
 @media (max-width:1300px) {
@@ -2025,6 +2093,7 @@ select {
     .Form-col-img img {
         width: 320px;
     }
+    .card{width:90%; max-width: 100%;}
     
 }
 
@@ -2049,7 +2118,7 @@ select {
     }
 
     .form-content {
-        margin-right: 100px;
+        margin-right: 75px;
     }
 
     .footer-box {
@@ -2537,7 +2606,7 @@ select {
     }
 
     .footer-container {
-        padding: 0 28px 40px 28px;
+        padding: 0 15px 40px 15px;
     }
 
     .footer-box {
@@ -2554,6 +2623,11 @@ select {
 
     .footer-content p {
         text-align: center;
+        display: none;
+    }
+    .footer-content-two p{
+        text-align: center;
+        display: block;
     }
 
     .footer-logo {
@@ -2591,14 +2665,14 @@ select {
 
     .footer-content-privacy {
         display: block;
+        text-align: right;
     }
 
     .footer-lower {
         margin-top: 30px;
     }
-
-    .personal-carbon {
-        position: relative;
+    .footer-lower {
+        justify-content: center;
     }
 
     /*************** navbar responsive ****************/
@@ -3112,6 +3186,11 @@ select {
         } */
     .bg-My-Account .Personal-information {
         margin-bottom: 100px;
+    }
+    .possinend-image {
+        position: absolute;
+        top: -25%;
+        right: -70%;
     }
 
     /*********************** forgotpaddword *********************/

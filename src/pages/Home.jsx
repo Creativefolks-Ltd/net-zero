@@ -76,9 +76,9 @@ const Home = () => {
                                     <div className="text-col">
                                         <div className="text-scroll">
                                             <div className="p-box">
-                                                <p>Understand the shape and size of your carbon footprint.</p>
+                                                <p style={{color:"#31405A",fontWeight:600}}>Understand the shape and size of your carbon footprint.</p>
 
-                                                <p>Connect with an advisory service to discuss and explore opportunities for carbon reduction.</p>
+                                                <p style={{color:"#2C2B34",fontWeight:600}}>Connect with an advisory service to discuss and explore opportunities for carbon reduction.</p>
 
                                                 <p>Repeat the process on an annual basis and track progress through time.</p>
 

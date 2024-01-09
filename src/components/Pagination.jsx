@@ -4,10 +4,9 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 
 
 const Pagination = ({ dataLength, itemsPerPage, currentPage, setCurrentPage }) => {
-
     const pageNumbers = [];
     const totalPages = Math.ceil(dataLength / itemsPerPage);
-
+    
     const handleClick = (page) => {
         setCurrentPage(page);
     };
@@ -22,9 +21,8 @@ const Pagination = ({ dataLength, itemsPerPage, currentPage, setCurrentPage }) =
         }
         return pageNumbers;
     };
-
     return (
-        <div>{pageNumbers?.length > 1 && (
+        <div>{totalPages > 1 && (
             <ul className="pagination">
                 {currentPage > 1 && (
                     <li onClick={() => handleClick(currentPage - 1)} className='me-2'>

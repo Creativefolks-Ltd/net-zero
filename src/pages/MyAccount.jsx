@@ -11,7 +11,7 @@ import pending_img from "../assets/images/pending_img.svg";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { formlist, updateUserDetails, getUserDetails, formDelete } from "../redux-store/actions/user";
+import { formlist, updateUserDetails, getUserDetails, formDelete, addGeneralInfo } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../helpers/ordinalNumber";
@@ -158,7 +158,9 @@ const MyAccount = () => {
                 return "/general"
         }
     }
-
+    const navigateToNext = (formId) => {
+        dispatch(addGeneralInfo(formId))
+    }
 
     return (
         <>
@@ -264,7 +266,15 @@ const MyAccount = () => {
                                                     <div className="accordion-content">
                                                         <div className="title-accodion">
                                                             <span>Form {form?.form_status === "Complete" ? "submitted" : form?.form_status?.toLowerCase()}</span>
-                                                            <Link to={formSwitch(form)}>{form?.form_status === "Complete" ? "View" : "Continue"} form</Link>
+                                                            {form?.form_status === "Pending" ? (
+                                                                <Link to={formSwitch(form)} onClick={() => navigateToNext(form.id)}>
+                                                                    Complete form
+                                                                </Link>
+                                                            ) : (
+                                                                <a href="#">
+                                                                    View form
+                                                                </a>
+                                                            )}
                                                         </div>
                                                         <div className="accordion-img">
                                                             <img src={share_img} alt="" />
