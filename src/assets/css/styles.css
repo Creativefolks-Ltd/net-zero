@@ -155,13 +155,15 @@ input {
     background-color: transparent;
     position: absolute;
     top: 0;
-    z-index: 1;
+    z-index: 999;
     left: 0;
     right: 0;
 }
 
 .site-header {
     background-color: #fff;
+    z-index: 999;
+    position: relative;
 }
 
 .hamburger,
@@ -188,7 +190,9 @@ input {
     gap: 50px;
     border: none;
     flex-wrap: wrap;
+    margin-bottom: 0;
 }
+
 
 .site-header .navbar ul li {
     list-style: none;
@@ -207,7 +211,9 @@ input {
     padding: 15px 0;
     box-shadow: 1px 1px 6.5px rgba(0, 0, 0, 0.16);
 }
-
+.nav-item.close-icon img {
+    width: 30px;
+}
 .login-content {
     background: #f9f9f9;
     padding: 60px;
@@ -2026,6 +2032,10 @@ select {
     overflow-x: hidden;
 }
 
+.main-header:not(.bg-home) .nav-items svg path {
+    fill: #fff;
+}
+
 @media(max-width:1660px) {
     .possinend-image {
         position: absolute;
@@ -2076,6 +2086,15 @@ select {
         width: 70%;
     }
     .sub-btn label{ padding: 13px 40px;}
+    .site-header .navbar ul {
+        
+        gap: 20px;
+        padding-left: 0;
+       
+    }
+    .navbar-toggler ul {
+        padding-left: 0;
+    }
 }
 
 @media (max-width:1300px) {
@@ -2094,7 +2113,10 @@ select {
         width: 320px;
     }
     .card{width:90%; max-width: 100%;}
-    
+    .nav-items.active {
+       
+        padding: 20px 20px;
+}
 }
 
 @media (max-width:1200px) {
@@ -2152,10 +2174,55 @@ select {
     }
 }
 
+@media (max-width:1199px){
+     /*************** navbar responsive ****************/
+    .bg-home .nav-items.active {
+
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        right: 0;
+    }
+
+    .nav-item svg {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+    }
+
+    
+    .nav-items.active ul {
+        padding-left: 0;
+        padding-top: 85px;
+        width: 182px;
+        height: 379px;
+    }
+
+    .nav-items.active {
+        position: relative;
+    }
+    .nav-items.slide-in.active {
+        position: absolute;
+        right: 0;
+        z-index: 9999;
+        top: 25px;
+    }
+    .nav-items.active {
+        padding: 30px 60px;
+    }
+    .sub-btn label {
+        padding: 13px 60px;
+    }
+   
+}
+
 @media (max-width:1080px) {
     .submissions .submission-form .form-div {
         width: 62%;
     }
+   
 }
 
 @media (max-width:1024px) {
@@ -2288,6 +2355,9 @@ select {
 }
 
 @media (max-width:767px) {
+    .nav-items.slide-in.active {
+        top: 70px;
+    }
     .navbar .logo-img {
         width: 56px;
         height: 54px;
@@ -2675,33 +2745,7 @@ select {
         justify-content: center;
     }
 
-    /*************** navbar responsive ****************/
-    .bg-home .nav-items.active {
-
-        position: absolute;
-        top: 0;
-        z-index: 1;
-        right: 0;
-    }
-
-    .nav-item img {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        top: 25px;
-        right: 30px;
-    }
-
-    .nav-items.active ul {
-        padding-left: 0;
-        padding-top: 85px;
-        width: 182px;
-        height: 379px;
-    }
-
-    .nav-items.active {
-        position: relative;
-    }
+   
 
     .home-banner::after {
         display: block;
@@ -2813,6 +2857,7 @@ select {
         bottom: 0;
         background-position: center;
         background-size: cover;
+        display: none;
     }
 
     .information-header .col-div:nth-child(2) {
@@ -3335,42 +3380,6 @@ select {
     max-width: 100%;
     text-align: center !important;
 }
-
-/* .custom-range {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 30px;
-    border-radius: 30px !important;
-    background: linear-gradient(to right, #c0dfa4, #fa772f);
-    outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
-    border-width: 5px; 
-    border-color: #ffffff; 
-    border-style: solid ; 
-  }
-  .custom-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 40px; 
-    height: 40px; 
-    background: #ffffff;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .custom-range::-moz-range-thumb {
-    width: 40px; 
-    height: 40px;
-    background: #ffffff; 
-    cursor: pointer;
-  }
-  
-
-.custom-range.temp_dontKnow {
-    background: #cad2c5 !important;
-} */
-
 /* Range Slider End */
 .Additional-box .btn {
     margin: 0;
