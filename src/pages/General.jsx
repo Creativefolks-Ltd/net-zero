@@ -56,8 +56,7 @@ const General = () => {
         },
 
         validationSchema: formvalidation,
-        onSubmit: (values) => {
-        }
+        onSubmit: handleSubmit
     });
 
     const validateAndFilterFields = (values) => {
@@ -107,35 +106,34 @@ const General = () => {
     const navigateToNext = async (e) => {
         navigate("/home-form")
     }
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        formik.handleSubmit()
+    async function handleSubmit(e) {
+        // e.preventDefault()
+
         const { values } = formik;
 
-        if (
-            !values.first_name ||
-            !values.last_name ||
-            !values.email ||
-            !values.emailConfirmation ||
-            !values.year_of_birth ||
-            !values.country_of_residence ||
-            !values.num_of_homes ||
-            (!values.first_home_country && values.num_of_homes >= 1) ||
-            (!values.second_home_country && values.num_of_homes >= 2) ||
-            (!values.third_home_country && values.num_of_homes >= 3) ||
-            (!values.fourth_home_country && values.num_of_homes >= 4) ||
-            (!values.fifth_home_country && values.num_of_homes >= 5) ||
-            !values.living_with_partner ||
-            !values.num_of_children_under_18 ||
-            !values.other_dependants ||
-            (values.other_dependants === "Yes" && !values.other_dependants_details)
-        ) {
-            return false;
-        }
+        // if (
+        //     !values.first_name ||
+        //     !values.last_name ||
+        //     !values.email ||
+        //     !values.emailConfirmation ||
+        //     !values.year_of_birth ||
+        //     !values.country_of_residence ||
+        //     !values.num_of_homes ||
+        //     (!values.first_home_country && values.num_of_homes >= 1) ||
+        //     (!values.second_home_country && values.num_of_homes >= 2) ||
+        //     (!values.third_home_country && values.num_of_homes >= 3) ||
+        //     (!values.fourth_home_country && values.num_of_homes >= 4) ||
+        //     (!values.fifth_home_country && values.num_of_homes >= 5) ||
+        //     !values.living_with_partner ||
+        //     !values.num_of_children_under_18 ||
+        //     !values.other_dependants ||
+        //     (values.other_dependants === "Yes" && !values.other_dependants_details)
+        // ) {
+        //     return false;
+        // }
         try {
             setDisabled(true)
             const filteredValues = await validateAndFilterFields(values);
-
             const response = await dispatch(generalFormSubmit(filteredValues));
             setDisabled(false)
             if (!response?.payload?.error && response?.payload?.data) {
@@ -203,7 +201,7 @@ const General = () => {
     return (
         <>
             <FormActionTabs selectedTab={"general"} />
-            <form>
+            <form onSubmit={formik.handleSubmit}>
                 <section className="general-form mt-80 mb-80">
                     <div className="container ">
                         <div className="sub-heading">
@@ -539,7 +537,7 @@ const General = () => {
                                                         value={formik.values.num_of_children_under_18}
                                                     >
                                                         <option value="">Select option</option>
-                                                        {Array(21)
+                                                        {Array(20)
                                                             .fill()
                                                             .map((opt, index) => (
                                                                 <option value={index} key={"opt" + index}>
@@ -661,7 +659,7 @@ const General = () => {
                                                 </span>
                                             ) : null} */}
                                             <div className="Additional-bottom-btn">
-                                                <button className="btn" type='submit' disabled={disabled} onClick={handleSubmit} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                                                <button className="btn" type='submit' disabled={disabled} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
                                                 <button className="btn" type="button" onClick={continueHandler}>
                                                     Continue
@@ -674,6 +672,7 @@ const General = () => {
                         </div>
                     </div>
                 </section>
+
             </form>
         </>
     );

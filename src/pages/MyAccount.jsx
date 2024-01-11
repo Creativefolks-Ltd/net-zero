@@ -67,6 +67,7 @@ const MyAccount = () => {
     const UpdateUserDetails = async (e) => {
         dispatch(getUserDetails(userId));
     }
+    
     const submitHandler = async (e) => {
         e.preventDefault();
         const { values, isValid, errors } = formik;
@@ -114,26 +115,68 @@ const MyAccount = () => {
 
 
     const formDeleteHandler = async (form_id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-        }).then(async (result) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+
             if (result.isConfirmed) {
-                await dispatch(formDelete(form_id));
-                await dispatch(formlist(userId));
+                await deleteForm(form_id);
+
+            }
+        } catch (error) {
+            console.error("Error during delete confirmation:", error);
+        }
+    };
+
+    const deleteForm = async (form_id) => {
+        try {
+            const response = await dispatch(formDelete(form_id));
+
+            if (response?.payload?.data) {
+                handleSuccessfulDelete();
+            } else {
+                handleFailedDelete(response);
+            }
+        } catch (error) {
+            console.error("Error during form deletion:", error);
+        }
+    };
+
+    const handleSuccessfulDelete = async () => {
+        await Swal.fire({
+            title: "Deleted!",
+            text: "Form deleted successfully",
+            icon: "success",
+        });
+        dispatch(formlist(userId));
+    };
+
+    const handleFailedDelete = (response) => {
+        const errorMsg = response?.payload?.response?.data?.errorMsg;
+        if (errorMsg) {
+            const errorMessages = Object.values(errorMsg).flatMap((messages) => messages);
+
+            if (errorMessages.length > 0) {
+                const errorMessage = errorMessages.join("\n");
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Form deleted successfully",
-                    icon: "success"
+                    title: "Failed!",
+                    html: errorMessage || "Failed to delete form, please try again",
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
                 });
             }
-        });
-    }
+        }
+    };
+
 
     const formSwitch = (form) => {
         const completedFormCount = form.total_forms;

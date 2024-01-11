@@ -6,13 +6,16 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 const Pagination = ({ dataLength, itemsPerPage, currentPage, setCurrentPage }) => {
     const pageNumbers = [];
     const totalPages = Math.ceil(dataLength / itemsPerPage);
-    
+
     const handleClick = (page) => {
         setCurrentPage(page);
     };
 
     const renderPageNumbers = () => {
-        for (let i = 1; i <= totalPages; i++) {
+        const siblingCount = 1;
+        const startPage = Math.max(1, currentPage - siblingCount);
+        const endPage = Math.min(totalPages, currentPage + siblingCount);
+        for (let i = startPage; i <= endPage; i++) {
             pageNumbers.push(
                 <li key={i} onClick={() => handleClick(i)} className={`me-2 ${i === currentPage ? "active" : ""}`}>
                     {i}
@@ -30,7 +33,7 @@ const Pagination = ({ dataLength, itemsPerPage, currentPage, setCurrentPage }) =
                     </li>
                 )}
                 {renderPageNumbers()}
-                {currentPage < pageNumbers?.length && (
+                {currentPage < totalPages && (
                     <li onClick={() => handleClick(currentPage + 1)} className=''>
                         <FontAwesomeIcon icon={faChevronRight} />
                     </li>

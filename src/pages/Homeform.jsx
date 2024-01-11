@@ -9,6 +9,7 @@ import delete_img from "../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
 import SuccessImg from "../assets/images/Group 9106.png";
 import { useNavigate } from "react-router-dom";
+import CurrencyOptions from "../components/CurrencyOptions";
 
 // import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
@@ -25,7 +26,7 @@ const Homeform = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const endYear = new Date().getFullYear();
-  const startYear = endYear - 20;
+  const startYear = endYear - 100;
 
   const years = [];
 
@@ -413,6 +414,7 @@ const Homeform = () => {
                                   {formik.errors.electricity_usage_known}
                                 </span>
                               ) : null}
+
                               {formik.values.electricity_usage_known !== "No" && (<div className="row electricity-row">
                                 <div className="col-md-6 electricity-col">
                                   <input
@@ -452,9 +454,9 @@ const Homeform = () => {
                                     value={formik.values.electricity_usage_unit}
                                   >
                                     <option value="">Select option</option>
-                                    <option value="Kwh">Kwh</option>
-                                    <option value="Kwh">Kwh</option>
-                                    <option value="Kwh">Kwh</option>
+                                    <option value="kWh">kWh</option>
+                                    <option value="mWh">mWh</option>
+                                    {/* <option value="Billed per year">Billed per year</option> */}
                                   </select>
                                   {formik.errors.electricity_usage_unit &&
                                     formik.touched.electricity_usage_unit ? (
@@ -465,6 +467,28 @@ const Homeform = () => {
                                 </div>
                               </div>)}
                             </div>
+                            {/* {(formik.values.electricity_usage_known !== "No" && formik.values.electricity_usage_unit === "Billed per year") && (
+                              <div className="form-div">
+                                <select
+                                  type="text"
+                                  placeholder="Currency"
+                                  name="electricity_usage_amount_currency"
+                                  id="electricity_usage_amount_currency"
+                                  className={`form-control ${formik.errors.electricity_usage_amount_currency &&
+                                    formik.touched.electricity_usage_amount_currency
+                                    ? "invalidInput"
+                                    : ""
+                                    } `}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                value={formik.values.electricity_usage_amount_currency}
+                                >
+                                  <option value="">Select currency</option>
+                                  <CurrencyOptions />
+                                  <option value="Other">Other</option>
+                                </select>
+                              </div>
+                            )} */}
 
                             {(formik.values.electricity_usage_known === "" || formik.values.electricity_usage_known === "Yes, for part of the year") && (
                               <div className="form-div">
@@ -571,10 +595,10 @@ const Homeform = () => {
                                         value={formik.values.electricity_annual_unit}
                                       >
                                         <option value="">Select option</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
+                                        <option value="Dollars">$</option>
+                                        <option value="Pounds">£</option>
+                                        <option value="Euros">€</option>
+                                        <option value="Switzerland Franc">CHF</option>
                                       </select>
                                       {formik.errors.electricity_annual_unit &&
                                         formik.touched.electricity_annual_unit ? (
@@ -692,9 +716,8 @@ const Homeform = () => {
                                     value={formik.values.on_site_renewable_unit}
                                   >
                                     <option value={""}>Select option</option>
-                                    <option value={"Kwh"}>Kwh</option>
-                                    <option value={"Kwh"}>Kwh</option>
-                                    <option value={"Kwh"}>Kwh</option>
+                                    <option value="percent">%</option>
+                                    <option value="kWh">kWh</option>
                                   </select>
                                   {formik.errors.on_site_renewable_unit &&
                                     formik.touched.on_site_renewable_unit ? (
@@ -793,9 +816,9 @@ const Homeform = () => {
                                     value={formik.values.natural_gas_usage_unit}
                                   >
                                     <option value={""}>Select option</option>
-                                    <option value={"Kwh"}>Kwh</option>
-                                    <option value={"Kwh"}>Kwh</option>
-                                    <option value={"Kwh"}>Kwh</option>
+                                    <option value="kWh">kWh</option>
+                                    <option value="M3">M3</option>
+                                    <option value="BTUs">BTUs</option>
                                   </select>
                                   {formik.errors.natural_gas_usage_unit &&
                                     formik.touched.natural_gas_usage_unit ? (
@@ -908,10 +931,10 @@ const Homeform = () => {
                                         value={formik.values.natural_gas_annual_unit}
                                       >
                                         <option value="">Select option</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
-                                        <option value="Kwh">Kwh</option>
+                                        <option value="Dollars">$</option>
+                                        <option value="Pounds">£</option>
+                                        <option value="Euros" selected="selected">‎€</option>
+                                        <option value="Switzerland Franc">CHF</option>
                                       </select>
                                       {formik.errors.natural_gas_annual_unit &&
                                         formik.touched.natural_gas_annual_unit ? (
@@ -1045,9 +1068,11 @@ const Homeform = () => {
                                         value={formik.values.oil_usage_unit}
                                       >
                                         <option value={""}>Select option</option>
-                                        <option value={"Tonnes"}>Tonnes</option>
-                                        <option value={"Tonnes"}>Tonnes</option>
-                                        <option value={"Tonnes"}>Tonnes</option>
+                                        <option value="kWh" >kWh</option>
+                                        <option value="M3">M3</option>
+                                        <option value="BTUs">BTUs</option>
+                                        <option value="Tonnes">Tonnes</option>
+                                        <option value="Litres">Litres</option>
                                       </select>
                                       {formik.errors.oil_usage_unit &&
                                         formik.touched.oil_usage_unit ? (
@@ -1125,10 +1150,10 @@ const Homeform = () => {
                                             value={formik.values.oil_annual_unit}
                                           >
                                             <option value="">Select option</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Dollars">$</option>
+                                            <option value="Pounds">£</option>
+                                            <option value="Euros">‎€</option>
+                                            <option value="Switzerland Franc">CHF</option>
                                           </select>
                                           {formik.errors.oil_annual_unit &&
                                             formik.touched.oil_annual_unit ? (
@@ -1213,9 +1238,12 @@ const Homeform = () => {
                                           value={formik.values.wood_usage_unit}
                                         >
                                           <option value={""}>Select option</option>
-                                          <option value={"Tonnes"}>Tonnes</option>
-                                          <option value={"Tonnes"}>Tonnes</option>
-                                          <option value={"Tonnes"}>Tonnes</option>
+                                          <option value="kWh" >kWh</option>
+                                          <option value="M3">M3</option>
+                                          <option value="BTUs">BTUs</option>
+                                          <option value="Tonnes">Tonnes</option>
+                                          <option value="Litres">Litres</option>
+
                                         </select>
                                         {formik.errors.wood_usage_unit &&
                                           formik.touched.wood_usage_unit ? (
@@ -1294,10 +1322,10 @@ const Homeform = () => {
                                             value={formik.values.wood_annual_unit}
                                           >
                                             <option value="">Select option</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Dollars" >$</option>
+                                            <option value="Pounds">£</option>
+                                            <option value="Euros">‎€</option>
+                                            <option value="Switzerland Franc">CHF</option>
                                           </select>
                                           {formik.errors.wood_annual_unit &&
                                             formik.touched.wood_annual_unit ? (
@@ -1383,10 +1411,11 @@ const Homeform = () => {
                                           value={formik.values.coal_usage_unit}
                                         >
                                           <option value="">Select option</option>
+                                          <option value="kWh">kWh</option>
+                                          <option value="M3">M3</option>
+                                          <option value="BTUs">BTUs</option>
                                           <option value="Tonnes">Tonnes</option>
-                                          <option value="Tonnes">Tonnes</option>
-                                          <option value="Tonnes">Tonnes</option>
-                                          <option value="Tonnes">Tonnes</option>
+                                          <option value="Litres">Litres</option>
                                         </select>
                                         {formik.errors.coal_usage_unit &&
                                           formik.touched.coal_usage_unit ? (
@@ -1464,10 +1493,10 @@ const Homeform = () => {
                                             value={formik.values.coal_annual_unit}
                                           >
                                             <option value="">Select option</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
-                                            <option value="Tonnes">Tonnes</option>
+                                            <option value="Dollars">$</option>
+                                            <option value="Pounds">£</option>
+                                            <option value="Euros">‎€</option>
+                                            <option value="Switzerland Franc">CHF</option>
                                           </select>
                                           {formik.errors.coal_annual_unit &&
                                             formik.touched.coal_annual_unit ? (
@@ -1513,7 +1542,7 @@ const Homeform = () => {
                             ) : null}
                           </div>
                           {formik.values.other_energy_usage !== "No" && (
-                            <div className="">
+                            <div className="form-div">
                               <input
                                 type="text"
                                 placeholder="What energy and the amount used"
@@ -1603,8 +1632,12 @@ const Homeform = () => {
                               value={formik.values.house_type}
                             >
                               <option value="">Select option</option>
-                              <option value="">Select option</option>
-                              <option value="">Select option</option>
+                              <option value="Detached">Detached</option>
+                              <option value="Semi Detached">Semi Detached</option>
+                              <option value="Terrace">Terrace</option>
+                              <option value="Flat  Apartment">Flat / Apartment</option>
+                              <option value="Other">Other</option>
+                              <option value="Dont Know">Don't Know</option>
                             </select>
                           </div>
                           <div className="form-div">
@@ -1621,8 +1654,11 @@ const Homeform = () => {
                               value={formik.values.construction_material}
                             >
                               <option value="">Select option</option>
-                              <option value="">Select option</option>
-                              <option value="">Select option</option>
+                              <option value="Brick">Brick</option>
+                              <option value="Stone">Stone</option>
+                              <option value="Wood">Wood</option>
+                              <option value="Other">Other</option>
+                              <option value="Dont Know">Don't Know</option>
                             </select>
                           </div>
                           <div className="form-div">
@@ -1679,18 +1715,6 @@ const Homeform = () => {
                                 onChange={formik.handleChange}
                               />
                             </div>
-                            {/* <input
-                              type="range"
-                              name="winter_temperature"
-                              id="winter_temperature"
-                              className={`custom-range ${formik.values.winter_temperature > 80 ? "temp_dontKnow" : ""}`}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              min={20}
-                              max={100}
-                              step={20}
-                              value={formik.values.winter_temperature || 20}
-                            /> */}
                             <div className="slider-labels">
                               <span>{"< 14%"}</span>
                               <span>{"14% - 17%"}</span>
@@ -1736,8 +1760,13 @@ const Homeform = () => {
                               value={formik.values.live_in_staff}
                             >
                               <option value="">Select option</option>
-                              <option value="Yes">Yes</option>
-                              <option value="No">No</option>
+                              {Array(20)
+                                .fill()
+                                .map((opt, index) => (
+                                  <option value={index} key={"opt" + index}>
+                                    {index}
+                                  </option>
+                                ))}
                             </select>
                           </div>
                           <div className="form-div">

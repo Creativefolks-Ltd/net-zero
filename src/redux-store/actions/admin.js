@@ -24,9 +24,35 @@ export const getAllForms = createAsyncThunk('getAllForms', async (params, thunkA
     const { itemsPerPage, pageNumber, query } = params
     try {
         const response = await axios.get(`/api/get/all/forms?limit=${itemsPerPage}&page=${pageNumber}&query=${query}`);
+        return response.data.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const createNewUser = createAsyncThunk('createNewUser', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/admin/create/user", data);
         return response.data;
     } catch (error) {
         return error;
     }
 });
 
+export const fetchParticularForm = createAsyncThunk('fetchParticularForm', async (form_id, thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/admin/fetch/form?form_id=${form_id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const formDelete = createAsyncThunk('formDelete', async (form_id, thunkAPI) => {
+    try {
+        const response = await axios.delete(`/api/delete/user/form/${form_id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});

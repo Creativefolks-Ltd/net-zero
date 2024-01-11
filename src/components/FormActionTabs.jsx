@@ -10,12 +10,30 @@ import { Link, useLocation } from "react-router-dom";
 
 
 const FormActionTabs = ({ selectedTab }) => {
-  const [activeTab, setActiveTab] = useState(selectedTab);
-
-
   const location = useLocation();
-
+  const [activeTab, setActiveTab] = useState(selectedTab);
+  const [homeActiveTab, setHomeActiveTab] = useState("");
+  const [homeCount, setHomeCount] = useState(1);
   const showHomeTabs = selectedTab === "home";
+
+  const addHomeHandler = () => {
+    if (homeCount < 5) {
+      setHomeCount(prevCount => prevCount + 1);
+    }
+  };
+
+
+  const renderHomes = () => {
+    const homes = [];
+    for (let i = 1; i <= homeCount; i++) {
+      homes.push(
+        <li key={i} className={i === 1 ? 'active' : ''}>
+          <a href="#">Home {i}</a>
+        </li>
+      );
+    }
+    return homes;
+  };
 
   return (
     <section className="information mt-80 mb-80">
@@ -98,23 +116,14 @@ const FormActionTabs = ({ selectedTab }) => {
 
               <div class="information-header-nav">
                 <ul>
-                  <li className="active">
-                    <a href="#">Home 1</a>
-                  </li>
-                  <li>
-                    <a href="#">Home 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Home 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Home 4</a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      Add <br /> home +
-                    </a>
-                  </li>
+                  {renderHomes()}
+                  {homeCount < 5 && (
+                    <li >
+                      <a onClick={addHomeHandler}>
+                        Add <br /> home +
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </div>
             )}
