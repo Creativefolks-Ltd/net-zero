@@ -168,7 +168,7 @@ const FoodAndShopping = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   ></textarea>
-                  {formik.errors.vehicle_detail ? (
+                  {formik.touched.vehicle_detail && formik.errors.vehicle_detail ? (
                     <span className="input-error-msg">
                       {formik.errors.vehicle_detail}
                     </span>
@@ -226,9 +226,14 @@ const FoodAndShopping = () => {
                       value={formik.values.average_pieces_per_quarter}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}                     >
-                      <option value="">Select option</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
+                      <option value="0">Select option</option>
+                      <option value="2">1 - 3</option>
+                      <option value="7">4 - 10</option>
+                      <option value="15">10 - 20</option>
+                      <option value="25">20 - 30</option>
+                      <option value="35">30 - 40</option>
+                      <option value="45">40 - 50</option>
+                      <option value="50">&gt;50</option>
                     </select>
                   </div>
                   <div className="form-div">
@@ -280,8 +285,10 @@ const FoodAndShopping = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                       <option value="">Select option</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
+                      <option value="Never">Never</option>
+                      <option value="Once or Twice">Once or Twice A Week</option>
+                      <option value="Most Days">Most Days</option>
+                      <option value="Every Day">Every Day</option>
                     </select>
                   </div>
 
@@ -298,8 +305,10 @@ const FoodAndShopping = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}>
                       <option value="">Select option</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
+                      <option value="Never">Never</option>
+                      <option value="Once or Twice">Once or Twice A Week</option>
+                      <option value="Most Days">Most Days</option>
+                      <option value="Every Day">Every Day</option>
                     </select>
                   </div>
 
@@ -308,11 +317,11 @@ const FoodAndShopping = () => {
                       <label htmlFor="food_purchase_statement">
                         <strong>7. </strong> Thinking about the food you buy,
                         which of the following statements applies?
-                        <p>
-                          (The average household throws away 16% of their
-                          purchased food).
-                        </p>
                       </label>
+                      <p className="gray-paragraph">
+                        (The average household throws away 16% of their
+                        purchased food).
+                      </p>
                     </div>
                     <select className="form-control"
                       name="food_purchase_statement" id="food_purchase_statement"
@@ -321,8 +330,9 @@ const FoodAndShopping = () => {
                       onBlur={formik.handleBlur}
                     >
                       <option value="">Select option</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
+                      <option value="5">We rarely throw away uneaten food (less than 10%)</option>
+                      <option value="15">We sometimes throw away uneaten food (10-20%)</option>
+                      <option value="25">We often throw away uneaten food (greater than 20%)</option>
                     </select>
                   </div>
 

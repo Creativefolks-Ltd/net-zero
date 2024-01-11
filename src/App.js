@@ -20,6 +20,9 @@ import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminView from "./pages/AdminView.jsx";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
+import CreateNewUser from "./pages/CreateNewUser.jsx";
+import ChangePassword from "./pages/ChangePassword.jsx";
 
 function App() {
   return (
@@ -28,21 +31,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
+          {/* <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} /> */}
+          <Route path="/general" element={<ProtectedRoute ><General /></ProtectedRoute >} />
+          <Route path="/home-form" element={<ProtectedRoute ><Homeform /></ProtectedRoute >} />
+          <Route path="/travel" element={<ProtectedRoute ><Travel /></ProtectedRoute >} />
+          <Route path="/food-shopping" element={<ProtectedRoute ><FoodAndShopping /></ProtectedRoute >} />
+          <Route path="/financial" element={<ProtectedRoute ><Financial /></ProtectedRoute >} />
+          <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} /> */}
-          <Route path="/general" element={<General />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/home-form" element={<Homeform />} />
-          <Route path="/travel" element={<Travel />} />
-          <Route path="/food-shopping" element={<FoodAndShopping />} />
-          <Route path="/financial" element={<Financial />} />
-          <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/admin-view" element={<AdminView />} />
-
-
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-form-view/:form_id" element={<AdminView />} />
+          <Route path="/create-user" element={<CreateNewUser />} />
+          <Route path="/manage-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </div>

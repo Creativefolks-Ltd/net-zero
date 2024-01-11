@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Anthos_logo from '../assets/images/anthos_logo.png';
-import White_Anthos_logo from '../assets/images/anthos2_logo.png';
+import Anthos_logo from '../assets/images/Anthos-logo-grey.svg';
+import White_Anthos_logo from '../assets/images/Anthos-logo-White.svg';
 import User_Icon from '../assets/images/grey_profile_img.png';
 import White_User_Icon from '../assets/images/profile_img.png';
 import MenuImage from '../assets/images/bur.svg';
@@ -73,10 +73,10 @@ const Header = ({ bgTransparent }) => {
                                 <li className="nav-item" onClick={() => logoutHandler()}>Logout</li>
                                 <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
-                                    <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
-                                        <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34"/>
-                                        <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34"/>
-                                    </g>
+                                        <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
+                                            <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
+                                            <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
+                                        </g>
                                     </svg>
                                 </li>
                             </ul>
@@ -84,7 +84,7 @@ const Header = ({ bgTransparent }) => {
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>
-                                <li className='user-img'><img src={homePage ? White_User_Icon : User_Icon} alt="" /></li>
+                                {authUser?.userInfo && (<li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>)}
                                 <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></li>
                             </ul>
 

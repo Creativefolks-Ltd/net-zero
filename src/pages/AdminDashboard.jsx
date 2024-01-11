@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import form_user from "../assets/images/form_user.svg";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../components/Pagination";
@@ -6,7 +6,7 @@ import arrowImg from "../assets/images/arrow_img.svg"
 import share_img from "../assets/images/share_img.svg";
 import missions_img from "../assets/images/missions_img.svg";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { userFormValidation } from "../helpers/validations/Schema";
 import { formlist } from "../redux-store/actions/user";
@@ -14,6 +14,7 @@ import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../helpers/ordinalNumber";
 import { getAdminDetails, getAllForms, updateAdminDetails } from "../redux-store/actions/admin";
+import moment from "moment";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,11 @@ const AdminDashboard = () => {
   const user = useSelector((state) => state.auth);
   const adminDetails = useSelector((state) => state.admin);
   const isLoading = adminDetails.isLoading;
-  const allForms = adminDetails?.getAllForms?.result;
-  const resultcount = adminDetails?.getAllForms?.resultcount;
+  const allForms = adminDetails?.getAllForms?.list;
+  const resultcount = adminDetails?.getAllForms?.count;
+  const fileInputRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [disabled, setDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -109,6 +113,38 @@ const AdminDashboard = () => {
   };
 
 
+  const handleFileUpload = () => {
+    const files = fileInputRef.current.files;
+    setLoading(true);
+    console.log(files)
+    if (files.length > 0) {
+      const uploadedFile = files[0];
+      setSelectedFile(uploadedFile);
+      setTimeout(() => {
+        setLoading(false);
+        console.log('File processed:', uploadedFile.name);
+      }, 1500);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = e.dataTransfer.files;
+    console.log(droppedFiles)
+    if (droppedFiles.length > 0) {
+      setSelectedFile(droppedFiles[0]);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        console.log('File processed:', droppedFiles[0].name);
+      }, 1500);
+    }
+  };
+
   return (
     <>
       <form>
@@ -166,7 +202,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <button class="submit-btn " type="button" onClick={() => submitHandler()}>
+              <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)}>
                 Save
               </button>
             </div>
@@ -185,7 +221,9 @@ const AdminDashboard = () => {
               </div>
               <div className="submissions-header-btn">
                 <button class="submit-btn " type="button">
-                  Create new user
+                  <Link to={"/create-user"}>
+                    Create new user
+                  </Link>
                 </button>
                 <button class="submit-btn " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Upload CSV form
@@ -219,11 +257,15 @@ const AdminDashboard = () => {
                   {isLoading && allForms ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
                     allForms?.length > 0 ? allForms?.map((form, index) => (
                       <tr key={index}>
-                        <td>{ordinalNumbers[serialNo + index]} form</td>
+                        {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
+                        <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td>
                         <td>{form.email}</td>
                         <td className="d-flex justify-content-between table-td">
                           <div className="d-flex justify-content-between align-items-center table-text">
-                            <p>View form</p> <img src={arrowImg} /></div>
+                            <p> <Link to={`/admin-form-view/${btoa(form?.id?.toString())}`}>
+                              View form <img src={arrowImg} />
+                            </Link> </p>
+                          </div>
                           <div class="table-img">  <img src={share_img} width={36} height={44} /></div>
                         </td>
                       </tr>
@@ -242,20 +284,39 @@ const AdminDashboard = () => {
           <div class="modal-dialog" >
             <div class="modal-content">
               <div class="close-btn-box d-flex justify-content-end">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
+                    <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
+                      <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
+                      <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
+                    </g>
+                  </svg>
+                </button>
               </div>
               <div class="modal-headers d-flex justify-content-center ">
                 <h1 class="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
               </div>
               <div class="modal-body">
-                <div class="upload-box" >
-                  <input type="file" name="" id="uploadCsv" style={{ visibility: "visible" }} />
-                  {/* <label htmlFor="uploadCsv">Browse files</label> */}
+                <div class="upload-box" onDragOver={handleDragOver}
+                  onDrop={handleDrop}>
+                  <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
+                  {loading ? <div className="spinner">Loading...</div> : (
+                    <>
+                      <label htmlFor="uploadCsv">{selectedFile ? selectedFile.name : 'Drag & drop your CSV file'} </label>
+                      {!selectedFile && (
+                        <><br /> or
+                          <br />
+                          <label className="btn btn-primary" htmlFor="uploadCsv">
+                            Browse files
+                          </label>
+                        </>
+                      )}
+                    </>)}
                 </div>
               </div>
               <div class="">
                 {/* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
-                <button type="button" class="btn btn-primary">Upload</button>
+                {/* <button type="button" class="btn btn-primary">Upload</button> */}
               </div>
             </div>
           </div>

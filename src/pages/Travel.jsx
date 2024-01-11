@@ -298,11 +298,10 @@ const Travel = () => {
                       .fill()
                       .map((opt, index) => (
                         <option
-                          value={index + 1}
+                          value={index}
                           key={"opt" + index}
                         >
-                          {" "}
-                          {index + 1}{" "}
+                          {index}
                         </option>
                       ))}
 
@@ -314,9 +313,9 @@ const Travel = () => {
                       </span>
                     )}
                 </div>
-                <div className="modal-row-main">
-                  {formik.values?.how_many_cars &&
-                    Array(Number(formik.values?.how_many_cars))
+                {formik.values?.how_many_cars > 0 && (
+                  <div className="modal-row-main">
+                    {Array(Number(formik.values?.how_many_cars))
                       .fill()
                       .map((opt, index) => (
                         <div className="modal-row" key={index}>
@@ -342,14 +341,20 @@ const Travel = () => {
                               </div>
                               <div className="modal-input-col">
                                 <label>Vehical Type</label>{" "}
-                                <input
-                                  type="text"
-                                  placeholder=""
+                                <select
                                   name={`cars_detail.${index}.vehicalType`}
+                                  className="form-control"
                                   value={formik.values.cars_detail[index]?.vehicalType || ''}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                />
+                                >
+                                  <option value="">Select option</option>
+                                  <option value="Petrol">Petrol</option>
+                                  <option value="Diesel">Diesel</option>
+                                  <option value="Electric">Electric</option>
+                                  <option value="hybrid">Hybrid</option>
+                                  <option value="hydrogen">Hydrogen</option>
+                                </select>
                                 {formik.errors.cars_detail?.[index]?.vehicalType &&
                                   formik.touched.cars_detail?.[index]?.vehicalType && (
                                     <span className="input-error-msg">
@@ -378,8 +383,8 @@ const Travel = () => {
                           </div>
                         </div>
                       ))}
-
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -454,99 +459,6 @@ const Travel = () => {
                       </div>
                     </div>
                   ))}
-
-                  {/* <div className="economy-row">
-                    <div className="label-block">Short Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Medium Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Long Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="economy-row">
-                    <div className="label-block">Extended Flights</div>
-                    <div className="input-block">
-                      <div className="input-row">
-                        <div class="input-col">
-                          <label>Economy</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Business</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>First Class</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                        <div class="input-col">
-                          <label>Private</label>{" "}
-                          <input type="text" placeholder="00" />
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
 
                 <div class="form-div">
@@ -592,17 +504,16 @@ const Travel = () => {
                       .fill()
                       .map((opt, index) => (
                         <option
-                          value={index + 1}
+                          value={index}
                           key={"opt" + index}
                         >
-                          {" "}
-                          {index + 1}{" "}
+                          {index}
                         </option>
                       ))}
 
                   </select>
                 </div>
-                {formik.values.additional_vehicles_by_partner_children?.length > 0 && (
+                {formik.values.additional_vehicles_by_partner_children > 0 && (
                   <div className="modal-row-main">
                     {formik.values?.additional_vehicles_by_partner_children &&
                       Array(Number(formik.values?.additional_vehicles_by_partner_children))
@@ -631,14 +542,19 @@ const Travel = () => {
                                 </div>
                                 <div className="modal-input-col">
                                   <label>Vehical Type</label>{" "}
-                                  <input
-                                    type="text"
-                                    placeholder=""
+                                  <select
                                     name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
                                     value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                  />
+                                  >
+                                    <option value="">Select option</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                    <option value="hybrid">Hybrid</option>
+                                    <option value="hydrogen">Hydrogen</option>
+                                  </select>
                                   {formik.errors.additional_vehicles_by_partner_detail?.[index]?.vehicalType &&
                                     formik.touched.additional_vehicles_by_partner_detail?.[index]?.vehicalType && (
                                       <span className="input-error-msg">

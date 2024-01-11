@@ -1148,7 +1148,7 @@ textarea {
     margin-bottom: 20px;
 }
 
-.card.card-par p {
+.card.card-par p, p.gray-paragraph {
     text-align: right;
     margin-bottom: 20px;
     color: #818181;
@@ -1356,6 +1356,7 @@ select {
 .economy-table .input-block .input-row .input-col,
 .economy-table .modal-input-block .modal-input-row .modal-input-col {
     padding: 0 15px;
+    width: 100%;
 }
 
 .economy-table .input-block .input-row .input-col label {
@@ -1373,7 +1374,7 @@ select {
 }
 
 .economy-row .input-col input[type="text"],
-.economy-table .modal-input-col input[type="text"] {
+.economy-table .modal-input-col input[type="text"], .modal-input-col select {
     border: none;
     width: 100%;
     max-width: 100%;
@@ -1519,9 +1520,11 @@ select {
 .information-header-nav {
     max-width: 90%;
     margin: 0 auto;
-    background: rgba(232, 232, 232, 0.9);
-    border-radius: 0 0 30px 30px;
+    
+    
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .information-header-nav ul {
@@ -1529,7 +1532,10 @@ select {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0;
+    background: rgba(232, 232, 232, 0.9);
+    border-radius: 0 0 30px 30px;
     padding: 0;
+    overflow: auto;
 }
 
 .information-header-nav ul li {
@@ -1539,7 +1545,6 @@ select {
     display: flex;
     align-items: center;
     border-right: 2px solid #fff;
-    width: 20%;
     justify-content: center;
 }
 
@@ -1816,13 +1821,16 @@ select {
     flex-wrap: wrap;
 }
 
-.submissions-header-btn .submit-btn {
+.submissions-header-btn .submit-btn{
     background: transparent;
     color: #000;
     border: 2px solid #000;
     margin-left: 25px;
 }
-
+.submissions-header-btn a {
+    text-decoration: none;
+    color: #000;
+}
 .submission-form {
     display: flex;
     align-items: center;
@@ -1849,6 +1857,17 @@ select {
 .admin-view-header .sub-heading h2 {
     color: #000;
     margin-bottom: 0;
+    position: relative;
+}
+.admin-view-header .sub-heading h2:after {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    background-image: url(../images/edit_img.svg);
+    content: "";
+    background-size: cover;
+    margin-left: 26px;
+    margin-top: 8px;
 }
 
 .admin-view-header {
@@ -1863,6 +1882,8 @@ select {
     background: transparent;
     border: 2px solid #000;
     color: #000;
+    padding: 15px 25px 15px 81px;
+    position: relative;
 }
 
 .admin-view-bg-color {
@@ -1911,12 +1932,25 @@ select {
 
 .admin-header-btn .btn:before {
     content: "";
-    width: 32px;
-    height: 23px;
+    width: 26px;
+    height: 19px;
     background-image: url(../images/btn_arrow.svg);
     position: absolute;
+    background-size: cover;
+    left: 15px;
+    top: 25px;
+}
+.full-form-div {
+    border-radius: 20px;
+    border: 1px solid #818181;
+    padding: 100px 0;
+    text-align: center;
+    margin-bottom: 80px;
 }
 
+.full-form {
+    margin-bottom: 130px;
+}
 /*********************table******************/
 
 .submissions .customers {
@@ -2036,6 +2070,61 @@ select {
 .main-header:not(.bg-home) .nav-items svg path {
     fill: #fff;
 }
+
+
+
+/*******************change-password****************/
+
+
+.change-password .submit-btn {
+    margin-bottom: 30px;
+}
+.change-password .login-pass-filed i {
+    position: absolute;
+    top: 63px;
+    right: 22px;
+}
+.change-password .submit-btn {
+    padding: 15px 55px;
+}
+.change-password .personal-heading img {
+    width: 31px;
+    height: 43px;
+}
+.submissions .close-btn-box button {
+    background: transparent;
+    box-shadow: none !important;
+    border: none;
+}
+.submissions .close-btn-box button svg path {
+    fill: #fff;
+}
+.modal-dialog {
+    max-width: unset;
+    margin-right: 0;
+    margin-left: 0;
+}
+.close-icon, .hamburger, .user-img {
+    cursor: pointer;
+}
+
+.create-user, .admin-login, .manage-password{
+    margin-bottom: 130px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media(max-width:1660px) {
     .possinend-image {
@@ -3162,9 +3251,15 @@ select {
 
     /**************admin-view ****************/
     .admin-view {
-        margin-bottom: 100px
+        margin-bottom: 40px
     }
-
+    .full-form .admin-header-btn {
+        display: none;
+        margin-top: 0;
+    }
+    .full-form {
+        margin-bottom: 0px;
+    }
     .admin-view-bg-color {
         padding: 35px 15px;
     }
@@ -3191,6 +3286,7 @@ select {
 
     .admin-view-content .admin-text {
         margin-bottom: 30px;
+        text-align: center;
     }
 
     .admin-header-btn .btn {
@@ -3238,7 +3334,16 @@ select {
         top: -25%;
         right: -70%;
     }
-
+    .admin-view-header .sub-heading h2:after {
+        width: 24px;
+        height: 24px;
+        margin-left: 13px;
+        margin-top: 4px;
+    }
+    .admin-header-btn .btn:before {
+        left: 26px;
+        top: 19px;
+    }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {

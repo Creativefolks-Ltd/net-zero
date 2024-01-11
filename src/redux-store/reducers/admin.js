@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAdminDetails, getAllForms } from "../actions/admin";
+import { fetchParticularForm, getAdminDetails, getAllForms } from "../actions/admin";
 
 
 const adminSlice = createSlice({
@@ -8,6 +8,7 @@ const adminSlice = createSlice({
         isLoading: false,
         adminDetails: {},
         getAllForms: {},
+        singleForm: {},
         isError: false
     },
     extraReducers: (builder) => {
@@ -29,6 +30,17 @@ const adminSlice = createSlice({
                 state.isError = true;
                 state.isLoading = false;
             })
+
+            .addCase(fetchParticularForm.pending, (state, action) => {
+                state.isLoading = true;
+            }).addCase(fetchParticularForm.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.singleForm = action.payload;
+            }).addCase(fetchParticularForm.rejected, (state, action) => {
+                state.isError = true;
+                state.isLoading = false;
+            })
+
     }
 });
 
