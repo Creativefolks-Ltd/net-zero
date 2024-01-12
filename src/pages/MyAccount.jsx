@@ -48,6 +48,7 @@ const MyAccount = () => {
 
     useEffect(() => {
         dispatch(formlist(userId));
+        dispatch(addGeneralInfo(null))
     }, []);
 
     const formik = useFormik({
@@ -67,7 +68,7 @@ const MyAccount = () => {
     const UpdateUserDetails = async (e) => {
         dispatch(getUserDetails(userId));
     }
-    
+
     const submitHandler = async (e) => {
         e.preventDefault();
         const { values, isValid, errors } = formik;
@@ -183,16 +184,16 @@ const MyAccount = () => {
         const formId = form.id;
         switch (completedFormCount) {
             case 1: {
-                return "/general"
-            }
-            case 2: {
                 return "/home-form"
             }
-            case 3: {
+            case 2: {
                 return "food-shopping"
             }
-            case 4: {
+            case 3: {
                 return "/travel"
+            }
+            case 4: {
+                return "/financial"
             }
             case 5: {
                 return "/financial"

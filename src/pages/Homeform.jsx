@@ -24,6 +24,7 @@ const Homeform = () => {
 
   const [disabled, setDisabled] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [homeActiveTab, setHomeActiveTab] = useState(1);
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 100;
@@ -249,7 +250,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} />
+      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={setHomeActiveTab}/>
       <form onSubmit={formik.handleSubmit}>
 
         <section className="general-form mt-80 mb-80">
@@ -261,7 +262,7 @@ const Homeform = () => {
                     <div className="card card-par">
                       <div className=" home-title-div">
                         <div className="home-title">
-                          <h2>Home 1</h2>
+                          <h2>Home {homeActiveTab}</h2>
                         </div>
                         <div className="delete-box" onClick={deleteHandler}>
                           <span>Delete this home</span>

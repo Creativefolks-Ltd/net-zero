@@ -22,7 +22,8 @@ export const createUserFormValidation = Yup.object().shape({
 
 export const changePasswordFormValidation = Yup.object().shape({
     password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
-    cpassword: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('password'), null], 'Confirm Password not matched')
+    cpassword: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('password'), null], 'Confirm Password not matched'),
+    opassword: Yup.string().required("Old Password field is required")
 });
 
 export const loginFormValidation = Yup.object().shape({

@@ -16,13 +16,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import MyAccount from "./pages/MyAccount";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
-import AdminView from "./pages/AdminView.jsx";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import ScrollToTop from "./components/ScrollToTop.jsx";
-import AdminLogin from "./pages/AdminLogin.jsx";
-import CreateNewUser from "./pages/CreateNewUser.jsx";
-import ChangePassword from "./pages/ChangePassword.jsx";
+import Dashboard from "./pages/admin";
 
 function App() {
   return (
@@ -31,7 +27,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
-          {/* <Route path="/general" element={<ProtectedRoute><General /></ProtectedRoute>} /> */}
           <Route path="/general" element={<ProtectedRoute ><General /></ProtectedRoute >} />
           <Route path="/home-form" element={<ProtectedRoute ><Homeform /></ProtectedRoute >} />
           <Route path="/travel" element={<ProtectedRoute ><Travel /></ProtectedRoute >} />
@@ -42,11 +37,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin-form-view/:form_id" element={<AdminView />} />
-          <Route path="/create-user" element={<CreateNewUser />} />
-          <Route path="/manage-password" element={<ChangePassword />} />
+          <Route path="/admin/*" element={<Dashboard />} />
         </Route>
       </Routes>
     </div>
