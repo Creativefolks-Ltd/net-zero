@@ -9,12 +9,13 @@ import { Link, useLocation } from "react-router-dom";
 
 
 
-const FormActionTabs = ({ selectedTab }) => {
+const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(selectedTab);
-  const [homeActiveTab, setHomeActiveTab] = useState("");
   const [homeCount, setHomeCount] = useState(1);
   const showHomeTabs = selectedTab === "home";
+  
+
 
   const addHomeHandler = () => {
     if (homeCount < 5) {
@@ -22,18 +23,23 @@ const FormActionTabs = ({ selectedTab }) => {
     }
   };
 
+  const handleHomeTabs = (activeTab) => { setHomeActiveTab(activeTab) }
 
   const renderHomes = () => {
     const homes = [];
     for (let i = 1; i <= homeCount; i++) {
       homes.push(
-        <li key={i} className={i === 1 ? 'active' : ''}>
-          <a href="#">Home {i}</a>
+        <li key={i} className={i === homeActiveTab ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
+          <a>Home {i}</a>
         </li>
       );
     }
     return homes;
   };
+
+
+  
+
 
   return (
     <section className="information mt-80 mb-80">
