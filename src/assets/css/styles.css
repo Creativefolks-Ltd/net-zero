@@ -6,7 +6,7 @@
 
 body {
     /* font-family: 'Poppins', sans-serif; */
-    font-family: "halcom",sans-serif;
+    font-family: "halcom", sans-serif;
     font-size: 18px;
     line-height: 28px;
 }
@@ -131,11 +131,12 @@ input {
 }
 
 /* .bg-home .nav-items.active { */
-.main-header:not(.bg-home) .nav-items.active{
+.main-header:not(.bg-home) .nav-items.active {
     background-color: #000;
     color: #fff;
 }
-.main-header:not(.bg-home) .nav-items.active .nav-item a{
+
+.main-header:not(.bg-home) .nav-items.active .nav-item a {
     color: #fff;
 }
 
@@ -212,9 +213,11 @@ input {
     padding: 15px 0;
     box-shadow: 1px 1px 6.5px rgba(0, 0, 0, 0.16);
 }
+
 .nav-item.close-icon img {
     width: 30px;
 }
+
 .login-content {
     background: #f9f9f9;
     padding: 60px;
@@ -529,12 +532,17 @@ form.registerform {
     border-top: 1px solid #00FF9B;
     padding-top: 20px;
 }
-.footer-content-two p{
+
+.footer-content-two p {
     text-align: center;
     display: none;
 }
+
 /********Main Home page******/
-body{overflow-x: hidden;}
+body {
+    overflow-x: hidden;
+}
+
 .home-banner {
     height: 100vh;
     align-items: center;
@@ -542,9 +550,11 @@ body{overflow-x: hidden;}
     color: #fff;
     position: relative;
 }
+
 .personal-carbon {
     position: relative;
 }
+
 .possinend-image {
     position: absolute;
     top: -84%;
@@ -552,9 +562,11 @@ body{overflow-x: hidden;}
     max-width: 1100px;
     height: auto;
 }
+
 .personal-carbon .container {
     position: relative;
 }
+
 /* .home-banner::before {
     background-image: url("../images/banner_circle.png");
     position: absolute;
@@ -722,15 +734,18 @@ section.protecting-data {
     justify-content: center;
     margin-top: 60px;
 }
-.admin-login-icon p{
+
+.admin-login-icon p {
     margin-bottom: 0;
     margin-top: 0;
 }
+
 .admin-login-icon img {
     width: 30px;
     height: 30px;
     margin-right: 15px;
 }
+
 .card {
 
     width: 75%;
@@ -824,6 +839,7 @@ section.protecting-data {
     direction: ltr;
     height: 300px;
 }
+
 .text-scroll .p-box p {
     color: #818181;
 }
@@ -991,7 +1007,8 @@ section.protecting-data {
     box-shadow: -1px -1px 3px 0px #0000001f;
 }
 
-.information-cricle-box.active:after {
+.information-cricle-box.active:after,
+.information-cricle-box.success:after {
     background: #81C14B;
 }
 
@@ -1148,7 +1165,8 @@ textarea {
     margin-bottom: 20px;
 }
 
-.card.card-par p, p.gray-paragraph {
+.card.card-par p,
+p.gray-paragraph {
     text-align: right;
     margin-bottom: 20px;
     color: #818181;
@@ -1210,9 +1228,14 @@ label p {
 /* .form-div .check-input label {
    margin-bottom: 20px;
 } */
-.information .information-icon-box .information-cricle-box.active.success {
+.information .information-icon-box .information-cricle-box.success {
     background: #81C14B;
     border: none;
+}
+
+.information-cricle-box.success:hover {
+    background: #81C14B !important;
+    border: none !important;
 }
 
 .information .information-icon-box .information-cricle-box.active.warnig {
@@ -1221,6 +1244,7 @@ label p {
 }
 
 .information .information-icon-box .information-cricle-box.active.warnig img,
+.information .information-icon-box .information-cricle-box.success img,
 .information .information-icon-box .information-cricle-box.active.success img {
     filter: invert(1);
 }
@@ -1374,7 +1398,8 @@ select {
 }
 
 .economy-row .input-col input[type="text"],
-.economy-table .modal-input-col input[type="text"], .modal-input-col select {
+.economy-table .modal-input-col input[type="text"],
+.modal-input-col select {
     border: none;
     width: 100%;
     max-width: 100%;
@@ -1520,8 +1545,8 @@ select {
 .information-header-nav {
     max-width: 90%;
     margin: 0 auto;
-    
-    
+
+
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -1821,16 +1846,18 @@ select {
     flex-wrap: wrap;
 }
 
-.submissions-header-btn .submit-btn{
+.submissions-header-btn .submit-btn {
     background: transparent;
     color: #000;
     border: 2px solid #000;
     margin-left: 25px;
 }
+
 .submissions-header-btn a {
     text-decoration: none;
     color: #000;
 }
+
 .submission-form {
     display: flex;
     align-items: center;
@@ -1859,6 +1886,7 @@ select {
     margin-bottom: 0;
     position: relative;
 }
+
 .admin-view-header .sub-heading h2:after {
     width: 48px;
     height: 48px;
@@ -1940,6 +1968,7 @@ select {
     left: 15px;
     top: 25px;
 }
+
 .full-form-div {
     border-radius: 20px;
     border: 1px solid #818181;
@@ -1951,6 +1980,7 @@ select {
 .full-form {
     margin-bottom: 130px;
 }
+
 /*********************table******************/
 
 .submissions .customers {
@@ -1999,7 +2029,8 @@ select {
     color: white;
     font-size: 22px;
 }
-   /*********************submissions-popup***********************/
+
+/*********************submissions-popup***********************/
 
 .submissions .modal-content {
     background: #2C2B34;
@@ -2018,6 +2049,7 @@ select {
     line-height: 50px;
     margin-bottom: 60px;
 }
+
 .modal-body {
     border: 1px solid #48B8B1;
     padding: 48px 200px;
@@ -2026,6 +2058,7 @@ select {
     border-radius: 50px;
 
 }
+
 /****************** password-eye-css ******************/
 
 
@@ -2079,36 +2112,47 @@ select {
 .change-password .submit-btn {
     margin-bottom: 30px;
 }
+
 .change-password .login-pass-filed i {
     position: absolute;
     top: 63px;
     right: 22px;
 }
+
 .change-password .submit-btn {
     padding: 15px 55px;
 }
+
 .change-password .personal-heading img {
     width: 31px;
     height: 43px;
 }
+
 .submissions .close-btn-box button {
     background: transparent;
     box-shadow: none !important;
     border: none;
 }
+
 .submissions .close-btn-box button svg path {
     fill: #fff;
 }
+
 .modal-dialog {
     max-width: unset;
     margin-right: 0;
     margin-left: 0;
 }
-.close-icon, .hamburger, .user-img {
+
+.close-icon,
+.hamburger,
+.user-img {
     cursor: pointer;
 }
 
-.create-user, .admin-login, .manage-password{
+.create-user,
+.admin-login,
+.manage-password {
     margin-bottom: 130px;
 }
 
@@ -2134,8 +2178,13 @@ select {
         max-width: 800px;
         height: auto;
     }
-    .Form-col-img img {width: 370px;  height: 1100px;   max-height: 100%;           }
+
+    .Form-col-img img {
+        width: 370px;
+        height: 1100px;
+        max-height: 100%;
     }
+}
 
 
 
@@ -2144,6 +2193,7 @@ select {
     .login-img img {
         width: 600px;
     }
+
     .bg-home {
         overflow-x: hidden;
     }
@@ -2175,13 +2225,18 @@ select {
     .submissions .submission-form .form-div {
         width: 70%;
     }
-    .sub-btn label{ padding: 13px 40px;}
+
+    .sub-btn label {
+        padding: 13px 40px;
+    }
+
     .site-header .navbar ul {
-        
+
         gap: 20px;
         padding-left: 0;
-       
+
     }
+
     .navbar-toggler ul {
         padding-left: 0;
     }
@@ -2191,7 +2246,7 @@ select {
     .login-img img {
         width: 500px;
     }
-    
+
 }
 
 @media (max-width:1280px) {
@@ -2202,11 +2257,16 @@ select {
     .Form-col-img img {
         width: 320px;
     }
-    .card{width:90%; max-width: 100%;}
+
+    .card {
+        width: 90%;
+        max-width: 100%;
+    }
+
     .nav-items.active {
-       
+
         padding: 20px 20px;
-}
+    }
 }
 
 @media (max-width:1200px) {
@@ -2264,8 +2324,9 @@ select {
     }
 }
 
-@media (max-width:1199px){
-     /*************** navbar responsive ****************/
+@media (max-width:1199px) {
+
+    /*************** navbar responsive ****************/
     .bg-home .nav-items.active {
 
         position: absolute;
@@ -2282,7 +2343,7 @@ select {
         right: 30px;
     }
 
-    
+
     .nav-items.active ul {
         padding-left: 0;
         padding-top: 85px;
@@ -2293,26 +2354,29 @@ select {
     .nav-items.active {
         position: relative;
     }
+
     .nav-items.slide-in.active {
         position: absolute;
         right: 0;
         z-index: 9999;
         top: 25px;
     }
+
     .nav-items.active {
         padding: 30px 60px;
     }
+
     .sub-btn label {
         padding: 13px 60px;
     }
-   
+
 }
 
 @media (max-width:1080px) {
     .submissions .submission-form .form-div {
         width: 62%;
     }
-   
+
 }
 
 @media (max-width:1024px) {
@@ -2448,6 +2512,7 @@ select {
     .nav-items.slide-in.active {
         top: 70px;
     }
+
     .navbar .logo-img {
         width: 56px;
         height: 54px;
@@ -2785,7 +2850,8 @@ select {
         text-align: center;
         display: none;
     }
-    .footer-content-two p{
+
+    .footer-content-two p {
         text-align: center;
         display: block;
     }
@@ -2831,11 +2897,12 @@ select {
     .footer-lower {
         margin-top: 30px;
     }
+
     .footer-lower {
         justify-content: center;
     }
 
-   
+
 
     .home-banner::after {
         display: block;
@@ -3253,13 +3320,16 @@ select {
     .admin-view {
         margin-bottom: 40px
     }
+
     .full-form .admin-header-btn {
         display: none;
         margin-top: 0;
     }
+
     .full-form {
         margin-bottom: 0px;
     }
+
     .admin-view-bg-color {
         padding: 35px 15px;
     }
@@ -3329,21 +3399,25 @@ select {
     .bg-My-Account .Personal-information {
         margin-bottom: 100px;
     }
+
     .possinend-image {
         position: absolute;
         top: -25%;
         right: -70%;
     }
+
     .admin-view-header .sub-heading h2:after {
         width: 24px;
         height: 24px;
         margin-left: 13px;
         margin-top: 4px;
     }
+
     .admin-header-btn .btn:before {
         left: 26px;
         top: 19px;
     }
+
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3486,6 +3560,7 @@ select {
     max-width: 100%;
     text-align: center !important;
 }
+
 /* Range Slider End */
 .Additional-box .btn {
     margin: 0;

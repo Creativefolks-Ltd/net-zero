@@ -3,7 +3,7 @@ import form_user from "../../assets/images/form_user.svg";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../components/Pagination";
 import arrowImg from "../../assets/images/arrow_img.svg"
-import share_img from "../../assets/images/share_img.svg";
+import share_img from "../../assets/images/download-img.svg";
 import missions_img from "../../assets/images/missions_img.svg";
 
 import { Link, useNavigate } from "react-router-dom";

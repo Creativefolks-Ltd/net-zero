@@ -1,7 +1,7 @@
 import React, { useEffect, useState, } from "react";
 import form_user from "../assets/images/form_user.svg";
 import delete2_img from "../assets/images/delete2_img.svg";
-import share_img from "../assets/images/share_img.svg";
+import share_img from "../assets/images/download-img.svg";
 import tick_img from "../assets/images/tick_img.svg";
 import arrow_img from "../assets/images/arrow_img.svg";
 import pending_img from "../assets/images/pending_img.svg";
@@ -187,10 +187,10 @@ const MyAccount = () => {
                 return "/home-form"
             }
             case 2: {
-                return "food-shopping"
+                return "/travel"
             }
             case 3: {
-                return "/travel"
+                return "/food-shopping"
             }
             case 4: {
                 return "/financial"

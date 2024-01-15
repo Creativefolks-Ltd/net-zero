@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../actions/auth";
-import { formlist, getCountry, getUserDetails } from "../actions/user";
+import { formlist, getCountry, getUserDetails, homeformIds, particularHomeDetails } from "../actions/user";
 
 const userSlice = createSlice({
     name: "fetchUsers",
@@ -8,6 +8,9 @@ const userSlice = createSlice({
         isLoading: false,
         data: [],
         formList: [],
+        homeFormIdList: [],
+        submittedFormCount: null,
+        homeDetails: {},
         countries: [],
         isError: false
     },
@@ -25,19 +28,38 @@ const userSlice = createSlice({
         }).addCase(formlist.fulfilled, (state, action) => {
             state.formList = action.payload.data;
             state.isLoading = false;
-        }).addCase(formlist.rejected, (state, action) => {  
+        }).addCase(formlist.rejected, (state, action) => {
             state.isError = true;
             state.isLoading = false;
 
-        // }).addCase(getUserDetails.pending, (state, action) => {
-        //     state.isLoading = true;
-        // }).addCase(getUserDetails.fulfilled, (state, action) => {
-        //     console.log(action.payload);
-        //     console.log(state.data);
-        //     state.isLoading = false;
-        // }).addCase(getUserDetails.rejected, (state, action) => {
-        //     state.isError = true;
-        //     state.isLoading = false;
+        }).addCase(particularHomeDetails.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(particularHomeDetails.fulfilled, (state, action) => {
+            state.homeDetails = action.payload.data;
+            state.isLoading = false;
+        }).addCase(particularHomeDetails.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoading = false;
+
+        }).addCase(homeformIds.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(homeformIds.fulfilled, (state, action) => {
+            state.homeFormIdList = action.payload?.data?.id;
+            state.submittedFormCount = action.payload?.data?.count_form;
+            state.isLoading = false;
+        }).addCase(homeformIds.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoading = false;
+
+            // }).addCase(getUserDetails.pending, (state, action) => {
+            //     state.isLoading = true;
+            // }).addCase(getUserDetails.fulfilled, (state, action) => {
+            //     console.log(action.payload);
+            //     console.log(state.data);
+            //     state.isLoading = false;
+            // }).addCase(getUserDetails.rejected, (state, action) => {
+            //     state.isError = true;
+            //     state.isLoading = false;
 
         }).addCase(getCountry.pending, (state, action) => {
             state.isLoading = true;

@@ -59,22 +59,8 @@ const Travel = () => {
 
     validationSchema: travelformvalidation,
 
-    onSubmit: (values) => {
-    }
+    onSubmit: submitHandler
   });
-
-  // useEffect(() => {
-  //   if (formik?.values?.how_many_cars !== null && formik?.values?.how_many_cars !== "") {
-  //     formik.setValues((prevValues) => ({
-  //       ...prevValues,
-  //       cars_detail: Array.from({ length: formik.values.how_many_cars }).map(() => ({
-  //         makeAndModel: '',
-  //         vehicalType: '',
-  //         kmsInSelectedYear: ''
-  //       }))
-  //     }));
-  //   }
-  // }, [formik.values.how_many_cars]);
 
   const validateAndFilterFields = (values) => {
     const {
@@ -106,7 +92,7 @@ const Travel = () => {
     navigate("/food-shopping")
   }
 
-  const submitHandler = async (e) => {
+  async function submitHandler(e) {
     e.preventDefault();
     const { values } = await formik;
     formik.handleSubmit();
@@ -126,10 +112,7 @@ const Travel = () => {
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate("/food-shopping")
-          //   }
+          didClose: navigateToNext
         });
       } else {
         setDisabled(false)
@@ -171,7 +154,7 @@ const Travel = () => {
   return (
     <>
       <FormActionTabs selectedTab={"travel"} />
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <section className="economy-table">
           <div className="container">
             <div className="sub-heading">
@@ -691,11 +674,13 @@ const Travel = () => {
                     onBlur={formik.handleBlur}
                   ></textarea>
                   <div className="Additional-bottom-btn">
-                    <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                    <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
+                    </div> : ''}</button>
+                    {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
                     <button className="btn" type="button" onClick={continueHandler}>
                       Continue
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

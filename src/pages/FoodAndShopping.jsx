@@ -62,14 +62,14 @@ const FoodAndShopping = () => {
 
     validationSchema: foodFormValidation,
 
-    onSubmit: (values) => { },
+    onSubmit: submitHandler,
   });
 
   const navigateToNext = async (e) => {
     navigate("/financial")
   }
 
-  const submitHandler = async (e) => {
+  async function submitHandler(e) {
     e.preventDefault();
     const { values, isValid, errors } = formik;
     formik.handleSubmit();
@@ -93,10 +93,7 @@ const FoodAndShopping = () => {
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate("/financial");
-          //   }
+          didClose: navigateToNext
         });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -136,7 +133,7 @@ const FoodAndShopping = () => {
   return (
     <>
       <FormActionTabs selectedTab={"food"} />
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <section class="food-shopping top">
           <div className="container">
             <div className="sub-heading">
@@ -412,11 +409,13 @@ const FoodAndShopping = () => {
                   )}
                 </div>
                 <div className="Additional-bottom-btn">
-                  <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                  <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
+                  </div> : ''}</button>
+                  {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                   </div> : ''}</button>
                   <button className="btn" type="button" onClick={continueHandler}>
                     Continue
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>

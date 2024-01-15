@@ -79,7 +79,7 @@ export const updateUserDetails = createAsyncThunk('updateUserDetails', async ({ 
     } catch (error) {
         return error;
     }
-});   
+});
 
 export const formlist = createAsyncThunk('formlist', async (user_id, thunkAPI) => {
     try {
@@ -93,6 +93,33 @@ export const formlist = createAsyncThunk('formlist', async (user_id, thunkAPI) =
 export const formDelete = createAsyncThunk('formDelete', async (form_id, thunkAPI) => {
     try {
         const response = await axios.delete(`/api/delete/user/form/${form_id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const homeformIds = createAsyncThunk('homeformIds', async (general_id, thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/get/user/home/list?general_information_id=${general_id}`);
+        return response?.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const homeFormDelete = createAsyncThunk('homeFormDelete', async (home_id, thunkAPI) => {
+    try {
+        const response = await axios.delete(`/api/delete/user/home/form/${home_id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const particularHomeDetails = createAsyncThunk('particularHomeDetails', async (general_id, thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/get/user/home/detail?home_id=${general_id}`);
         return response.data;
     } catch (error) {
         return error;

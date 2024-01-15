@@ -142,14 +142,14 @@ const Homeform = () => {
 
     validationSchema: homeFormvalidation,
 
-    onSubmit: (values) => { },
+    onSubmit: submitHandler,
   });
 
   const navigateToNext = async (e) => {
     navigate("/travel")
   }
 
-  const submitHandler = async (e) => {
+  async function submitHandler(e) {
     e.preventDefault();
     const { values, isValid, errors } = formik;
     formik.handleSubmit();
@@ -250,7 +250,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={setHomeActiveTab}/>
+      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={setHomeActiveTab} />
       <form onSubmit={formik.handleSubmit}>
 
         <section className="general-form mt-80 mb-80">
@@ -681,51 +681,55 @@ const Homeform = () => {
                             {formik.values.on_site_renewable_energy !== "No" && (
                               <>
                                 <div className="col-md-6 electricity-col">
-                                  <input
-                                    type="text"
-                                    name="on_site_renewable_amount"
-                                    id="on_site_renewable_amount"
-                                    className={`form-control ${formik.errors.on_site_renewable_amount &&
-                                      formik.touched.on_site_renewable_amount
-                                      ? "invalidInput"
-                                      : ""
-                                      } `}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    placeholder="Amount"
-                                    value={formik.values.on_site_renewable_amount}
-                                  />
-                                  {formik.errors.on_site_renewable_amount &&
-                                    formik.touched.on_site_renewable_amount ? (
-                                    <span className="input-error-msg">
-                                      {formik.errors.on_site_renewable_amount}
-                                    </span>
-                                  ) : null}
+                                  <div className="form-div">
+                                    <input
+                                      type="text"
+                                      name="on_site_renewable_amount"
+                                      id="on_site_renewable_amount"
+                                      className={`form-control ${formik.errors.on_site_renewable_amount &&
+                                        formik.touched.on_site_renewable_amount
+                                        ? "invalidInput"
+                                        : ""
+                                        } `}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      placeholder="Amount"
+                                      value={formik.values.on_site_renewable_amount}
+                                    />
+                                    {formik.errors.on_site_renewable_amount &&
+                                      formik.touched.on_site_renewable_amount ? (
+                                      <span className="input-error-msg">
+                                        {formik.errors.on_site_renewable_amount}
+                                      </span>
+                                    ) : null}
+                                  </div>
                                 </div>
                                 <div className="col-md-6">
-                                  <select
-                                    type="text"
-                                    name="on_site_renewable_unit"
-                                    id="on_site_renewable_unit"
-                                    className={`form-control ${formik.errors.on_site_renewable_unit &&
-                                      formik.touched.on_site_renewable_unit
-                                      ? "invalidInput"
-                                      : ""
-                                      } `}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={formik.values.on_site_renewable_unit}
-                                  >
-                                    <option value={""}>Select option</option>
-                                    <option value="percent">%</option>
-                                    <option value="kWh">kWh</option>
-                                  </select>
-                                  {formik.errors.on_site_renewable_unit &&
-                                    formik.touched.on_site_renewable_unit ? (
-                                    <span className="input-error-msg">
-                                      {formik.errors.on_site_renewable_unit}
-                                    </span>
-                                  ) : null}
+                                  <div className="form-div">
+                                    <select
+                                      type="text"
+                                      name="on_site_renewable_unit"
+                                      id="on_site_renewable_unit"
+                                      className={`form-control ${formik.errors.on_site_renewable_unit &&
+                                        formik.touched.on_site_renewable_unit
+                                        ? "invalidInput"
+                                        : ""
+                                        } `}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={formik.values.on_site_renewable_unit}
+                                    >
+                                      <option value={""}>Select option</option>
+                                      <option value="percent">%</option>
+                                      <option value="kWh">kWh</option>
+                                    </select>
+                                    {formik.errors.on_site_renewable_unit &&
+                                      formik.touched.on_site_renewable_unit ? (
+                                      <span className="input-error-msg">
+                                        {formik.errors.on_site_renewable_unit}
+                                      </span>
+                                    ) : null}
+                                  </div>
                                 </div>
                               </>
                             )}
@@ -1872,11 +1876,13 @@ const Homeform = () => {
                   <div className="card card-box-btn">
                     <div className="Additional-box">
                       <div className="Additional-bottom-btn">
-                        <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                        <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button>
+                        {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button>
                         <button className="btn" type="button" onClick={continueHandler}>
                           Continue
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

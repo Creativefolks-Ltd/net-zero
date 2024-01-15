@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import generalImg from "../assets/images/user.svg";
 import houseImg from "../assets/images/t_house.svg";
 import foodImg from "../assets/images/food.svg";
@@ -6,16 +6,30 @@ import carImg from "../assets/images/t_car.svg";
 import financialImg from "../assets/images/financial .svg";
 import Path_img from "../assets/images/Path_img.png";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { homeformIds } from "../redux-store/actions/user";
 
 
 
 const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(selectedTab);
-  const [homeCount, setHomeCount] = useState(1);
-  const showHomeTabs = selectedTab === "home";
-  
+  const homeIds = useSelector((state) => state.users?.homeFormIdList);
+  const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
+  const user = useSelector((state) => state.auth);
+  const defaultHomeCount = homeIds?.length > 1 ? Number(homeIds?.length) : 1;
 
+  const [homeCount, setHomeCount] = useState(defaultHomeCount);
+
+  const general_information_id = Number(user?.generalInfoId);
+
+  const showHomeTabs = selectedTab === "home";
+  // console.log(submittedFormCount, "///////////submittedFormCount")
+  useEffect(() => {
+    dispatch(homeformIds(general_information_id))
+
+  }, [general_information_id])
 
   const addHomeHandler = () => {
     if (homeCount < 5) {
@@ -38,8 +52,6 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   };
 
 
-  
-
 
   return (
     <section className="information mt-80 mb-80">
@@ -52,7 +64,9 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                   <Link to="/general">
                     <div
                       className={`information-cricle-box ${activeTab === "general" ? "active" : ""
-                        }`}
+                        }
+                         ${submittedFormCount >= 1 ? "success" : ""}
+                        `}
                       onClick={() => setActiveTab("general")}
                     >
                       <img src={generalImg} alt="" />
@@ -66,7 +80,9 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                   <Link to="/home-form">
                     <div
                       className={`information-cricle-box ${activeTab === "home" ? "active" : ""
-                        }`}
+                        } 
+                        ${submittedFormCount >= 2 ? "success" : ""}
+                        `}
                       onClick={() => setActiveTab("home")}
                     >
                       <img src={houseImg} alt="" />
@@ -80,7 +96,9 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                   <Link to="/travel">
                     <div
                       className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
-                        }`}
+                        }
+                        ${submittedFormCount >= 3 ? "success" : ""} 
+                        `}
                       onClick={() => setActiveTab("travel")}
                     >
                       <img src={carImg} alt="" />
@@ -94,7 +112,9 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                   <Link to="/food-shopping">
                     <div
                       className={`information-cricle-box ${activeTab === "food" ? "active" : ""
-                        }`}
+                        }
+                        ${submittedFormCount >= 4 ? "success" : ""} 
+                        `}
                       onClick={() => setActiveTab("food")}
                     >
                       <img src={foodImg} alt="" />
@@ -108,7 +128,8 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                   <Link to="/financial">
                     <div
                       className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
-                        }`}
+                        } 
+                        ${submittedFormCount == 5 ? "success" : ""} `}
                       onClick={() => setActiveTab("financial")}
                     >
                       <img src={financialImg} alt="" />

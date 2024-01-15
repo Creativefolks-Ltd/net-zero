@@ -107,30 +107,7 @@ const General = () => {
         navigate("/home-form")
     }
     async function handleSubmit(e) {
-        // e.preventDefault()
-
         const { values } = formik;
-
-        // if (
-        //     !values.first_name ||
-        //     !values.last_name ||
-        //     !values.email ||
-        //     !values.emailConfirmation ||
-        //     !values.year_of_birth ||
-        //     !values.country_of_residence ||
-        //     !values.num_of_homes ||
-        //     (!values.first_home_country && values.num_of_homes >= 1) ||
-        //     (!values.second_home_country && values.num_of_homes >= 2) ||
-        //     (!values.third_home_country && values.num_of_homes >= 3) ||
-        //     (!values.fourth_home_country && values.num_of_homes >= 4) ||
-        //     (!values.fifth_home_country && values.num_of_homes >= 5) ||
-        //     !values.living_with_partner ||
-        //     !values.num_of_children_under_18 ||
-        //     !values.other_dependants ||
-        //     (values.other_dependants === "Yes" && !values.other_dependants_details)
-        // ) {
-        //     return false;
-        // }
         try {
             setDisabled(true)
             const filteredValues = await validateAndFilterFields(values);
@@ -147,10 +124,7 @@ const General = () => {
                     showCancelButton: false,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    // }).then((result) => {
-                    //     if (result.isConfirmed) {
-                    //         navigate("/home-form")
-                    //     }
+                    didClose: navigateToNext
                 });
             } else {
                 const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -659,11 +633,13 @@ const General = () => {
                                                 </span>
                                             ) : null} */}
                                             <div className="Additional-bottom-btn">
-                                                <button className="btn" type='submit' disabled={disabled} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                                                <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
+                                                </div> : ''}</button>
+                                                {/* <button className="btn" type='submit' disabled={disabled} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
                                                 <button className="btn" type="button" onClick={continueHandler}>
                                                     Continue
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                     </div>
