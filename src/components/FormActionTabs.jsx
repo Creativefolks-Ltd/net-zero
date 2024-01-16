@@ -25,7 +25,6 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   const general_information_id = Number(user?.generalInfoId);
 
   const showHomeTabs = selectedTab === "home";
-  // console.log(submittedFormCount, "///////////submittedFormCount")
   useEffect(() => {
     dispatch(homeformIds(general_information_id))
 
@@ -43,9 +42,9 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
       dispatch(setCurrentHomeId(homeIds[activeIndex]))
     }
   }
-  useEffect(() => {
-    setHomeCount(homeIds?.length)
-  }, [homeIds]);
+  // useEffect(() => {
+  //   setHomeCount(homeIds?.length)
+  // }, [homeIds]);
 
   const renderHomes = () => {
     const homes = [];
