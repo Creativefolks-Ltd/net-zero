@@ -17,6 +17,8 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
+  const isLoadingHome = useSelector((state) => state.users?.isLoadingHome);
+
   const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
   const [homeCount, setHomeCount] = useState(1);
 
@@ -42,9 +44,11 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
       dispatch(setCurrentHomeId(homeIds[activeIndex]))
     }
   }
-  // useEffect(() => {
-  //   setHomeCount(homeIds?.length)
-  // }, [homeIds]);
+  useEffect(() => {
+    if (homeIds?.length > 0) {
+      setHomeCount(homeIds?.length)
+    }
+  }, [homeIds]);
 
   const renderHomes = () => {
     const homes = [];
@@ -57,9 +61,6 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
     }
     return homes;
   };
-
-
-
 
   return (
     <section className="information mt-80 mb-80">
@@ -148,19 +149,20 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
               </div>
             </div>
             {showHomeTabs && (
-
-              <div class="information-header-nav">
-                <ul>
-                  {renderHomes()}
-                  {homeCount < 5 && (
-                    <li >
-                      <a onClick={addHomeHandler}>
-                        Add <br /> home +
-                      </a>
-                    </li>
-                  )}
-                </ul>
-              </div>
+              <>
+                <div class="information-header-nav">
+                  <ul>
+                    {renderHomes()}
+                    {homeCount < 5 && (
+                      <li >
+                        <a onClick={addHomeHandler}>
+                          Add <br /> home +
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </>
             )}
           </div>
         </div>
