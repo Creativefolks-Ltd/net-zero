@@ -37,17 +37,17 @@ const Travel = () => {
 
   const formik = useFormik({
     initialValues: {
-      short_flights: { economy: '', business: '', firstClass: '', private: '' },
-      medium_flights: { economy: '', business: '', firstClass: '', private: '' },
-      long_flights: { economy: '', business: '', firstClass: '', private: '' },
-      extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+      short_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      medium_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      long_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      extended_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
       proportion_offset_flights: null,
       how_many_cars: null,
       cars_detail: [],
-      partner_children_short_flights: { economy: '', business: '', firstClass: '', private: '' },
-      partner_children_medium_flights: { economy: '', business: '', firstClass: '', private: '' },
-      partner_children_long_flights: { economy: '', business: '', firstClass: '', private: '' },
-      partner_children_extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+      partner_children_short_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_medium_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_long_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_extended_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
       partner_offset_flights: null,
       additional_vehicles_by_partner_children: null,
       additional_vehicles_by_partner_detail: [],
@@ -92,10 +92,7 @@ const Travel = () => {
     navigate("/food-shopping")
   }
 
-  async function submitHandler(e) {
-    e.preventDefault();
-    const { values } = await formik;
-    formik.handleSubmit();
+  async function submitHandler(values) {
     if (formik.isValid) {
       setDisabled(true)
       const filteredValues = await validateAndFilterFields(values);
@@ -261,7 +258,7 @@ const Travel = () => {
                 <div className="form-div">
                   <div class="form-label-div">
                     <label htmlFor="how_many_cars">
-                      <strong>3. </strong> How many cars do you use ?
+                      <strong>3.</strong> How many cars do you use ?
                       <span>*</span>
                     </label>
                   </div>
@@ -473,7 +470,7 @@ const Travel = () => {
                 <div className="form-div">
                   <div class="form-label-div">
                     <label htmlFor="other_dependants">
-                      <strong>6. </strong> How many additional vehicles used by
+                      <strong>6.</strong> How many additional vehicles used by
                       your partner/children?
                     </label>
                   </div>
@@ -574,7 +571,7 @@ const Travel = () => {
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="other_dependants">
-                        <strong>7. </strong> Did you use any other form of
+                        <strong>7.</strong> Did you use any other form of
                         transport in the selected year?
                       </label>
                     </div>
@@ -640,7 +637,7 @@ const Travel = () => {
                 <div className="Additional-box">
                   <div class="form-div">
                     <label for="hotel_nights">
-                      <strong>8. </strong>
+                      <strong>8.</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
                       selected year? Please include stays in Mettingen.

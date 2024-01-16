@@ -106,8 +106,7 @@ const General = () => {
     const navigateToNext = async (e) => {
         navigate("/home-form")
     }
-    async function handleSubmit(e) {
-        const { values } = formik;
+    async function handleSubmit(values) {
         try {
             setDisabled(true)
             const filteredValues = await validateAndFilterFields(values);
@@ -144,8 +143,7 @@ const General = () => {
                 }
             }
         } catch (error) {
-            setDisabled(false)
-            console.log(formik.errors)
+            setDisabled(false);
             Swal.fire({
                 title: "Failed!",
                 text: "Something went wrong, please check the form.",
@@ -529,7 +527,7 @@ const General = () => {
                                                 <div className="form-div">
                                                     <div class="form-label-div">
                                                         <label htmlFor="other_dependants">
-                                                            <strong>9. </strong> Do you have any other dependants who live with you
+                                                            <strong>9.</strong> Do you have any other dependants who live with you
                                                             all of the time or most of the time?<span>*</span>{" "}
 
                                                         </label>
@@ -611,7 +609,7 @@ const General = () => {
                                                 recommendations more specific.
                                             </p>
                                             <label htmlFor="forest_or_farmland_details">
-                                                <strong>10. </strong>  Other than domestic property, do you own any forest,
+                                                <strong>10.</strong>  Other than domestic property, do you own any forest,
                                                 farmland or other not attached to one of your
                                                 properties? If so, please advise size and location.
                                             </label>

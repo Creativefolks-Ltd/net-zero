@@ -69,12 +69,9 @@ const FoodAndShopping = () => {
     navigate("/financial")
   }
 
-  async function submitHandler(e) {
-    e.preventDefault();
-    const { values, isValid, errors } = formik;
-    formik.handleSubmit();
+  async function submitHandler(values) {
 
-    if (!formik.values?.vehicle_detail?.trim()) {
+    if (values?.vehicle_detail?.trim()) {
       return false
     } else {
       setDisabled(true);
@@ -146,7 +143,7 @@ const FoodAndShopping = () => {
                 </p>
                 <div className="Additional-box">
                   <label htmlFor="vehicle_detail">
-                    <strong>1. </strong>
+                    <strong>1.</strong>
                     Please give details of any vehicles purchased in the
                     selected year, such as cars or boats. Please specify the
                     relevant details, such as number and type. You do not need
@@ -164,6 +161,7 @@ const FoodAndShopping = () => {
                     cols="50"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    maxlength={1000}
                   ></textarea>
                   {formik.touched.vehicle_detail && formik.errors.vehicle_detail ? (
                     <span className="input-error-msg">
@@ -207,13 +205,14 @@ const FoodAndShopping = () => {
                       cols="50"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      maxlength={1000}
                     ></textarea>
                   </div>
 
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="average_pieces_per_quarter">
-                        <strong>3. </strong> On average, how many new pieces of
+                        <strong>3.</strong> On average, how many new pieces of
                         clothing do you buy each quarter?
                       </label>
                     </div>
@@ -236,7 +235,7 @@ const FoodAndShopping = () => {
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="pet_type">
-                        <strong>4. </strong> Do you have any domestic pets or
+                        <strong>4.</strong> Do you have any domestic pets or
                         animals??
                       </label>
                     </div>
@@ -266,13 +265,14 @@ const FoodAndShopping = () => {
                         value={formik.values.pet_detail}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        maxlength={1000}
                       ></textarea>
                     </div>
                   )}
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="meat_based_meals_frequency">
-                        <strong>5. </strong> How often does your diet include
+                        <strong>5.</strong> How often does your diet include
                         meat-based meals?
                       </label>
                     </div>
@@ -292,7 +292,7 @@ const FoodAndShopping = () => {
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="dairy_frequency">
-                        <strong>6. </strong> How often does your diet include
+                        <strong>6.</strong> How often does your diet include
                         dairy?
                       </label>
                     </div>
@@ -312,7 +312,7 @@ const FoodAndShopping = () => {
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="food_purchase_statement">
-                        <strong>7. </strong> Thinking about the food you buy,
+                        <strong>7.</strong> Thinking about the food you buy,
                         which of the following statements applies?
                       </label>
                       <p className="gray-paragraph">
@@ -358,6 +358,7 @@ const FoodAndShopping = () => {
                       value={formik.values.information_diet_clothes_parter}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                      maxlength={1000}
                     ></textarea>
                   </div>
 
@@ -393,7 +394,7 @@ const FoodAndShopping = () => {
                   {formik.values.planning_this_year !== "No" && (
                     <div class="form-div">
                       <label htmlFor="events_details">
-                        <strong>9b. </strong>Please provide more details
+                        <strong>9b.</strong>Please provide more details
                       </label>
 
                       <textarea
@@ -404,6 +405,7 @@ const FoodAndShopping = () => {
                         value={formik.values.events_details}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        maxlength={1000}
                       ></textarea>
                     </div>
                   )}

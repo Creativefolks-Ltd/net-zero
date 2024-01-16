@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import { ordinalNumbers } from "../helpers/ordinalNumber";
 import Pagination from "../components/Pagination";
 import { userFormValidation } from "../helpers/validations/Schema";
+import moment from "moment";
 
 
 const MyAccount = () => {
@@ -302,7 +303,8 @@ const MyAccount = () => {
                                         <div className={"accordion-item " + form?.form_status?.toLowerCase() + "-form"} key={index}>
                                             <h2 class="accordion-header" id={`regularHeading${index + 1}`}>
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#regularCollapse${index + 1}`} aria-expanded="false" aria-controls={`regularCollapse${index + 1}`} >
-                                                    {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form
+                                                    {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
+                                                    <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td>
                                                 </button>
                                             </h2>
                                             <div id={`regularCollapse${index + 1}`} class="accordion-collapse collapse" aria-labelledby={`regularHeading${index + 1}`} data-bs-parent="#regularAccordionRobots">

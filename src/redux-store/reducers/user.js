@@ -6,6 +6,7 @@ const userSlice = createSlice({
     name: "fetchUsers",
     initialState: {
         isLoading: false,
+        currentHomeId: null,
         data: [],
         formList: [],
         homeFormIdList: [],
@@ -13,6 +14,10 @@ const userSlice = createSlice({
         homeDetails: {},
         countries: [],
         isError: false
+    }, reducers: {
+        setCurrentHomeId(state, action) {
+            state.currentHomeId = action.payload
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsers.pending, (state, action) => {
@@ -71,5 +76,7 @@ const userSlice = createSlice({
         })
     }
 });
+
+export const { setCurrentHomeId } = userSlice.actions;
 
 export default userSlice.reducer;

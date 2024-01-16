@@ -8,19 +8,19 @@ import Path_img from "../assets/images/Path_img.png";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { homeformIds } from "../redux-store/actions/user";
+import { setCurrentHomeId } from "../redux-store/reducers/user";
 
 
 
 const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [activeTab, setActiveTab] = useState(selectedTab);
-  const homeIds = useSelector((state) => state.users?.homeFormIdList);
-  const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
   const user = useSelector((state) => state.auth);
-  const defaultHomeCount = homeIds?.length > 1 ? Number(homeIds?.length) : 1;
+  const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
+  const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
+  const [homeCount, setHomeCount] = useState(1);
 
-  const [homeCount, setHomeCount] = useState(defaultHomeCount);
+  const [activeTab, setActiveTab] = useState(selectedTab);
 
   const general_information_id = Number(user?.generalInfoId);
 
@@ -37,7 +37,15 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
     }
   };
 
-  const handleHomeTabs = (activeTab) => { setHomeActiveTab(activeTab) }
+  const handleHomeTabs = (activeIndex) => {
+    setHomeActiveTab(activeIndex);
+    if (homeIds?.length > 0) {
+      dispatch(setCurrentHomeId(homeIds[activeIndex]))
+    }
+  }
+  useEffect(() => {
+    setHomeCount(homeIds?.length)
+  }, [homeIds]);
 
   const renderHomes = () => {
     const homes = [];
@@ -50,6 +58,7 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
     }
     return homes;
   };
+
 
 
 

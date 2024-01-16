@@ -72,8 +72,8 @@ export const homeFormvalidation = Yup.object().shape({
     electricity_usage_known: Yup.string().required(selectOptionMsg),
 
     // If  electricity_usage_known !== "No" 
-    electricity_usage_amount: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).when('electricity_usage_known', (value, schema) => {
-        return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+    electricity_usage_amount: Yup.string().when('electricity_usage_known', (value, schema) => {
+        return value?.toString() !== null && value?.toString() !== "No" ? schema.required(requiredMsg).nullable().matches(/^[0-9]+$/, numberAllowMsg) : schema;
     }),
     electricity_usage_unit: Yup.string().when('electricity_usage_known', (value, schema) => {
         return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
@@ -103,7 +103,7 @@ export const homeFormvalidation = Yup.object().shape({
     on_site_renewable_energy: Yup.string().required(selectOptionMsg),
 
     // If on_site_renewable_energy !== "No"
-    on_site_renewable_amount: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
+    on_site_renewable_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
         return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
     }),
     on_site_renewable_unit: Yup.string().when('on_site_renewable_energy', (value, schema) => {

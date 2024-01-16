@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import FormActionTabs from "../components/FormActionTabs";
 import CountryOptions from "../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormSubmit } from "../redux-store/actions/user";
+import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../redux-store/actions/user";
 import { homeFormvalidation } from "../helpers/validations/Schema";
 import delete_img from "../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
@@ -21,6 +21,7 @@ const Homeform = () => {
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
   const user = useSelector((state) => state.auth);
+  const currentHomeId = useSelector((state) => state.users?.currentHomeId);
 
   const [disabled, setDisabled] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -38,6 +39,10 @@ const Homeform = () => {
   useEffect(() => {
     dispatch(getCountry());
   }, []);
+
+  const handleFormActiveFunc = (active, home_id) => {
+    setHomeActiveTab(active)
+  }
 
   const getWinterTemperature = (temprature) => {
     switch (temprature) {
@@ -89,7 +94,7 @@ const Homeform = () => {
       heating_type: ["Electricity", "Oil", "Coal", "Gas", "Wood"],
       zero_carbon_energy_tariff: "",
       electricity_usage_known: "",
-      electricity_usage_amount: null,
+      electricity_usage_amount: "",
       electricity_usage_unit: "",
       electricity_usage_time_period: "",
       electricity_annual_spend: "",
@@ -141,7 +146,6 @@ const Homeform = () => {
     },
 
     validationSchema: homeFormvalidation,
-
     onSubmit: submitHandler,
   });
 
@@ -149,11 +153,8 @@ const Homeform = () => {
     navigate("/travel")
   }
 
-  async function submitHandler(e) {
-    e.preventDefault();
-    const { values, isValid, errors } = formik;
-    formik.handleSubmit();
-
+  async function submitHandler(values) {
+    const { isValid, errors } = formik;
     if (isValid) {
       setDisabled(true);
 
@@ -170,6 +171,7 @@ const Homeform = () => {
           imageHeight: 100,
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
+          didClose: navigateToNext
           //   cancelButtonColor: "#d33",
           // }).then((result) => {
           //   if (result.isConfirmed) {
@@ -199,26 +201,40 @@ const Homeform = () => {
   };
 
   const deleteHandler = async () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
+    try {
+      if (currentHomeId === null) {
+        return false
+      }
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
       if (result.isConfirmed) {
+        const general_information_id = Number(user?.generalInfoId);
+        await dispatch(homeFormDelete(currentHomeId));
+        dispatch(homeformIds(general_information_id));
         Swal.fire({
           title: "Deleted!",
           text: "Home deleted successfully",
-          icon: "success"
+          icon: "success",
         });
-        // await dispatch(formDelete(form_id))
-        // dispatch(formlist(userId));
       }
-    });
-  }
+    } catch (error) {
+      console.error("Error deleting home:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "An error occurred while deleting the home",
+        icon: "error",
+      });
+    }
+  };
+
 
   const genSlideStyle = (value) => {
     return {
@@ -250,7 +266,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={setHomeActiveTab} />
+      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} />
       <form onSubmit={formik.handleSubmit}>
 
         <section className="general-form mt-80 mb-80">
@@ -336,7 +352,7 @@ const Homeform = () => {
                         <div className="form-div">
                           <div className="form-label-div">
                             <label htmlFor="zero_carbon_energy_tariff">
-                              <strong>3. </strong> Was your electricity supplied
+                              <strong>3.</strong> Was your electricity supplied
                               under a zero-carbon energy tariff? <span>*</span>{" "}
                             </label>
                             <p>
@@ -495,7 +511,7 @@ const Homeform = () => {
                               <div className="form-div">
                                 <div className="form-label-div">
                                   <label htmlFor="electricity_usage_time_period">
-                                    <strong>4b. </strong> Please specify the time
+                                    <strong>4b.</strong> Please specify the time
                                     period for which you have electricity bills{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -529,7 +545,7 @@ const Homeform = () => {
                               <div className="form-div">
                                 <div className="form-label-div">
                                   <label htmlFor="electricity_annual_spend">
-                                    <strong>4b. </strong> Do you know what the annual spend was for electricity in the selected year? <span>*</span>{" "}
+                                    <strong>4b.</strong> Do you know what the annual spend was for electricity in the selected year? <span>*</span>{" "}
                                   </label>
                                   <p>
                                     (100% electricity generated from wind, water,
@@ -615,7 +631,7 @@ const Homeform = () => {
                             <div className="form-div">
                               <div className="form-label-div">
                                 <label htmlFor="electricity_supplier">
-                                  <strong>5. </strong> Who was your electricity
+                                  <strong>5.</strong> Who was your electricity
                                   supplier? <span>*</span>{" "}
                                 </label>
                                 <p>
@@ -839,7 +855,7 @@ const Homeform = () => {
                               <div className="form-div">
                                 <div className="form-label-div">
                                   <label htmlFor="natural_gas_usage_time_period">
-                                    <strong>7b. </strong> Please specify the time
+                                    <strong>7b.</strong> Please specify the time
                                     period for which you have gas bills{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -873,7 +889,7 @@ const Homeform = () => {
                               <div className="form-div">
                                 <div className="form-label-div">
                                   <label htmlFor="">
-                                    <strong>7b. </strong> Do you know what the annual spend was on gas at property in the selected year? <span>*</span>{" "}
+                                    <strong>7b.</strong> Do you know what the annual spend was on gas at property in the selected year? <span>*</span>{" "}
                                   </label>
                                 </div>
                                 <select
@@ -1092,7 +1108,7 @@ const Homeform = () => {
                                   <div className="form-div">
                                     <div className="form-label-div">
                                       <label htmlFor="">
-                                        <strong>9b. </strong> Do you know what the annual spend was on oil at property in the selected year? <span>*</span>{" "}
+                                        <strong>9b.</strong> Do you know what the annual spend was on oil at property in the selected year? <span>*</span>{" "}
                                       </label>
                                     </div>
                                     <select
@@ -1178,7 +1194,7 @@ const Homeform = () => {
                               <>
                                 <div className="form-div">
                                   <label htmlFor="wood_usage_known">
-                                    <strong>10. </strong> Do you know how much wood
+                                    <strong>10.</strong> Do you know how much wood
                                     was used at the home in the selected year?{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -1264,7 +1280,7 @@ const Homeform = () => {
                                   <div className="form-div">
                                     <div className="form-label-div">
                                       <label htmlFor="">
-                                        <strong>10b. </strong> Do you know what the annual spend was on wood at property in the selected year? <span>*</span>{" "}
+                                        <strong>10b.</strong> Do you know what the annual spend was on wood at property in the selected year? <span>*</span>{" "}
                                       </label>
                                     </div>
                                     <select
@@ -1349,7 +1365,7 @@ const Homeform = () => {
                               <>
                                 <div className="form-div">
                                   <label htmlFor="coal_usage_known">
-                                    <strong>11. </strong> Do you know how much coal
+                                    <strong>11.</strong> Do you know how much coal
                                     was used at the home in the selected year?{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -1435,7 +1451,7 @@ const Homeform = () => {
                                   <div className="form-div">
                                     <div className="form-label-div">
                                       <label htmlFor="">
-                                        <strong>11b. </strong> Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
+                                        <strong>11b.</strong> Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
                                       </label>
                                     </div>
                                     <select
@@ -1519,7 +1535,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="other_energy_usage">
-                              <strong>12. </strong> Other than for heating, was
+                              <strong>12.</strong> Other than for heating, was
                               there any other energy used at the property{" "}
                               <span>*</span>{" "}
                             </label>
@@ -1625,7 +1641,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="house_type">
-                              <strong>14. </strong>What kind of house do you
+                              <strong>14.</strong>What kind of house do you
                               live in?{" "}
                             </label>
                             <select
@@ -1647,7 +1663,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="construction_material">
-                              <strong>15. </strong>What is the primary
+                              <strong>15.</strong>What is the primary
                               construction material?{" "}
                             </label>
                             <select
@@ -1668,7 +1684,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="year_built">
-                              <strong>16. </strong>When was it built?{" "}
+                              <strong>16.</strong>When was it built?{" "}
                             </label>
                             <select
                               name="year_built"
@@ -1699,7 +1715,7 @@ const Homeform = () => {
                           <div className="form-div">
                             <div className="form-label-div ">
                               <label htmlFor="winter_temperature">
-                                <strong>17. </strong>What temprature was the home
+                                <strong>17.</strong>What temprature was the home
                                 kept in the winter?
                               </label>
                               <p>(Use slider below)</p>
@@ -1730,7 +1746,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div ">
                             <label htmlFor="additional_property_features">
-                              <strong>18. </strong>Does the property have any of
+                              <strong>18.</strong>Does the property have any of
                               the following?{" "}
                             </label>
                             <div className="sub-btn">
@@ -1753,7 +1769,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="live_in_staff">
-                              <strong>19. </strong>Does the property have any
+                              <strong>19.</strong>Does the property have any
                               live-in staff?{" "}
                             </label>
                             <select
@@ -1776,7 +1792,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="other_dependants">
-                              <strong>20. </strong>Do you have any renovations
+                              <strong>20.</strong>Do you have any renovations
                               planned this year or next year?{" "}
                             </label>
                             <div className="col-lg-5">
@@ -1804,7 +1820,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="other_dependants">
-                              <strong>21. </strong>Does the property have any
+                              <strong>21.</strong>Does the property have any
                               significant land attached?{" "}
                             </label>
                             <div className="col-lg-5">
@@ -1834,7 +1850,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="land_details">
-                              <strong>22. </strong>Please provide some details
+                              <strong>22.</strong>Please provide some details
                               on the land, and any livestock?{" "}
                             </label>
                             <textarea
@@ -1850,7 +1866,7 @@ const Homeform = () => {
                           </div>
                           <div className="form-div">
                             <label htmlFor="other_details">
-                              <strong>23. </strong>Is there anything else you
+                              <strong>23.</strong>Is there anything else you
                               would like to tell us? For Example, What measures
                               have you taken to improve the sustainability of
                               you home? Have you had any challenges in doing so?
@@ -1878,9 +1894,9 @@ const Homeform = () => {
                       <div className="Additional-bottom-btn">
                         <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button>
-                        {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
-                        <button className="btn" type="button" onClick={continueHandler}>
+                        {/* <button className="btn" type='button' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button> */}
+                        {/* <button className="btn" type="button" onClick={continueHandler}>
                           Continue
                         </button> */}
                       </div>
