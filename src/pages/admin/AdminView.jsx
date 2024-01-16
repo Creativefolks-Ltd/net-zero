@@ -19,7 +19,7 @@ const AdminView = () => {
 
 
   const navigateToNext = (e) => {
-    navigate("/admin-dashboard")
+    navigate("/admin/dashboard")
   }
 
   const handleDeleteConfirmation = async () => {

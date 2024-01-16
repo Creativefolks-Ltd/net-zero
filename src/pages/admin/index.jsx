@@ -8,21 +8,22 @@ import CreateNewUser from "./CreateNewUser.jsx";
 import ChangePassword from "./ChangePassword.jsx";
 import { useDispatch } from "react-redux";
 import { addGeneralInfo } from "../../redux-store/actions/user.js";
+import AdminProtectedRoute from "../../routes/AdminProtectedRoute.js";
 
 function Dashboard() {
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(addGeneralInfo(null))
-    },[]);
+    }, []);
 
     return (
         <Routes>
-            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="login" element={<AdminLogin />} />
-            <Route path="form-view/:form_id" element={<AdminView />} />
-            <Route path="create-user" element={<CreateNewUser />} />
-            <Route path="manage-password" element={<ChangePassword />} />
+            <Route path="dashboard" element={<AdminProtectedRoute><AdminDashboard /> </AdminProtectedRoute>} />
+            <Route path="form-view/:form_id" element={<AdminProtectedRoute><AdminView /></AdminProtectedRoute>} />
+            <Route path="create-user" element={<AdminProtectedRoute><CreateNewUser /></AdminProtectedRoute>} />
+            <Route path="manage-password" element={<AdminProtectedRoute><ChangePassword /></AdminProtectedRoute>} />
         </Routes>
     );
 }

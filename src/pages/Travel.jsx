@@ -474,7 +474,7 @@ const Travel = () => {
                       your partner/children?
                     </label>
                   </div>
-                  <select className="form-control "
+                  <select className="form-control"
                     name={`additional_vehicles_by_partner_children`}
                     value={formik.values.additional_vehicles_by_partner_children}
                     onChange={formik.handleChange}
@@ -523,6 +523,7 @@ const Travel = () => {
                                 <div className="modal-input-col">
                                   <label>Vehical Type</label>{" "}
                                   <select
+                                    className="form-control"
                                     name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
                                     value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
                                     onChange={formik.handleChange}

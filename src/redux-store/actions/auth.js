@@ -19,6 +19,16 @@ export const userLogin = createAsyncThunk('userLogin', async (data, thunkAPI) =>
     }
 });
 
+export const adminLogin = createAsyncThunk('adminLogin', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/login/admin", data, { headers: { "Accept": "application/json", "Content-Type": "application/json" } });
+        return response.data;
+
+    } catch (error) {
+        return error;
+    }
+});
+
 
 export const userSignup = createAsyncThunk('userSignup', async (data, thunkAPI) => {
     try {

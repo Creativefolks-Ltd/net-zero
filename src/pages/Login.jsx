@@ -77,11 +77,12 @@ const Login = () => {
     const { loading, userInfo, error } = useSelector((state) => state.auth)
 
 
-    const navigateToHome = () => {
+    const navigateToNext = () => {
         navigate("/my-account")
     }
     const loginFormik = useFormik({
         initialValues: {
+            role_id: 2,
             email: '',
             password: '',
         },
@@ -93,17 +94,18 @@ const Login = () => {
             try {
                 const response = await dispatch(userLogin(values))
                 if (!response?.payload?.error && response?.payload?.data) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "User login successfully",
-                        imageUrl: SuccessImg,
-                        imageWidth: 100,
-                        imageHeight: 100,
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        didClose: navigateToHome
-                    });
+                    navigateToNext();
+                    // Swal.fire({
+                    //     title: "Success!",
+                    //     text: "User login successfully",
+                    //     imageUrl: SuccessImg,
+                    //     imageWidth: 100,
+                    //     imageHeight: 100,
+                    //     showCancelButton: false,
+                    //     confirmButtonColor: "#3085d6",
+                    //     cancelButtonColor: "#d33",
+                    //     didClose: navigateToNext
+                    // });
                 } else {
                     Swal.fire({
                         title: "Failed!",
@@ -145,17 +147,18 @@ const Login = () => {
             try {
                 const response = await dispatch(userSignup(values));
                 if (!response?.payload?.error && response?.payload?.data) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "User login successfully",
-                        imageUrl: SuccessImg,
-                        imageWidth: 100,
-                        imageHeight: 100,
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        didClose: navigateToHome
-                    });
+                    navigateToNext();
+                    // Swal.fire({
+                    //     title: "Success!",
+                    //     text: "User login successfully",
+                    //     imageUrl: SuccessImg,
+                    //     imageWidth: 100,
+                    //     imageHeight: 100,
+                    //     showCancelButton: false,
+                    //     confirmButtonColor: "#3085d6",
+                    //     cancelButtonColor: "#d33",
+                    //     didClose: navigateToNext
+                    // });
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {

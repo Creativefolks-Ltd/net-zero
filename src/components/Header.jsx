@@ -8,8 +8,9 @@ import WhiteMenuImage from '../assets/images/white-bar.svg';
 //import closeImage from '../assets/images/close.svg';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../redux-store/actions/auth";
+import {  userLogout } from "../redux-store/actions/auth";
 import Swal from "sweetalert2";
+import { adminLogout } from "../redux-store/reducers/auth";
 
 
 const Header = ({ bgTransparent }) => {
@@ -18,13 +19,15 @@ const Header = ({ bgTransparent }) => {
     const location = useLocation();
 
     const homePage = location?.pathname === "/" || location?.pathname === ""
+    const adminPage = location?.pathname.includes("/admin/")
+
     const authUser = useSelector((state) => state.auth)
     // const navbarStyle = {
     //     background: bgTransparent ? "transparent" : "#ffffff",
     //     boxShadow: bgTransparent ? "none" : "1px 1px 6.5px rgba(0,0,0,0.16)",
     // }
 
-    const logoutHandler = () => {
+    const logoutHandler = (userType) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You want to logout",
@@ -35,7 +38,11 @@ const Header = ({ bgTransparent }) => {
             confirmButtonText: "Logout!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                dispatch(userLogout());
+                if (userType === "admin") {
+                    dispatch(adminLogout());
+                } else {
+                    dispatch(userLogout());
+                }
                 setOpenNavbar(false)
                 Swal.fire({
                     title: "Logout!",
@@ -62,25 +69,41 @@ const Header = ({ bgTransparent }) => {
                         <Link to="/">
                             <img src={homePage ? White_Anthos_logo : Anthos_logo} alt="" className="logo-img" />
                         </Link>
-                        {/* {!authUser && ( */}
-                        <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
-                            <ul>
+                        {authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage ? (
+                            <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
+                                <ul>
+                                    <li className="nav-item"><Link to="/admin/dashboard"> Dashboard</Link></li>
+                                    <li className="nav-item" onClick={() => logoutHandler("admin")}>Logout</li>
+                                    <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
+                                            <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
+                                                <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
+                                                <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
+                                            </g>
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : authUser?.userInfo &&(
+                            <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
+                                <ul>
 
-                                <li className="nav-item"><Link to="/my-account"> My account</Link></li>
-                                <li className="nav-item"><Link to="/general">Footprint Calculator</Link></li>
-                                <li className="nav-item">T&Cs</li>
-                                <li className="nav-item emain-div">netzero@good.business</li>
-                                <li className="nav-item" onClick={() => logoutHandler()}>Logout</li>
-                                <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
-                                        <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
-                                            <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
-                                            <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
-                                        </g>
-                                    </svg>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li className="nav-item"><Link to="/my-account"> My account</Link></li>
+                                    <li className="nav-item"><Link to="/general">Footprint Calculator</Link></li>
+                                    <li className="nav-item">T&Cs</li>
+                                    <li className="nav-item emain-div">netzero@good.business</li>
+                                    <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
+                                    <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
+                                            <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
+                                                <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
+                                                <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
+                                            </g>
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>

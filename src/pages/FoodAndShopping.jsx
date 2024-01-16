@@ -190,11 +190,7 @@ const FoodAndShopping = () => {
                     </p>
                     <label htmlFor="important_purchases_detail">
                       <strong>2.</strong>
-                      Please give details of any vehicles purchased in the
-                      selected year, such as cars or boats. Please specify the
-                      relevant details, such as number and type. You do not need
-                      to include second-hand or refurbished vehicles. Please
-                      also include vehicles purchased by your household members.
+                      Please give details of any other important purchases made in the selected year, such as TVs, laptops, phones and other electronics, domestic appliances, furniture, and home renovations. Please specify the relevant details, such as number and type. You do not need to include second-hand or refurbished items. You may optionally include items purchased by your household members.
                     </label>
                     <textarea
                       rows="6"

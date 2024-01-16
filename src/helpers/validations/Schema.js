@@ -28,7 +28,7 @@ export const changePasswordFormValidation = Yup.object().shape({
 
 export const loginFormValidation = Yup.object().shape({
     email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required('Please enter your email'),
-    password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
+    password: Yup.string().required("Please enter your password"),
 });
 
 export const formvalidation = Yup.object().shape({

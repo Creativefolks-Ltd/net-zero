@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../actions/auth";
-import { formlist, getCountry, getUserDetails, homeformIds, particularHomeDetails } from "../actions/user";
+import { formlist, getCountry, getUserDetails, homeFormDelete, homeformIds, particularHomeDetails } from "../actions/user";
 
 const userSlice = createSlice({
     name: "fetchUsers",
     initialState: {
         isLoading: false,
+        isLoadingHome: false,
         currentHomeId: null,
         data: [],
         formList: [],
@@ -47,13 +48,20 @@ const userSlice = createSlice({
             state.isLoading = false;
 
         }).addCase(homeformIds.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoadingHome = true;
         }).addCase(homeformIds.fulfilled, (state, action) => {
             state.homeFormIdList = action.payload?.data?.id;
             state.submittedFormCount = action.payload?.data?.count_form;
-            state.isLoading = false;
+            state.isLoadingHome = false;
         }).addCase(homeformIds.rejected, (state, action) => {
             state.isError = true;
+            state.isLoadingHome = false;
+
+        }).addCase(homeFormDelete.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(homeFormDelete.fulfilled, (state, action) => {
+            state.isLoading = false;
+        }).addCase(homeFormDelete.rejected, (state, action) => {
             state.isLoading = false;
 
             // }).addCase(getUserDetails.pending, (state, action) => {

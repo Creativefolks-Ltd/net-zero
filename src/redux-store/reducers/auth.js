@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, userSignup } from "../actions/auth";
+import { adminLogin, userLogin, userSignup } from "../actions/auth";
 import { getUserDetails } from "../actions/user";
 
 
@@ -9,6 +9,7 @@ const initialState = {
     error: null,
     success: false,
     generalInfoId: null,
+    adminDetails: null
 }
 
 const authSlice = createSlice({
@@ -27,9 +28,28 @@ const authSlice = createSlice({
             state.success = false;
             state.generalInfoId = null;
 
+        },
+        adminLogout(state) {
+            state.loading = false;
+            state.error = null;
+            state.success = false;
+            state.adminDetails = null;
         }
     },
     extraReducers: (builder) => {
+        builder.addCase(adminLogin.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        }).addCase(adminLogin.fulfilled, (state, action) => {
+            state.loading = false;
+            state.adminDetails = action.payload.data;
+            state.success = true;
+        }).addCase(adminLogin.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message || "Login failed";
+            state.success = false;
+        })
+
         // Login
         builder.addCase(userLogin.pending, (state) => {
             state.loading = true;
@@ -74,7 +94,7 @@ const authSlice = createSlice({
     }
 });
 
-export const { loginAction, logout, generalInfo } = authSlice.actions;
+export const { loginAction, logout, adminLogout, generalInfo } = authSlice.actions;
 export default authSlice.reducer;
 
 

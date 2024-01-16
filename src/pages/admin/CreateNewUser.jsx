@@ -17,7 +17,7 @@ const CreateNewUser = () => {
   const [showCPassword, setShowCPassword] = useState(false);
 
   const fetchAdminDetails = () => {
-    navigate("/admin-dashboard");
+    navigate("/admin/dashboard");
   };
 
 

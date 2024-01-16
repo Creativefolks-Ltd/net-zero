@@ -19,7 +19,7 @@ const ChangePassword = () => {
   const [showOPassword, setShowOPassword] = useState(false)
 
   const fetchAdminDetails = () => {
-    navigate("/admin-dashboard");
+    navigate("/admin/dashboard");
   };
 
 

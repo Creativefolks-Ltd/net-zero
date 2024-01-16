@@ -7,6 +7,7 @@ import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { updateAdminDetails } from "../../redux-store/actions/admin";
 import PasswordInput from "../../components/PasswordInput";
+import { adminLogin, userLogin } from "../../redux-store/actions/auth";
 
 const AdminLogin = () => {
   const dispatch = useDispatch();
@@ -15,31 +16,30 @@ const AdminLogin = () => {
   const user = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false)
 
-  const fetchAdminDetails = () => {
-    navigate("/admin-dashboard");
+  const navigateToNext = () => {
+    navigate("/admin/dashboard");
   };
 
-  
+
   const submitHandler = async (values) => {
     const { isValid, errors } = formik;
-
     if (isValid) {
       setDisabled(true);
-      const user_id = Number(user?.userInfo?.user_id);
-      const response = await dispatch(updateAdminDetails({ data: values, user_id }));
+      const response = await dispatch(adminLogin(values));
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
-        Swal.fire({
-          title: "Success!",
-          text: "Admin login successfully",
-          imageUrl: SuccessImg,
-          imageWidth: 100,
-          imageHeight: 100,
-          showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          didClose: fetchAdminDetails,
-        });
+        navigateToNext()
+        // Swal.fire({
+        //   title: "Success!",
+        //   text: "Admin login successfully",
+        //   imageUrl: SuccessImg,
+        //   imageWidth: 100,
+        //   imageHeight: 100,
+        //   showCancelButton: false,
+        //   confirmButtonColor: "#3085d6",
+        //   cancelButtonColor: "#d33",
+        //   didClose: navigateToNext,
+        // });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -66,6 +66,7 @@ const AdminLogin = () => {
     initialValues: {
       email: "",
       password: "",
+      role_id: 1,
     },
     validationSchema: loginFormValidation,
     onSubmit: submitHandler,
@@ -104,16 +105,15 @@ const AdminLogin = () => {
                           ) : null}
                         </div>
                       </div>
-                      <button className="submit-btn " type="submit" >
-                      Log in
-                    </button>
+                      <button className="submit-btn" type='submit' disabled={disabled} >Log in {disabled ? <div className="spinner-border text-primary" role="status">
+                      </div> : ''}</button>
                     </div>
-                
-              </div>
+
+                  </div>
                 </div>
               </div>
-              
-              
+
+
             </div>
           </section>
         </form>
