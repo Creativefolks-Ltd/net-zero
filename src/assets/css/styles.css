@@ -2267,6 +2267,10 @@ select {
 
         padding: 20px 20px;
     }
+    h1, .h1 {
+        font-size: 90px;
+        line-height: 98px;
+    }
 }
 
 @media (max-width:1200px) {
