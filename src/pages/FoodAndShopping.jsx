@@ -70,8 +70,8 @@ const FoodAndShopping = () => {
   }
 
   async function submitHandler(values) {
-
-    if (values?.vehicle_detail?.trim()) {
+    debugger
+    if (!values?.vehicle_detail?.trim()) {
       return false
     } else {
       setDisabled(true);

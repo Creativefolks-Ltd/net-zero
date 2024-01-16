@@ -217,6 +217,7 @@ const Homeform = () => {
 
       if (result.isConfirmed) {
         const general_information_id = Number(user?.generalInfoId);
+
         await dispatch(homeFormDelete(currentHomeId));
         dispatch(homeformIds(general_information_id));
         Swal.fire({
@@ -266,7 +267,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} />
+      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc}/>
       <form onSubmit={formik.handleSubmit}>
 
         <section className="general-form mt-80 mb-80">
