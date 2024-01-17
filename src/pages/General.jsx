@@ -193,7 +193,7 @@ const General = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-div">
                                                             <label htmlFor="first_name">
-                                                                <strong>1.</strong> Name<span>*</span>
+                                                                <strong>1. </strong>Name<span>*</span>
                                                             </label>
                                                             <input
                                                                 type="text"
@@ -245,7 +245,7 @@ const General = () => {
                                                 </div>
                                                 <div className="form-div">
                                                     <label htmlFor="email">
-                                                        <strong>2.</strong>    Email<span>*</span>
+                                                        <strong>2. </strong>Email<span>*</span>
                                                     </label>
                                                     <input
                                                         type="text"
@@ -268,7 +268,7 @@ const General = () => {
                                                 </div>
                                                 <div className="form-div">
                                                     <label htmlFor="emailConfirmation">
-                                                        <strong>3.</strong>    Email Confirmation<span>*</span>
+                                                        <strong>3. </strong>Email Confirmation<span>*</span>
                                                     </label>
                                                     <input
                                                         type="text"
@@ -292,7 +292,7 @@ const General = () => {
                                                 </div>
                                                 <div className="form-div">
                                                     <label htmlFor="year_of_birth">
-                                                        <strong>4.</strong>   Year<span>*</span>
+                                                        <strong>4. </strong>Year<span>*</span>
                                                     </label>
                                                     <select
                                                         name="year_of_birth"
@@ -324,7 +324,7 @@ const General = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-div">
                                                             <label htmlFor="country_of_residence">
-                                                                <strong>5.</strong>        Country of primary residence<span>*</span>
+                                                                <strong>5. </strong>Country of primary residence<span>*</span>
                                                             </label>
                                                             <select
                                                                 name="country_of_residence"
@@ -352,7 +352,7 @@ const General = () => {
                                                     <div className="col-md-6">
                                                         <div className="form-div">
                                                             <label htmlFor="num_of_homes">
-                                                                <strong>6.</strong>   How many homes do you own?<span>*</span>
+                                                                <strong>6. </strong>How many homes do you own?<span>*</span>
                                                             </label>
                                                             <select
                                                                 name="num_of_homes"
@@ -393,7 +393,7 @@ const General = () => {
                                                             <div className="col-md-6" key={index}>
                                                                 <div className="form-div">
                                                                     <label htmlFor={`${counts[index]?.toLowerCase()}_home_country`}                                                                    >
-                                                                        <strong>6{alphabets[index]?.toLowerCase()}.</strong>  {counts[index]} home country <span>*</span>
+                                                                        <strong>6{alphabets[index]?.toLowerCase()}. </strong>{counts[index]} home country <span>*</span>
                                                                     </label>
                                                                     <select
                                                                         type="text"
@@ -456,7 +456,7 @@ const General = () => {
                                                     <div className="col-md-5">
                                                         <div className="form-div">
                                                             <label htmlFor="living_with_partner">
-                                                                <strong>7.</strong>     Do you live with a partner?<span>*</span>
+                                                                <strong>7. </strong>Do you live with a partner?<span>*</span>
                                                             </label>
                                                             <div className="sub-btn">
                                                                 <input
@@ -491,7 +491,7 @@ const General = () => {
                                                 <div className="form-div">
                                                     <div class="form-label-div">
                                                         <label htmlFor="homeCount">
-                                                            <strong>8.</strong> How many children under 18 living with you?
+                                                            <strong>8. </strong>How many children under 18 living with you?
                                                             <span>*</span>{" "}
                                                         </label>
                                                         <p>(As of 31st December of selected year)</p>
@@ -527,7 +527,7 @@ const General = () => {
                                                 <div className="form-div">
                                                     <div class="form-label-div">
                                                         <label htmlFor="other_dependants">
-                                                            <strong>9.</strong> Do you have any other dependants who live with you
+                                                            <strong>9. </strong>Do you have any other dependants who live with you
                                                             all of the time or most of the time?<span>*</span>{" "}
 
                                                         </label>
@@ -560,10 +560,10 @@ const General = () => {
                                                 {formik.values.other_dependants === "Yes" && (
                                                     <div className="form-div">
                                                         <label htmlFor="other_dependants_details">
-                                                            <strong>9a.</strong> Please specify <span>*</span>
+                                                            <strong>9a. </strong>Please specify <span>*</span>
                                                         </label>
                                                         <input
-                                                            type="other_dependants_details"
+                                                            type="text"
                                                             name="other_dependants_details"
                                                             id="other_dependants_details"
                                                             className={`form-control ${formik.errors.other_dependants_details &&
@@ -609,7 +609,7 @@ const General = () => {
                                                 recommendations more specific.
                                             </p>
                                             <label htmlFor="forest_or_farmland_details">
-                                                <strong>10.</strong>  Other than domestic property, do you own any forest,
+                                                <strong>10. </strong>Other than domestic property, do you own any forest,
                                                 farmland or other not attached to one of your
                                                 properties? If so, please advise size and location.
                                             </label>
