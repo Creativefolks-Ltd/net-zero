@@ -214,11 +214,11 @@ export const homeFormvalidation = Yup.object().shape({
     // }),
 
 
-    // Other
-    other_energy_usage: Yup.string().required(selectOptionMsg),
-    other_energy_which_and_amount: Yup.string().when('other_energy_usage', (value, schema) => {
-        return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    }),
+    // // Other
+    // other_energy_usage: Yup.string().required(selectOptionMsg),
+    // other_energy_which_and_amount: Yup.string().when('other_energy_usage', (value, schema) => {
+    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+    // }),
 })
 
 //// Travel Form Validations
