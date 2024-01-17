@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchParticularForm, formDelete } from "../../redux-store/actions/admin";
+import HomeFormView from "../forms/HomeFormView";
+import GeneralView from "../forms/GeneralView";
+import TravelView from "../forms/TravelView";
 
 const AdminView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form_id } = useParams()
-
+  const singleForm = useSelector((state) => state.admin.singleForm)
   const decodedFormId = atob(form_id);
 
   useEffect(() => {
@@ -85,6 +88,15 @@ const AdminView = () => {
     }
   };
 
+  const {
+    home,
+    travel,
+    food,
+    financial,
+    ...general
+  } = singleForm;
+
+
   return (
     <>
       <section className="admin-view">
@@ -103,10 +115,10 @@ const AdminView = () => {
               </div>
               <div className="admin-view-content">
                 <div className="admin-text">
-                  <p>First name</p>
-                  <p>Last name</p>
-                  <p>Email address</p>
-                  <p>Calendar year</p>
+                  <p>First name: {general?.first_name}</p>
+                  <p>Last name: {general?.last_name}</p>
+                  <p>Email address: {general?.email}</p>
+                  <p>Calendar year: {}</p>
                 </div>
                 <div className="admin-text-btn">
                   <button class="btn" type="button">
@@ -132,8 +144,13 @@ const AdminView = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="full-form-div">
-                <h2>Full form</h2>
+              <div className="full-form-div py-0 bg-secondary">
+                {/* <h2>Full form</h2> */}
+                {/* <GeneralView general={general} /> */}
+                {/* <HomeFormView home={home} /> */}
+                {/* <TravelView travel={travel} /> */}
+                {/* <HomeFormView food={food} />
+                <HomeFormView financial={financial} /> */}
               </div>
             </div>
             <div class="admin-header-btn">

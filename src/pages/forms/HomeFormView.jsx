@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import FormActionTabs from "../components/FormActionTabs";
-import CountryOptions from "../components/CountryOptions";
+import FormActionTabs from "../../components/FormActionTabs";
+import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../redux-store/actions/user";
-import { homeFormvalidation } from "../helpers/validations/Schema";
-import delete_img from "../assets/images/delete_img.svg";
+import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
+import { homeFormvalidation } from "../../helpers/validations/Schema";
+import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
-import SuccessImg from "../assets/images/Group 9106.png";
+import SuccessImg from "../../assets/images/Group 9106.png";
 import { useNavigate } from "react-router-dom";
-import CurrencyOptions from "../components/CurrencyOptions";
 
 // import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = () => {
+const HomeFormView = ({ home }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -66,6 +65,8 @@ const Homeform = () => {
     }
   }
 
+  console.log(home, "////////////home")
+  
   const validateAndFilterFields = (values) => {
     const {
       heating_type,
@@ -267,9 +268,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} />
       <form onSubmit={formik.handleSubmit}>
-
         <section className="general-form mt-80 mb-80">
           <div className="container ">
             <div className="bg-lightgray-color">
@@ -281,12 +280,10 @@ const Homeform = () => {
                         <div className="home-title">
                           <h2>Home {homeActiveTab}</h2>
                         </div>
-                        {homeActiveTab > 1 && (
-                          <div className="delete-box" onClick={deleteHandler}>
-                            <span>Delete this home</span>
-                            <img src={delete_img} alt="" />
-                          </div>
-                        )}
+                        <div className="delete-box" onClick={deleteHandler}>
+                          <span>Delete this home</span>
+                          <img src={delete_img} alt="" />
+                        </div>
                       </div>
 
                       <p>
@@ -1915,4 +1912,4 @@ const Homeform = () => {
   );
 };
 
-export default Homeform;
+export default HomeFormView;

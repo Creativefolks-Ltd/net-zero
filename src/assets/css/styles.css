@@ -1642,7 +1642,7 @@ select {
 
 .information-box {
     background: #F8FAF8;
-    padding: 80px;
+    padding: 78px;
     border-radius: 12px;
 }
 
@@ -2157,18 +2157,58 @@ select {
 }
 
 
+/******************Policy********************/
 
+.Policy {
+    margin-bottom: 130px;
+    margin-top: 80px;
+}
 
+.Policy h1 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 38px;
+    position: relative;
+    width: fit-content;
+    margin: 0 auto 60px;
+}
+.Policy h1::after{
+content: "";
+bottom: 0;
+width: 100%;
+    left: 0;
+position: absolute;
+height: 2px;
+background: #000;
+}
 
+.Policy .policy-data h2 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    margin-top: 60px;
+}
 
+.policy-data ul li span, .policy-data span {
+    font-weight: 600;
+}
+.policy-data ul {
+    margin-bottom: 30px;
+}
+.policy-data ul li{
+    margin-bottom: 16px;
+}
 
+.footer-content-div a, .footer-content-privacy a, .footer-content-privacy p{
+    color: #fff;
+    text-decoration: none;
+}
 
-
-
-
-
-
-
+.footer-content-div p, .footer-content p {
+    font-size: 16px;
+    line-height: 22px;
+}
 
 @media(max-width:1660px) {
     .possinend-image {
@@ -2433,6 +2473,9 @@ select {
 }
 
 @media (max-width:991px) {
+    .Policy .policy-data h2 {
+        margin-top: 40px;
+    }
     .economy-table .label-block {
         width: 23%;
     }
@@ -2513,6 +2556,14 @@ select {
 }
 
 @media (max-width:767px) {
+    .Policy h1 {
+        font-size: 24px;
+        line-height: 30px;
+        margin: 0 auto 40px;
+    }
+    .Policy .policy-data h2 {
+        margin-bottom: 18px;
+    }
     .nav-items.slide-in.active {
         top: 70px;
     }

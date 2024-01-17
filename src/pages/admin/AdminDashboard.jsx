@@ -9,7 +9,7 @@ import missions_img from "../../assets/images/missions_img.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { userFormValidation } from "../../helpers/validations/Schema";
-import { formlist } from "../../redux-store/actions/user";
+import { downloadPdf, formlist } from "../../redux-store/actions/user";
 import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../../helpers/ordinalNumber";
@@ -19,11 +19,11 @@ import moment from "moment";
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth);
-  const adminDetails = useSelector((state) => state.admin);
-  const isLoading = adminDetails.isLoading;
-  const allForms = adminDetails?.getAllForms?.list;
-  const resultcount = adminDetails?.getAllForms?.count;
+  const admin = useSelector((state) => state.auth);
+  const formDetails = useSelector((state) => state.admin);
+  const isLoading = formDetails.isLoading;
+  const allForms = formDetails?.getAllForms?.list;
+  const resultcount = formDetails?.getAllForms?.count;
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const serialNo = (currentPage - 1) * itemsPerPage;
-  const userId = user?.userInfo?.user_id
+  const userId = admin?.adminDetails?.user_id
 
   useEffect(() => {
     fetchAdminDetails()
@@ -53,10 +53,10 @@ const AdminDashboard = () => {
 
   const formik = useFormik({
     initialValues: {
-      first_name: user?.userInfo?.first_name,
-      last_name: user?.userInfo?.last_name,
-      email: user?.userInfo?.email,
-      password: user?.userInfo?.password,
+      first_name: admin?.adminDetails?.first_name,
+      last_name: admin?.adminDetails?.last_name,
+      email: admin?.adminDetails?.email,
+      password: admin?.adminDetails?.password,
     },
     validationSchema: userFormValidation,
     onSubmit: (values) => { },
@@ -74,7 +74,7 @@ const AdminDashboard = () => {
 
     if (isValid) {
       setDisabled(true);
-      const user_id = Number(user?.userInfo?.user_id);
+      const user_id = Number(admin?.userInfo?.user_id);
 
       const response = await dispatch(updateAdminDetails({ data: values, user_id }));
       setDisabled(false)
@@ -145,6 +145,24 @@ const AdminDashboard = () => {
     }
   };
 
+  const downloadHandler = async (formId) => {
+    try {
+      const response = await dispatch(downloadPdf(formId));
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      console.log(blob)
+      // Create a blob URL for the CSV
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Create a hidden link element
+      const link = document.createElement('a');
+      link.href = blobUrl;
+    } catch (err) {
+      console.log(err, "///////err/////")
+    }
+  }
   return (
     <>
       <form>
@@ -254,7 +272,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {isLoading && allForms ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
+                  {isLoading ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
                     allForms?.length > 0 ? allForms?.map((form, index) => (
                       <tr key={index}>
                         {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
@@ -266,7 +284,7 @@ const AdminDashboard = () => {
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
-                          <div class="table-img">  <img src={share_img} width={36} height={44} /></div>
+                          <div class="table-img">  <img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
                         </td>
                       </tr>
                     )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}

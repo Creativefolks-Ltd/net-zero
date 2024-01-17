@@ -230,7 +230,7 @@ const Login = () => {
                                                         </div> : ''}</button>
                                                         <div className='admin-login-icon'>
                                                             <img src={AdminLoginImg} alt="" width={40} height={40} />
-                                                            <p> Admin login</p>
+                                                            <p><Link to="/admin/login" className='text-decoration-none'> Admin login</Link></p>
                                                         </div>
                                                     </form>
                                                 </div>

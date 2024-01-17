@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,8 +19,26 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Dashboard from "./pages/admin";
+import { useDispatch } from "react-redux";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const formsSectionOpened = location.pathname === "/general" || location.pathname === "/home-form" || location.pathname === "/travel" || location.pathname === "/food-shopping" || location.pathname === "/financial" ? true : false
+
+  useEffect(() => {
+    if (!formsSectionOpened) {
+      console.log("not forms")
+      // dispatch(addGeneralInfo(null))
+    }else{
+      
+      console.log("page forms")
+    }
+  }, [formsSectionOpened]);
+
+
   return (
     <div className="App">
       <ScrollToTop />
@@ -35,6 +53,7 @@ function App() {
           <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin/*" element={<Dashboard />} />
