@@ -70,7 +70,6 @@ const FoodAndShopping = () => {
   }
 
   async function submitHandler(values) {
-    debugger
     if (!values?.vehicle_detail?.trim()) {
       return false
     } else {
@@ -81,17 +80,18 @@ const FoodAndShopping = () => {
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true)
-        Swal.fire({
-          title: "Success!",
-          text: "Form submitted successfully",
-          imageUrl: SuccessImg,
-          imageWidth: 100,
-          imageHeight: 100,
-          showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          didClose: navigateToNext
-        });
+        navigateToNext()
+        // Swal.fire({
+        //   title: "Success!",
+        //   text: "Form submitted successfully",
+        //   imageUrl: SuccessImg,
+        //   imageWidth: 100,
+        //   imageHeight: 100,
+        //   showCancelButton: false,
+        //   confirmButtonColor: "#3085d6",
+        //   cancelButtonColor: "#d33",
+        //   didClose: navigateToNext
+        // });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {

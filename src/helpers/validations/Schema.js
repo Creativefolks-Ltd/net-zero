@@ -63,10 +63,245 @@ export const formvalidation = Yup.object().shape({
 })
 
 //// Home Form Validations ////
-export const homeFormvalidation = Yup.object().shape({
-    location: Yup.string().required(selectOptionMsg),
-    heating_type: Yup.array().required(requiredMsg),
-    zero_carbon_energy_tariff: Yup.string().required(requiredMsg),
+export const homeFormvalidation = (values) => {
+    const errors = {};
+    if (!values?.location?.trim()) {
+        errors.location = selectOptionMsg
+    }
+    if (!values?.heating_type || !Array.isArray(values?.heating_type) || values?.heating_type.length === 0) {
+        errors.heating_type = requiredMsg;
+    }
+    if (!values?.zero_carbon_energy_tariff?.trim()) {
+        errors.zero_carbon_energy_tariff = requiredMsg;
+    }
+
+    //// Electricity
+    if (values?.heating_type?.includes("Electricity")) {
+        if (!values?.electricity_usage_known?.trim()) {
+            errors.electricity_usage_known = selectOptionMsg
+        }
+
+        if (values?.electricity_usage_known !== "No") {
+            if (!values?.electricity_usage_amount?.trim()) {
+                errors.electricity_usage_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.electricity_usage_amount)) {
+                errors.electricity_usage_amount = numberAllowMsg;
+            }
+
+            if (!values?.electricity_usage_unit?.trim()) {
+                errors.electricity_usage_unit = selectOptionMsg;
+            }
+        }
+
+        if (values?.electricity_usage_known === "Yes, for part of the year" && !values?.electricity_usage_time_period?.trim()) {
+            errors.electricity_usage_time_period = requiredMsg;
+        }
+
+        if (values?.electricity_usage_known === "No" && !values?.electricity_annual_spend?.trim()) {
+            errors.electricity_annual_spend = requiredMsg;
+        }
+
+        if (values?.electricity_usage_known === "No" && values?.electricity_annual_spend === "Yes") {
+            if (!values?.electricity_annual_amount?.trim()) {
+                errors.electricity_annual_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.electricity_annual_amount)) {
+                errors.electricity_annual_amount = numberAllowMsg;
+            }
+
+            if (!values?.electricity_annual_unit?.trim()) {
+                errors.electricity_annual_unit = selectOptionMsg;
+            }
+        }
+
+        if (!values?.electricity_supplier?.trim()) {
+            errors.electricity_supplier = requiredMsg;
+        }
+
+        if (!values?.on_site_renewable_energy?.trim()) {
+            errors.on_site_renewable_energy = selectOptionMsg;
+        }
+
+        if (values?.on_site_renewable_energy !== "No") {
+            if (!values?.on_site_renewable_amount?.trim()) {
+                errors.on_site_renewable_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.on_site_renewable_amount)) {
+                errors.on_site_renewable_amount = numberAllowMsg;
+            }
+
+            if (!values?.on_site_renewable_unit?.trim()) {
+                errors.on_site_renewable_unit = selectOptionMsg;
+            }
+        }
+    }
+
+    //// Gas
+    if (values?.heating_type?.includes("Gas")) {
+        if (!values?.natural_gas_usage_known?.trim()) {
+            errors.natural_gas_usage_known = selectOptionMsg
+        }
+
+        if (values?.natural_gas_usage_known !== "No") {
+            if (!values?.natural_gas_usage_amount?.trim()) {
+                errors.natural_gas_usage_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.natural_gas_usage_amount)) {
+                errors.natural_gas_usage_amount = numberAllowMsg;
+            }
+
+            if (!values?.natural_gas_usage_unit?.trim()) {
+                errors.natural_gas_usage_unit = selectOptionMsg;
+            }
+        }
+
+        if (values?.natural_gas_usage_known === "Yes, for part of the year" && !values?.natural_gas_usage_time_period?.trim()) {
+            errors.natural_gas_usage_time_period = requiredMsg;
+        }
+
+        if (values?.natural_gas_usage_known === "No" && !values?.natural_gas_annual_spend?.trim()) {
+            errors.natural_gas_annual_spend = selectOptionMsg;
+        }
+
+        if (values?.natural_gas_annual_spend !== "No") {
+            if (!values?.natural_gas_annual_amount?.trim()) {
+                errors.natural_gas_annual_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.natural_gas_annual_amount)) {
+                errors.natural_gas_annual_amount = numberAllowMsg;
+            }
+
+            if (!values?.natural_gas_annual_unit?.trim()) {
+                errors.natural_gas_annual_unit = selectOptionMsg;
+            }
+        }
+
+        if (!values?.gas_consumption_offset?.trim()) {
+            errors.gas_consumption_offset = selectOptionMsg;
+        }
+    }
+
+    //// Oil
+    if (values?.heating_type?.includes("Oil")) {
+        if (!values?.oil_usage_known?.trim()) {
+            errors.oil_usage_known = selectOptionMsg;
+        }
+
+        if (values?.oil_usage_known !== "No") {
+            if (!values?.oil_usage_amount?.trim()) {
+                errors.oil_usage_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.oil_usage_amount)) {
+                errors.oil_usage_amount = numberAllowMsg;
+            }
+
+            if (!values?.oil_usage_unit?.trim()) {
+                errors.oil_usage_unit = selectOptionMsg;
+            }
+        }
+
+        if (values?.oil_usage_known === "No") {
+            if (!values?.oil_annual_spend?.trim()) {
+                errors.oil_annual_spend = selectOptionMsg
+            }
+
+            if (values?.oil_annual_spend !== "No") {
+                if (!values?.oil_annual_amount?.trim()) {
+                    errors.oil_annual_amount = requiredMsg;
+                } else if (!/^[0-9]+$/.test(values?.oil_annual_amount)) {
+                    errors.oil_annual_amount = numberAllowMsg;
+                }
+                if (!values?.oil_annual_unit?.trim()) {
+                    errors.oil_annual_unit = selectOptionMsg;
+                }
+            }
+        }
+    }
+
+    //// Wood
+    if (values?.heating_type?.includes("Wood")) {
+        if (!values?.wood_usage_known?.trim()) {
+            errors.wood_usage_known = selectOptionMsg;
+        }
+
+        if (values?.wood_usage_known !== "No") {
+            if (!values?.wood_usage_amount?.trim()) {
+                errors.wood_usage_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.wood_usage_amount)) {
+                errors.wood_usage_amount = numberAllowMsg;
+            }
+
+            if (!values?.wood_usage_unit?.trim()) {
+                errors.wood_usage_unit = selectOptionMsg;
+            }
+        }
+
+        if (values?.wood_usage_known === "No") {
+            if (!values?.wood_annual_spend?.trim()) {
+                errors.wood_annual_spend = selectOptionMsg
+            }
+
+            if (values?.wood_annual_spend !== "No") {
+                if (!values?.wood_annual_amount?.trim()) {
+                    errors.wood_annual_amount = requiredMsg;
+                } else if (!/^[0-9]+$/.test(values?.wood_annual_amount)) {
+                    errors.wood_annual_amount = numberAllowMsg;
+                }
+
+                if (!values?.wood_annual_unit?.trim()) {
+                    errors.wood_annual_unit = selectOptionMsg;
+                }
+            }
+        }
+    }
+
+    //// Coal
+    if (values?.heating_type?.includes("Coal")) {
+        if (!values?.coal_usage_known?.trim()) {
+            errors.coal_usage_known = selectOptionMsg;
+        }
+
+        if (values?.coal_usage_known !== "No") {
+            if (!values?.coal_usage_amount?.trim()) {
+                errors.coal_usage_amount = requiredMsg;
+            } else if (!/^[0-9]+$/.test(values?.coal_usage_amount)) {
+                errors.coal_usage_amount = numberAllowMsg;
+            }
+
+            if (!values?.coal_usage_unit?.trim()) {
+                errors.coal_usage_unit = selectOptionMsg;
+            }
+        }
+
+        if (values?.coal_usage_known === "No") {
+            if (!values?.coal_annual_spend?.trim()) {
+                errors.coal_annual_spend = selectOptionMsg
+            }
+            if (values?.coal_annual_spend !== "No") {
+                if (!values?.coal_annual_amount?.trim()) {
+                    errors.coal_annual_amount = requiredMsg;
+                } else if (!/^[0-9]+$/.test(values?.coal_annual_amount)) {
+                    errors.coal_annual_amount = numberAllowMsg;
+                }
+
+                if (!values?.coal_annual_unit?.trim()) {
+                    errors.coal_annual_unit = selectOptionMsg;
+                }
+            }
+        }
+    }
+
+    //// Other
+    if (values?.heating_type?.includes("Coal") || values?.heating_type?.includes("Oil") || values?.heating_type?.includes("Wood")) {
+        if (!values?.other_energy_usage?.trim()) {
+            errors.other_energy_usage = selectOptionMsg;
+        }
+        if (values?.other_energy_usage !== "No" && !values?.other_energy_which_and_amount?.trim()) {
+            errors.other_energy_which_and_amount = requiredMsg;
+        }
+    }
+    return errors;
+}
+
+// export const homeFormvalidation = Yup.object().shape({
+    // location: Yup.string().required(selectOptionMsg),
+    // heating_type: Yup.array().required(requiredMsg),
+    // zero_carbon_energy_tariff: Yup.string().required(requiredMsg),
 
     //// Electricity
     // electricity_usage_known: Yup.string().required(selectOptionMsg),
@@ -219,7 +454,8 @@ export const homeFormvalidation = Yup.object().shape({
     // other_energy_which_and_amount: Yup.string().when('other_energy_usage', (value, schema) => {
     //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
     // }),
-})
+// })
+
 
 //// Travel Form Validations
 export const travelformvalidation = Yup.object().shape({

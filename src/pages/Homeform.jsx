@@ -145,7 +145,7 @@ const Homeform = () => {
       other_details: "",
     },
 
-    validationSchema: homeFormvalidation,
+    validate: homeFormvalidation,
     onSubmit: submitHandler,
   });
 
@@ -163,21 +163,22 @@ const Homeform = () => {
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true)
-        Swal.fire({
-          title: "Success!",
-          text: "Form submitted successfully",
-          imageUrl: SuccessImg,
-          imageWidth: 100,
-          imageHeight: 100,
-          showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          didClose: navigateToNext
-          //   cancelButtonColor: "#d33",
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate("/travel")
-          //   }
-        });
+        navigateToNext()
+        // Swal.fire({
+        //   title: "Success!",
+        //   text: "Form submitted successfully",
+        //   imageUrl: SuccessImg,
+        //   imageWidth: 100,
+        //   imageHeight: 100,
+        //   showCancelButton: false,
+        //   confirmButtonColor: "#3085d6",
+        //   didClose: navigateToNext
+        //   //   cancelButtonColor: "#d33",
+        //   // }).then((result) => {
+        //   //   if (result.isConfirmed) {
+        //   //     navigate("/travel")
+        //   //   }
+        // });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {

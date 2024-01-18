@@ -1040,7 +1040,9 @@ form {
     margin-top: 50px;
     text-align: center;
 }
-
+select {
+    background-position: right 1rem center;
+}
 .form input.invalidInput,
 .form select.invalidInput,
 .Additional-box textarea.invalidInput,
@@ -1735,6 +1737,7 @@ select {
 .accordion-content {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .title-accodion {
@@ -2632,6 +2635,10 @@ background: #000;
         margin-top: 60px;
     }
 
+    .footer-box {
+        padding: 17px 49px;
+    }
+    
     .footer-box h2 {
         font-size: 30px;
         line-height: 36px;

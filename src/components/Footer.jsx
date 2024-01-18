@@ -29,7 +29,7 @@ const Footer = () => {
 
                 </div>
                 <div className="footer-lower">
-                    <div className="footer-content"><p> &#169; {year} Net Zero All Rights | Website Design By CREATIVEFOLKS</p></div>
+                    <div className="footer-content"><p> &#169; {year} Net Zero All Rights | Website Design by CREATIVEFOLKS</p></div>
                     <div className="footer-content-two"><p> &#169; {year} Net Zero All Rights<br></br>Website Design By CREATIVEFOLKS</p></div>
                     <div className="footer-content-div"><p><Link to={"/privacy-policy"}> Privacy&nbsp;|&nbsp;Terms & Cookies</Link></p></div>
                 </div>
