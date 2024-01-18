@@ -8,6 +8,7 @@ import { formvalidation } from "../helpers/validations/Schema";
 import { generalFormSubmit, getCountry } from "../redux-store/actions/user";
 import CountryOptions from "../components/CountryOptions";
 import FormActionTabs from "../components/FormActionTabs";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const General = () => {
     const navigate = useNavigate();
@@ -114,6 +115,7 @@ const General = () => {
             setDisabled(false)
             if (!response?.payload?.error && response?.payload?.data) {
                 setIsSubmitted(true)
+                dispatch(setFormCompleted(user?.formCompleted + 1))
                 navigateToNext()
                 // Swal.fire({
                 //     title: "Success!",

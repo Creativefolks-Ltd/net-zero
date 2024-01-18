@@ -6,6 +6,7 @@ import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const Financial = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const Financial = () => {
         }
 
       }).then((result) => {
+        dispatch(setFormCompleted(0))
         if (result.isConfirmed) {
           navigate("/my-account");
         } else {

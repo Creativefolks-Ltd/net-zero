@@ -18,6 +18,7 @@ import { ordinalNumbers } from "../helpers/ordinalNumber";
 import Pagination from "../components/Pagination";
 import { userFormValidation } from "../helpers/validations/Schema";
 import moment from "moment";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 
 const MyAccount = () => {
@@ -50,6 +51,7 @@ const MyAccount = () => {
     useEffect(() => {
         dispatch(formlist(userId));
         dispatch(addGeneralInfo(null))
+        dispatch(addGeneralInfo(0))
     }, []);
 
     const formik = useFormik({
@@ -202,27 +204,28 @@ const MyAccount = () => {
                 return "/general"
         }
     }
-    const navigateToNext = (formId) => {
-        dispatch(addGeneralInfo(formId))
+    const navigateToNext = (form) => {
+        dispatch(addGeneralInfo(form.id))
+        dispatch(setFormCompleted(form.total_forms))
     }
 
 
     const downloadHandler = async (formId) => {
         try {
-          const response = await dispatch(downloadPdf(formId));
-          if (response?.payload?.data?.access_url) {
-            const link = document.createElement('a');
-            link.href = response?.payload?.data?.access_url;
-            link.download = 'filename.pdf';
-            link.target = "_blank";
-            document.body.appendChild(link);
-            link.click(); 
-            document.body.removeChild(link); 
-          }
+            const response = await dispatch(downloadPdf(formId));
+            if (response?.payload?.data?.access_url) {
+                const link = document.createElement('a');
+                link.href = response?.payload?.data?.access_url;
+                link.download = 'filename.pdf';
+                link.target = "_blank";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         } catch (err) {
-          console.log(err, "///////err/////");
+            console.log(err, "///////err/////");
         }
-      };
+    };
 
     return (
         <>
@@ -331,7 +334,7 @@ const MyAccount = () => {
                                                         <div className="title-accodion">
                                                             <span>Form {form?.form_status === "Complete" ? "submitted" : form?.form_status?.toLowerCase()}</span>
                                                             {form?.form_status === "Pending" ? (
-                                                                <Link to={formSwitch(form)} onClick={() => navigateToNext(form.id)}>
+                                                                <Link to={formSwitch(form)} onClick={() => navigateToNext(form)}>
                                                                     Complete form
                                                                 </Link>
                                                             ) : (
@@ -341,7 +344,7 @@ const MyAccount = () => {
                                                             )}
                                                         </div>
                                                         <div className="accordion-img table-img">
-                                                            <img src={share_img} alt="" onClick={() => downloadHandler(form.id)}/>
+                                                            <img src={share_img} alt="" onClick={() => downloadHandler(form.id)} />
                                                             <img src={delete2_img} alt="" onClick={() => formDeleteHandler(form.id)} />
                                                         </div>
                                                     </div>

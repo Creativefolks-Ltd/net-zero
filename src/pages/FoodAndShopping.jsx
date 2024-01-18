@@ -8,6 +8,7 @@ import { foodFormSubmit, getCountry } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { foodFormValidation } from "../helpers/validations/Schema";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const FoodAndShopping = () => {
 
@@ -80,7 +81,8 @@ const FoodAndShopping = () => {
       const response = await dispatch(foodFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
-        setIsSubmitted(true)
+        setIsSubmitted(true);
+        dispatch(setFormCompleted(user?.formCompleted + 1))
         navigateToNext()
         // Swal.fire({
         //   title: "Success!",

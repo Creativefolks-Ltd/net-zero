@@ -8,6 +8,7 @@ import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const Travel = () => {
   const dispatch = useDispatch();
@@ -99,7 +100,8 @@ const Travel = () => {
       const response = await dispatch(travelFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
-        setIsSubmitted(true)
+        setIsSubmitted(true);
+        dispatch(setFormCompleted(user?.formCompleted + 1))
         navigateToNext()
         // Swal.fire({
         //   title: "Success!",

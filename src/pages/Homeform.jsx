@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import SuccessImg from "../assets/images/Group 9106.png";
 import { Link, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../components/CurrencyOptions";
+import { setFormCompleted } from "../redux-store/reducers/auth";
 
 // import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
@@ -162,7 +163,8 @@ const Homeform = () => {
       const response = await dispatch(homeFormSubmit(filteredValues));
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
-        setIsSubmitted(true)
+        setIsSubmitted(true);
+        dispatch(setFormCompleted(user?.formCompleted + 1))
         navigateToNext()
         // Swal.fire({
         //   title: "Success!",
