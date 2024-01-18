@@ -165,7 +165,7 @@ const Travel = () => {
                 </p>
                 <div class="form-div">
                   <label for="www">
-                    <strong>1. </strong>How many flights did you take in the
+                    <strong>1.&nbsp;</strong>How many flights did you take in the
                     selected year?<span>*</span>
                   </label>
                   <ul>
@@ -230,7 +230,7 @@ const Travel = () => {
                 <div class="form-div">
                   <div class="form-label-div">
                     <label for="proportion_offset_flights">
-                      <strong>2. </strong>What proportion of your flights do you
+                      <strong>2.&nbsp;</strong>What proportion of your flights do you
                       offset ?<span>*</span>
                     </label>
                     <p>(estimated % by distance)</p>
@@ -259,7 +259,7 @@ const Travel = () => {
                 <div className="form-div">
                   <div class="form-label-div">
                     <label htmlFor="how_many_cars">
-                      <strong>3. </strong>How many cars do you use ?
+                      <strong>3.&nbsp;</strong>How many cars do you use ?
                       <span>*</span>
                     </label>
                   </div>
@@ -380,7 +380,7 @@ const Travel = () => {
               <div className="card">
                 <div class="form-div">
                   <label for="www">
-                    <strong>4. </strong>How many flights did your
+                    <strong>4.&nbsp;</strong>How many flights did your
                     partner/children take in the selected year?
                   </label>
                   <ul>
@@ -445,7 +445,7 @@ const Travel = () => {
                 <div class="form-div">
                   <div class="form-label-div">
                     <label for="partner_offset_flights">
-                      <strong>5. </strong>What proportion of these flights did you
+                      <strong>5.&nbsp;</strong>What proportion of these flights did you
                       offset?
                     </label>
                     <p>(estimated % by distance)</p>
@@ -471,7 +471,7 @@ const Travel = () => {
                 <div className="form-div">
                   <div class="form-label-div">
                     <label htmlFor="other_dependants">
-                      <strong>6. </strong>How many additional vehicles used by
+                      <strong>6.&nbsp;</strong>How many additional vehicles used by
                       your partner/children?
                     </label>
                   </div>
@@ -573,7 +573,7 @@ const Travel = () => {
                   <div className="form-div">
                     <div class="form-label-div">
                       <label htmlFor="other_dependants">
-                        <strong>7. </strong>Did you use any other form of
+                        <strong>7.&nbsp;</strong>Did you use any other form of
                         transport in the selected year?
                       </label>
                     </div>
@@ -639,7 +639,7 @@ const Travel = () => {
                 <div className="Additional-box">
                   <div class="form-div">
                     <label for="hotel_nights">
-                      <strong>8. </strong>
+                      <strong>8.&nbsp;</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
                       selected year? Please include stays in Mettingen.
@@ -655,7 +655,7 @@ const Travel = () => {
                     />
                   </div>
                   <label htmlFor="other_travel_info">
-                    <strong>9. </strong>
+                    <strong>9.&nbsp;</strong>
                     Is there any other travel information that you would like to
                     tell us about (e.g. family stays in hotels, spend on
                     transport-related services not otherwise included)? If you
