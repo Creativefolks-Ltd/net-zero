@@ -160,7 +160,7 @@ export const homeFormvalidation = (values) => {
             errors.natural_gas_annual_spend = selectOptionMsg;
         }
 
-        if (values?.natural_gas_annual_spend !== "No") {
+        if (values?.natural_gas_usage_known === "No" && values?.natural_gas_annual_spend !== "No") {
             if (!values?.natural_gas_annual_amount?.trim()) {
                 errors.natural_gas_annual_amount = requiredMsg;
             } else if (!/^[0-9]+$/.test(values?.natural_gas_annual_amount)) {
@@ -295,6 +295,7 @@ export const homeFormvalidation = (values) => {
             errors.other_energy_which_and_amount = requiredMsg;
         }
     }
+    console.log(errors,"///////errors")
     return errors;
 }
 
