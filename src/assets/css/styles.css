@@ -1040,9 +1040,11 @@ form {
     margin-top: 50px;
     text-align: center;
 }
+
 select {
     background-position: right 1rem center;
 }
+
 .form input.invalidInput,
 .form select.invalidInput,
 .Additional-box textarea.invalidInput,
@@ -1695,6 +1697,17 @@ select {
     margin-bottom: 130px;
 }
 
+.account-link {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    text-align: right !important;
+    display: block;
+    margin-top: 80px;
+}
+
 /*****************accordion****************/
 
 .accordion-button {
@@ -2033,6 +2046,10 @@ select {
     font-size: 22px;
 }
 
+.table-img img {
+    cursor: pointer;
+}
+
 /*********************submissions-popup***********************/
 
 .submissions .modal-content {
@@ -2175,14 +2192,15 @@ select {
     width: fit-content;
     margin: 0 auto 60px;
 }
-.Policy h1::after{
-content: "";
-bottom: 0;
-width: 100%;
+
+.Policy h1::after {
+    content: "";
+    bottom: 0;
+    width: 100%;
     left: 0;
-position: absolute;
-height: 2px;
-background: #000;
+    position: absolute;
+    height: 2px;
+    background: #000;
 }
 
 .Policy .policy-data h2 {
@@ -2193,22 +2211,28 @@ background: #000;
     margin-top: 60px;
 }
 
-.policy-data ul li span, .policy-data span {
+.policy-data ul li span,
+.policy-data span {
     font-weight: 600;
 }
+
 .policy-data ul {
     margin-bottom: 30px;
 }
-.policy-data ul li{
+
+.policy-data ul li {
     margin-bottom: 16px;
 }
 
-.footer-content-div a, .footer-content-privacy a, .footer-content-privacy p{
+.footer-content-div a,
+.footer-content-privacy a,
+.footer-content-privacy p {
     color: #fff;
     text-decoration: none;
 }
 
-.footer-content-div p, .footer-content p {
+.footer-content-div p,
+.footer-content p {
     font-size: 16px;
     line-height: 22px;
 }
@@ -2310,7 +2334,9 @@ background: #000;
 
         padding: 20px 20px;
     }
-    h1, .h1 {
+
+    h1,
+    .h1 {
         font-size: 90px;
         line-height: 98px;
     }
@@ -2479,6 +2505,7 @@ background: #000;
     .Policy .policy-data h2 {
         margin-top: 40px;
     }
+
     .economy-table .label-block {
         width: 23%;
     }
@@ -2564,9 +2591,11 @@ background: #000;
         line-height: 30px;
         margin: 0 auto 40px;
     }
+
     .Policy .policy-data h2 {
         margin-bottom: 18px;
     }
+
     .nav-items.slide-in.active {
         top: 70px;
     }
@@ -2638,7 +2667,7 @@ background: #000;
     .footer-box {
         padding: 17px 49px;
     }
-    
+
     .footer-box h2 {
         font-size: 30px;
         line-height: 36px;
@@ -3644,13 +3673,47 @@ background: #000;
 
 /* Sweet Alert Start  */
 .custom-cancel-button {
+    font-family: "halcom", sans-serif;
     border: 2px solid #000 !important;
     color: #000 !important;
 }
 
 .action-button-box {
+    font-family: "halcom", sans-serif;
     display: flex;
     flex-direction: column;
 }
+.custom-title {
+    font-family: "halcom", sans-serif;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    color: #000;
+    padding: 0;
+}
+.submit-container-popup {
+    padding: 40px 160px 60px 160px;
+    width: 1004px;
+    border-radius: 24px;
+}
+.submit-container-popup img {
+    width: 150px !important;
+    height: 150px !important;
+	margin-bottom: 20px;
+	
+}
+.submit-container-popup .action-button-box {
+    margin: 40px 0 0 0;
+	
+}
+.submit-container-popup .custom-cancel-button {
+    margin: 20px 0 0 0;
+	padding: 13px 40px;
+}
+.submit-container-popup .custom-confirm-button {
+    margin: 20px 0 0 0;
+	padding: 13px 32px;
+}
+
 
 /* Sweet Alert End */

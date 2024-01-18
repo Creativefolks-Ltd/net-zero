@@ -7,7 +7,7 @@ import { travelFormSubmit } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Travel = () => {
   const dispatch = useDispatch();
@@ -675,6 +675,7 @@ const Travel = () => {
                   <div className="Additional-bottom-btn">
                     <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
+                    <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                     {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
                     <button className="btn" type="button" onClick={continueHandler}>

@@ -11,7 +11,7 @@ import pending_img from "../assets/images/pending_img.svg";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { formlist, updateUserDetails, getUserDetails, formDelete, addGeneralInfo } from "../redux-store/actions/user";
+import { formlist, updateUserDetails, getUserDetails, formDelete, addGeneralInfo, downloadPdf } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../helpers/ordinalNumber";
@@ -58,7 +58,6 @@ const MyAccount = () => {
             first_name: user?.userInfo?.first_name,
             last_name: user?.userInfo?.last_name,
             email: user?.userInfo?.email,
-            password: user?.userInfo?.password,
         },
 
         validationSchema: userFormValidation,
@@ -207,6 +206,24 @@ const MyAccount = () => {
         dispatch(addGeneralInfo(formId))
     }
 
+
+    const downloadHandler = async (formId) => {
+        try {
+          const response = await dispatch(downloadPdf(formId));
+          if (response?.payload?.data?.access_url) {
+            const link = document.createElement('a');
+            link.href = response?.payload?.data?.access_url;
+            link.download = 'filename.pdf';
+            link.target = "_blank";
+            document.body.appendChild(link);
+            link.click(); 
+            document.body.removeChild(link); 
+          }
+        } catch (err) {
+          console.log(err, "///////err/////");
+        }
+      };
+
     return (
         <>
             <section className="Personal-information">
@@ -253,7 +270,8 @@ const MyAccount = () => {
                                             </span>
                                         ) : null}
                                     </div>
-                                    <div class="form-div">
+                                    <Link to="/manage-password" className="account-link">Manage your password</Link>
+                                    {/* <div class="form-div">
                                         <label htmlFor="password">Your password</label>
                                         <input type="password" id="password" name="password" className={`${formik.errors.password &&
                                             formik.touched.password && "invalidInput"}`} placeholder="************" value={formik?.values?.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
@@ -263,7 +281,7 @@ const MyAccount = () => {
                                                 {formik.errors.password}
                                             </span>
                                         ) : null}
-                                    </div>
+                                    </div> */}
                                     <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save {disabled ? <div className="spinner-border text-primary" role="status">
                                     </div> : ''}</button>
                                 </form>
@@ -322,8 +340,8 @@ const MyAccount = () => {
                                                                 </a>
                                                             )}
                                                         </div>
-                                                        <div className="accordion-img">
-                                                            <img src={share_img} alt="" />
+                                                        <div className="accordion-img table-img">
+                                                            <img src={share_img} alt="" onClick={() => downloadHandler(form.id)}/>
                                                             <img src={delete2_img} alt="" onClick={() => formDeleteHandler(form.id)} />
                                                         </div>
                                                     </div>

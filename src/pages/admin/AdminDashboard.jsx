@@ -56,7 +56,6 @@ const AdminDashboard = () => {
       first_name: admin?.adminDetails?.first_name,
       last_name: admin?.adminDetails?.last_name,
       email: admin?.adminDetails?.email,
-      password: admin?.adminDetails?.password,
     },
     validationSchema: userFormValidation,
     onSubmit: (values) => { },
@@ -148,21 +147,20 @@ const AdminDashboard = () => {
   const downloadHandler = async (formId) => {
     try {
       const response = await dispatch(downloadPdf(formId));
-      if (!response.ok) {
-        throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`);
+      if (response?.payload?.data?.access_url) {
+        const link = document.createElement('a');
+        link.href = response?.payload?.data?.access_url;
+        link.download = 'filename.pdf';
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
-      const blob = await response.blob();
-      console.log(blob)
-      // Create a blob URL for the CSV
-      const blobUrl = URL.createObjectURL(blob);
-
-      // Create a hidden link element
-      const link = document.createElement('a');
-      link.href = blobUrl;
     } catch (err) {
-      console.log(err, "///////err/////")
+      console.log(err, "///////err/////");
     }
-  }
+  };
+
   return (
     <>
       <form>
@@ -208,16 +206,7 @@ const AdminDashboard = () => {
                       </span>
                     ) : null}
                   </div>
-                  <div class="form-div">
-                    <label htmlFor="password">Your password</label>
-                    <input type="password" id="password" name="password" className={`${formik.errors.password && formik.touched.password && "invalidInput"}`} placeholder="************" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                    {formik.errors.password &&
-                      formik.touched.password ? (
-                      <span className="input-error-msg">
-                        {formik.errors.password}
-                      </span>
-                    ) : null}
-                  </div>
+                  <Link to="/admin/manage-password" className="account-link">Manage your password</Link>
                 </div>
               </div>
               <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)}>
@@ -284,7 +273,7 @@ const AdminDashboard = () => {
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
-                          <div class="table-img">  <img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                          <div class="table-img"> <img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
                         </td>
                       </tr>
                     )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}

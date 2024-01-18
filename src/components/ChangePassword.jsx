@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { changePasswordFormValidation } from "../../helpers/validations/Schema";
-import SuccessImg from "../../assets/images/Group 9106.png";
-import lock from "../../assets/images/lock.svg";
+import { changePasswordFormValidation } from "../helpers/validations/Schema";
+import SuccessImg from "../assets/images/Group 9106.png";
+import lock from "../assets/images/lock.svg";
 import Swal from "sweetalert2";
-import { updateAdminDetails } from "../../redux-store/actions/admin";
-import PasswordInput from "../../components/PasswordInput";
+import { updateAdminDetails } from "../redux-store/actions/admin";
+import PasswordInput from "../components/PasswordInput";
+import { managePassword } from "../redux-store/actions/user";
 
-const ChangePassword = () => {
+const ChangePassword = ({ isAdmin }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
@@ -19,7 +20,7 @@ const ChangePassword = () => {
   const [showOPassword, setShowOPassword] = useState(false)
 
   const fetchAdminDetails = () => {
-    navigate("/admin/dashboard");
+    navigate(isAdmin ? "/admin/dashboard" : "/my-account");
   };
 
 
@@ -28,13 +29,12 @@ const ChangePassword = () => {
 
     if (isValid) {
       setDisabled(true);
-      const user_id = Number(user?.userInfo?.user_id);
-      const response = await dispatch(updateAdminDetails({ data: values, user_id }));
+      const response = await dispatch(managePassword(values));
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
         Swal.fire({
           title: "Success!",
-          text: "Admin login successfully",
+          text: "Password updated successfully",
           imageUrl: SuccessImg,
           imageWidth: 100,
           imageHeight: 100,
@@ -51,7 +51,7 @@ const ChangePassword = () => {
             const errorMessage = errorMessages.join("\n");
             Swal.fire({
               title: "Failed!",
-              html: errorMessage || "Failed to login, please try again",
+              html: errorMessage || "Failed to update password, please try again",
               icon: "error",
               showCancelButton: false,
               confirmButtonColor: "#3085d6",
@@ -65,11 +65,14 @@ const ChangePassword = () => {
     }
   };
 
+  const email = isAdmin ? user?.adminDetails?.email : user?.userInfo?.email;
+  
   const formik = useFormik({
     initialValues: {
-      password: "",
-      cpassword: "",
-      opassword: ""
+      email: email,
+      new_password: "",
+      reenter_password: "",
+      old_password: ""
     },
     validationSchema: changePasswordFormValidation,
     onSubmit: submitHandler,
@@ -90,31 +93,31 @@ const ChangePassword = () => {
                     </div>
                     <div className="form-div login-pass-filed">
                       <label htmlFor="">Old password</label>
-                      <PasswordInput name="opassword" className={`form-control ${formik.errors.opassword && formik.touched.opassword ? "invalidInput" : ""} `} placeholder="Old password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.opassword} showPassword={showOPassword} setShowPassword={() => setShowOPassword(!showOPassword)} />
-                      {formik.errors.opassword &&
-                        formik.touched.opassword ? (
+                      <PasswordInput name="old_password" className={`form-control ${formik.errors.old_password && formik.touched.old_password ? "invalidInput" : ""} `} placeholder="Old password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.old_password} showPassword={showOPassword} setShowPassword={() => setShowOPassword(!showOPassword)} />
+                      {formik.errors.old_password &&
+                        formik.touched.old_password ? (
                         <span className="input-error-msg">
-                          {formik.errors.opassword}
+                          {formik.errors.old_password}
                         </span>
                       ) : null}
                     </div>
                     <div className="form-div login-pass-filed">
                       <label htmlFor="">Create new password</label>
-                      <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="New password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
-                      {formik.errors.password &&
-                        formik.touched.password ? (
+                      <PasswordInput name="new_password" className={`form-control ${formik.errors.new_password && formik.touched.new_password ? "invalidInput" : ""} `} placeholder="New password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.new_password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+                      {formik.errors.new_password &&
+                        formik.touched.new_password ? (
                         <span className="input-error-msg">
-                          {formik.errors.password}
+                          {formik.errors.new_password}
                         </span>
                       ) : null}
                     </div>
                     <div className="form-div login-pass-filed">
                       <label htmlFor="">Confirm new password</label>
-                      <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
-                      {formik.errors.cpassword &&
-                        formik.touched.cpassword ? (
+                      <PasswordInput name="reenter_password" className={`form-control ${formik.errors.reenter_password && formik.touched.reenter_password ? "invalidInput" : ""} `} placeholder="Confirm password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.reenter_password} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
+                      {formik.errors.reenter_password &&
+                        formik.touched.reenter_password ? (
                         <span className="input-error-msg">
-                          {formik.errors.cpassword}
+                          {formik.errors.reenter_password}
                         </span>
                       ) : null}
                     </div>
@@ -124,7 +127,7 @@ const ChangePassword = () => {
                   <button className="submit-btn" type='submit' disabled={disabled} >
                     Save new password {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
                   <div class="admin-header-btn">
-                    <Link to="/admin/dashboard" className="btn">
+                    <Link to={isAdmin ? "/admin/dashboard" : "/my-account"} className="btn">
                       Back
                     </Link>
                   </div>

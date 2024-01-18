@@ -8,7 +8,7 @@ import { homeFormvalidation } from "../helpers/validations/Schema";
 import delete_img from "../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
 import SuccessImg from "../assets/images/Group 9106.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../components/CurrencyOptions";
 
 // import homeimage from "../assets/images/home-img.png"
@@ -1898,6 +1898,7 @@ const Homeform = () => {
                       <div className="Additional-bottom-btn">
                         <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button>
+                        <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                         {/* <button className="btn" type='button' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button> */}
                         {/* <button className="btn" type="button" onClick={continueHandler}>

@@ -21,6 +21,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Dashboard from "./pages/admin";
 import { useDispatch } from "react-redux";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import UserChangePassword from "./pages/UserChangePassword.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/food-shopping" element={<ProtectedRoute ><FoodAndShopping /></ProtectedRoute >} />
           <Route path="/financial" element={<ProtectedRoute ><Financial /></ProtectedRoute >} />
           <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
+          <Route path="/manage-password" element={<ProtectedRoute ><UserChangePassword /></ProtectedRoute >} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

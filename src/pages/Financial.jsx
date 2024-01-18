@@ -36,6 +36,7 @@ const Financial = () => {
         confirmButtonText: "View saved forms",
         cancelButtonText: "Start new form",
         customClass: {
+          popup: "submit-container-popup",
           title: "custom-title",
           cancelButton: 'custom-cancel-button',
           actions: "action-button-box"

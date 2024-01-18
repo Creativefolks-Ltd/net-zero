@@ -8,7 +8,7 @@ import WhiteMenuImage from '../assets/images/white-bar.svg';
 //import closeImage from '../assets/images/close.svg';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {  userLogout } from "../redux-store/actions/auth";
+import { userLogout } from "../redux-store/actions/auth";
 import Swal from "sweetalert2";
 import { adminLogout } from "../redux-store/reducers/auth";
 
@@ -84,13 +84,13 @@ const Header = ({ bgTransparent }) => {
                                     </li>
                                 </ul>
                             </div>
-                        ) : authUser?.userInfo &&(
+                        ) : authUser?.userInfo && (
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
 
                                     <li className="nav-item"><Link to="/my-account"> My account</Link></li>
                                     <li className="nav-item"><Link to="/general">Footprint Calculator</Link></li>
-                                    <li className="nav-item">T&Cs</li>
+                                    <li className="nav-item"><Link to="/privacy-policy"> T&Cs</Link></li>
                                     <li className="nav-item emain-div">netzero@good.business</li>
                                     <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
@@ -107,8 +107,15 @@ const Header = ({ bgTransparent }) => {
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>
-                                {authUser?.userInfo && (<li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>)}
-                                <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></li>
+                                {authUser?.userInfo ? (
+                                    <>
+                                        <li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>
+                                        <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" />
+                                        </li>
+                                    </>
+                                ) : (
+                                    <li className='hamburger' ><Link to="/login"><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></Link></li>
+                                )}
                             </ul>
 
                         </div>
