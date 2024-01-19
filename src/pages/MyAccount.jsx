@@ -26,6 +26,7 @@ import moment from "moment";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const MyAccount = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
@@ -97,72 +98,70 @@ const MyAccount = () => {
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
           didClose: UpdateUserDetails,
-        });
-      } else {
-        const errorMsg = response?.payload?.response?.data?.errorMsg;
-        if (errorMsg) {
-          const errorMessages = Object.values(errorMsg).flatMap(
-            (messages) => messages
-          );
-          if (errorMessages.length > 0) {
-            const errorMessage = errorMessages.join("\n");
-            Swal.fire({
-              title: "Failed!",
-              html:
-                errorMessage ||
-                "Failed to saved profile Information, please try again",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-            });
-          }
+                });
+            } else {
+                const errorMsg = response?.payload?.response?.data?.errorMsg;
+                if (errorMsg) {
+                    const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+                    if (errorMessages.length > 0) {
+                        const errorMessage = errorMessages.join("\n");
+                        Swal.fire({
+                            title: "Failed!",
+                            html: errorMessage || "Failed to saved profile Information, please try again",
+                            icon: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                        });
+                    }
+                }
+            }
+        } else {
+            console.error('Form is not valid', errors);
         }
-      }
-    } else {
-      console.error("Form is not valid", errors);
-    }
-  };
+    };
 
-  const formDeleteHandler = async (form_id) => {
-    try {
-      const result = await Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      });
 
-      if (result.isConfirmed) {
-        await deleteForm(form_id);
-      }
-    } catch (error) {
-      console.error("Error during delete confirmation:", error);
-    }
-  };
+    const formDeleteHandler = async (form_id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
 
-  const deleteForm = async (form_id) => {
-    try {
-      const response = await dispatch(formDelete(form_id));
+            if (result.isConfirmed) {
+                await deleteForm(form_id);
 
-      if (response?.payload?.data) {
-        handleSuccessfulDelete();
-      } else {
-        handleFailedDelete(response);
-      }
-    } catch (error) {
-      console.error("Error during form deletion:", error);
-    }
-  };
+            }
+        } catch (error) {
+            console.error("Error during delete confirmation:", error);
+        }
+    };
 
-  const handleSuccessfulDelete = async () => {
-    await Swal.fire({
-      title: "Deleted!",
-      text: "Form deleted successfully",
-      icon: "success",
+    const deleteForm = async (form_id) => {
+        try {
+            const response = await dispatch(formDelete(form_id));
+
+            if (response?.payload?.data) {
+                handleSuccessfulDelete();
+            } else {
+                handleFailedDelete(response);
+            }
+        } catch (error) {
+            console.error("Error during form deletion:", error);
+        }
+    };
+
+    const handleSuccessfulDelete = async () => {
+        await Swal.fire({
+            title: "Deleted!",
+            text: "Form deleted successfully",
+            icon: "success",
     });
     dispatch(formlist(userId));
   };
