@@ -2311,6 +2311,10 @@ select {
     .navbar-toggler ul {
         padding-left: 0;
     }
+    .submit-container-popup img {
+        width: 150px !important;
+        height: 150px !important;
+    }
 }
 
 @media (max-width:1300px) {
@@ -3539,6 +3543,26 @@ select {
         font-size: 29px;
         line-height: 30px;
     }
+    .submit-container-popup img {
+        width: 79px !important;
+        height: 74px !important;
+        margin-bottom: 32px;
+        margin-top: 0;
+    }
+    .submit-container-popup {
+        padding: 40px 30px 60px 30px !important;
+        width: 100% !important;
+    }
+    .submit-container-popup .custom-title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .submit-container-popup .swal2-html-container {
+        margin: 17px 0 0 0 !important;
+    }
+    .submit-container-popup .action-button-box {
+        margin: 30px 0 0 0;
+    }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3726,8 +3750,8 @@ select {
     border-radius: 24px;
 }
 .submit-container-popup img {
-    width: 150px !important;
-    height: 150px !important;
+    width: 150px;
+    height: 150px;
 	margin-bottom: 20px;
 	
 }
