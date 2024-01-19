@@ -85,8 +85,23 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                 </div>
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <Link to="/home-form">
+                {user?.formCompleted >= 1 ? (
+                  <div className="information-icon-box">
+                    <Link to="/home-form">
+                      <div
+                        className={`information-cricle-box ${activeTab === "home" ? "active" : ""
+                          } 
+                        ${submittedFormCount >= 2 ? "success" : ""}
+                        `}
+                        onClick={() => setActiveTab("home")}
+                      >
+                        <img src={houseImg} alt="" />
+                      </div>
+                    </Link>
+                    <p>Your Home</p>
+                  </div>
+                ) : (
+                  <div className="information-icon-box">
                     <div
                       className={`information-cricle-box ${activeTab === "home" ? "active" : ""
                         } 
@@ -96,13 +111,28 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                     >
                       <img src={houseImg} alt="" />
                     </div>
-                  </Link>
-                  <p>Your Home</p>
-                </div>
+                    <p>Your Home</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <Link to="/travel">
+                {user?.formCompleted >= 2 ? (
+                  <div className="information-icon-box">
+                    <Link to="/travel">
+                      <div
+                        className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
+                          }
+                        ${submittedFormCount >= 3 ? "success" : ""} 
+                        `}
+                        onClick={() => setActiveTab("travel")}
+                      >
+                        <img src={carImg} alt="" />
+                      </div>
+                    </Link>
+                    <p>Travel</p>
+                  </div>
+                ) : (
+                  <div className="information-icon-box">
                     <div
                       className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
                         }
@@ -112,13 +142,27 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                     >
                       <img src={carImg} alt="" />
                     </div>
-                  </Link>
-                  <p>Travel</p>
-                </div>
+                    <p>Travel</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <Link to="/food-shopping">
+                {user?.formCompleted >= 3 ? (
+                  <div className="information-icon-box">
+                    <Link to="/food-shopping">
+                      <div
+                        className={`information-cricle-box ${activeTab === "food" ? "active" : ""
+                          }
+                        ${submittedFormCount >= 4 ? "success" : ""} 
+                        `}
+                        onClick={() => setActiveTab("food")}
+                      >
+                        <img src={foodImg} alt="" />
+                      </div>
+                    </Link>
+                    <p>Food and Shopping</p>
+                  </div>) : (
+                  <div className="information-icon-box">
                     <div
                       className={`information-cricle-box ${activeTab === "food" ? "active" : ""
                         }
@@ -128,13 +172,27 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                     >
                       <img src={foodImg} alt="" />
                     </div>
-                  </Link>
-                  <p>Food and Shopping</p>
-                </div>
+                    <p>Food and Shopping</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <Link to="/financial">
+                {user?.formCompleted === 4 ? (
+                  <div className="information-icon-box">
+                    <Link to="/financial">
+                      <div
+                        className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
+                          } 
+                        ${submittedFormCount == 5 ? "success" : ""} `}
+                        onClick={() => setActiveTab("financial")}
+                      >
+                        <img src={financialImg} alt="" />
+                      </div>
+                    </Link>
+                    <p>Financial assets</p>
+                  </div>
+                ) : (
+                  <div className="information-icon-box">
                     <div
                       className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
                         } 
@@ -143,10 +201,11 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                     >
                       <img src={financialImg} alt="" />
                     </div>
-                  </Link>
-                  <p>Financial assets</p>
-                </div>
+                    <p>Financial assets</p>
+                  </div>
+                )}
               </div>
+
             </div>
             {showHomeTabs && (
               <>
