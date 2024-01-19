@@ -51,7 +51,7 @@ const MyAccount = () => {
     useEffect(() => {
         dispatch(formlist(userId));
         dispatch(addGeneralInfo(null))
-        dispatch(addGeneralInfo(0))
+        dispatch(setFormCompleted(0))
     }, []);
 
     const formik = useFormik({
