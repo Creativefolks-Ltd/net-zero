@@ -107,7 +107,7 @@ label p {
 }
 
 input {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 300;
 }
 
@@ -1425,9 +1425,9 @@ select {
 
 .form-div .inner-li {
     list-style: none;
-    font-size: 23px !important;
+    font-size: 18px !important;
     font-weight: 300;
-    line-height: 35px;
+    line-height: 28px;
     margin-top: 9px !important;
 }
 
@@ -1437,10 +1437,11 @@ select {
 
 .economy-table .main-li,
 .food-shopping .main-li {
-    font-size: 31px;
-    font-weight: 300;
-    line-height: 39px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 24px;
     margin-bottom: 20px;
+    color: #59585ec7;
 }
 
 .economy-table .form-div ul {
@@ -1698,7 +1699,7 @@ select {
     margin-bottom: 130px;
 }
 
-.account-link {
+.manage-password-link-box .account-link {
     color: #000;
     text-decoration: none;
     font-size: 18px;
@@ -1707,6 +1708,18 @@ select {
     text-align: right !important;
     display: block;
     margin-top: 80px;
+}
+.manage-password-link-box .account-link:after {
+    position: absolute;
+    content: "";    
+    width: 28px;
+    height: 20px;
+    background-image: url(../images/arrow_img.svg);
+    background-size: cover;
+    margin-left: 9px;
+}
+.manage-password-link-box {
+    padding-right: 50px;
 }
 .saved-form-div{
     margin-top: 80px;
@@ -1772,8 +1785,8 @@ select {
 }
 
 .title-accodion span {
-    font-size: 33px;
-    line-height: 44px;
+    font-size: 32px;
+    line-height: 38px;
     font-weight: 300;
     margin-bottom: 10px;
     color: #81C14B;
@@ -1788,8 +1801,8 @@ select {
 }
 
 .title-accodion a {
-    font-size: 33px;
-    line-height: 44px;
+    font-size: 26px;
+    line-height: 38px;
     font-weight: 500;
     text-decoration: none;
     color: #000;
@@ -1803,8 +1816,8 @@ select {
     content: "";
     display: block;
     background: url(../images/pending_img.svg) no-repeat;
-    width: 41px;
-    height: 46px;
+    width: 35px;
+    height: 39px;
     float: right;
     margin: 0 6px 0 13px;
     background-size: cover;
@@ -1826,14 +1839,17 @@ select {
     content: "";
     display: block;
     background: url(../images/arrow_img.svg) no-repeat;
-    width: 39px;
-    height: 28px;
+    width: 30px;
+    height: 22px;
     float: right;
     /* margin: 0 6px 0 13px; */
     margin-left: 14px;
     background-size: cover;
 }
-
+.pending-div h2, .submitted-div h2 {
+    font-size: 44px;
+    line-height: 48px;
+}
 /****************** admindashboard ******************/
 
 .admin-dashboard,
@@ -3532,7 +3548,7 @@ select {
         padding-left: 12px;
         margin-top: 34px;
     }   
-    .account-link {
+     .manage-password-link-box .account-link {
          text-align: center !important;
          margin-top: 40px;
     }
@@ -3562,6 +3578,16 @@ select {
     }
     .submit-container-popup .action-button-box {
         margin: 30px 0 0 0;
+    }
+    .manage-password-link-box {
+        margin-right: 41px;
+        padding: 0;
+    }
+    .manage-password-link-box .account-link:after {
+        width: 25px;
+        height: 18px;
+        margin-left: 9px;
+        margin-top: 2px;
     }
     /*********************** forgotpaddword *********************/
 
@@ -3765,8 +3791,11 @@ select {
 }
 .submit-container-popup .custom-confirm-button {
     margin: 20px 0 0 0;
-	padding: 13px 32px;
+	padding: 13px 32px !important;
 }
-
+.accordion-button td {
+    font-size: 30px;
+    line-height: 34px;
+}
 
 /* Sweet Alert End */

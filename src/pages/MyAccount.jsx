@@ -37,9 +37,22 @@ const MyAccount = () => {
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const serialNo = (currentPage - 1) * itemsPerPage;
 
+  const completedData = [];
+  const pendingData = [];
+
+  formList.map((item, index) => {
+    if (item.form_status === "Complete") {
+      completedData.push(item);
+    }
+    else {
+      pendingData.push(item)
+    }
+  })
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = formList?.slice(indexOfFirstItem, indexOfLastItem);
+  const pendingItems = pendingData?.slice(indexOfFirstItem, indexOfLastItem);
+  const completedItems = completedData?.slice(indexOfFirstItem, indexOfLastItem);
 
   const userId = user?.userInfo?.user_id;
 
@@ -67,7 +80,7 @@ const MyAccount = () => {
 
     validationSchema: userFormValidation,
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => { },
   });
 
   const UpdateUserDetails = async (e) => {
@@ -98,70 +111,70 @@ const MyAccount = () => {
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
           didClose: UpdateUserDetails,
-                });
-            } else {
-                const errorMsg = response?.payload?.response?.data?.errorMsg;
-                if (errorMsg) {
-                    const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-                    if (errorMessages.length > 0) {
-                        const errorMessage = errorMessages.join("\n");
-                        Swal.fire({
-                            title: "Failed!",
-                            html: errorMessage || "Failed to saved profile Information, please try again",
-                            icon: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                        });
-                    }
-                }
-            }
-        } else {
-            console.error('Form is not valid', errors);
-        }
-    };
-
-
-    const formDeleteHandler = async (form_id) => {
-        try {
-            const result = await Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
+        });
+      } else {
+        const errorMsg = response?.payload?.response?.data?.errorMsg;
+        if (errorMsg) {
+          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+          if (errorMessages.length > 0) {
+            const errorMessage = errorMessages.join("\n");
+            Swal.fire({
+              title: "Failed!",
+              html: errorMessage || "Failed to saved profile Information, please try again",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
             });
-
-            if (result.isConfirmed) {
-                await deleteForm(form_id);
-
-            }
-        } catch (error) {
-            console.error("Error during delete confirmation:", error);
+          }
         }
-    };
+      }
+    } else {
+      console.error('Form is not valid', errors);
+    }
+  };
 
-    const deleteForm = async (form_id) => {
-        try {
-            const response = await dispatch(formDelete(form_id));
 
-            if (response?.payload?.data) {
-                handleSuccessfulDelete();
-            } else {
-                handleFailedDelete(response);
-            }
-        } catch (error) {
-            console.error("Error during form deletion:", error);
-        }
-    };
+  const formDeleteHandler = async (form_id) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
 
-    const handleSuccessfulDelete = async () => {
-        await Swal.fire({
-            title: "Deleted!",
-            text: "Form deleted successfully",
-            icon: "success",
+      if (result.isConfirmed) {
+        await deleteForm(form_id);
+
+      }
+    } catch (error) {
+      console.error("Error during delete confirmation:", error);
+    }
+  };
+
+  const deleteForm = async (form_id) => {
+    try {
+      const response = await dispatch(formDelete(form_id));
+
+      if (response?.payload?.data) {
+        handleSuccessfulDelete();
+      } else {
+        handleFailedDelete(response);
+      }
+    } catch (error) {
+      console.error("Error during form deletion:", error);
+    }
+  };
+
+  const handleSuccessfulDelete = async () => {
+    await Swal.fire({
+      title: "Deleted!",
+      text: "Form deleted successfully",
+      icon: "success",
     });
     dispatch(formlist(userId));
   };
@@ -239,50 +252,48 @@ const MyAccount = () => {
           <h1>My account</h1>
           <div className="row">
             <div className="col-lg-12">
-            <form>
-                  <div className="information-box">
-                  
+              <form>
+                <div className="information-box">
+
                   <div className="row justify-content-between">
                     <div class="personal-heading">
                       <img src={form_user} alt="" />
                       <h2>Personal information</h2>
                     </div>
-                <div className="col-lg-6 col-md-6">
+                    <div className="col-lg-6 col-md-6">
                       <div class="form-div">
                         <label htmlFor="first_name">Your name</label>
                         <input
                           type="text"
                           id="first_name"
                           name="first_name"
-                          className={`${
-                            formik.errors.first_name &&
+                          className={`${formik.errors.first_name &&
                             formik.touched.first_name &&
                             "invalidInput"
-                          }`}
+                            }`}
                           placeholder="First name"
                           value={formik.values.first_name}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
                         {formik.errors.first_name &&
-                        formik.touched.first_name ? (
+                          formik.touched.first_name ? (
                           <span className="input-error-msg">
                             {formik.errors.first_name}
                           </span>
                         ) : null}
                       </div>
-                      
+
                       <div class="form-div">
                         <label htmlFor="email">Your email address</label>
                         <input
                           type="email"
                           id="email"
                           name="email"
-                          className={`${
-                            formik.errors.email &&
+                          className={`${formik.errors.email &&
                             formik.touched.email &&
                             "invalidInput"
-                          }`}
+                            }`}
                           placeholder="Email address"
                           value={formik.values.email}
                           onChange={formik.handleChange}
@@ -294,7 +305,7 @@ const MyAccount = () => {
                           </span>
                         ) : null}
                       </div>
-                      
+
                       {/* <div class="form-div">
                                         <label htmlFor="password">Your password</label>
                                         <input type="password" id="password" name="password" className={`${formik.errors.password &&
@@ -306,21 +317,20 @@ const MyAccount = () => {
                                             </span>
                                         ) : null}
                                     </div> */}
-                     
-                    
-                  </div>
-                  <div className="col-lg-6 col-md-6">
-                <div class="form-div">
+
+
+                    </div>
+                    <div className="col-lg-6 col-md-6">
+                      <div class="form-div">
                         <label htmlFor="last_name">Last name</label>
                         <input
                           type="text"
                           id="last_name"
                           name="last_name"
-                          className={`${
-                            formik.errors.last_name &&
+                          className={`${formik.errors.last_name &&
                             formik.touched.last_name &&
                             "invalidInput"
-                          }`}
+                            }`}
                           placeholder="Last name"
                           value={formik.values.last_name}
                           onChange={formik.handleChange}
@@ -332,28 +342,30 @@ const MyAccount = () => {
                           </span>
                         ) : null}
                       </div>
+                      <div className="manage-password-link-box">
                       <Link to="/manage-password" className="account-link">
                         Manage your password
                       </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="submit-btn"
+                    type="submit"
+                    disabled={disabled}
+                    onClick={(e) => submitHandler(e)}
+                  >
+                    Save{" "}
+                    {disabled ? (
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      ></div>
+                    ) : (
+                      ""
+                    )}
+                  </button>
                 </div>
-                </div>
-                <button
-                        className="submit-btn"
-                        type="submit"
-                        disabled={disabled}
-                        onClick={(e) => submitHandler(e)}
-                      >
-                        Save{" "}
-                        {disabled ? (
-                          <div
-                            className="spinner-border text-primary"
-                            role="status"
-                          ></div>
-                        ) : (
-                          ""
-                        )}
-                      </button>
-              </div>
               </form>
             </div>
           </div>
@@ -363,33 +375,10 @@ const MyAccount = () => {
               <h2>Pending forms </h2>
 
               <div class="accordion" id="regularAccordionRobots">
-                {/* <div class="accordion-item">
-                                    <h2 id="regularHeadingFirst" class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#regularCollapseFirst" aria-expanded="true" aria-controls="regularCollapseFirst">
-                                            1.Latest form
-                                        </button>
-                                    </h2>
-                                    <div id="regularCollapseFirst" class="accordion-collapse collapse show" aria-labelledby="regularHeadingFirst" data-bs-parent="#regularAccordionRobots">
-                                        <div class="accordion-body">
-                                            <div className="accordion-content">
-                                                <div className="title-accodion">
-                                                    <span>Form submitted</span>
-                                                    <a href="#">View form</a>
-                                                </div>
-                                                <div className="accordion-img">
-                                                    <img src={share_img} alt="" />
-                                                    <img src={delete2_img} alt="" />
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div> */}
                 {isLoading ? (
                   <div className="text-center">loading...</div>
-                ) : currentItems?.length > 0 ? (
-                  currentItems?.map((form, index) => (
+                ) : pendingItems?.length > 0 ? (
+                  pendingItems?.map((form, index) => (
                     <div
                       className={
                         "accordion-item " +
@@ -415,8 +404,8 @@ const MyAccount = () => {
                             {form?.first_name}{" "}
                             {form?.created_at
                               ? "(" +
-                                moment(form?.created_at).format("DD/MM/YYYY") +
-                                ")"
+                              moment(form?.created_at).format("DD/MM/YYYY") +
+                              ")"
                               : ""}
                           </td>
                         </button>
@@ -469,46 +458,22 @@ const MyAccount = () => {
                 )}
               </div>
 
-              {/* {!isLoading && formList?.length > 0 && (
+              {!isLoading && pendingData?.length > 0 && (
                 <Pagination
-                  dataLength={formList?.length}
+                  dataLength={pendingData?.length}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
                 />
-              )} */}
+              )}
             </div>
             <div className="col-lg-6 col-md-6 submitted-div">
               <h2>Submitted forms</h2>
-
               <div class="accordion" id="regularAccordionRobots">
-                {/* <div class="accordion-item">
-                                    <h2 id="regularHeadingFirst" class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#regularCollapseFirst" aria-expanded="true" aria-controls="regularCollapseFirst">
-                                            1.Latest form
-                                        </button>
-                                    </h2>
-                                    <div id="regularCollapseFirst" class="accordion-collapse collapse show" aria-labelledby="regularHeadingFirst" data-bs-parent="#regularAccordionRobots">
-                                        <div class="accordion-body">
-                                            <div className="accordion-content">
-                                                <div className="title-accodion">
-                                                    <span>Form submitted</span>
-                                                    <a href="#">View form</a>
-                                                </div>
-                                                <div className="accordion-img">
-                                                    <img src={share_img} alt="" />
-                                                    <img src={delete2_img} alt="" />
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div> */}
                 {isLoading ? (
                   <div className="text-center">loading...</div>
-                ) : currentItems?.length > 0 ? (
-                  currentItems?.map((form, index) => (
+                ) : completedItems?.length > 0 ? (
+                  completedItems?.map((form, index) => (
                     <div
                       className={
                         "accordion-item " +
@@ -534,8 +499,8 @@ const MyAccount = () => {
                             {form?.first_name}{" "}
                             {form?.created_at
                               ? "(" +
-                                moment(form?.created_at).format("DD/MM/YYYY") +
-                                ")"
+                              moment(form?.created_at).format("DD/MM/YYYY") +
+                              ")"
                               : ""}
                           </td>
                         </button>
@@ -588,14 +553,14 @@ const MyAccount = () => {
                 )}
               </div>
 
-              {/* {!isLoading && formList?.length > 0 && (
+              {!isLoading && completedData?.length > 0 && (
                 <Pagination
-                  dataLength={formList?.length}
+                  dataLength={completedData?.length}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
                 />
-              )} */}
+              )}
             </div>
           </div>
         </div>

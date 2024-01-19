@@ -39,6 +39,7 @@ const Financial = () => {
           popup: "submit-container-popup",
           title: "custom-title",
           cancelButton: 'custom-cancel-button',
+          confirmButton: 'custom-confirm-button',
           actions: "action-button-box"
         }
 
