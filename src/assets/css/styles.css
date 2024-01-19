@@ -1665,7 +1665,8 @@ select {
 }
 
 .Personal-information h1 {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+    text-align: left;
 }
 
 .personal-heading img {
@@ -1686,11 +1687,11 @@ select {
 }
 
 .bg-My-Account .Personal-information {
-    margin-bottom: 13 0px;
+    margin-bottom: 130px;
 }
 
 .information-box .submit-btn {
-    margin: 100px 0 0 0;
+    margin: 40px 0 0 0;
 }
 
 .submissions {
@@ -1707,7 +1708,15 @@ select {
     display: block;
     margin-top: 80px;
 }
-
+.saved-form-div{
+    margin-top: 80px;
+}
+.saved-form-div .submitted-div {
+    padding-left: 38px;
+}
+.saved-form-div .pending-div {
+    padding-right: 38px;
+}
 /*****************accordion****************/
 
 .accordion-button {
@@ -1844,9 +1853,7 @@ select {
     width: fit-content;
 }
 
-.Personal-information h1 {
-    text-align: left;
-}
+
 
 /**************admindashboard-submissions ***************/
 .submissions-header {
@@ -2253,9 +2260,6 @@ select {
     }
 }
 
-
-
-
 @media (max-width:1440px) {
     .login-img img {
         width: 600px;
@@ -2348,6 +2352,64 @@ select {
     }
 }
 
+@media (max-width:1199px) {
+
+    /*************** navbar responsive ****************/
+    .bg-home .nav-items.active {
+
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        right: 0;
+    }
+
+    .nav-item svg {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+    }
+
+
+    .nav-items.active ul {
+        padding-left: 0;
+        padding-top: 85px;
+        width: 182px;
+        height: 379px;
+    }
+
+    .nav-items.active {
+        position: relative;
+    }
+
+    .nav-items.slide-in.active {
+        position: absolute;
+        right: 0;
+        z-index: 9999;
+        top: 25px;
+    }
+
+    .nav-items.active {
+        padding: 30px 60px;
+    }
+
+    .sub-btn label {
+        padding: 13px 60px;
+    }
+    .submit-container-popup {
+        padding: 40px 100px 60px 100px !important;
+        width: 800px !important;
+}
+    .saved-form-div h2 {
+    font-size: 52px;
+    line-height: 58px;
+}
+    .myaccount-container form {
+        margin-top: 0;
+    }
+}
+
 @media (max-width:1080px) {
     .information .information-header {
         padding: 64px 20px;
@@ -2395,61 +2457,9 @@ select {
     .modal-input-col label {
         font-size: 24px !important;
     }
-}
-
-@media (max-width:1199px) {
-
-    /*************** navbar responsive ****************/
-    .bg-home .nav-items.active {
-
-        position: absolute;
-        top: 0;
-        z-index: 1;
-        right: 0;
-    }
-
-    .nav-item svg {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        top: 25px;
-        right: 30px;
-    }
-
-
-    .nav-items.active ul {
-        padding-left: 0;
-        padding-top: 85px;
-        width: 182px;
-        height: 379px;
-    }
-
-    .nav-items.active {
-        position: relative;
-    }
-
-    .nav-items.slide-in.active {
-        position: absolute;
-        right: 0;
-        z-index: 9999;
-        top: 25px;
-    }
-
-    .nav-items.active {
-        padding: 30px 60px;
-    }
-
-    .sub-btn label {
-        padding: 13px 60px;
-    }
-
-}
-
-@media (max-width:1080px) {
     .submissions .submission-form .form-div {
         width: 62%;
     }
-
 }
 
 @media (max-width:1024px) {
@@ -3314,7 +3324,6 @@ select {
         display: none;
     }
 
-    .accordion-body {}
 
     .accordion-body {
         padding: 16px 20px;
@@ -3333,7 +3342,7 @@ select {
     }
 
     .information-box .submit-btn {
-        margin: 27px 0 0 0;
+        margin: 27px auto 0 auto;
     }
 
     .Personal-information {
@@ -3345,7 +3354,7 @@ select {
     .admin-dashboard,
     .admin-dashboard,
     .submissions-bg-color {
-        padding: 35px 20px;
+        padding: 25px 18px;
     }
 
     .form-input-div .check-input {
@@ -3509,6 +3518,27 @@ select {
         top: 19px;
     }
 
+    .saved-form-div {
+        margin-top: 0px;
+    }
+    .saved-form-div .pending-div {
+        padding-right: 12px;
+    }
+    .saved-form-div .submitted-div {
+        padding-left: 12px;
+        margin-top: 34px;
+    }   
+    .account-link {
+         text-align: center !important;
+         margin-top: 40px;
+    }
+    .myaccount-container form {
+        margin-top: 0;
+    }
+    .saved-form-div h2 {
+        font-size: 29px;
+        line-height: 30px;
+    }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3656,7 +3686,6 @@ select {
 .Additional-box .btn {
     margin: 0;
 }
-
 
 /*********************** forgotpaddword *********************/
 
