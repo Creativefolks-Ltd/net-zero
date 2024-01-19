@@ -14,28 +14,6 @@ const Financial = () => {
   const [disabled, setDisabled] = useState(false);
   const user = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    Swal.fire({
-      title: "Your form has been submitted successfully",
-      text: "The Net Zero team will begin the calculation of your carbon footprint and will get back to you shortly with the results or to request additional information..",
-      imageUrl: SuccessImg,
-      imageWidth: 100,
-      imageHeight: 100,
-      showCancelButton: true,
-      confirmButtonColor: "#81C14B",
-      cancelButtonColor: "#fff",
-      buttonsStyling: true,
-      confirmButtonText: "View saved forms",
-      cancelButtonText: "Start new form",
-      customClass: {
-        popup: "submit-container-popup",
-        title: "custom-title",
-        cancelButton: 'custom-cancel-button',
-        actions: "action-button-box"
-      }
-    })
-  },[])
-
   const submitHandler = async (e) => {
     e.preventDefault();
     setDisabled(true);
