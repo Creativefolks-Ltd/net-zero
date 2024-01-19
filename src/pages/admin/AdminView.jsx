@@ -16,6 +16,7 @@ const AdminView = () => {
   const singleForm = useSelector((state) => state.admin.singleForm)
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
+  const [selectedHome, setSelectedHome] = useState(1);
 
   const handleActiveTab = (active) => {
     setActiveTab(active)
@@ -152,9 +153,9 @@ const AdminView = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="full-form-div py-0 bg-secondary">
-                <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} />
+                <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} />
                 {activeTab === "general" && (<GeneralView general={general} />)}
-                {activeTab === "home" && (<HomeFormView home={home} />)}
+                {activeTab === "home" && (<HomeFormView home={home[selectedHome-1]} />)}
                 {activeTab === "travel" && (<TravelView travel={travel} />)}
                 {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
                 {/* <HomeFormView financial={financial} /> */}

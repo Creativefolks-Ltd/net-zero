@@ -19,7 +19,7 @@ const Header = ({ bgTransparent }) => {
     const location = useLocation();
 
     const homePage = location?.pathname === "/" || location?.pathname === ""
-    const adminPage = location?.pathname.includes("/admin/")
+    const adminPage = location?.pathname.includes("/admin")
 
     const authUser = useSelector((state) => state.auth)
     // const navbarStyle = {

@@ -97,6 +97,7 @@ const Homeform = () => {
       electricity_usage_known: "",
       electricity_usage_amount: "",
       electricity_usage_unit: "",
+      electricity_usage_amount_currency: "",
       electricity_usage_time_period: "",
       electricity_annual_spend: "",
       electricity_annual_amount: null,
@@ -272,7 +273,6 @@ const Homeform = () => {
     <>
       <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} />
       <form onSubmit={formik.handleSubmit}>
-
         <section className="general-form mt-80 mb-80">
           <div className="container ">
             <div className="bg-lightgray-color">
@@ -479,7 +479,7 @@ const Homeform = () => {
                                     <option value="">Select option</option>
                                     <option value="kWh">kWh</option>
                                     <option value="mWh">mWh</option>
-                                    {/* <option value="Billed per year">Billed per year</option> */}
+                                    <option value="Billed per year">Billed per year</option>
                                   </select>
                                   {formik.errors.electricity_usage_unit &&
                                     formik.touched.electricity_usage_unit ? (
@@ -490,7 +490,7 @@ const Homeform = () => {
                                 </div>
                               </div>)}
                             </div>
-                            {/* {(formik.values.electricity_usage_known !== "No" && formik.values.electricity_usage_unit === "Billed per year") && (
+                            {(formik.values.electricity_usage_known !== "No" && formik.values.electricity_usage_unit === "Billed per year") && (
                               <div className="form-div">
                                 <select
                                   type="text"
@@ -510,8 +510,14 @@ const Homeform = () => {
                                   <CurrencyOptions />
                                   <option value="Other">Other</option>
                                 </select>
+                                {formik.errors.electricity_usage_amount_currency &&
+                                  formik.touched.electricity_usage_amount_currency ? (
+                                  <span className="input-error-msg">
+                                    {formik.errors.electricity_usage_amount_currency}
+                                  </span>
+                                ) : null}
                               </div>
-                            )} */}
+                            )}
 
                             {(formik.values.electricity_usage_known === "" || formik.values.electricity_usage_known === "Yes, for part of the year") && (
                               <div className="form-div">

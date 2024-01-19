@@ -65,8 +65,6 @@ const HomeFormView = ({ home }) => {
     }
   }
 
-  console.log(home, "////////////home")
-
   const validateAndFilterFields = (values) => {
     const {
       heating_type,
@@ -88,65 +86,126 @@ const HomeFormView = ({ home }) => {
     return filteredValues;
   };
 
-  const formik = useFormik({
+  useEffect(() => {
+    formik.setValues({
+      initialValues: {
+        location: home?.location,
+        heating_type: home?.heating_type ? home?.heating_type?.split(',') : ["Electricity", "Oil", "Coal", "Gas", "Wood"],
+        zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
+        electricity_usage_known: home?.electricity_usage_known,
+        electricity_usage_amount: home?.electricity_usage_amount,
+        electricity_usage_unit: home?.electricity_usage_unit,
+        electricity_usage_time_period: home?.electricity_usage_time_period,
+        electricity_annual_spend: home?.electricity_annual_spend,
+        electricity_annual_amount: home?.electricity_annual_amount,
+        electricity_annual_unit: home?.electricity_annual_unit,
+        electricity_supplier: home?.electricity_supplier,
+        on_site_renewable_energy: home?.on_site_renewable_energy,
+        on_site_renewable_amount: home?.on_site_renewable_amount,
+        on_site_renewable_unit: home?.on_site_renewable_unit,
+        natural_gas_usage_known: home?.natural_gas_usage_known,
+        natural_gas_usage_amount: home?.natural_gas_usage_amount,
+        natural_gas_usage_unit: home?.natural_gas_usage_unit,
+        natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
+        natural_gas_annual_spend: home?.natural_gas_annual_spend,
+        natural_gas_annual_amount: home?.natural_gas_annual_amount,
+        natural_gas_annual_unit: home?.natural_gas_annual_unit,
+        gas_consumption_offset: home?.gas_consumption_offset,
+        oil_usage_known: home?.oil_usage_known,
+        oil_usage_amount: home?.oil_usage_amount,
+        oil_usage_unit: home?.oil_usage_unit,
+        oil_annual_spend: home?.oil_annual_spend,
+        oil_annual_amount: home?.oil_annual_amount,
+        oil_annual_unit: home?.oil_annual_unit,
+        wood_usage_known: home?.wood_usage_known,
+        wood_usage_amount: home?.wood_usage_amount,
+        wood_usage_unit: home?.wood_usage_unit,
+        wood_annual_spend: home?.wood_annual_spend,
+        wood_annual_amount: home?.wood_annual_amount,
+        wood_annual_unit: home?.wood_annual_unit,
+        coal_usage_known: home?.coal_usage_known,
+        coal_usage_amount: home?.coal_usage_amount,
+        coal_usage_unit: home?.coal_usage_unit,
+        coal_annual_spend: home?.coal_annual_spend,
+        coal_annual_amount: home?.coal_annual_amount,
+        coal_annual_unit: home?.coal_annual_unit,
+        other_energy_usage: home?.other_energy_usage,
+        other_energy_which_and_amount: home?.other_energy_which_and_amount,
+        property_features: home?.property_features,
+        house_type: home?.house_type,
+        construction_material: home?.construction_material,
+        year_built: home?.year_built,
+        winter_temperature: home?.winter_temperature,
+        additional_property_features: home?.additional_property_features,
+        live_in_staff: home?.live_in_staff,
+        planned_renovations: home?.planned_renovations,
+        significant_land: home?.significant_land,
+        land_details: home?.land_details,
+        other_details: home?.other_details,
 
+      },
+    })
+  }, [home])
+
+  const formik = useFormik({
     initialValues: {
-      location: "",
-      heating_type: ["Electricity", "Oil", "Coal", "Gas", "Wood"],
-      zero_carbon_energy_tariff: "",
-      electricity_usage_known: "",
-      electricity_usage_amount: "",
-      electricity_usage_unit: "",
-      electricity_usage_time_period: "",
-      electricity_annual_spend: "",
-      electricity_annual_amount: null,
-      electricity_annual_unit: "",
-      electricity_supplier: "",
-      on_site_renewable_energy: "",
-      on_site_renewable_amount: null,
-      on_site_renewable_unit: "",
-      natural_gas_usage_known: "",
-      natural_gas_usage_amount: null,
-      natural_gas_usage_unit: "",
-      natural_gas_usage_time_period: "",
-      natural_gas_annual_spend: "",
-      natural_gas_annual_amount: null,
-      natural_gas_annual_unit: "",
-      gas_consumption_offset: "",
-      oil_usage_known: "",
-      oil_usage_amount: null,
-      oil_usage_unit: "",
-      oil_annual_spend: "",
-      oil_annual_amount: null,
-      oil_annual_unit: "",
-      wood_usage_known: "",
-      wood_usage_amount: null,
-      wood_usage_unit: "",
-      wood_annual_spend: "",
-      wood_annual_amount: null,
-      wood_annual_unit: "",
-      coal_usage_known: "",
-      coal_usage_amount: null,
-      coal_usage_unit: "",
-      coal_annual_spend: "",
-      coal_annual_amount: null,
-      coal_annual_unit: "",
-      other_energy_usage: "",
-      other_energy_which_and_amount: "",
-      property_features: "",
-      house_type: "",
-      construction_material: "",
-      year_built: "",
-      winter_temperature: "",
-      additional_property_features: "",
-      live_in_staff: "",
-      planned_renovations: "",
-      significant_land: "",
-      land_details: "",
-      other_details: "",
+        location: home?.location,
+        heating_type: home?.heating_type ? home?.heating_type?.split(',') : ["Electricity", "Oil", "Coal", "Gas", "Wood"],
+        zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
+        electricity_usage_known: home?.electricity_usage_known,
+        electricity_usage_amount: home?.electricity_usage_amount,
+        electricity_usage_unit: home?.electricity_usage_unit,
+        electricity_usage_time_period: home?.electricity_usage_time_period,
+        electricity_annual_spend: home?.electricity_annual_spend,
+        electricity_annual_amount: home?.electricity_annual_amount,
+        electricity_annual_unit: home?.electricity_annual_unit,
+        electricity_supplier: home?.electricity_supplier,
+        on_site_renewable_energy: home?.on_site_renewable_energy,
+        on_site_renewable_amount: home?.on_site_renewable_amount,
+        on_site_renewable_unit: home?.on_site_renewable_unit,
+        natural_gas_usage_known: home?.natural_gas_usage_known,
+        natural_gas_usage_amount: home?.natural_gas_usage_amount,
+        natural_gas_usage_unit: home?.natural_gas_usage_unit,
+        natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
+        natural_gas_annual_spend: home?.natural_gas_annual_spend,
+        natural_gas_annual_amount: home?.natural_gas_annual_amount,
+        natural_gas_annual_unit: home?.natural_gas_annual_unit,
+        gas_consumption_offset: home?.gas_consumption_offset,
+        oil_usage_known: home?.oil_usage_known,
+        oil_usage_amount: home?.oil_usage_amount,
+        oil_usage_unit: home?.oil_usage_unit,
+        oil_annual_spend: home?.oil_annual_spend,
+        oil_annual_amount: home?.oil_annual_amount,
+        oil_annual_unit: home?.oil_annual_unit,
+        wood_usage_known: home?.wood_usage_known,
+        wood_usage_amount: home?.wood_usage_amount,
+        wood_usage_unit: home?.wood_usage_unit,
+        wood_annual_spend: home?.wood_annual_spend,
+        wood_annual_amount: home?.wood_annual_amount,
+        wood_annual_unit: home?.wood_annual_unit,
+        coal_usage_known: home?.coal_usage_known,
+        coal_usage_amount: home?.coal_usage_amount,
+        coal_usage_unit: home?.coal_usage_unit,
+        coal_annual_spend: home?.coal_annual_spend,
+        coal_annual_amount: home?.coal_annual_amount,
+        coal_annual_unit: home?.coal_annual_unit,
+        other_energy_usage: home?.other_energy_usage,
+        other_energy_which_and_amount: home?.other_energy_which_and_amount,
+        property_features: home?.property_features,
+        house_type: home?.house_type,
+        construction_material: home?.construction_material,
+        year_built: home?.year_built,
+        winter_temperature: home?.winter_temperature,
+        additional_property_features: home?.additional_property_features,
+        live_in_staff: home?.live_in_staff,
+        planned_renovations: home?.planned_renovations,
+        significant_land: home?.significant_land,
+        land_details: home?.land_details,
+        other_details: home?.other_details,
+
     },
 
-    validationSchema: homeFormvalidation,
+    // validationSchema: homeFormvalidation,
     onSubmit: submitHandler,
   });
 
@@ -268,7 +327,7 @@ const HomeFormView = ({ home }) => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <form>
         <section className="general-form mt-80 mb-80">
           <div className="container ">
             <div className="bg-lightgray-color">
@@ -300,8 +359,8 @@ const HomeFormView = ({ home }) => {
                               id="location"
                               className={`form-control `}
                               placeholder="Location of home"
-
-                              value={formik.values.location}
+                              readOnly
+                              defaultValue={formik.values.location}
                             >
                               <option value="">Select option</option>
                               <CountryOptions countries={details?.countries} />
@@ -311,23 +370,23 @@ const HomeFormView = ({ home }) => {
                           <div className="form-div">
                             <div className="form-label-div">
                               <label htmlFor="heating_type">
-                                <strong>2.</strong> How is the home heated?
+                                <strong>2.</strong> How is the home heated?{formik?.values?.heating_type}
                                 <span>*</span>
                               </label>
                               <p>(Select all that apply)</p>
                             </div>
                             <div className="sub-btn">
-                              {heatingTypes.map((type, index) => (
+                              {heatingTypes?.map((type, index) => (
                                 <div className="check-input" key={index}>
                                   <input
                                     id={type + "1"}
                                     type="checkbox"
                                     name="heating_type"
                                     value={type}
-                                    checked={formik.values.heating_type.includes("Don't know") ? formik.values?.heating_type?.splice(0, formik?.values?.heating_type?.length, "Don't know") : formik.values.heating_type.includes(type)}
-
+                                    readOnly
+                                    defaultChecked={formik?.values?.heating_type?.includes("Don't know") ? formik.values?.heating_type?.splice(0, formik?.values?.heating_type?.length, "Don't know") : formik?.values?.heating_type?.includes(type)}
                                   />
-                                  <label htmlFor={type + "1"} className={`${formik.values.heating_type.includes(type) ? "active" : ""}`}>
+                                  <label htmlFor={type + "1"} className={`${formik.values.heating_type?.includes(type) ? "active" : ""}`}>
                                     {type}
                                   </label>
                                 </div>
@@ -367,7 +426,7 @@ const HomeFormView = ({ home }) => {
               </div>
             </div>
             {/* Electricity Section */}
-            {formik.values.heating_type.includes("Electricity") && (
+            {formik.values.heating_type?.includes("Electricity") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -608,7 +667,7 @@ const HomeFormView = ({ home }) => {
               </div>
             )}
             {/* Gas Section */}
-            {formik.values.heating_type.includes("Gas") && (
+            {formik.values.heating_type?.includes("Gas") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -769,7 +828,7 @@ const HomeFormView = ({ home }) => {
               </div>
             )}
             {/* Other energy Section */}
-            {(formik.values.heating_type.includes("Oil") || formik.values.heating_type.includes("Coal") || formik.values.heating_type.includes("Wood")) && (
+            {(formik.values.heating_type?.includes("Oil") || formik.values.heating_type?.includes("Coal") || formik.values.heating_type?.includes("Wood")) && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -780,7 +839,7 @@ const HomeFormView = ({ home }) => {
                         <div className="form ">
                           <div className="row">
                             {/* Oil */}
-                            {formik.values.heating_type.includes("Oil") && (
+                            {formik.values.heating_type?.includes("Oil") && (
                               <>
                                 <div className="form-div">
                                   <div className="form-label-div">
@@ -883,7 +942,7 @@ const HomeFormView = ({ home }) => {
                               </>
                             )}
                             {/* Wood */}
-                            {formik.values.heating_type.includes("Wood") && (
+                            {formik.values.heating_type?.includes("Wood") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="wood_usage_known">
@@ -985,7 +1044,7 @@ const HomeFormView = ({ home }) => {
                                 )}
                               </>)}
                             {/* Coal */}
-                            {formik.values.heating_type.includes("Coal") && (
+                            {formik.values.heating_type?.includes("Coal") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="coal_usage_known">
@@ -1158,10 +1217,10 @@ const HomeFormView = ({ home }) => {
                                       type="checkbox"
                                       name="property_features"
                                       value={type}
-                                      checked={formik.values.property_features.includes("Don't know") ? formik.values?.property_features?.splice(0, formik?.values?.property_features?.length, "Don't know") : formik.values.property_features.includes(type)}
+                                      checked={formik.values.property_features?.includes("Don't know") ? formik.values?.property_features?.splice(0, formik?.values?.property_features?.length, "Don't know") : formik.values.property_features?.includes(type)}
 
                                     />
-                                    <label htmlFor={type + "2"} className={`${formik.values.property_features.includes(type) ? "active" : ""}`}>
+                                    <label htmlFor={type + "2"} className={`${formik.values.property_features?.includes(type) ? "active" : ""}`}>
                                       {type}
                                     </label>
                                   </div>
@@ -1270,9 +1329,9 @@ const HomeFormView = ({ home }) => {
                                     type="checkbox"
                                     name="additional_property_features"
                                     value={type}
-                                    checked={formik.values.additional_property_features.includes(type)}
+                                    checked={formik.values.additional_property_features?.includes(type)}
                                   />
-                                  <label htmlFor={type + "1"} className={`${formik.values.additional_property_features.includes(type) ? "active" : ""}`}>
+                                  <label htmlFor={type + "1"} className={`${formik.values.additional_property_features?.includes(type) ? "active" : ""}`}>
                                     {type}
                                   </label>
                                 </div>

@@ -20,6 +20,7 @@ function Dashboard() {
     return (
         <Routes>
             <Route path="login" element={<AdminLogin />} />
+            <Route index element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
             <Route path="dashboard" element={<AdminProtectedRoute><AdminDashboard /> </AdminProtectedRoute>} />
             <Route path="form-view/:form_id" element={<AdminProtectedRoute><AdminView /></AdminProtectedRoute>} />
             <Route path="create-user" element={<AdminProtectedRoute><CreateNewUser /></AdminProtectedRoute>} />

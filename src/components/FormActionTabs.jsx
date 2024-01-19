@@ -159,7 +159,7 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
                 )}
               </div>
               <div className="col-div">
-                {user?.formCompleted === 4 ? (
+                {user?.formCompleted >= 4 ? (
                   <div className="information-icon-box">
                     <Link to="/financial">
                       <div

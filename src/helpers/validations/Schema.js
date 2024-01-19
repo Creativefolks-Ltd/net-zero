@@ -90,6 +90,9 @@ export const homeFormvalidation = (values) => {
             if (!values?.electricity_usage_unit?.trim()) {
                 errors.electricity_usage_unit = selectOptionMsg;
             }
+            if (values?.electricity_usage_unit === "Billed per year" && !values?.electricity_usage_amount_currency?.trim()) {
+                errors.electricity_usage_amount_currency = requiredMsg;
+            }
         }
 
         if (values?.electricity_usage_known === "Yes, for part of the year" && !values?.electricity_usage_time_period?.trim()) {
@@ -294,166 +297,166 @@ export const homeFormvalidation = (values) => {
             errors.other_energy_which_and_amount = requiredMsg;
         }
     }
-    console.log(errors,"///////errors")
+    console.log(errors, "///////errors")
     return errors;
 }
 
 // export const homeFormvalidation = Yup.object().shape({
-    // location: Yup.string().required(selectOptionMsg),
-    // heating_type: Yup.array().required(requiredMsg),
-    // zero_carbon_energy_tariff: Yup.string().required(requiredMsg),
+// location: Yup.string().required(selectOptionMsg),
+// heating_type: Yup.array().required(requiredMsg),
+// zero_carbon_energy_tariff: Yup.string().required(requiredMsg),
 
-    //// Electricity
-    // electricity_usage_known: Yup.string().required(selectOptionMsg),
+//// Electricity
+// electricity_usage_known: Yup.string().required(selectOptionMsg),
 
-    // // If  electricity_usage_known !== "No" 
-    // electricity_usage_amount: Yup.string().when('electricity_usage_known', (value, schema) => {
-    //     return value?.toString() !== null && value?.toString() !== "No" ? schema.required(requiredMsg).nullable().matches(/^[0-9]+$/, numberAllowMsg) : schema;
-    // }),
-    // electricity_usage_unit: Yup.string().when('electricity_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  electricity_usage_known !== "No" 
+// electricity_usage_amount: Yup.string().when('electricity_usage_known', (value, schema) => {
+//     return value?.toString() !== null && value?.toString() !== "No" ? schema.required(requiredMsg).nullable().matches(/^[0-9]+$/, numberAllowMsg) : schema;
+// }),
+// electricity_usage_unit: Yup.string().when('electricity_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // If  electricity_usage_known === "Yes, for part of the year" 
-    // electricity_usage_time_period: Yup.string().when('electricity_usage_known', (value, schema) => {
-    //     return value?.toString() === "Yes, for part of the year" ? schema.required(requiredMsg) : schema;
-    // }),
+// // If  electricity_usage_known === "Yes, for part of the year" 
+// electricity_usage_time_period: Yup.string().when('electricity_usage_known', (value, schema) => {
+//     return value?.toString() === "Yes, for part of the year" ? schema.required(requiredMsg) : schema;
+// }),
 
-    // // If  electricity_usage_known === "No" 
-    // electricity_annual_spend: Yup.string().when('electricity_usage_known', (value, schema) => {
-    //     return value?.toString() === "No" ? schema.required(requiredMsg) : schema;
-    // }),
+// // If  electricity_usage_known === "No" 
+// electricity_annual_spend: Yup.string().when('electricity_usage_known', (value, schema) => {
+//     return value?.toString() === "No" ? schema.required(requiredMsg) : schema;
+// }),
 
-    // // If  electricity_annual_spend !== "No" 
-    // electricity_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('electricity_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
-    // }),
-    // electricity_annual_unit: Yup.string().when('electricity_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  electricity_annual_spend !== "No" 
+// electricity_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('electricity_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
+// }),
+// electricity_annual_unit: Yup.string().when('electricity_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // electricity_supplier: Yup.string().required(requiredMsg),
+// electricity_supplier: Yup.string().required(requiredMsg),
 
-    // // onSite
-    // on_site_renewable_energy: Yup.string().required(selectOptionMsg),
+// // onSite
+// on_site_renewable_energy: Yup.string().required(selectOptionMsg),
 
-    // // If on_site_renewable_energy !== "No"
-    // on_site_renewable_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
-    // on_site_renewable_unit: Yup.string().when('on_site_renewable_energy', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-
-    // //// Gas
-    // natural_gas_usage_known: Yup.string().required(selectOptionMsg),
-    // // If  natural_gas_usage_known !== "No" 
-    // natural_gas_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
-    // natural_gas_usage_unit: Yup.string().when('natural_gas_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // // If  natural_gas_usage_known === "Yes, for part of the year" 
-    // natural_gas_usage_time_period: Yup.string().when('natural_gas_usage_known', (value, schema) => {
-    //     return value?.toString() === "Yes, for part of the year" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // // If  natural_gas_usage_known === "No" 
-    // natural_gas_annual_spend: Yup.string().when('natural_gas_usage_known', (value, schema) => {
-    //     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // // If  natural_gas_annual_spend !== "No" 
-    // natural_gas_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
-    // }),
-    // natural_gas_annual_unit: Yup.string().when('natural_gas_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // gas_consumption_offset: Yup.string().required(selectOptionMsg),
+// // If on_site_renewable_energy !== "No"
+// on_site_renewable_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
+// on_site_renewable_unit: Yup.string().when('on_site_renewable_energy', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
 
-    // //// Oil
-    // oil_usage_known: Yup.string().required(selectOptionMsg),
-    // // If  oil_usage_known !== "No" 
-    // oil_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
-    // oil_usage_unit: Yup.string().when('oil_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// //// Gas
+// natural_gas_usage_known: Yup.string().required(selectOptionMsg),
+// // If  natural_gas_usage_known !== "No" 
+// natural_gas_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
+// natural_gas_usage_unit: Yup.string().when('natural_gas_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // If  oil_usage_known === "No" 
-    // oil_annual_spend: Yup.string().when('oil_usage_known', (value, schema) => {
-    //     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  natural_gas_usage_known === "Yes, for part of the year" 
+// natural_gas_usage_time_period: Yup.string().when('natural_gas_usage_known', (value, schema) => {
+//     return value?.toString() === "Yes, for part of the year" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // If  oil_annual_spend !== "No" 
-    // oil_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
-    // }),
-    // oil_annual_unit: Yup.string().when('oil_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  natural_gas_usage_known === "No" 
+// natural_gas_annual_spend: Yup.string().when('natural_gas_usage_known', (value, schema) => {
+//     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
+// // If  natural_gas_annual_spend !== "No" 
+// natural_gas_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
+// }),
+// natural_gas_annual_unit: Yup.string().when('natural_gas_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // Wood
-    // wood_usage_known: Yup.string().required(selectOptionMsg),
-    // // If  wood_usage_known !== "No" 
-    // wood_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
-    // wood_usage_unit: Yup.string().when('wood_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // // If  wood_usage_known === "No" 
-    // wood_annual_spend: Yup.string().when('wood_usage_known', (value, schema) => {
-    //     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
-
-    // // If  wood_annual_spend !== "No" 
-    // wood_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
-    // }),
-    // wood_annual_unit: Yup.string().when('wood_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// gas_consumption_offset: Yup.string().required(selectOptionMsg),
 
 
-    // // Coal
-    // coal_usage_known: Yup.string().required(selectOptionMsg),
-    // // If  coal_usage_known !== "No" 
-    // coal_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
-    // coal_usage_unit: Yup.string().when('coal_usage_known', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// //// Oil
+// oil_usage_known: Yup.string().required(selectOptionMsg),
+// // If  oil_usage_known !== "No" 
+// oil_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
+// oil_usage_unit: Yup.string().when('oil_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // If  coal_usage_known === "No" 
-    // coal_annual_spend: Yup.string().when('coal_usage_known', (value, schema) => {
-    //     return value.toString() === "No" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  oil_usage_known === "No" 
+// oil_annual_spend: Yup.string().when('oil_usage_known', (value, schema) => {
+//     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
+// }),
 
-    // // If  coal_annual_spend !== "No" 
-    // coal_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
-    // }),
-    // coal_annual_unit: Yup.string().when('coal_annual_spend', (value, schema) => {
-    //     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
-    // }),
+// // If  oil_annual_spend !== "No" 
+// oil_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
+// }),
+// oil_annual_unit: Yup.string().when('oil_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
+// }),
 
 
-    // // Other
-    // other_energy_usage: Yup.string().required(selectOptionMsg),
-    // other_energy_which_and_amount: Yup.string().when('other_energy_usage', (value, schema) => {
-    //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
-    // }),
+// // Wood
+// wood_usage_known: Yup.string().required(selectOptionMsg),
+// // If  wood_usage_known !== "No" 
+// wood_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
+// wood_usage_unit: Yup.string().when('wood_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+// // If  wood_usage_known === "No" 
+// wood_annual_spend: Yup.string().when('wood_usage_known', (value, schema) => {
+//     return value?.toString() === "No" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+// // If  wood_annual_spend !== "No" 
+// wood_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
+// }),
+// wood_annual_unit: Yup.string().when('wood_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+
+// // Coal
+// coal_usage_known: Yup.string().required(selectOptionMsg),
+// // If  coal_usage_known !== "No" 
+// coal_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
+// coal_usage_unit: Yup.string().when('coal_usage_known', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+// // If  coal_usage_known === "No" 
+// coal_annual_spend: Yup.string().when('coal_usage_known', (value, schema) => {
+//     return value.toString() === "No" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+// // If  coal_annual_spend !== "No" 
+// coal_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
+// }),
+// coal_annual_unit: Yup.string().when('coal_annual_spend', (value, schema) => {
+//     return value?.toString() === "Yes" ? schema.required(selectOptionMsg) : schema;
+// }),
+
+
+// // Other
+// other_energy_usage: Yup.string().required(selectOptionMsg),
+// other_energy_which_and_amount: Yup.string().when('other_energy_usage', (value, schema) => {
+//     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+// }),
 // })
 
 

@@ -5,13 +5,53 @@ import foodImg from "../../assets/images/food.svg";
 import carImg from "../../assets/images/t_car.svg";
 import financialImg from "../../assets/images/financial .svg";
 import { Link, } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { homeformIds } from "../../redux-store/actions/user";
 
 
-const FormActionTabs = ({ activeTab, handleActiveTab }) => {
+const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome }) => {
+  const dispatch = useDispatch()
+  // const [activeTab, setActiveTab] = useState(activeTab);
+  const [homeActiveTab, setHomeActiveTab] = useState(1);
+  const [homeCount, setHomeCount] = useState(1);
+
+  const user = useSelector((state) => state.auth);
+  const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
+
+  const general_information_id = Number(user?.generalInfoId);
+
+  useEffect(() => {
+    dispatch(homeformIds(general_information_id))
+
+  }, [general_information_id])
 
   const handleActiveTabFunc = (active) => {
     handleActiveTab(active)
   }
+
+  useEffect(() => {
+    if (homeIds?.length > 0) {
+      setHomeCount(homeIds?.length)
+    }
+  }, [homeIds]);
+
+  const handleHomeTabs = (activeIndex) => {
+    setHomeActiveTab(activeIndex);
+    setSelectedHome(activeIndex)
+  }
+
+  const renderHomes = () => {
+    const homes = [];
+    for (let i = 1; i <= homeCount; i++) {
+      homes.push(
+        <li key={i} className={i === 1 ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
+          <a>Home {i}</a>
+        </li>
+      );
+    }
+    return homes;
+  };
+
   return (
     <section className="information mt-80 mb-80">
       <div className="container">
@@ -85,7 +125,15 @@ const FormActionTabs = ({ activeTab, handleActiveTab }) => {
                 </div>
               </div>
             </div>
+            {activeTab === "home" && (
+              <div class="information-header-nav">
+                <ul>
+                  {renderHomes()}
+                </ul>
+              </div>
+            )}
           </div>
+
         </div>
       </div>
     </section>
