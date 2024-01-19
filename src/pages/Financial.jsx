@@ -33,7 +33,6 @@ const Financial = () => {
         cancelButton: 'custom-cancel-button',
         actions: "action-button-box"
       }
-
     })
   },[])
 
