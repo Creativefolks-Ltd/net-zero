@@ -206,7 +206,11 @@ const AdminDashboard = () => {
                       </span>
                     ) : null}
                   </div>
-                  <Link to="/admin/manage-password" className="account-link">Manage your password</Link>
+                  <div className="manage-password-link-box">
+                      <Link to="/manage-password" className="account-link">
+                        Manage your password
+                      </Link>
+                      </div>
                 </div>
               </div>
               <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)}>
