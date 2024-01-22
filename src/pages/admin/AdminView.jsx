@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchParticularForm, formDelete } from "../../redux-store/actions/admin";
 import HomeFormView from "../forms/HomeFormView";
 import GeneralView from "../forms/GeneralView";
@@ -10,6 +10,7 @@ import FoodAndShoppingView from "../forms/FoodAndShoppingView";
 import FormActionTabs from "../forms/FormActionTabs";
 
 const AdminView = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form_id } = useParams()
@@ -17,6 +18,10 @@ const AdminView = () => {
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
   const [selectedHome, setSelectedHome] = useState(1);
+
+  const locationOfFile = location.pathname;
+  const split1 = locationOfFile?.split('/');
+  const adminPath = split1[1];
 
   const handleActiveTab = (active) => {
     setActiveTab(active)
@@ -132,9 +137,11 @@ const AdminView = () => {
                   <button class="btn" type="button">
                     Download PDF
                   </button>
-                  <button class="btn" type="button">
+
+                  {adminPath === "admin" ? (<button class="btn" type="button">
                     Assign to different user
-                  </button>
+                  </button>) : null}
+
                   <button
                     class="btn"
                     type="button"
@@ -155,7 +162,7 @@ const AdminView = () => {
               <div className="full-form-div py-0 bg-secondary">
                 <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} />
                 {activeTab === "general" && (<GeneralView general={general} />)}
-                {activeTab === "home" && (<HomeFormView home={home[selectedHome-1]} />)}
+                {activeTab === "home" && (<HomeFormView home={home[selectedHome - 1]} />)}
                 {activeTab === "travel" && (<TravelView travel={travel} />)}
                 {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
                 {/* <HomeFormView financial={financial} /> */}
