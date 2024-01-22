@@ -45,27 +45,21 @@ const Homeform = () => {
     setHomeActiveTab(active)
   }
 
-  const getWinterTemperature = (temprature) => {
-    switch (temprature) {
-      case 1: {
-        return "< 14%"
-      }
-      case 2: {
-        return "14% - 17%"
-      }
-      case 3: {
-        return "18% - 21%"
-      }
-      case 4: {
-        return "> 21%"
-      }
-      case 5: {
-        return "Don't know"
-      }
-      default:
-        return ""
+  const getWinterTemperature = (temperature) => {
+    if (temperature >= 1 && temperature <= 18) {
+      return "< 14%";
+    } else if (temperature > 18 && temperature < 40) {
+      return "14% - 17%";
+    } else if (temperature >= 40 && temperature < 61) {
+      return "18% - 21%";
+    } else if (temperature >= 61 && temperature < 80) {
+      return "> 21%";
+    } else if (temperature >= 80) {
+      return "Don't know";
+    } else {
+      return "";
     }
-  }
+  };
 
   const validateAndFilterFields = (values) => {
     const {
@@ -82,7 +76,7 @@ const Homeform = () => {
       heating_type: heating_type?.toString(),
       property_features: property_features?.toString(),
       additional_property_features: additional_property_features?.toString(),
-      winter_temperature: getWinterTemperature(),
+      winter_temperature: getWinterTemperature(winter_temperature),
       general_information_id,
     };
     return filteredValues;
@@ -244,10 +238,10 @@ const Homeform = () => {
   const genSlideStyle = (value) => {
     return {
       point: {
-        left: `calc(${value * 20}% - ${5 + 3 * value}px)`,
+        left: `calc(${value * 1}% - ${0.3 * value}px)`,
       },
       range: {
-        width: `${value * 20}%`,
+        width: `${value * 1}%`,
       },
     };
   };
@@ -504,7 +498,7 @@ const Homeform = () => {
                                     } `}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                value={formik.values.electricity_usage_amount_currency}
+                                  value={formik.values.electricity_usage_amount_currency}
                                 >
                                   <option value="">Select currency</option>
                                   <CurrencyOptions />
@@ -1733,7 +1727,7 @@ const Homeform = () => {
                               <p>(Use slider below)</p>
                             </div>
                             <div className="range">
-                              <span className={`range-value ${formik.values.winter_temperature > 4 ? "temp_dontKnow" : ""}`} style={slideStyle.range} />
+                              <span className={`range-value ${formik.values.winter_temperature > 80 ? "temp_dontKnow" : ""}`} style={slideStyle.range} />
                               <span className="circle" style={slideStyle.point} />
                               <input
                                 className={`range-slide `}
@@ -1741,7 +1735,7 @@ const Homeform = () => {
                                 id="winter_temperature"
                                 type="range"
                                 // min="1"
-                                max="5"
+                                max="100"
                                 value={formik.values.winter_temperature}
                                 step="1"
                                 onBlur={formik.handleBlur}
@@ -1749,11 +1743,11 @@ const Homeform = () => {
                               />
                             </div>
                             <div className="slider-labels">
-                              <span>{"< 14%"}</span>
-                              <span>{"14% - 17%"}</span>
-                              <span>{"18% - 21%"}</span>
-                              <span>{"> 21%"}</span>
-                              <span>{"Don't know"}</span>
+                              <span className={`${formik.values.winter_temperature >= 1 && formik.values.winter_temperature < 18 ? "active" : ""}`}>{"< 14%"}</span>
+                              <span className={`${formik.values.winter_temperature >= 18 && formik.values.winter_temperature < 40 ? "active" : ""}`}>{"14% - 17%"}</span>
+                              <span className={`${formik.values.winter_temperature >= 40 && formik.values.winter_temperature < 61 ? "active" : ""}`}>{"18% - 21%"}</span >
+                              <span className={`${formik.values.winter_temperature >= 61 && formik.values.winter_temperature < 80 ? "active" : ""}`}>{"> 21%"}</span>
+                              <span className={`${formik.values.winter_temperature >= 80 ? "active" : ""}`}>{"Don't know"}</span>
                             </div>
                           </div>
                           <div className="form-div ">
