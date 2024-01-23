@@ -46,18 +46,23 @@ const ChangePassword = ({ isAdmin }) => {
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
-          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-          if (errorMessages.length > 0) {
-            const errorMessage = errorMessages.join("\n");
-            Swal.fire({
-              title: "Failed!",
-              html: errorMessage || "Failed to update password, please try again",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-            });
+          let errorMessage = "";
+          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+              ? errorMessages.join("\n")
+              : "";
+          } else {
+            errorMessage = errorMsg?.toString() || "";
           }
+          Swal.fire({
+            title: "Failed!",
+            html: errorMessage || "Failed to update password, please try again",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+          });
         }
       }
     } else {
@@ -66,7 +71,7 @@ const ChangePassword = ({ isAdmin }) => {
   };
 
   const email = isAdmin ? user?.adminDetails?.email : user?.userInfo?.email;
-  
+
   const formik = useFormik({
     initialValues: {
       email: email,

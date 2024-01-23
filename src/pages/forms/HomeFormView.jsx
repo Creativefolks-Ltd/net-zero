@@ -149,59 +149,59 @@ const HomeFormView = ({ home }) => {
 
   const formik = useFormik({
     initialValues: {
-        location: home?.location,
-        heating_type: home?.heating_type ? home?.heating_type?.split(',') : ["Electricity", "Oil", "Coal", "Gas", "Wood"],
-        zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
-        electricity_usage_known: home?.electricity_usage_known,
-        electricity_usage_amount: home?.electricity_usage_amount,
-        electricity_usage_unit: home?.electricity_usage_unit,
-        electricity_usage_time_period: home?.electricity_usage_time_period,
-        electricity_annual_spend: home?.electricity_annual_spend,
-        electricity_annual_amount: home?.electricity_annual_amount,
-        electricity_annual_unit: home?.electricity_annual_unit,
-        electricity_supplier: home?.electricity_supplier,
-        on_site_renewable_energy: home?.on_site_renewable_energy,
-        on_site_renewable_amount: home?.on_site_renewable_amount,
-        on_site_renewable_unit: home?.on_site_renewable_unit,
-        natural_gas_usage_known: home?.natural_gas_usage_known,
-        natural_gas_usage_amount: home?.natural_gas_usage_amount,
-        natural_gas_usage_unit: home?.natural_gas_usage_unit,
-        natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
-        natural_gas_annual_spend: home?.natural_gas_annual_spend,
-        natural_gas_annual_amount: home?.natural_gas_annual_amount,
-        natural_gas_annual_unit: home?.natural_gas_annual_unit,
-        gas_consumption_offset: home?.gas_consumption_offset,
-        oil_usage_known: home?.oil_usage_known,
-        oil_usage_amount: home?.oil_usage_amount,
-        oil_usage_unit: home?.oil_usage_unit,
-        oil_annual_spend: home?.oil_annual_spend,
-        oil_annual_amount: home?.oil_annual_amount,
-        oil_annual_unit: home?.oil_annual_unit,
-        wood_usage_known: home?.wood_usage_known,
-        wood_usage_amount: home?.wood_usage_amount,
-        wood_usage_unit: home?.wood_usage_unit,
-        wood_annual_spend: home?.wood_annual_spend,
-        wood_annual_amount: home?.wood_annual_amount,
-        wood_annual_unit: home?.wood_annual_unit,
-        coal_usage_known: home?.coal_usage_known,
-        coal_usage_amount: home?.coal_usage_amount,
-        coal_usage_unit: home?.coal_usage_unit,
-        coal_annual_spend: home?.coal_annual_spend,
-        coal_annual_amount: home?.coal_annual_amount,
-        coal_annual_unit: home?.coal_annual_unit,
-        other_energy_usage: home?.other_energy_usage,
-        other_energy_which_and_amount: home?.other_energy_which_and_amount,
-        property_features: home?.property_features,
-        house_type: home?.house_type,
-        construction_material: home?.construction_material,
-        year_built: home?.year_built,
-        winter_temperature: home?.winter_temperature,
-        additional_property_features: home?.additional_property_features,
-        live_in_staff: home?.live_in_staff,
-        planned_renovations: home?.planned_renovations,
-        significant_land: home?.significant_land,
-        land_details: home?.land_details,
-        other_details: home?.other_details,
+      location: home?.location,
+      heating_type: home?.heating_type ? home?.heating_type?.split(',') : ["Electricity", "Oil", "Coal", "Gas", "Wood"],
+      zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
+      electricity_usage_known: home?.electricity_usage_known,
+      electricity_usage_amount: home?.electricity_usage_amount,
+      electricity_usage_unit: home?.electricity_usage_unit,
+      electricity_usage_time_period: home?.electricity_usage_time_period,
+      electricity_annual_spend: home?.electricity_annual_spend,
+      electricity_annual_amount: home?.electricity_annual_amount,
+      electricity_annual_unit: home?.electricity_annual_unit,
+      electricity_supplier: home?.electricity_supplier,
+      on_site_renewable_energy: home?.on_site_renewable_energy,
+      on_site_renewable_amount: home?.on_site_renewable_amount,
+      on_site_renewable_unit: home?.on_site_renewable_unit,
+      natural_gas_usage_known: home?.natural_gas_usage_known,
+      natural_gas_usage_amount: home?.natural_gas_usage_amount,
+      natural_gas_usage_unit: home?.natural_gas_usage_unit,
+      natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
+      natural_gas_annual_spend: home?.natural_gas_annual_spend,
+      natural_gas_annual_amount: home?.natural_gas_annual_amount,
+      natural_gas_annual_unit: home?.natural_gas_annual_unit,
+      gas_consumption_offset: home?.gas_consumption_offset,
+      oil_usage_known: home?.oil_usage_known,
+      oil_usage_amount: home?.oil_usage_amount,
+      oil_usage_unit: home?.oil_usage_unit,
+      oil_annual_spend: home?.oil_annual_spend,
+      oil_annual_amount: home?.oil_annual_amount,
+      oil_annual_unit: home?.oil_annual_unit,
+      wood_usage_known: home?.wood_usage_known,
+      wood_usage_amount: home?.wood_usage_amount,
+      wood_usage_unit: home?.wood_usage_unit,
+      wood_annual_spend: home?.wood_annual_spend,
+      wood_annual_amount: home?.wood_annual_amount,
+      wood_annual_unit: home?.wood_annual_unit,
+      coal_usage_known: home?.coal_usage_known,
+      coal_usage_amount: home?.coal_usage_amount,
+      coal_usage_unit: home?.coal_usage_unit,
+      coal_annual_spend: home?.coal_annual_spend,
+      coal_annual_amount: home?.coal_annual_amount,
+      coal_annual_unit: home?.coal_annual_unit,
+      other_energy_usage: home?.other_energy_usage,
+      other_energy_which_and_amount: home?.other_energy_which_and_amount,
+      property_features: home?.property_features,
+      house_type: home?.house_type,
+      construction_material: home?.construction_material,
+      year_built: home?.year_built,
+      winter_temperature: home?.winter_temperature,
+      additional_property_features: home?.additional_property_features,
+      live_in_staff: home?.live_in_staff,
+      planned_renovations: home?.planned_renovations,
+      significant_land: home?.significant_land,
+      land_details: home?.land_details,
+      other_details: home?.other_details,
 
     },
 
@@ -241,18 +241,23 @@ const HomeFormView = ({ home }) => {
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
-          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-          if (errorMessages.length > 0) {
-            const errorMessage = errorMessages.join("\n");
-            Swal.fire({
-              title: "Failed!",
-              html: errorMessage || "Failed to form submit, please try again",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-            });
+          let errorMessage = "";
+          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+              ? errorMessages.join("\n")
+              : "";
+          } else {
+            errorMessage = errorMsg?.toString() || "";
           }
+          Swal.fire({
+            title: "Failed!",
+            html: errorMessage || "Failed to form submit, please try again",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+          });
         }
       }
     } else {

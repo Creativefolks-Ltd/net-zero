@@ -42,18 +42,23 @@ const CreateNewUser = () => {
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
-          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-          if (errorMessages.length > 0) {
-            const errorMessage = errorMessages.join("\n");
-            Swal.fire({
-              title: "Failed!",
-              html: errorMessage || "Failed to create new user, please try again",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-            });
+          let errorMessage = "";
+          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+              ? errorMessages.join("\n")
+              : "";
+          } else {
+            errorMessage = errorMsg?.toString() || "";
           }
+          Swal.fire({
+            title: "Failed!",
+            html: errorMessage || "Failed to create new user, please try again",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+          });
         }
       }
     } else {
@@ -81,60 +86,60 @@ const CreateNewUser = () => {
         <form onSubmit={formik.handleSubmit}>
           <section className="Personal-information create-user">
             <div className="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-8">
-              <div className="">
-                <h1>Create New User</h1>
-              </div>
-              <div className="row ">
-                <div className="col-lg-12 admin-dashboard">
-                  <div className="information-box">
-                    <div className="form-div">
-                      <input type="text" name="first_name" id="first_name" placeholder="First name" className={`${formik.errors.first_name && formik.touched.first_name && "invalidInput"}`} value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                      {formik.errors.first_name && formik.touched.first_name ? (
-                        <span className="input-error-msg">
-                          {formik.errors.first_name}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="form-div">
-                      <input type="text" name="last_name" id="last_name" placeholder="Last name" className={`${formik.errors.last_name && formik.touched.last_name && "invalidInput"}`} value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                      {formik.errors.last_name && formik.touched.last_name ? (
-                        <span className="input-error-msg">
-                          {formik.errors.last_name}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="form-div">
-                      <input type="text" name="email" id="email" placeholder="Email address" className={`${formik.errors.email && formik.touched.email && "invalidInput"}`} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                      {formik.errors.email && formik.touched.email ? (
-                        <span className="input-error-msg">
-                          {formik.errors.email}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="form-div login-pass-filed">
-                      <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
-                      {formik.errors.password &&
-                        formik.touched.password ? (
-                        <span className="input-error-msg">
-                          {formik.errors.password}
-                        </span>
-                      ) : null}
+              <div class="row justify-content-center">
+                <div class="col-lg-8">
+                  <div className="">
+                    <h1>Create New User</h1>
+                  </div>
+                  <div className="row ">
+                    <div className="col-lg-12 admin-dashboard">
+                      <div className="information-box">
+                        <div className="form-div">
+                          <input type="text" name="first_name" id="first_name" placeholder="First name" className={`${formik.errors.first_name && formik.touched.first_name && "invalidInput"}`} value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          {formik.errors.first_name && formik.touched.first_name ? (
+                            <span className="input-error-msg">
+                              {formik.errors.first_name}
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="form-div">
+                          <input type="text" name="last_name" id="last_name" placeholder="Last name" className={`${formik.errors.last_name && formik.touched.last_name && "invalidInput"}`} value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          {formik.errors.last_name && formik.touched.last_name ? (
+                            <span className="input-error-msg">
+                              {formik.errors.last_name}
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="form-div">
+                          <input type="text" name="email" id="email" placeholder="Email address" className={`${formik.errors.email && formik.touched.email && "invalidInput"}`} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          {formik.errors.email && formik.touched.email ? (
+                            <span className="input-error-msg">
+                              {formik.errors.email}
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="form-div login-pass-filed">
+                          <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+                          {formik.errors.password &&
+                            formik.touched.password ? (
+                            <span className="input-error-msg">
+                              {formik.errors.password}
+                            </span>
+                          ) : null}
 
-                    </div>
-                    <div className="form-div login-pass-filed">
-                      <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
-                      {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
+                        </div>
+                        <div className="form-div login-pass-filed">
+                          <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
+                          {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
+                        </div>
+                      </div>
+                      <button className="submit-btn" type='submit' disabled={disabled} >
+                        Save {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
                     </div>
                   </div>
-                  <button className="submit-btn" type='submit' disabled={disabled} >
-                  Save {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
-              </div>
+
                 </div>
-                
-            </div>
-            </div>
+              </div>
             </div>
           </section>
         </form>

@@ -92,18 +92,23 @@ const AdminDashboard = () => {
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
-          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-          if (errorMessages.length > 0) {
-            const errorMessage = errorMessages.join("\n");
-            Swal.fire({
-              title: "Failed!",
-              html: errorMessage || "Failed to saved profile Information, please try again",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-            });
+          let errorMessage = "";
+          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+              ? errorMessages.join("\n")
+              : "";
+          } else {
+            errorMessage = errorMsg?.toString() || "";
           }
+          Swal.fire({
+            title: "Failed!",
+            html: errorMessage || "Failed to saved profile Information, please try again",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+          });
         }
       }
     } else {
@@ -207,10 +212,10 @@ const AdminDashboard = () => {
                     ) : null}
                   </div>
                   <div className="manage-password-link-box">
-                      <Link to="/manage-password" className="account-link">
-                        Manage your password
-                      </Link>
-                      </div>
+                    <Link to="/manage-password" className="account-link">
+                      Manage your password
+                    </Link>
+                  </div>
                 </div>
               </div>
               <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)}>
