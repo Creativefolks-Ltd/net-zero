@@ -398,7 +398,7 @@ input {
 }
 
 .card p {
-    font-size: 23px;
+    font-size: 18px;
     font-weight: 500;
 }
 
@@ -1518,15 +1518,9 @@ select {
 }
 
 .investments .card p {
-    font-size: 31px;
+    font-size: 20px;
     font-weight: 400;
-    line-height: 40px;
-}
-
-.investments .card p:last-of-type {
-    font-size: 23px;
-    font-weight: 400;
-    line-height: 32px;
+    line-height: 30px;
 }
 
 .investments h3 {
@@ -1785,8 +1779,8 @@ select {
 }
 
 .title-accodion span {
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 28px;
+    line-height: 34px;
     font-weight: 300;
     margin-bottom: 10px;
     color: #81C14B;
@@ -1801,8 +1795,8 @@ select {
 }
 
 .title-accodion a {
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 22px;
+    line-height: 28px;
     font-weight: 500;
     text-decoration: none;
     color: #000;
@@ -1816,8 +1810,8 @@ select {
     content: "";
     display: block;
     background: url(../images/pending_img.svg) no-repeat;
-    width: 35px;
-    height: 39px;
+    width: 32px;
+    height: 36px;
     float: right;
     margin: 0 6px 0 13px;
     background-size: cover;
@@ -1827,8 +1821,8 @@ select {
     content: "";
     display: block;
     background: url(../images/tick_img.svg) no-repeat;
-    width: 34px;
-    height: 26px;
+    width: 31px;
+    height: 24px;
     float: right;
     margin: 0 6px 0 13px;
     background-size: cover;
@@ -1839,8 +1833,8 @@ select {
     content: "";
     display: block;
     background: url(../images/arrow_img.svg) no-repeat;
-    width: 30px;
-    height: 22px;
+    width: 26px;
+    height: 19px;
     float: right;
     /* margin: 0 6px 0 13px; */
     margin-left: 14px;
@@ -1850,6 +1844,11 @@ select {
     font-size: 44px;
     line-height: 48px;
 }
+.accordion-button td {
+    font-size: 30px;
+    line-height: 34px;
+}
+
 /****************** admindashboard ******************/
 
 .admin-dashboard,
@@ -2260,6 +2259,200 @@ select {
     line-height: 22px;
 }
 
+
+/* Range Slider Start */
+@keyframes rangeSlide {
+    0% {
+        width: 0;
+    }
+}
+
+@keyframes bulletSlide {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: 20%;
+    }
+}
+
+.range {
+    position: relative;
+}
+
+.temp_dontKnow {
+    background: #cad2c5 !important;
+}
+
+.range .range-slide {
+    position: absolute;
+    width: 100%;
+    background: transparent;
+    appearance: none;
+    left: 0;
+    top: -3px;
+    z-index: 9;
+    outline: none;
+    opacity: 0;
+}
+
+.range .range-slide::-ms-expand,
+.range .range-slide::-ms-clear {
+    display: none;
+}
+
+.range .range-slide::-webkit-slider-thumb {
+    width: 35px;
+    height: 35px;
+    margin: -3px 0 0 -3px;
+    cursor: pointer;
+    appearance: none;
+}
+
+.range .circle {
+    position: absolute;
+    top: -6px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .07);
+    border: solid 2px #dbdbdb;
+    background: white;
+    display: inline-block;
+    transition: .2s;
+}
+
+.range .range-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 20%;
+    height: 27px;
+    background: linear-gradient(to right, #c0dfa4, #fa772f);
+    border-radius: 10px 0 0 10px;
+    transition: .2s;
+    border: 4px solid #fff;
+    box-shadow: inset 0 0 10px #fff;
+}
+
+.range::after {
+    content: '';
+    width: 100%;
+    height: 27px;
+    border-radius: 10px;
+    background: #fff;
+    display: block;
+}
+
+.range::before,
+.range .bullet {
+    position: absolute;
+    top: 5px;
+    height: 10px;
+    width: 10px;
+    background: #d8d8d8;
+    border-radius: 50%;
+}
+
+.range::before {
+    right: 6px;
+}
+
+.range .bullet {
+    animation: bulletSlide .5s ease-in-out forwards;
+}
+
+.range .bullet-1 {
+    animation-delay: .1s;
+}
+
+.range .bullet-2 {
+    animation-delay: .2s;
+}
+
+.range .bullet-3 {
+    animation-delay: .3s;
+}
+
+.slider-labels {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.slider-labels span {
+    width: 20%;
+    max-width: 100%;
+    text-align: center !important;
+}
+
+/* Range Slider End */
+.Additional-box .btn {
+    margin: 0;
+}
+
+/*********************** forgotpaddword *********************/
+
+.login-form-inner-bg {
+    height: 600px;
+}
+
+/*************spinner**********/
+.spinner-border {
+    color: #fff !important;
+    width: 25px;
+    height: 25px;
+}
+
+/* Sweet Alert Start  */
+.custom-cancel-button {
+    font-family: "halcom", sans-serif;
+    border: 2px solid #000 !important;
+    color: #000 !important;
+}
+
+.action-button-box {
+    font-family: "halcom", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+.custom-title {
+    font-family: "halcom", sans-serif;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    color: #000;
+    padding: 0;
+}
+.submit-container-popup {
+    padding: 40px 160px 60px 160px;
+    width: 1004px;
+    border-radius: 24px;
+}
+.submit-container-popup img {
+    width: 150px;
+    height: 150px;
+	margin-bottom: 20px;
+	
+}
+.submit-container-popup .action-button-box {
+    margin: 40px 0 0 0;
+	
+}
+.submit-container-popup .custom-cancel-button {
+    margin: 20px 0 0 0;
+	padding: 13px 40px;
+}
+.submit-container-popup .custom-confirm-button {
+    margin: 20px 0 0 0;
+	padding: 13px 32px !important;
+}
+
+
 @media(max-width:1660px) {
     .possinend-image {
         position: absolute;
@@ -2484,7 +2677,7 @@ select {
 
 @media (max-width:1024px) {
     .economy-table .label-block {
-        width: 22%;
+        width: 23%;
     }
 
     .economy-table .label-block,
@@ -2528,6 +2721,9 @@ select {
     .admin-dashboard,
     .submissions-bg-color {
         padding: 40px;
+    }
+    .sub-btn label {
+        padding: 13px 16px;
     }
 }
 
@@ -2654,8 +2850,8 @@ select {
     }
 
     .btn {
-        font-size: 18px;
-        padding: 9px 16px;
+        font-size: 16px;
+        padding: 9px 12px;
         border-radius: 10px;
     }
 
@@ -3161,7 +3357,7 @@ select {
     }
 
     .check-input {
-        width: 48%;
+        width: 100%;
     }
 
     .sub-btn .check-input label {
@@ -3224,6 +3420,7 @@ select {
     .economy-row .input-col label {
         font-size: 16px !important;
         margin-bottom: 7px;
+        font-weight: 400;
     }
 
     .economy-table .input-block .input-row .input-col label {
@@ -3245,7 +3442,11 @@ select {
         font-weight: 500;
         margin-right: 20px;
     }
-
+    .economy-table .label-block {
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 600;
+    }
     .economy-row {
         padding: 0 0 17px;
         border-bottom: 1px solid #81C14B;
@@ -3282,7 +3483,7 @@ select {
 
     .investments .card p {
         font-size: 16px;
-        line-height: 21px;
+        line-height: 24px;
     }
 
     .investments .card p:last-of-type {
@@ -3556,8 +3757,8 @@ select {
         margin-top: 0;
     }
     .saved-form-div h2 {
-        font-size: 29px;
-        line-height: 30px;
+        font-size: 28px;
+        line-height: 34px;
     }
     .submit-container-popup img {
         width: 79px !important;
@@ -3589,6 +3790,20 @@ select {
         margin-left: 9px;
         margin-top: 2px;
     }
+    .accordion-button td {
+        font-size: 22px;
+        line-height: 28px;
+    }
+    .pending-form .title-accodion span:before {
+        width: 26px;
+        height: 29px;
+    }    
+    .economy-row .input-col input[type="text"]{
+        text-align: center;
+    }
+    .food-shopping p.gray-paragraph {
+        text-align: left;
+    }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3600,205 +3815,3 @@ select {
     }
 }
 
-
-
-/* Range Slider Start */
-@keyframes rangeSlide {
-    0% {
-        width: 0;
-    }
-}
-
-@keyframes bulletSlide {
-    from {
-        right: 0;
-    }
-
-    to {
-        right: 20%;
-    }
-}
-
-.range {
-    position: relative;
-}
-
-.temp_dontKnow {
-    background: #cad2c5 !important;
-}
-
-.range .range-slide {
-    position: absolute;
-    width: 100%;
-    background: transparent;
-    appearance: none;
-    left: 0;
-    top: -3px;
-    z-index: 9;
-    outline: none;
-    opacity: 0;
-}
-
-.range .range-slide::-ms-expand,
-.range .range-slide::-ms-clear {
-    display: none;
-}
-
-.range .range-slide::-webkit-slider-thumb {
-    width: 35px;
-    height: 35px;
-    margin: -3px 0 0 -3px;
-    cursor: pointer;
-    appearance: none;
-}
-
-.range .circle {
-    position: absolute;
-    top: -6px;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .07);
-    border: solid 2px #dbdbdb;
-    background: white;
-    display: inline-block;
-    transition: .2s;
-}
-
-.range .range-value {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 20%;
-    height: 27px;
-    background: linear-gradient(to right, #c0dfa4, #fa772f);
-    border-radius: 10px 0 0 10px;
-    transition: .2s;
-    border: 4px solid #fff;
-    box-shadow: inset 0 0 10px #fff;
-}
-
-.range::after {
-    content: '';
-    width: 100%;
-    height: 27px;
-    border-radius: 10px;
-    background: #fff;
-    display: block;
-}
-
-.range::before,
-.range .bullet {
-    position: absolute;
-    top: 5px;
-    height: 10px;
-    width: 10px;
-    background: #d8d8d8;
-    border-radius: 50%;
-}
-
-.range::before {
-    right: 6px;
-}
-
-.range .bullet {
-    animation: bulletSlide .5s ease-in-out forwards;
-}
-
-.range .bullet-1 {
-    animation-delay: .1s;
-}
-
-.range .bullet-2 {
-    animation-delay: .2s;
-}
-
-.range .bullet-3 {
-    animation-delay: .3s;
-}
-
-.slider-labels {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.slider-labels span {
-    width: 20%;
-    max-width: 100%;
-    text-align: center !important;
-}
-.slider-labels span.active {
-    font-weight: 600;
-}
-
-/* Range Slider End */
-.Additional-box .btn {
-    margin: 0;
-}
-
-/*********************** forgotpaddword *********************/
-
-.login-form-inner-bg {
-    height: 600px;
-}
-
-/*************spinner**********/
-.spinner-border {
-    color: #fff !important;
-    width: 25px;
-    height: 25px;
-}
-
-/* Sweet Alert Start  */
-.custom-cancel-button {
-    font-family: "halcom", sans-serif;
-    border: 2px solid #000 !important;
-    color: #000 !important;
-}
-
-.action-button-box {
-    font-family: "halcom", sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-.custom-title {
-    font-family: "halcom", sans-serif;
-    font-size: 50px;
-    line-height: 50px;
-    font-weight: 600;
-    color: #000;
-    padding: 0;
-}
-.submit-container-popup {
-    padding: 40px 160px 60px 160px;
-    width: 1004px;
-    border-radius: 24px;
-}
-.submit-container-popup img {
-    width: 150px;
-    height: 150px;
-	margin-bottom: 20px;
-	
-}
-.submit-container-popup .action-button-box {
-    margin: 40px 0 0 0;
-	
-}
-.submit-container-popup .custom-cancel-button {
-    margin: 20px 0 0 0;
-	padding: 13px 40px;
-}
-.submit-container-popup .custom-confirm-button {
-    margin: 20px 0 0 0;
-	padding: 13px 32px !important;
-}
-.accordion-button td {
-    font-size: 30px;
-    line-height: 34px;
-}
-
-/* Sweet Alert End */
