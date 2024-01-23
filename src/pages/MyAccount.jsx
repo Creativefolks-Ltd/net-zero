@@ -40,7 +40,7 @@ const MyAccount = () => {
   const completedData = [];
   const pendingData = [];
 
-  formList.map((item, index) => {
+  formList?.map((item, index) => {
     if (item.form_status === "Complete") {
       completedData.push(item);
     }
