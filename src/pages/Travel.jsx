@@ -350,7 +350,7 @@ const Travel = () => {
                                   )}
                               </div>
                               <div className="modal-input-col">
-                                <label>KMs in selected year</label>{" "}
+                                <label>kms in selected year</label>{" "}
                                 <input
                                   type="text"
                                   placeholder=""
@@ -551,7 +551,7 @@ const Travel = () => {
                                     )}
                                 </div>
                                 <div className="modal-input-col">
-                                  <label>KMs in selected year</label>{" "}
+                                  <label>kms in selected year</label>{" "}
                                   <input
                                     type="text"
                                     placeholder=""
@@ -612,7 +612,7 @@ const Travel = () => {
                         <div className="modal-input-block">
                           <div className="modal-input-row">
                             <div class="modal-input-col">
-                              <label>My KMs</label>{" "}
+                              <label>My kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kms`}
                                 value={formik.values.transport_selected_year_details[index]?.kms || ''}
@@ -628,7 +628,7 @@ const Travel = () => {
                                 onBlur={formik.handleBlur} />
                             </div>
                             <div class="modal-input-col">
-                              <label>Partner/children KMs</label>{" "}
+                              <label>Partner/children kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
                                 value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}

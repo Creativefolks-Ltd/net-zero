@@ -2389,6 +2389,9 @@ select {
     max-width: 100%;
     text-align: center !important;
 }
+.slider-labels span.active {
+    font-weight: 600;
+}
 
 /* Range Slider End */
 .Additional-box .btn {

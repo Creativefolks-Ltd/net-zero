@@ -86,7 +86,7 @@ const Homeform = () => {
 
     initialValues: {
       location: "",
-      heating_type: ["Electricity", "Oil", "Coal", "Gas", "Wood"],
+      heating_type: [],
       zero_carbon_energy_tariff: "",
       electricity_usage_known: "",
       electricity_usage_amount: "",
@@ -159,7 +159,9 @@ const Homeform = () => {
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true);
-        dispatch(setFormCompleted(user?.formCompleted + 1))
+        if (user?.formCompleted == 1) {
+          dispatch(setFormCompleted(user?.formCompleted + 1))
+        }
         navigateToNext()
         // Swal.fire({
         //   title: "Success!",
@@ -395,7 +397,7 @@ const Homeform = () => {
               </div>
             </div>
             {/* Electricity Section */}
-            {formik.values.heating_type.includes("Electricity") && (
+            {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type.includes("Electricity") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -645,10 +647,10 @@ const Homeform = () => {
                                   <strong>5.&nbsp;</strong>Who was your electricity
                                   supplier? <span>*</span>{" "}
                                 </label>
-                                <p>
+                                {/* <p>
                                   (100% electricity generated from wind, water,
                                   solar, nuclear)
-                                </p>
+                                </p> */}
                               </div>
                               <input
                                 type="text"
@@ -985,7 +987,7 @@ const Homeform = () => {
                                   <strong>8.&nbsp;</strong>Has your gas consumption been
                                   offset by your supplier?<span>*</span>
                                 </label>
-                                <p>(wind turbines, solar panel etc)</p>
+                                {/* <p>(wind turbines, solar panel etc)</p> */}
                               </div>
                               <select
                                 name="gas_consumption_offset"
@@ -1545,11 +1547,14 @@ const Homeform = () => {
                             )}
                           </div>
                           <div className="form-div">
-                            <label htmlFor="other_energy_usage">
-                              <strong>12.&nbsp;</strong>Other than for heating, was
-                              there any other energy used at the property{" "}
-                              <span>*</span>{" "}
-                            </label>
+                            <div className="form-label-div">
+                              <label htmlFor="other_energy_usage">
+                                <strong>12.&nbsp;</strong>Other than for heating, was
+                                there any other energy used at the property{" "}
+                                <span>*</span>{" "}
+                              </label>
+                              <p>(e.g. LPG, propane for cooking, etc.)</p>
+                            </div>
                             <select
                               name="other_energy_usage"
                               id="other_energy_usage"
@@ -1859,22 +1864,24 @@ const Homeform = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="form-div">
-                            <label htmlFor="land_details">
-                              <strong>22.&nbsp;</strong>Please provide some details
-                              on the land, and any livestock?{" "}
-                            </label>
-                            <textarea
-                              id="land_details"
-                              name="land_details"
-                              rows="6"
-                              className={`form-control`}
-                              value={formik.values.land_details}
-                              onChange={formik.handleChange}
-                              cols="50"
-                              maxLength={1000}
-                            ></textarea>
-                          </div>
+                          {formik?.values?.significant_land === "Yes" && (
+                            <div className="form-div">
+                              <label htmlFor="land_details">
+                                <strong>22.&nbsp;</strong>Please provide some details
+                                on the land, and any livestock?{" "}
+                              </label>
+                              <textarea
+                                id="land_details"
+                                name="land_details"
+                                rows="6"
+                                className={`form-control`}
+                                value={formik.values.land_details}
+                                onChange={formik.handleChange}
+                                cols="50"
+                                maxLength={1000}
+                              ></textarea>
+                            </div>
+                          )}
                           <div className="form-div">
                             <label htmlFor="other_details">
                               <strong>23.&nbsp;</strong>Is there anything else you

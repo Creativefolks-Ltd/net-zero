@@ -8,6 +8,7 @@ import GeneralView from "../forms/GeneralView";
 import TravelView from "../forms/TravelView";
 import FoodAndShoppingView from "../forms/FoodAndShoppingView";
 import FormActionTabs from "../forms/FormActionTabs";
+import { downloadPdf } from "../../redux-store/actions/user";
 
 const AdminView = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const AdminView = () => {
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
   const [selectedHome, setSelectedHome] = useState(1);
+  const [disabled, setDisabled] = useState(false);
 
   const locationOfFile = location.pathname;
   const split1 = locationOfFile?.split('/');
@@ -113,6 +115,25 @@ const AdminView = () => {
     ...general
   } = singleForm;
 
+  const downloadHandler = async () => {
+    try {
+      setDisabled(true)
+      const response = await dispatch(downloadPdf(decodedFormId));
+      if (response?.payload?.data?.access_url) {
+        const link = document.createElement('a');
+        link.href = response?.payload?.data?.access_url;
+        link.download = 'filename.pdf';
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      setDisabled(false)
+    } catch (err) {
+      setDisabled(false)
+      console.log(err, "///////err/////");
+    }
+  };
 
   return (
     <>
@@ -138,8 +159,16 @@ const AdminView = () => {
                   <p>Calendar year: { }</p>
                 </div>
                 <div className="admin-text-btn">
-                  <button class="btn" type="button">
+                  <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
                     Download PDF
+                    {disabled ? (
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      ></div>
+                    ) : (
+                      ""
+                    )}
                   </button>
 
                   {adminPath === "admin" ? (<button class="btn" type="button">

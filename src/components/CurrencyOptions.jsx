@@ -5,7 +5,11 @@ const CurrencyOptions = () => {
 
     return (
         <>
-            <option value="">currency</option>
+            <option value="GBP">British Pound Sterling - £</option>
+            <option value="EUR">Euro - €</option>
+            <option value="CHF">Swiss Franc - CHf</option>
+            <option value="USD">US Dollar - $</option>
+            <option value="CAD">Canadian Dollar - $</option>
             <option value="AFN">Afghan Afghani - ؋</option>
             <option value="ALL">Albanian Lek - Lek</option>
             <option value="DZD">Algerian Dinar - دج</option>
@@ -29,12 +33,10 @@ const CurrencyOptions = () => {
             <option value="BAM">Bosnia-Herzegovina Convertible Mark - KM</option>
             <option value="BWP">Botswanan Pula - P</option>
             <option value="BRL">Brazilian Real - R$</option>
-            <option value="GBP">British Pound Sterling - £</option>
             <option value="BND">Brunei Dollar - B$</option>
             <option value="BGN">Bulgarian Lev - Лв.</option>
             <option value="BIF">Burundian Franc - FBu</option>
             <option value="KHR">Cambodian Riel - KHR</option>
-            <option value="CAD">Canadian Dollar - $</option>
             <option value="CVE">Cape Verdean Escudo - $</option>
             <option value="KYD">Cayman Islands Dollar - $</option>
             <option value="XOF">CFA Franc BCEAO - CFA</option>
@@ -57,7 +59,6 @@ const CurrencyOptions = () => {
             <option value="ERN">Eritrean Nakfa - Nfk</option>
             <option value="EEK">Estonian Kroon - kr</option>
             <option value="ETB">Ethiopian Birr - Nkf</option>
-            <option value="EUR">Euro - €</option>
             <option value="FKP">Falkland Islands Pound - £</option>
             <option value="FJD">Fijian Dollar - FJ$</option>
             <option value="GMD">Gambian Dalasi - D</option>
@@ -148,7 +149,6 @@ const CurrencyOptions = () => {
             <option value="SRD">Surinamese Dollar - $</option>
             <option value="SZL">Swazi Lilangeni - E</option>
             <option value="SEK">Swedish Krona - kr</option>
-            <option value="CHF">Swiss Franc - CHf</option>
             <option value="SYP">Syrian Pound - LS</option>
             <option value="STD">São Tomé and Príncipe Dobra - Db</option>
             <option value="TJS">Tajikistani Somoni - SM</option>
@@ -163,7 +163,6 @@ const CurrencyOptions = () => {
             <option value="UAH">Ukrainian Hryvnia - ₴</option>
             <option value="AED">United Arab Emirates Dirham - إ.د</option>
             <option value="UYU">Uruguayan Peso - $</option>
-            <option value="USD">US Dollar - $</option>
             <option value="UZS">Uzbekistan Som - лв</option>
             <option value="VUV">Vanuatu Vatu - VT</option>
             <option value="VEF">Venezuelan BolÃ­var - Bs</option>

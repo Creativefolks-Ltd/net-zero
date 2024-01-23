@@ -300,7 +300,7 @@ const General = () => {
                                                 </div>
                                                 <div className="form-div">
                                                     <label htmlFor="year_of_birth">
-                                                        <strong>4.&nbsp;</strong>Year<span>*</span>
+                                                        <strong>4.&nbsp;</strong>Year you are submitting data for<span>*</span>
                                                     </label>
                                                     <select
                                                         name="year_of_birth"

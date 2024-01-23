@@ -71,11 +71,11 @@ export const homeFormvalidation = (values) => {
         errors.heating_type = requiredMsg;
     }
     if (!values?.zero_carbon_energy_tariff?.trim()) {
-        errors.zero_carbon_energy_tariff = requiredMsg;
+        errors.zero_carbon_energy_tariff = selectOptionMsg;
     }
 
     //// Electricity
-    if (values?.heating_type?.includes("Electricity")) {
+    if (values?.zero_carbon_energy_tariff === "No" && values?.heating_type?.includes("Electricity")) {
         if (!values?.electricity_usage_known?.trim()) {
             errors.electricity_usage_known = selectOptionMsg
         }
@@ -533,5 +533,8 @@ export const travelformvalidation = Yup.object().shape({
 });
 
 export const foodFormValidation = Yup.object().shape({
-    vehicle_detail: Yup.string().required(requiredMsg),
+    purchased_new_vehicle: Yup.string().required(selectOptionMsg),
+    vehicle_detail: Yup.string().when('purchased_new_vehicle', (value, schema) => {
+        return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
+    }),
 })

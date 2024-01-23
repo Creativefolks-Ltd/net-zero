@@ -128,7 +128,8 @@ export const particularHomeDetails = createAsyncThunk('particularHomeDetails', a
 
 export const downloadPdf = createAsyncThunk('downloadPdf', async (form_id, thunkAPI) => {
     try {
-        const response = await axios.get(`/api/download/form?form_id=${form_id}`);
+        // const response = await axios.get(`/api/download/form?form_id=${form_id}`);
+        const response = await axios.get(`/api/download/pdf?form_id=${form_id}`);
         return response.data;
     } catch (error) {
         return error;

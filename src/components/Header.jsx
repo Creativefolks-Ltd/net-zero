@@ -88,10 +88,13 @@ const Header = ({ bgTransparent }) => {
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
 
-                                    <li className="nav-item"><Link to="/my-account"> My account</Link></li>
+                                    {/* <li className="nav-item"><Link to="/my-account"> My account</Link></li>
                                     <li className="nav-item"><Link to="/general">Footprint Calculator</Link></li>
                                     <li className="nav-item"><Link to="/privacy-policy"> T&Cs</Link></li>
-                                    <li className="nav-item emain-div">netzero@good.business</li>
+                                    <li className="nav-item emain-div">netzero@good.business</li> */}
+                                    <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
+                                    <li className="nav-item"><Link to="/general">Submit Data</Link></li>
+                                    <li className="nav-item emain-div"><a href="mailto:netzero@good.business">Help</a></li>
                                     <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">

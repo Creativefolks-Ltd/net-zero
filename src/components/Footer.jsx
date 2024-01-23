@@ -23,7 +23,7 @@ const Footer = () => {
                     <div className="footer-box">
                         <h2>Any questions?</h2>
                         <p>Please contact</p>
-                        <a href="#">netzero@good.business</a>
+                        <a href="mailto:netzero@good.business">netzero@good.business</a>
                     </div>
 
 

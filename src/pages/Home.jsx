@@ -76,6 +76,8 @@ const Home = () => {
                                     <div className="text-col">
                                         <div className="text-scroll">
                                             <div className="p-box">
+                                                <p style={{color:"#2C2B34",fontWeight:600}}>The Anthos Net Zero project has been created to provide an ongoing service to help all family members:</p>
+
                                                 <p style={{color:"#31405A",fontWeight:600}}>Understand the shape and size of your carbon footprint.</p>
 
                                                 <p style={{color:"#2C2B34",fontWeight:600}}>Connect with an advisory service to discuss and explore opportunities for carbon reduction.</p>
@@ -104,7 +106,7 @@ const Home = () => {
                                 <div class='sub-title'>FORM GUIDE</div>
                                     <h2>How to complete the form</h2>
                                 </div>
-                                <p>The first step is to provide information through the tailored form, relating to your home, travel, shopping and assets. Information is encrypted and held on a <span>secure server*</span> and the form should take no more than 15 minutes to complete. </p>
+                                <p>The first step is to provide information through the tailored form, relating to your home, travel, shopping and assets. Information is encrypted and held on a secure server and the form should take no more than 15 minutes to complete. </p>
                                 <p>On each page there are some sections that are required and others that are optional. The optional sections are for activities that we expect aren’t the biggest sources of emissions and so are not compulsory to fill out. However, adding this information will give you a more accurate carbon footprint and more tailored recommendations.</p>
                                 <p>The accuracy of your carbon footprint and the effectiveness of the recommendations derived from it are dependent on the completeness of the information provided by you.</p>
                                 <span>To make the process quicker and easier, gather the following details before starting:</span>
@@ -173,9 +175,9 @@ Once you have submitted the information, the Good Business team will respond wit
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 offset-lg-1 offset-md-1 Protecting-content">
-                            <p>All of your responses in the <b>Net Zero Tool</b> will be encrypted with TLS and only accessed by the <b>Good Business team</b> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ privacy policy here. </p>
+                            <p>All of your responses in the <b>Net Zero Tool</b> will be encrypted with TLS and only accessed by the <Link to={"/privacy-policy"}><b>Good Business team</b></Link> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ privacy policy here. </p>
 
-                            <p>The <b>Net Zero Tool</b> met high data security requriements for pentration testing in <b>March 2023</b>. </p>
+                            {/* <p>The <b>Net Zero Tool</b> met high data security requriements for pentration testing in <b>March 2023</b>. </p> */}
 
                         </div>
                     </div>
