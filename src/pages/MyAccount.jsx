@@ -40,7 +40,7 @@ const MyAccount = () => {
   const completedData = [];
   const pendingData = [];
 
-  formList.map((item, index) => {
+  formList?.map((item, index) => {
     if (item.form_status === "Complete") {
       completedData.push(item);
     }
@@ -528,7 +528,7 @@ const MyAccount = () => {
                                   Complete form
                                 </Link>
                               ) : (
-                                <a href="#">View form</a>
+                                <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
                               )}
                             </div>
                             <div className="accordion-img table-img">
