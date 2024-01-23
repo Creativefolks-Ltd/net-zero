@@ -704,6 +704,11 @@ body {
     margin: 40px 0;
 }
 
+.Protecting-content a {
+    color: #000;
+    text-decoration: none;
+}
+
 .protecting-data h2 {
     color: #8a94a0;
     margin: 0 0 40px 0;

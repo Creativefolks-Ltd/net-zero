@@ -150,8 +150,8 @@ const FoodAndShopping = () => {
                 <p>
                   Fields marked with an <span>*</span> are required
                 </p>
-                <div className="Additional-box">
-                  <div className="form-div">
+                <div className="Additional-box food-initial-input-box">
+                  <div className="form-label-div">
                     <label htmlFor="purchased_new_vehicle">
                       <strong>1.&nbsp;</strong>Did you purchase a new vehicle this year? This includes cars, boats, or other large machinery.
                       <span>*</span>
@@ -179,27 +179,26 @@ const FoodAndShopping = () => {
                           No
                         </label>
                       </div>
+                      {formik.touched.purchased_new_vehicle && formik.errors.purchased_new_vehicle ? (
+                        <span className="input-error-msg">
+                          {formik.errors.purchased_new_vehicle}
+                        </span>
+                      ) : null}
                     </div>
-                    {formik.touched.purchased_new_vehicle && formik.errors.purchased_new_vehicle ? (
-                      <span className="input-error-msg">
-                        {formik.errors.purchased_new_vehicle}
-                      </span>
-                    ) : null}
                   </div>
                   {formik?.values?.purchased_new_vehicle === "Yes" && (
-                    <div className="form-div">
-                      <div className="form-label-div">
-                        <label htmlFor="vehicle_detail">
-                          <strong>1b.&nbsp;</strong>
-                          Please provide details, including the number and type of vehicle or boat purchased.
-                          <span>*</span>
-                          {/* Please give details of any vehicles purchased in the
+
+                    <div className="form-label-div">
+                      <label htmlFor="vehicle_detail">
+                        <strong>1b.&nbsp;</strong>
+                        Please provide details, including the number and type of vehicle or boat purchased.
+                        <span>*</span>
+                        {/* Please give details of any vehicles purchased in the
                       selected year, such as cars or boats. Please specify the
                       relevant details, such as number and type. You do not need
                       to include second-hand or refurbished vehicles. Please also
                     include vehicles purchased by your household members. */}
-                        </label>
-                      </div>
+                      </label>
                       <textarea
                         rows="6"
                         name={"vehicle_detail"}
@@ -467,6 +466,9 @@ const FoodAndShopping = () => {
                     Continue
                   </button> */}
                 </div>
+                {formik.submitCount > 0 && !formik.isValid ? (
+                  <span className="input-error-msg d-flex text-left">Please fix the form errors before continuing.</span>
+                ) : null}
               </div>
             </div>
           </div>

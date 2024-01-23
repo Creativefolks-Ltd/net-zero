@@ -688,6 +688,9 @@ const Travel = () => {
                       Continue
                     </button> */}
                   </div>
+                  {formik.submitCount > 0 && !formik.isValid ? (
+                    <span className="input-error-msg d-flex text-left">Please fix the form errors before continuing.</span>
+                  ) : null}
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Anthos_logo from '../assets/images/Anthos-logo-grey.svg';
 import White_Anthos_logo from '../assets/images/Anthos-logo-White.svg';
-import User_Icon from '../assets/images/grey_profile_img.png';
+import User_Icon from '../assets/images/user.svg';
 import White_User_Icon from '../assets/images/profile_img.png';
 import MenuImage from '../assets/images/bur.svg';
 import WhiteMenuImage from '../assets/images/white-bar.svg';
