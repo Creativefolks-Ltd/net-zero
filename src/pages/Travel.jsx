@@ -176,8 +176,7 @@ const Travel = () => {
                   </label>
                   <ul>
                     <li class="main-li">
-                      Please include all flights you took in a personal capacity<br></br>
-                      (i.e. not for a business you work for).{" "}
+                      Please include all flights you took in a personal capacity (i.e. not for a business you work for).{" "}
                     </li>
                     <li class="main-li">
                       Include return flights as two flights and use the
