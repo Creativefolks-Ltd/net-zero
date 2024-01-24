@@ -212,7 +212,7 @@ const AdminDashboard = () => {
                     ) : null}
                   </div>
                   <div className="manage-password-link-box">
-                    <Link to="/manage-password" className="account-link">
+                    <Link to="/admin/manage-password" className="account-link">
                       Manage your password
                     </Link>
                   </div>

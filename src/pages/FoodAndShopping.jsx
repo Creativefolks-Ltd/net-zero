@@ -73,11 +73,8 @@ const FoodAndShopping = () => {
   }
 
   async function submitHandler(values) {
-    if (!values?.vehicle_detail?.trim()) {
-      return false
-    } else {
-      setDisabled(true);
 
+      setDisabled(true);
       const filteredValues = await validateAndFilterFields(values);
       const response = await dispatch(foodFormSubmit(filteredValues));
       setDisabled(false)
@@ -118,7 +115,7 @@ const FoodAndShopping = () => {
           });
         }
       }
-    }
+    
   };
 
   const continueHandler = () => {
