@@ -115,23 +115,47 @@ const AdminView = () => {
     ...general
   } = singleForm;
 
+  // const downloadHandler = async () => {
+  //   try {
+  //     setDisabled(true)
+  //     const response = await dispatch(downloadPdf(decodedFormId));
+  //     if (response?.payload?.data?.access_url) {
+  //       const link = document.createElement('a');
+  //       link.href = response?.payload?.data?.access_url;
+  //       link.download = 'filename.pdf';
+  //       link.target = "_blank";
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //     }
+  //     setDisabled(false)
+  //   } catch (err) {
+  //     setDisabled(false)
+  //     console.log(err, "///////err/////");
+  //   }
+  // };
+
   const downloadHandler = async () => {
     try {
       setDisabled(true)
       const response = await dispatch(downloadPdf(decodedFormId));
-      if (response?.payload?.data?.access_url) {
-        const link = document.createElement('a');
-        link.href = response?.payload?.data?.access_url;
-        link.download = 'filename.pdf';
-        link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      if (response?.payload) {
+        const blob = new Blob([response.payload], { type: 'application/pdf' });
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
+        const fileName = `net_zero_${formattedDate}_${formattedTime}.pdf`;
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        downloadLink.click();
       }
       setDisabled(false)
-    } catch (err) {
+    } catch (error) {
       setDisabled(false)
-      console.log(err, "///////err/////");
+      console.error('Error downloading PDF:', error.message);
     }
   };
 
@@ -193,7 +217,7 @@ const AdminView = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="full-form-div py-0 bg-secondary">
-                <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} />
+                <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length}/>
                 {activeTab === "general" && (<GeneralView general={general} />)}
                 {activeTab === "home" && (<HomeFormView home={home[selectedHome - 1]} />)}
                 {activeTab === "travel" && (<TravelView travel={travel} />)}

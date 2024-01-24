@@ -235,20 +235,41 @@ const MyAccount = () => {
     dispatch(setFormCompleted(form.total_forms));
   };
 
+  // const downloadHandler = async (formId) => {
+  //   try {
+  //     const response = await dispatch(downloadPdf(formId));
+  //     if (response?.payload?.data?.access_url) {
+  //       const link = document.createElement("a");
+  //       link.href = response?.payload?.data?.access_url;
+  //       link.download = "filename.pdf";
+  //       link.target = "_blank";
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //     }
+  //   } catch (err) {
+  //     console.log(err, "///////err/////");
+  //   }
+  // };
+
   const downloadHandler = async (formId) => {
     try {
       const response = await dispatch(downloadPdf(formId));
-      if (response?.payload?.data?.access_url) {
-        const link = document.createElement("a");
-        link.href = response?.payload?.data?.access_url;
-        link.download = "filename.pdf";
-        link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      if (response?.payload) {
+        const blob = new Blob([response.payload], { type: 'application/pdf' });
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
+        const fileName = `net_zero_${formattedDate}_${formattedTime}.pdf`;
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = fileName;
+        downloadLink.click();
       }
-    } catch (err) {
-      console.log(err, "///////err/////");
+    } catch (error) {
+      console.error('Error downloading PDF:', error.message);
     }
   };
 
@@ -437,7 +458,7 @@ const MyAccount = () => {
                                   to={formSwitch(form)}
                                   onClick={() => navigateToNext(form)}
                                 >
-                                  Complete form
+                                  Continue form
                                 </Link>
                               ) : (
                                 <a href="#">View form</a>
