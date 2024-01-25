@@ -1915,9 +1915,9 @@ const Homeform = ({selectedHome}) => {
                   <div className="card card-box-btn">
                     <div className="Additional-box">
                       <div className="Additional-bottom-btn">
+                        <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                         <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button>
-                        <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                         {/* <button className="btn" type='button' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                         </div> : ''}</button> */}
                         {/* <button className="btn" type="button" onClick={continueHandler}>

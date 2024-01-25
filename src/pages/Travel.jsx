@@ -94,7 +94,7 @@ const Travel = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-  });
+    });
   }
 
   async function submitHandler(values) {
@@ -682,9 +682,9 @@ const Travel = () => {
                     onBlur={formik.handleBlur}
                   ></textarea>
                   <div className="Additional-bottom-btn">
+                    <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                     <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
-                    <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                     {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
                     <button className="btn" type="button" onClick={continueHandler}>

@@ -643,9 +643,9 @@ const General = () => {
                                                 </span>
                                             ) : null} */}
                                             <div className="Additional-bottom-btn">
+                                                <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                                                 <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
-                                                <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
                                                 {/* <button className="btn" type='submit' disabled={disabled} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
                                                 <button className="btn" type="button" onClick={continueHandler}>

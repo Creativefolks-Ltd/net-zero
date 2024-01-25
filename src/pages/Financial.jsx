@@ -110,7 +110,7 @@ const Financial = () => {
               </p>
               <div class="form">
                 <form>
-                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >submit {disabled ? <div className="spinner-border text-primary" role="status">
+                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Submit {disabled ? <div className="spinner-border text-primary" role="status">
                   </div> : ''}</button>
                 </form>
               </div>

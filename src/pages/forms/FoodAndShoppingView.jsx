@@ -197,8 +197,7 @@ const FoodAndShoppingView = ({ food }) => {
 
                                         <div className="form-label-div">
                                             <label htmlFor="vehicle_detail">
-                                                <strong>1b.&nbsp;</strong>
-                                                Please provide details, including the number and type of vehicle or boat purchased.
+                                                <strong>1b.&nbsp;</strong>Please provide details, including the number and type of vehicle or boat purchased.
                                                 <span>*</span>
                                             </label>
                                             <textarea
@@ -236,8 +235,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             recommendations more specific.
                                         </p>
                                         <label htmlFor="important_purchases_detail">
-                                            <strong>2. </strong>
-                                            Please give details of any other important purchases made in the selected year, such as TVs, laptops, phones and other electronics, domestic appliances, furniture, and home renovations. Please specify the relevant details, such as number and type. You do not need to include second-hand or refurbished items. You may optionally include items purchased by your household members.
+                                            <strong>2.&nbsp;</strong>Please give details of any other important purchases made in the selected year, such as TVs, laptops, phones and other electronics, domestic appliances, furniture, and home renovations. Please specify the relevant details, such as number and type. You do not need to include second-hand or refurbished items. You may optionally include items purchased by your household members.
                                         </label>
                                         <textarea
                                             rows="6"
@@ -255,7 +253,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div class="form-label-div">
                                             <label htmlFor="average_pieces_per_quarter">
-                                                <strong>3. </strong>On average, how many new pieces of
+                                                <strong>3.&nbsp;</strong>On average, how many new pieces of
                                                 clothing do you buy each quarter?
                                             </label>
                                         </div>
@@ -278,7 +276,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div class="form-label-div">
                                             <label htmlFor="pet_type">
-                                                <strong>4. </strong>Do you have any domestic pets or
+                                                <strong>4.&nbsp;</strong>Do you have any domestic pets or
                                                 animals??
                                             </label>
                                         </div>
@@ -296,7 +294,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     {formik.values.pet_type !== "No" && (
                                         <div className="form-div">
                                             <label htmlFor="pet_detail">
-                                                <strong>4b. </strong>
+                                                <strong>4b.&nbsp;</strong>
                                                 Please specify, e.g. number, breed
                                             </label>
                                             <textarea
@@ -315,7 +313,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div class="form-label-div">
                                             <label htmlFor="meat_based_meals_frequency">
-                                                <strong>5. </strong>How often does your diet include
+                                                <strong>5.&nbsp;</strong>How often does your diet include
                                                 meat-based meals?
                                             </label>
                                         </div>
@@ -335,7 +333,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div class="form-label-div">
                                             <label htmlFor="dairy_frequency">
-                                                <strong>6. </strong>How often does your diet include
+                                                <strong>6.&nbsp;</strong>How often does your diet include
                                                 dairy?
                                             </label>
                                         </div>
@@ -355,7 +353,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div class="form-label-div">
                                             <label htmlFor="food_purchase_statement">
-                                                <strong>7. </strong>Thinking about the food you buy,
+                                                <strong>7.&nbsp;</strong>Thinking about the food you buy,
                                                 which of the following statements applies?
                                             </label>
                                             <p className="gray-paragraph">
@@ -378,7 +376,7 @@ const FoodAndShoppingView = ({ food }) => {
 
                                     <div class="form-div">
                                         <label htmlFor="information_diet_clothes_parter">
-                                            <strong>8. </strong>Please enter any information about the
+                                            <strong>8.&nbsp;</strong>Please enter any information about the
                                             diet and clothes purchases of your partner and dependents,
                                             where relevant.
                                         </label>
@@ -408,7 +406,7 @@ const FoodAndShoppingView = ({ food }) => {
 
                                     <div class="form-div">
                                         <label htmlFor="planning_this_year">
-                                            <strong>9. </strong>Do you have any plans to host or
+                                            <strong>9.&nbsp;</strong>Do you have any plans to host or
                                             organise any large events this year or next year?
                                         </label>
                                         <ul>
@@ -437,7 +435,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     {formik.values.planning_this_year !== "No" && (
                                         <div class="form-div">
                                             <label htmlFor="events_details">
-                                                <strong>9b. </strong>Please provide more details
+                                                <strong>9b.&nbsp;</strong>Please provide more details
                                             </label>
 
                                             <textarea
@@ -453,15 +451,15 @@ const FoodAndShoppingView = ({ food }) => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="Additional-bottom-btn">
+                                {/* <div className="Additional-bottom-btn">
                                     <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
-                                    </div> : ''}</button>
-                                    {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                                    </div> : ''}</button> */}
+                                {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                   </div> : ''}</button>
                   <button className="btn" type="button" onClick={continueHandler}>
                     Continue
                   </button> */}
-                                </div>
+                                {/* </div> */}
                             </div>
                         </div>
                     </div>
