@@ -105,7 +105,11 @@ const General = () => {
 
 
     const navigateToNext = async (e) => {
-        navigate("/home-form")
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        // navigate("/home-form")
     }
     async function handleSubmit(values) {
         try {
@@ -180,7 +184,7 @@ const General = () => {
 
     return (
         <>
-            <FormActionTabs selectedTab={"general"} />
+            {/* <FormActionTabs selectedTab={"general"} /> */}
             <form onSubmit={formik.handleSubmit}>
                 <section className="general-form mt-80 mb-80">
                     <div className="container ">

@@ -69,7 +69,11 @@ const FoodAndShopping = () => {
   });
 
   const navigateToNext = async (e) => {
-    navigate("/financial")
+    // navigate("/financial")
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  });
   }
 
   async function submitHandler(values) {
@@ -135,7 +139,7 @@ const FoodAndShopping = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"food"} />
+      {/* <FormActionTabs selectedTab={"food"} /> */}
       <form onSubmit={formik.handleSubmit}>
         <section class="food-shopping top">
           <div className="container">

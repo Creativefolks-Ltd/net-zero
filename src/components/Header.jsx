@@ -93,7 +93,8 @@ const Header = ({ bgTransparent }) => {
                                     <li className="nav-item"><Link to="/privacy-policy"> T&Cs</Link></li>
                                     <li className="nav-item emain-div">netzero@good.business</li> */}
                                     <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
-                                    <li className="nav-item"><Link to="/general">Submit Data</Link></li>
+                                    {/* <li className="nav-item"><Link to="/general">Submit Data</Link></li> */}
+                                    <li className="nav-item"><Link to="/forms">Submit Data</Link></li>
                                     <li className="nav-item emain-div"><a href="mailto:netzero@good.business">Help</a></li>
                                     <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>

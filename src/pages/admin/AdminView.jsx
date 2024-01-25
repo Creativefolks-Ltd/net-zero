@@ -9,6 +9,8 @@ import TravelView from "../forms/TravelView";
 import FoodAndShoppingView from "../forms/FoodAndShoppingView";
 import FormActionTabs from "../forms/FormActionTabs";
 import { downloadPdf } from "../../redux-store/actions/user";
+import FormTabsView from "../forms/FormTabsView";
+import FinancialView from "../forms/FinancialView";
 
 const AdminView = () => {
   const location = useLocation();
@@ -107,13 +109,7 @@ const AdminView = () => {
     }
   };
 
-  const {
-    home,
-    travel,
-    food,
-    financial,
-    ...general
-  } = singleForm;
+  const { home, travel, food, financial, ...general } = singleForm || {};
 
   // const downloadHandler = async () => {
   //   try {
@@ -158,6 +154,7 @@ const AdminView = () => {
       console.error('Error downloading PDF:', error.message);
     }
   };
+  const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
   return (
     <>
@@ -217,12 +214,12 @@ const AdminView = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="full-form-div py-0 bg-secondary">
-                <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length}/>
+                <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length}/>
                 {activeTab === "general" && (<GeneralView general={general} />)}
-                {activeTab === "home" && (<HomeFormView home={home[selectedHome - 1]} />)}
+                {activeTab === "home" && (<HomeFormView home={homeDetails} />)}
                 {activeTab === "travel" && (<TravelView travel={travel} />)}
                 {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
-                {/* <HomeFormView financial={financial} /> */}
+                {activeTab === "financial" && (<FinancialView financial={financial} />)}
               </div>
             </div>
             <div class="admin-header-btn">

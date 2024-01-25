@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import finance_img from "../assets/images/finance_img.png";
-import FormActionTabs from "../components/FormActionTabs";
-import { finanicialFormSubmit } from "../redux-store/actions/user";
-import SuccessImg from "../assets/images/Group 9106.png";
+import finance_img from "../../assets/images/finance_img.png";
+import FormActionTabs from "../../components/FormActionTabs";
+import { finanicialFormSubmit } from "../../redux-store/actions/user";
+import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
-const Financial = () => {
+const FinancialView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
@@ -47,16 +47,8 @@ const Financial = () => {
         dispatch(setFormCompleted(0))
         if (result.isConfirmed) {
           navigate("/my-account");
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
         } else {
           navigate("/general");
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
         }
       });
     } else {
@@ -86,7 +78,6 @@ const Financial = () => {
 
   return (
     <>
-      {/* <FormActionTabs selectedTab={"financial"} /> */}
       <section className="investments">
         <div className="container">
           <div className="sub-heading">
@@ -110,8 +101,8 @@ const Financial = () => {
               </p>
               <div class="form">
                 <form>
-                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >submit {disabled ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>
+                  {/* <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >submit {disabled ? <div className="spinner-border text-primary" role="status">
+                  </div> : ''}</button> */}
                 </form>
               </div>
             </div>
@@ -122,4 +113,4 @@ const Financial = () => {
   );
 };
 
-export default Financial;
+export default FinancialView;

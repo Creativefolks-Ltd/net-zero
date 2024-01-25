@@ -46,6 +46,7 @@ const FoodAndShoppingView = ({ food }) => {
 
     useEffect(() => {
         formik.setValues({
+            purchased_new_vehicle: food?.purchased_new_vehicle,
             vehicle_detail: food?.vehicle_detail,
             important_purchases_detail: food?.important_purchases_detail,
             average_pieces_per_quarter: food?.average_pieces_per_quarter,
@@ -62,6 +63,7 @@ const FoodAndShoppingView = ({ food }) => {
 
     const formik = useFormik({
         initialValues: {
+            purchased_new_vehicle: food?.purchased_new_vehicle,
             vehicle_detail: food?.vehicle_detail,
             important_purchases_detail: food?.important_purchases_detail,
             average_pieces_per_quarter: food?.average_pieces_per_quarter,
@@ -160,33 +162,59 @@ const FoodAndShoppingView = ({ food }) => {
                                 <p>
                                     Fields marked with an <span>*</span> are required
                                 </p>
-                                <div className="Additional-box">
-                                    <label htmlFor="vehicle_detail">
-                                        <strong>1. </strong>
-                                        Please give details of any vehicles purchased in the
-                                        selected year, such as cars or boats. Please specify the
-                                        relevant details, such as number and type. You do not need
-                                        to include second-hand or refurbished vehicles. Please also
-                                        include vehicles purchased by your household members.
-                                        <span>*</span>
-                                    </label>
-                                    <textarea
-                                        rows="6"
-                                        name={"vehicle_detail"}
-                                        id={"vehicle_detail"}
-                                        value={formik.values.vehicle_detail}
-                                        className={`form-control ${formik.errors.vehicle_detail &&
-                                            formik.touched.vehicle_detail ? "invalidInput" : ""} `}
-                                        cols="50"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        maxlength={1000}
-                                    ></textarea>
-                                    {formik.touched.vehicle_detail && formik.errors.vehicle_detail ? (
-                                        <span className="input-error-msg">
-                                            {formik.errors.vehicle_detail}
-                                        </span>
-                                    ) : null}
+
+                                <div className="Additional-box food-initial-input-box">
+                                    <div className="form-label-div">
+                                        <label htmlFor="purchased_new_vehicle">
+                                            <strong>1.&nbsp;</strong>Did you purchase a new vehicle this year? This includes cars, boats, or other large machinery.
+                                            <span>*</span>
+                                        </label>
+                                        <div className="col-lg-5">
+                                            <div className="sub-btn">
+                                                <input
+                                                    type="radio"
+                                                    id="purchased_new_vehicle_yes"
+                                                    name="purchased_new_vehicle"
+                                                    value="Yes"
+                                                    checked={formik.values.purchased_new_vehicle === "Yes"}
+                                                />
+                                                <label htmlFor="purchased_new_vehicle_yes" className={formik.values.purchased_new_vehicle === "Yes" ? "active" : ""}>Yes</label>
+                                                <input
+                                                    type="radio"
+                                                    id="purchased_new_vehicle_no"
+                                                    name="purchased_new_vehicle"
+                                                    value="No"
+                                                    checked={formik.values.purchased_new_vehicle === "No"}
+                                                />
+                                                <label htmlFor="purchased_new_vehicle_no" className={formik.values.purchased_new_vehicle === "No" ? "active" : ""}>
+                                                    No
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {formik?.values?.purchased_new_vehicle === "Yes" && (
+
+                                        <div className="form-label-div">
+                                            <label htmlFor="vehicle_detail">
+                                                <strong>1b.&nbsp;</strong>
+                                                Please provide details, including the number and type of vehicle or boat purchased.
+                                                <span>*</span>
+                                            </label>
+                                            <textarea
+                                                rows="6"
+                                                name={"vehicle_detail"}
+                                                id={"vehicle_detail"}
+                                                value={formik.values.vehicle_detail}
+                                                className={`form-control ${formik.errors.vehicle_detail &&
+                                                    formik.touched.vehicle_detail ? "invalidInput" : ""} `}
+                                                cols="50"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                maxlength={1000}
+                                            ></textarea>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

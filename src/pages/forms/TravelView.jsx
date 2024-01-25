@@ -101,8 +101,7 @@ const TravelView = ({ travel }) => {
                   </label>
                   <ul>
                     <li class="main-li">
-                      Please include all flights you took in a personal capacity<br></br>
-                      (i.e. not for a business you work for).{" "}
+                      Please include all flights you took in a personal capacity (i.e. not for a business you work for).{" "}
                     </li>
                     <li class="main-li">
                       Include return flights as two flights and use the
@@ -139,6 +138,7 @@ const TravelView = ({ travel }) => {
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
                                 value={formik.values[flightType][classType]}
+                                readOnly
                               />
                             </div>
                           ))}
@@ -162,6 +162,7 @@ const TravelView = ({ travel }) => {
                     className={`form-control `}
                     name={`proportion_offset_flights`}
                     value={formik.values.proportion_offset_flights}
+                    readOnly
                   />
 
                 </div>
@@ -177,6 +178,7 @@ const TravelView = ({ travel }) => {
                     name={`how_many_cars`}
                     id={`how_many_cars`}
                     className={`form-control `}
+                    readOnly
                     value={formik.values.how_many_cars}>
                     <option value="">Select option</option>
                     {Array(10)
@@ -209,6 +211,7 @@ const TravelView = ({ travel }) => {
                                   placeholder=""
                                   name={`cars_detail.${index}.makeAndModel`}
                                   value={formik.values.cars_detail[index]?.makeAndModel || ''}
+                                  readOnly
                                 />
                               </div>
                               <div className="modal-input-col">
@@ -217,8 +220,6 @@ const TravelView = ({ travel }) => {
                                   name={`cars_detail.${index}.vehicalType`}
                                   className="form-control"
                                   value={formik.values.cars_detail[index]?.vehicalType || ''}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
                                 >
                                   <option value="">Select option</option>
                                   <option value="Petrol">Petrol</option>
@@ -227,29 +228,18 @@ const TravelView = ({ travel }) => {
                                   <option value="hybrid">Hybrid</option>
                                   <option value="hydrogen">Hydrogen</option>
                                 </select>
-                                {formik.errors.cars_detail?.[index]?.vehicalType &&
-                                  formik.touched.cars_detail?.[index]?.vehicalType && (
-                                    <span className="input-error-msg">
-                                      {formik.errors.cars_detail[index].vehicalType}
-                                    </span>
-                                  )}
+
                               </div>
                               <div className="modal-input-col">
-                                <label>KMs in selected year</label>{" "}
+                                <label>kms in selected year</label>{" "}
                                 <input
                                   type="text"
                                   placeholder=""
                                   name={`cars_detail.${index}.kmsInSelectedYear`}
                                   value={formik.values.cars_detail[index]?.kmsInSelectedYear || ''}
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
+                                  readOnly
                                 />
-                                {formik.errors.cars_detail?.[index]?.kmsInSelectedYear &&
-                                  formik.touched.cars_detail?.[index]?.kmsInSelectedYear && (
-                                    <span className="input-error-msg">
-                                      {formik.errors.cars_detail[index].kmsInSelectedYear}
-                                    </span>
-                                  )}
+
                               </div>
                             </div>
                           </div>
@@ -316,15 +306,8 @@ const TravelView = ({ travel }) => {
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
                                 value={formik.values[flightType][classType]}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
+                                readOnly
                               />
-                              {formik.errors[flightType]?.[classType] &&
-                                formik.touched[flightType]?.[classType] && (
-                                  <span className="input-error-msg">
-                                    {formik.errors[flightType][classType]}
-                                  </span>
-                                )}
                             </div>
                           ))}
                         </div>
@@ -347,16 +330,9 @@ const TravelView = ({ travel }) => {
                     id="partner_offset_flights"
                     class="form-control undefined"
                     value={formik.values.partner_offset_flights}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-
+                    readOnly
                   />
-                  {formik.errors.partner_offset_flights &&
-                    formik.touchederrors.partner_offset_flights && (
-                      <span className="input-error-msg">
-                        {formik.errors.partner_offset_flights}
-                      </span>
-                    )}
+
                 </div>
 
                 <div className="form-div">
@@ -369,8 +345,7 @@ const TravelView = ({ travel }) => {
                   <select className="form-control"
                     name={`additional_vehicles_by_partner_children`}
                     value={formik.values.additional_vehicles_by_partner_children}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}>
+                    readOnly>
                     <option value="">Select option</option>
                     {Array(10)
                       .fill()
@@ -402,15 +377,9 @@ const TravelView = ({ travel }) => {
                                     placeholder=""
                                     name={`additional_vehicles_by_partner_detail.${index}.makeAndModel`}
                                     value={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    readOnly
                                   />
-                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.makeAndModel &&
-                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.makeAndModel && (
-                                      <span className="input-error-msg">
-                                        {formik.errors.additional_vehicles_by_partner_detail[index].makeAndModel}
-                                      </span>
-                                    )}
+
                                 </div>
                                 <div className="modal-input-col">
                                   <label>Vehical Type</label>{" "}
@@ -418,8 +387,7 @@ const TravelView = ({ travel }) => {
                                     className="form-control"
                                     name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
                                     value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    readOnly
                                   >
                                     <option value="">Select option</option>
                                     <option value="Petrol">Petrol</option>
@@ -428,29 +396,18 @@ const TravelView = ({ travel }) => {
                                     <option value="hybrid">Hybrid</option>
                                     <option value="hydrogen">Hydrogen</option>
                                   </select>
-                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.vehicalType &&
-                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.vehicalType && (
-                                      <span className="input-error-msg">
-                                        {formik.errors.additional_vehicles_by_partner_detail[index].vehicalType}
-                                      </span>
-                                    )}
+
                                 </div>
                                 <div className="modal-input-col">
-                                  <label>KMs in selected year</label>{" "}
+                                  <label>kms in selected year</label>{" "}
                                   <input
                                     type="text"
                                     placeholder=""
                                     name={`additional_vehicles_by_partner_detail.${index}.kmsInSelectedYear`}
                                     value={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    readOnly
                                   />
-                                  {formik.errors.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear &&
-                                    formik.touched.additional_vehicles_by_partner_detail?.[index]?.kmsInSelectedYear && (
-                                      <span className="input-error-msg">
-                                        {formik.errors.additional_vehicles_by_partner_detail[index].kmsInSelectedYear}
-                                      </span>
-                                    )}
+
                                 </div>
                               </div>
                             </div>
@@ -476,10 +433,10 @@ const TravelView = ({ travel }) => {
                             type="checkbox"
                             name="transport_selected_year"
                             value={type}
-                            checked={formik.values.transport_selected_year.includes("Don't know") ? formik.values?.transport_selected_year?.splice(0, formik?.values?.transport_selected_year?.length, "Don't know") : formik.values.transport_selected_year.includes(type)}
-                            onChange={formik.handleChange}
+                            checked={formik?.values?.transport_selected_year?.includes(type)}
+                            readOnly
                           />
-                          <label htmlFor={type + "1"} className={`${formik.values.transport_selected_year.includes(type) ? "active" : ""}`}>
+                          <label htmlFor={type + "1"} className={`${formik?.values?.transport_selected_year?.includes(type) ? "active" : ""}`}>
                             {type}
                           </label>
                         </div>
@@ -497,28 +454,25 @@ const TravelView = ({ travel }) => {
                         <div className="modal-input-block">
                           <div className="modal-input-row">
                             <div class="modal-input-col">
-                              <label>My KMs</label>{" "}
+                              <label>My kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kms`}
                                 value={formik.values.transport_selected_year_details[index]?.kms || ''}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur} />
+                                readOnly />
                             </div>
                             <div class="modal-input-col">
                               <label>Notes</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.notes`}
                                 value={formik.values.transport_selected_year_details[index]?.notes || ''}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur} />
+                                readOnly />
                             </div>
                             <div class="modal-input-col">
-                              <label>Partner/children KMs</label>{" "}
+                              <label>Partner/children kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
                                 value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur} />
+                                readOnly />
                             </div>
                           </div>
                         </div>
@@ -541,8 +495,7 @@ const TravelView = ({ travel }) => {
                       id="hotel_nights"
                       class="form-control undefined"
                       value={formik.values.hotel_nights}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      readOnly
                     />
                   </div>
                   <label htmlFor="other_travel_info">
@@ -560,18 +513,17 @@ const TravelView = ({ travel }) => {
                     className="form-control"
                     cols="50"
                     value={formik.values.other_travel_info}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    readOnly
                   ></textarea>
-                  <div className="Additional-bottom-btn">
+                  {/* <div className="Additional-bottom-btn">
                     <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
-                    {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                    </div> : ''}</button> */}
+                  {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
                     </div> : ''}</button>
                     <button className="btn" type="button" onClick={continueHandler}>
                       Continue
                     </button> */}
-                  </div>
+                  {/* </div> */}
                 </div>
               </div>
             </div>

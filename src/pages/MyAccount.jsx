@@ -67,8 +67,8 @@ const MyAccount = () => {
 
   useEffect(() => {
     dispatch(formlist(userId));
-    dispatch(addGeneralInfo(null));
-    dispatch(addGeneralInfo(0));
+    // dispatch(addGeneralInfo(null));
+    // dispatch(addGeneralInfo(0));
   }, []);
 
   const formik = useFormik({
@@ -208,27 +208,28 @@ const MyAccount = () => {
   };
 
   const formSwitch = (form) => {
-    const completedFormCount = form.total_forms;
-    const formId = form.id;
-    switch (completedFormCount) {
-      case 1: {
-        return "/home-form";
-      }
-      case 2: {
-        return "/travel";
-      }
-      case 3: {
-        return "/food-shopping";
-      }
-      case 4: {
-        return "/financial";
-      }
-      case 5: {
-        return "/financial";
-      }
-      default:
-        return "/general";
-    }
+    return "/forms";
+    // const completedFormCount = form.total_forms;
+    // const formId = form.id;
+    // switch (completedFormCount) {
+    //   case 1: {
+    //     return "/home-form";
+    //   }
+    //   case 2: {
+    //     return "/travel";
+    //   }
+    //   case 3: {
+    //     return "/food-shopping";
+    //   }
+    //   case 4: {
+    //     return "/financial";
+    //   }
+    //   case 5: {
+    //     return "/financial";
+    //   }
+    //   default:
+    //     return "/general";
+    // }
   };
   const navigateToNext = (form) => {
     dispatch(addGeneralInfo(form.id));

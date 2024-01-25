@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,8 +22,27 @@ import Dashboard from "./pages/admin";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import UserChangePassword from "./pages/UserChangePassword.jsx";
 import AdminView from "./pages/admin/AdminView.jsx";
+import FormsLayout from "./pages/FormsLayout.jsx";
+import { useDispatch } from "react-redux";
+import { addGeneralInfo } from "./redux-store/actions/user.js";
+import { setFormCompleted } from "./redux-store/reducers/auth.js";
 
 function App() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const formsSectionOpened = (location.pathname === "/forms" ? true : false);
+
+  const resetFormStates = () => {
+    dispatch(addGeneralInfo(null))
+    dispatch(setFormCompleted(0))
+}
+
+useEffect(() => {
+    if (!formsSectionOpened) {
+        resetFormStates()
+    }
+}, [formsSectionOpened])
 
   return (
     <div className="App">
@@ -46,6 +65,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin/*" element={<Dashboard />} />
         </Route>
+        <Route path="/forms" element={<ProtectedRoute><FormsLayout /></ProtectedRoute>} />
       </Routes>
     </div>
   );

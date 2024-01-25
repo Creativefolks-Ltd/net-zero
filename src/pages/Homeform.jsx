@@ -17,7 +17,7 @@ const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"]
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = () => {
+const Homeform = ({selectedHome}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -26,7 +26,8 @@ const Homeform = () => {
 
   const [disabled, setDisabled] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [homeActiveTab, setHomeActiveTab] = useState(1);
+  // const [homeActiveTab, setHomeActiveTab] = useState(1);
+  let homeActiveTab = selectedHome;
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 100;
@@ -41,9 +42,9 @@ const Homeform = () => {
     dispatch(getCountry());
   }, []);
 
-  const handleFormActiveFunc = (active, home_id) => {
-    setHomeActiveTab(active)
-  }
+  // const handleFormActiveFunc = (active, home_id) => {
+  //   setHomeActiveTab(active)
+  // }
 
   const getWinterTemperature = (temperature) => {
     if (temperature >= 1 && temperature <= 18) {
@@ -146,7 +147,11 @@ const Homeform = () => {
   });
 
   const navigateToNext = async (e) => {
-    navigate("/travel")
+    // navigate("/travel")
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  });
   }
 
   async function submitHandler(values) {
@@ -272,7 +277,7 @@ const Homeform = () => {
 
   return (
     <>
-      <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} />
+      {/* <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} /> */}
       <form onSubmit={formik.handleSubmit}>
         <section className="general-form mt-80 mb-80">
           <div className="container ">

@@ -14,7 +14,7 @@ function Dashboard() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(addGeneralInfo(null))
+        // dispatch(addGeneralInfo(null))
     }, []);
 
     return (

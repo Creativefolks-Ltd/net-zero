@@ -9,21 +9,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { homeformIds } from "../../redux-store/actions/user";
 
 
-const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome }) => {
+const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLength }) => {
   const dispatch = useDispatch()
   // const [activeTab, setActiveTab] = useState(activeTab);
   const [homeActiveTab, setHomeActiveTab] = useState(1);
-  const [homeCount, setHomeCount] = useState(1);
+  const [homeCount, setHomeCount] = useState(homeLength || 1);
 
   const user = useSelector((state) => state.auth);
   const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
-
+  const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
   const general_information_id = Number(user?.generalInfoId);
+  const formCompleted = Number(user?.formCompleted);
 
   useEffect(() => {
     dispatch(homeformIds(general_information_id))
-
-  }, [general_information_id])
+  }, [general_information_id, activeTab])
 
   const handleActiveTabFunc = (active) => {
     handleActiveTab(active)
@@ -39,12 +39,17 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome }) => {
     setHomeActiveTab(activeIndex);
     setSelectedHome(activeIndex)
   }
+  const addHomeHandler = () => {
+    if (homeCount < 5) {
+      setHomeCount(prevCount => prevCount + 1);
+    }
+  };
 
   const renderHomes = () => {
     const homes = [];
     for (let i = 1; i <= homeCount; i++) {
       homes.push(
-        <li key={i} className={i === 1 ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
+        <li key={i} className={i === homeActiveTab ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
           <a>Home {i}</a>
         </li>
       );
@@ -60,13 +65,8 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome }) => {
             <div className="information-header">
               <div className="col-div">
                 <div className="information-icon-box">
-
                   <div
-                    className={`information-cricle-box ${activeTab === "general" ? "active" : ""
-                      }
-                         
-                        `}
-                    onClick={() => handleActiveTabFunc("general")}
+                    className={`information-cricle-box ${activeTab === "general" ? "active" : ""} ${submittedFormCount >= 1 ? "success" : ""} `} onClick={() => handleActiveTabFunc("general")}
                   >
                     <img src={generalImg} alt="" />
                   </div>
@@ -74,61 +74,109 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome }) => {
                 </div>
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <div
-                    className={`information-cricle-box ${activeTab === "home" ? "active" : ""
-                      } 
+                {formCompleted >= 1 ? (
+                  <div className="information-icon-box">
+                    <div
+                      className={`information-cricle-box ${activeTab === "home" ? "active" : ""
+                        } 
+                        ${submittedFormCount >= 2 ? "success" : ""}
                         `}
-                    onClick={() => handleActiveTabFunc("home")}
-                  >
-                    <img src={houseImg} alt="" />
+                      onClick={() => handleActiveTabFunc("home")}
+                    >
+                      <img src={houseImg} alt="" />
+                    </div>
+                    <p>Your Home</p>
                   </div>
-                  <p>Your Home</p>
-                </div>
+                ) : (
+                  <div className="information-icon-box">
+                    <div className={`information-cricle-box`}                    >
+                      <img src={houseImg} alt="" />
+                    </div>
+                    <p>Your Home</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <div
-                    className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
-                      }
+                {formCompleted >= 2 ? (
+                  <div className="information-icon-box">
+                    <div
+                      className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
+                        }
+                        ${submittedFormCount >= 3 ? "success" : ""}
                         `}
-                    onClick={() => handleActiveTabFunc("travel")}
-                  >
-                    <img src={carImg} alt="" />
+                      onClick={() => handleActiveTabFunc("travel")}
+                    >
+                      <img src={carImg} alt="" />
+                    </div>
+                    <p>Travel</p>
                   </div>
-                  <p>Travel</p>
-                </div>
+                ) : (
+                  <div className="information-icon-box">
+                    <div className={`information-cricle-box`}                    >
+                      <img src={carImg} alt="" />
+                    </div>
+                    <p>Travel</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <div
-                    className={`information-cricle-box ${activeTab === "food" ? "active" : ""
-                      }
+                {formCompleted >= 3 ? (
+                  <div className="information-icon-box">
+                    <div
+                      className={`information-cricle-box ${activeTab === "food" ? "active" : ""
+                        }
+                        ${submittedFormCount >= 4 ? "success" : ""}
                         `}
-                    onClick={() => handleActiveTabFunc("food")}
-                  >
-                    <img src={foodImg} alt="" />
+                      onClick={() => handleActiveTabFunc("food")}
+                    >
+                      <img src={foodImg} alt="" />
+                    </div>
+                    <p>Food and Shopping</p>
                   </div>
-                  <p>Food and Shopping</p>
-                </div>
+                ) : (
+                  <div className="information-icon-box">
+                    <div className={`information-cricle-box`}                    >
+                      <img src={foodImg} alt="" />
+                    </div>
+                    <p>Food and Shopping</p>
+                  </div>
+                )}
               </div>
               <div className="col-div">
-                <div className="information-icon-box">
-                  <div
-                    className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
-                      }  `}
-                    onClick={() => handleActiveTabFunc("financial")}
-                  >
-                    <img src={financialImg} alt="" />
+                {formCompleted >= 4 ? (
+                  <div className="information-icon-box">
+                    <div
+                      className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
+                        }
+                        ${submittedFormCount >= 5 ? "success" : ""}  `}
+
+                      onClick={() => handleActiveTabFunc("financial")}
+                    >
+                      <img src={financialImg} alt="" />
+                    </div>
+                    <p>Financial assets</p>
                   </div>
-                  <p>Financial assets</p>
-                </div>
+                ) : (
+                  <div className="information-icon-box">
+                    <div className={`information-cricle-box`}                    >
+                      <img src={financialImg} alt="" />
+                    </div>
+                    <p>Financial assets</p>
+                  </div>
+                )}
               </div>
             </div>
             {activeTab === "home" && (
               <div class="information-header-nav">
                 <ul>
                   {renderHomes()}
+                  {homeCount < 5 && (
+                    <li >
+                      <a onClick={addHomeHandler}>
+                        Add <br /> home +
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </div>
             )}
