@@ -210,7 +210,8 @@ const AdminView = () => {
             </div>
           </div>
         </section>)}
-      <section className="full-form">
+      
+      <section className={`full-form ${adminPath !== "admin" ? "mt-80" : ""}`}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">

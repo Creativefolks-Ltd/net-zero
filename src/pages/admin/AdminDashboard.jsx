@@ -312,7 +312,7 @@ const AdminDashboard = () => {
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
-                          <div class="table-img"> <img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                          <div class={`table-img ${loading? "active":""}`}><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
                         </td>
                       </tr>
                     )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}

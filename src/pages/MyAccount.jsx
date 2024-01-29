@@ -462,7 +462,7 @@ const MyAccount = () => {
                                 <a href="#">View form</a>
                               )}
                             </div>
-                            <div className="accordion-img table-img">
+                            <div className={`accordion-img table-img ${loading ? "active" : ""}`}>
                               <img
                                 src={share_img}
                                 alt=""
@@ -516,9 +516,9 @@ const MyAccount = () => {
                           class="accordion-button collapsed"
                           type="button"
                           data-bs-toggle="collapse"
-                          data-bs-target={`#regularCollapse${index + 1}`}
+                          data-bs-target={`#regularCollapse-submit${index + 1}`}
                           aria-expanded="false"
-                          aria-controls={`regularCollapse${index + 1}`}
+                          aria-controls={`regularCollapse-submit${index + 1}`}
                         >
                           {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
                           <td>
@@ -532,7 +532,7 @@ const MyAccount = () => {
                         </button>
                       </h2>
                       <div
-                        id={`regularCollapse${index + 1}`}
+                        id={`regularCollapse-submit${index + 1}`}
                         class="accordion-collapse collapse"
                         aria-labelledby={`regularHeading${index + 1}`}
                         data-bs-parent="#regularAccordionRobots"
@@ -557,7 +557,7 @@ const MyAccount = () => {
                                 <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
                               )}
                             </div>
-                            <div className="accordion-img table-img">
+                            <div className={`accordion-img table-img ${loading ? "active" : ""}`}>
                               <img
                                 src={share_img}
                                 alt=""
