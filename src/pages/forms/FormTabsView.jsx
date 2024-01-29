@@ -31,15 +31,15 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
   }
 
   useEffect(() => {
-    if (homeIds?.length > 0) {
-      setHomeCount(homeIds?.length)
+    if (homeLength > 0) {
+      setHomeCount(homeLength)
     }
   }, [homeIds]);
 
   const handleHomeTabs = (activeIndex) => {
     setHomeActiveTab(activeIndex);
     setSelectedHome(activeIndex)
-    if (homeIds?.length > 0) {
+    if (homeLength > 0) {
       dispatch(setCurrentHomeId(homeIds[activeIndex]))
     }
   }

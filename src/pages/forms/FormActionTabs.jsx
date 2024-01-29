@@ -7,6 +7,7 @@ import financialImg from "../../assets/images/financial .svg";
 import { Link, } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { homeformIds } from "../../redux-store/actions/user";
+import { setCurrentHomeId } from "../../redux-store/reducers/user";
 
 
 const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLength }) => {
@@ -37,7 +38,11 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
 
   const handleHomeTabs = (activeIndex) => {
     setHomeActiveTab(activeIndex);
-    setSelectedHome(activeIndex)
+    setSelectedHome(activeIndex);
+
+    if (homeIds?.length > 0) {
+      dispatch(setCurrentHomeId(homeIds[activeIndex - 1]))
+    }
   }
   const addHomeHandler = () => {
     if (homeCount < 5) {
