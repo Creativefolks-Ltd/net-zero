@@ -7,13 +7,14 @@ import financialImg from "../../assets/images/financial .svg";
 import { Link, } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { homeformIds } from "../../redux-store/actions/user";
+import { setCurrentHomeId } from "../../redux-store/reducers/user";
 
 
-const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome }) => {
+const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength }) => {
   const dispatch = useDispatch()
   // const [activeTab, setActiveTab] = useState(activeTab);
   const [homeActiveTab, setHomeActiveTab] = useState(1);
-  const [homeCount, setHomeCount] = useState(1);
+  const [homeCount, setHomeCount] = useState(homeLength || 1);
 
   const user = useSelector((state) => state.auth);
   const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
@@ -38,13 +39,16 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome }) => {
   const handleHomeTabs = (activeIndex) => {
     setHomeActiveTab(activeIndex);
     setSelectedHome(activeIndex)
+    if (homeIds?.length > 0) {
+      dispatch(setCurrentHomeId(homeIds[activeIndex]))
+    }
   }
 
   const renderHomes = () => {
     const homes = [];
     for (let i = 1; i <= homeCount; i++) {
       homes.push(
-        <li key={i} className={i === 1 ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
+        <li key={i} className={i === homeActiveTab ? 'active' : ''} onClick={() => handleHomeTabs(i)}>
           <a>Home {i}</a>
         </li>
       );
