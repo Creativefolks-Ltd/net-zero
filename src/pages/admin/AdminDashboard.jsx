@@ -168,7 +168,12 @@ const AdminDashboard = () => {
 
 
   const downloadHandler = async (formId) => {
+    if (loading) {
+      return;
+    }
     try {
+      setLoading(true);
+      document.body.classList.add('cursor-spinner');
       const response = await dispatch(downloadPdf(formId));
       if (response?.payload) {
         const blob = new Blob([response.payload], { type: 'application/pdf' });
@@ -185,9 +190,12 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       console.error('Error downloading PDF:', error.message);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove('cursor-spinner'); // Remove the cursor-spinner class
     }
   };
-  
+
   return (
     <>
       <form>

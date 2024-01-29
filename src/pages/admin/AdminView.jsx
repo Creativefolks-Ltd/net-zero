@@ -158,63 +158,64 @@ const AdminView = () => {
 
   return (
     <>
-      <section className="admin-view">
-        <div className="container">
-          <div className="admin-view-bg-color">
-            <div class="card">
-              <div className="admin-view-header">
-                <div class="sub-heading">
-                  <h2>Form name</h2>
+      {adminPath === "admin" && (
+        <section className="admin-view">
+          <div className="container">
+            <div className="admin-view-bg-color">
+              <div class="card">
+                <div className="admin-view-header">
+                  <div class="sub-heading">
+                    <h2>Form name</h2>
+                  </div>
+                  <div class="admin-header-btn">
+                    <Link to="/admin/dashboard" className="btn">
+                      Back
+                    </Link>
+                  </div>
                 </div>
-                <div class="admin-header-btn">
-                  <Link to="/admin/dashboard" className="btn">
-                    Back
-                  </Link>
-                </div>
-              </div>
-              <div className="admin-view-content">
-                <div className="admin-text">
-                  <p>First name: {general?.first_name}</p>
-                  <p>Last name: {general?.last_name}</p>
-                  <p>Email address: {general?.email}</p>
-                  <p>Calendar year: { }</p>
-                </div>
-                <div className="admin-text-btn">
-                  <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
-                    Download PDF
-                    {disabled ? (
-                      <div
-                        className="spinner-border text-primary"
-                        role="status"
-                      ></div>
-                    ) : (
-                      ""
-                    )}
-                  </button>
+                <div className="admin-view-content">
+                  <div className="admin-text">
+                    <p>First name: {general?.first_name}</p>
+                    <p>Last name: {general?.last_name}</p>
+                    <p>Email address: {general?.email}</p>
+                    <p>Calendar year: { }</p>
+                  </div>
+                  <div className="admin-text-btn">
+                    <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
+                      Download PDF
+                      {disabled ? (
+                        <div
+                          className="spinner-border text-primary"
+                          role="status"
+                        ></div>
+                      ) : (
+                        ""
+                      )}
+                    </button>
 
-                  {adminPath === "admin" ? (<button class="btn" type="button">
-                    Assign to different user
-                  </button>) : null}
+                    <button class="btn" type="button">
+                      Assign to different user
+                    </button>
 
-                  <button
-                    class="btn"
-                    type="button"
-                    onClick={(e) => handleDeleteConfirmation(e)}
-                  >
-                    Delete form
-                  </button>
+                    <button
+                      class="btn"
+                      type="button"
+                      onClick={(e) => handleDeleteConfirmation(e)}
+                    >
+                      Delete form
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>)}
       <section className="full-form">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="full-form-div py-0 bg-secondary">
-                <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length}/>
+                <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} />
                 {activeTab === "general" && (<GeneralView general={general} />)}
                 {activeTab === "home" && (<HomeFormView home={homeDetails} />)}
                 {activeTab === "travel" && (<TravelView travel={travel} />)}
@@ -222,11 +223,13 @@ const AdminView = () => {
                 {activeTab === "financial" && (<FinancialView financial={financial} />)}
               </div>
             </div>
-            <div class="admin-header-btn">
-              <Link to="/admin/dashboard" className="btn">
-                Back
-              </Link>
-            </div>
+            {adminPath === "admin" && (
+              <div class="admin-header-btn">
+                <Link to="/admin/dashboard" className="btn">
+                  Back
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>

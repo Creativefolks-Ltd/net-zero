@@ -26,7 +26,7 @@ const GeneralView = ({ general }) => {
 
     const years = [];
 
-    for (let year = endYear; year >= startYear; year--) {    
+    for (let year = endYear; year >= startYear; year--) {
         years.push(year);
     }
 
@@ -221,7 +221,7 @@ const GeneralView = ({ general }) => {
                                                                 id="first_name"
                                                                 className={`text-capitalize form-control`}
                                                                 placeholder="First Name"
-                                                                value={formik?.values?.first_name}
+                                                                defaultValue={formik?.values?.first_name}
                                                                 readOnly
                                                             />
                                                         </div>
@@ -238,7 +238,7 @@ const GeneralView = ({ general }) => {
                                                                 className={`text-capitalize form-control `}
                                                                 placeholder="Last Name"
                                                                 readOnly
-                                                                value={formik.values.last_name}
+                                                                defaultValue={formik.values.last_name}
                                                             />
                                                         </div>
                                                     </div>
@@ -253,7 +253,7 @@ const GeneralView = ({ general }) => {
                                                         id="email"
                                                         className={`form-control`}
                                                         placeholder="Email"
-                                                        value={formik.values.email}
+                                                        defaultValue={formik.values.email}
                                                         readOnly
                                                     />
                                                 </div>
@@ -267,7 +267,7 @@ const GeneralView = ({ general }) => {
                                                         id="year_of_birth"
                                                         className={`form-control`}
                                                         readOnly
-                                                        value={formik.values.year_of_birth}
+                                                        defaultValue={formik.values.year_of_birth}
                                                     >
                                                         <option value="">Select option</option>
                                                         {years.map((year, index) => (
@@ -288,7 +288,7 @@ const GeneralView = ({ general }) => {
                                                                 id="country_of_residence"
                                                                 className={`form-control`}
                                                                 readOnly
-                                                                value={formik.values.country_of_residence}
+                                                                defaultValue={formik.values.country_of_residence}
                                                             >
                                                                 <option value="">Select option</option>
                                                                 <CountryOptions countries={details?.countries} />
@@ -305,7 +305,7 @@ const GeneralView = ({ general }) => {
                                                                 name="num_of_homes"
                                                                 id="num_of_homes"
                                                                 className={`form-control`}
-                                                                value={formik.values.num_of_homes}
+                                                                defaultValue={formik.values.num_of_homes}
                                                                 readOnly
                                                             >
                                                                 <option value={""}>Select Option</option>
@@ -402,7 +402,7 @@ const GeneralView = ({ general }) => {
                                                         name="num_of_children_under_18"
                                                         id="num_of_children_under_18"
                                                         className={`form-control `}
-                                                        value={formik.values.num_of_children_under_18}
+                                                        defaultValue={formik.values.num_of_children_under_18}
                                                         readOnly
                                                     >
                                                         <option value="">Select option</option>
@@ -429,7 +429,7 @@ const GeneralView = ({ general }) => {
                                                         name="other_dependants"
                                                         id="other_dependants"
                                                         className={`form-control`}
-                                                        value={formik.values.other_dependants}
+                                                        defaultValue={formik.values.other_dependants}
                                                         readOnly
                                                     >
                                                         <option value="">Select option</option>
@@ -451,7 +451,7 @@ const GeneralView = ({ general }) => {
                                                             className={`form-control`}
                                                             placeholder=""
                                                             readOnly
-                                                            value={formik.values.other_dependants_details}
+                                                            defaultValue={formik.values.other_dependants_details}
                                                         />
 
                                                     </div>
@@ -492,7 +492,7 @@ const GeneralView = ({ general }) => {
                                                 className={`form-control `}
                                                 cols="50"
                                                 maxLength={1000}
-                                                value={formik.values.forest_or_farmland_details}
+                                                defaultValue={formik.values.forest_or_farmland_details}
                                             ></textarea>
                                         </div>
                                     </div>

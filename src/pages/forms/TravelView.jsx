@@ -95,7 +95,7 @@ const TravelView = ({ travel }) => {
               <div className="card card-par">
 
                 <div class="form-div">
-                  <label for="www">
+                  <label htmlFor="www">
                     <strong>1.&nbsp;</strong>How many flights did you take in the
                     selected year?<span>*</span>
                   </label>
@@ -137,7 +137,7 @@ const TravelView = ({ travel }) => {
                                 type="text"
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
-                                value={formik.values[flightType][classType]}
+                                defaultValue={formik.values[flightType][classType]}
                                 readOnly
                               />
                             </div>
@@ -150,7 +150,7 @@ const TravelView = ({ travel }) => {
 
                 <div class="form-div">
                   <div class="form-label-div">
-                    <label for="proportion_offset_flights">
+                    <label htmlFor="proportion_offset_flights">
                       <strong>2.&nbsp;</strong>What proportion of your flights do you
                       offset ?<span>*</span>
                     </label>
@@ -161,7 +161,7 @@ const TravelView = ({ travel }) => {
                     id="proportion_offset_flights"
                     className={`form-control `}
                     name={`proportion_offset_flights`}
-                    value={formik.values.proportion_offset_flights}
+                    defaultValue={formik.values.proportion_offset_flights}
                     readOnly
                   />
 
@@ -179,7 +179,7 @@ const TravelView = ({ travel }) => {
                     id={`how_many_cars`}
                     className={`form-control `}
                     readOnly
-                    value={formik.values.how_many_cars}>
+                    defaultValue={formik.values.how_many_cars}>
                     <option value="">Select option</option>
                     {Array(10)
                       .fill()
@@ -210,7 +210,7 @@ const TravelView = ({ travel }) => {
                                   type="text"
                                   placeholder=""
                                   name={`cars_detail.${index}.makeAndModel`}
-                                  value={formik.values.cars_detail[index]?.makeAndModel || ''}
+                                  defaultValue={formik.values.cars_detail[index]?.makeAndModel || ''}
                                   readOnly
                                 />
                               </div>
@@ -219,7 +219,7 @@ const TravelView = ({ travel }) => {
                                 <select
                                   name={`cars_detail.${index}.vehicalType`}
                                   className="form-control"
-                                  value={formik.values.cars_detail[index]?.vehicalType || ''}
+                                  defaultValue={formik.values.cars_detail[index]?.vehicalType || ''}
                                 >
                                   <option value="">Select option</option>
                                   <option value="Petrol">Petrol</option>
@@ -236,7 +236,7 @@ const TravelView = ({ travel }) => {
                                   type="text"
                                   placeholder=""
                                   name={`cars_detail.${index}.kmsInSelectedYear`}
-                                  value={formik.values.cars_detail[index]?.kmsInSelectedYear || ''}
+                                  defaultValue={formik.values.cars_detail[index]?.kmsInSelectedYear || ''}
                                   readOnly
                                 />
 
@@ -260,7 +260,7 @@ const TravelView = ({ travel }) => {
             <div className=" bg-color">
               <div className="card">
                 <div class="form-div">
-                  <label for="www">
+                  <label htmlFor="www">
                     <strong>4.&nbsp;</strong>How many flights did your
                     partner/children take in the selected year?
                   </label>
@@ -305,7 +305,7 @@ const TravelView = ({ travel }) => {
                                 type="text"
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
-                                value={formik.values[flightType][classType]}
+                                defaultValue={formik.values[flightType][classType]}
                                 readOnly
                               />
                             </div>
@@ -318,7 +318,7 @@ const TravelView = ({ travel }) => {
 
                 <div class="form-div">
                   <div class="form-label-div">
-                    <label for="partner_offset_flights">
+                    <label htmlFor="partner_offset_flights">
                       <strong>5.&nbsp;</strong>What proportion of these flights did you
                       offset?
                     </label>
@@ -329,7 +329,7 @@ const TravelView = ({ travel }) => {
                     name="partner_offset_flights"
                     id="partner_offset_flights"
                     class="form-control undefined"
-                    value={formik.values.partner_offset_flights}
+                    defaultValue={formik.values.partner_offset_flights}
                     readOnly
                   />
 
@@ -344,7 +344,7 @@ const TravelView = ({ travel }) => {
                   </div>
                   <select className="form-control"
                     name={`additional_vehicles_by_partner_children`}
-                    value={formik.values.additional_vehicles_by_partner_children}
+                    defaultValue={formik.values.additional_vehicles_by_partner_children}
                     readOnly>
                     <option value="">Select option</option>
                     {Array(10)
@@ -376,7 +376,7 @@ const TravelView = ({ travel }) => {
                                     type="text"
                                     placeholder=""
                                     name={`additional_vehicles_by_partner_detail.${index}.makeAndModel`}
-                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
+                                    defaultValue={formik.values.additional_vehicles_by_partner_detail[index]?.makeAndModel || ''}
                                     readOnly
                                   />
 
@@ -386,7 +386,7 @@ const TravelView = ({ travel }) => {
                                   <select
                                     className="form-control"
                                     name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
-                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
+                                    defaultValue={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
                                     readOnly
                                   >
                                     <option value="">Select option</option>
@@ -404,7 +404,7 @@ const TravelView = ({ travel }) => {
                                     type="text"
                                     placeholder=""
                                     name={`additional_vehicles_by_partner_detail.${index}.kmsInSelectedYear`}
-                                    value={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
+                                    defaultValue={formik.values.additional_vehicles_by_partner_detail[index]?.kmsInSelectedYear || ''}
                                     readOnly
                                   />
 
@@ -433,7 +433,7 @@ const TravelView = ({ travel }) => {
                             type="checkbox"
                             name="transport_selected_year"
                             value={type}
-                            checked={formik?.values?.transport_selected_year?.includes(type)}
+                            defaultChecked={formik?.values?.transport_selected_year?.includes(type)}
                             readOnly
                           />
                           <label htmlFor={type + "1"} className={`${formik?.values?.transport_selected_year?.includes(type) ? "active" : ""}`}>
@@ -457,21 +457,21 @@ const TravelView = ({ travel }) => {
                               <label>My kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kms`}
-                                value={formik.values.transport_selected_year_details[index]?.kms || ''}
+                                defaultValue={formik.values.transport_selected_year_details[index]?.kms || ''}
                                 readOnly />
                             </div>
                             <div class="modal-input-col">
                               <label>Notes</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.notes`}
-                                value={formik.values.transport_selected_year_details[index]?.notes || ''}
+                                defaultValue={formik.values.transport_selected_year_details[index]?.notes || ''}
                                 readOnly />
                             </div>
                             <div class="modal-input-col">
                               <label>Partner/children kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
-                                value={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
+                                defaultValue={formik.values.transport_selected_year_details[index]?.kmsInSelectedYear || ''}
                                 readOnly />
                             </div>
                           </div>
@@ -483,7 +483,7 @@ const TravelView = ({ travel }) => {
 
                 <div className="Additional-box">
                   <div class="form-div">
-                    <label for="hotel_nights">
+                    <label htmlFor="hotel_nights">
                       <strong>8.&nbsp;</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
@@ -494,7 +494,7 @@ const TravelView = ({ travel }) => {
                       name="hotel_nights"
                       id="hotel_nights"
                       class="form-control undefined"
-                      value={formik.values.hotel_nights}
+                      defaultValue={formik.values.hotel_nights}
                       readOnly
                     />
                   </div>
@@ -512,7 +512,7 @@ const TravelView = ({ travel }) => {
                     rows="6"
                     className="form-control"
                     cols="50"
-                    value={formik.values.other_travel_info}
+                    defaultValue={formik.values.other_travel_info}
                     readOnly
                   ></textarea>
                   {/* <div className="Additional-bottom-btn">

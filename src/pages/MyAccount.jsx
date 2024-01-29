@@ -35,6 +35,8 @@ const MyAccount = () => {
   const [disabled, setDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [loading, setLoading] = useState(false);
+
   const serialNo = (currentPage - 1) * itemsPerPage;
 
   const completedData = [];
@@ -254,7 +256,12 @@ const MyAccount = () => {
   // };
 
   const downloadHandler = async (formId) => {
+    if (loading) {
+      return;
+    }
     try {
+      setLoading(true);
+      document.body.classList.add('cursor-spinner');
       const response = await dispatch(downloadPdf(formId));
       if (response?.payload) {
         const blob = new Blob([response.payload], { type: 'application/pdf' });
@@ -271,6 +278,10 @@ const MyAccount = () => {
       }
     } catch (error) {
       console.error('Error downloading PDF:', error.message);
+
+    } finally {
+      setLoading(false);
+      document.body.classList.remove('cursor-spinner'); // Remove the cursor-spinner class
     }
   };
 
@@ -334,20 +345,6 @@ const MyAccount = () => {
                           </span>
                         ) : null}
                       </div>
-
-                      {/* <div class="form-div">
-                                        <label htmlFor="password">Your password</label>
-                                        <input type="password" id="password" name="password" className={`${formik.errors.password &&
-                                            formik.touched.password && "invalidInput"}`} placeholder="************" value={formik?.values?.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                        {formik.errors.password &&
-                                            formik.touched.password ? (
-                                            <span className="input-error-msg">
-                                                {formik.errors.password}
-                                            </span>
-                                        ) : null}
-                                    </div> */}
-
-
                     </div>
                     <div className="col-lg-6 col-md-6">
                       <div class="form-div">

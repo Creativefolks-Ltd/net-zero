@@ -176,7 +176,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                     id="purchased_new_vehicle_yes"
                                                     name="purchased_new_vehicle"
                                                     value="Yes"
-                                                    checked={formik.values.purchased_new_vehicle === "Yes"}
+                                                    defaultChecked={formik.values.purchased_new_vehicle === "Yes"}
                                                 />
                                                 <label htmlFor="purchased_new_vehicle_yes" className={formik.values.purchased_new_vehicle === "Yes" ? "active" : ""}>Yes</label>
                                                 <input
@@ -184,7 +184,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                     id="purchased_new_vehicle_no"
                                                     name="purchased_new_vehicle"
                                                     value="No"
-                                                    checked={formik.values.purchased_new_vehicle === "No"}
+                                                    defaultChecked={formik.values.purchased_new_vehicle === "No"}
                                                 />
                                                 <label htmlFor="purchased_new_vehicle_no" className={formik.values.purchased_new_vehicle === "No" ? "active" : ""}>
                                                     No
@@ -204,7 +204,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 rows="6"
                                                 name={"vehicle_detail"}
                                                 id={"vehicle_detail"}
-                                                value={formik.values.vehicle_detail}
+                                                defaultValue={formik.values.vehicle_detail}
                                                 className={`form-control ${formik.errors.vehicle_detail &&
                                                     formik.touched.vehicle_detail ? "invalidInput" : ""} `}
                                                 cols="50"
@@ -241,7 +241,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             rows="6"
                                             name={"important_purchases_detail"}
                                             id={"important_purchases_detail"}
-                                            value={formik.values.important_purchases_detail}
+                                            defaultValue={formik.values.important_purchases_detail}
                                             className={`form-control`}
                                             cols="50"
                                             onChange={formik.handleChange}
@@ -260,7 +260,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         <select className="form-control "
                                             name={"average_pieces_per_quarter"}
                                             id={"average_pieces_per_quarter"}
-                                            value={formik.values.average_pieces_per_quarter}
+                                            defaultValue={formik.values.average_pieces_per_quarter}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}                     >
                                             <option value="0">Select option</option>
@@ -283,7 +283,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         <select className="form-control "
                                             name={"pet_type"}
                                             id={"pet_type"}
-                                            value={formik.values.pet_type}
+                                            defaultValue={formik.values.pet_type}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}  >
                                             <option value="">Select option</option>
@@ -303,7 +303,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 rows="6"
                                                 className="form-control"
                                                 cols="50"
-                                                value={formik.values.pet_detail}
+                                                defaultValue={formik.values.pet_detail}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxlength={1000}
@@ -319,7 +319,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         </div>
 
                                         <select name="meat_based_meals_frequency" id="meat_based_meals_frequency" className="form-control "
-                                            value={formik.values.meat_based_meals_frequency}
+                                            defaultValue={formik.values.meat_based_meals_frequency}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}>
                                             <option value="">Select option</option>
@@ -339,7 +339,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         </div>
                                         <select className="form-control "
                                             name="dairy_frequency" id="dairy_frequency"
-                                            value={formik.values.dairy_frequency}
+                                            defaultValue={formik.values.dairy_frequency}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}>
                                             <option value="">Select option</option>
@@ -363,7 +363,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         </div>
                                         <select className="form-control"
                                             name="food_purchase_statement" id="food_purchase_statement"
-                                            value={formik.values.food_purchase_statement}
+                                            defaultValue={formik.values.food_purchase_statement}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                         >
@@ -396,7 +396,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             rows="6"
                                             cols="50"
                                             name="information_diet_clothes_parter" id="information_diet_clothes_parter"
-                                            value={formik.values.information_diet_clothes_parter}
+                                            defaultValue={formik.values.information_diet_clothes_parter}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             maxlength={1000}
@@ -424,7 +424,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             className="form-control"
                                             name="planning_this_year"
                                             id="planning_this_year"
-                                            value={formik.values.planning_this_year}
+                                            defaultValue={formik.values.planning_this_year}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}>
                                             <option value="">Select option</option>
@@ -443,7 +443,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 rows="6"
                                                 cols="50"
                                                 name="events_details" id="events_details"
-                                                value={formik.values.events_details}
+                                                defaultValue={formik.values.events_details}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxlength={1000}

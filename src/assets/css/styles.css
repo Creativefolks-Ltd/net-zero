@@ -173,6 +173,10 @@ input {
     z-index: 999;
 }
 
+.cursor-spinner {
+    cursor: wait;
+}
+
 /* Transparent Header End */
 
 .container {
@@ -1708,27 +1712,33 @@ select {
     display: block;
     margin-top: 80px;
 }
+
 .manage-password-link-box .account-link:after {
     position: absolute;
-    content: "";    
+    content: "";
     width: 28px;
     height: 20px;
     background-image: url(../images/arrow_img.svg);
     background-size: cover;
     margin-left: 9px;
 }
+
 .manage-password-link-box {
     padding-right: 50px;
 }
-.saved-form-div{
+
+.saved-form-div {
     margin-top: 80px;
 }
+
 .saved-form-div .submitted-div {
     padding-left: 38px;
 }
+
 .saved-form-div .pending-div {
     padding-right: 38px;
 }
+
 /*****************accordion****************/
 
 .accordion-button {
@@ -1845,10 +1855,13 @@ select {
     margin-left: 14px;
     background-size: cover;
 }
-.pending-div h2, .submitted-div h2 {
+
+.pending-div h2,
+.submitted-div h2 {
     font-size: 44px;
     line-height: 48px;
 }
+
 .accordion-button td {
     font-size: 30px;
     line-height: 34px;
@@ -2394,6 +2407,7 @@ select {
     max-width: 100%;
     text-align: center !important;
 }
+
 .slider-labels span.active {
     font-weight: 600;
 }
@@ -2428,6 +2442,7 @@ select {
     display: flex;
     flex-direction: column;
 }
+
 .custom-title {
     font-family: "halcom", sans-serif;
     font-size: 50px;
@@ -2436,28 +2451,33 @@ select {
     color: #000;
     padding: 0;
 }
+
 .submit-container-popup {
     padding: 40px 160px 60px 160px;
     width: 1004px;
     border-radius: 24px;
 }
+
 .submit-container-popup img {
     width: 150px;
     height: 150px;
-	margin-bottom: 20px;
-	
+    margin-bottom: 20px;
+
 }
+
 .submit-container-popup .action-button-box {
     margin: 40px 0 0 0;
-	
+
 }
+
 .submit-container-popup .custom-cancel-button {
     margin: 20px 0 0 0;
-	padding: 13px 40px;
+    padding: 13px 40px;
 }
+
 .submit-container-popup .custom-confirm-button {
     margin: 20px 0 0 0;
-	padding: 13px 32px !important;
+    padding: 13px 32px !important;
 }
 
 
@@ -2528,6 +2548,7 @@ select {
     .navbar-toggler ul {
         padding-left: 0;
     }
+
     .submit-container-popup img {
         width: 150px !important;
         height: 150px !important;
@@ -2618,14 +2639,17 @@ select {
     .sub-btn label {
         padding: 13px 60px;
     }
+
     .submit-container-popup {
         padding: 40px 100px 60px 100px !important;
         width: 800px !important;
-}
+    }
+
     .saved-form-div h2 {
-    font-size: 52px;
-    line-height: 58px;
-}
+        font-size: 52px;
+        line-height: 58px;
+    }
+
     .myaccount-container form {
         margin-top: 0;
     }
@@ -2678,6 +2702,7 @@ select {
     .modal-input-col label {
         font-size: 24px !important;
     }
+
     .submissions .submission-form .form-div {
         width: 62%;
     }
@@ -2730,6 +2755,7 @@ select {
     .submissions-bg-color {
         padding: 40px;
     }
+
     .sub-btn label {
         padding: 13px 16px;
     }
@@ -3450,11 +3476,13 @@ select {
         font-weight: 500;
         margin-right: 20px;
     }
+
     .economy-table .label-block {
         font-size: 18px;
         line-height: 22px;
         font-weight: 600;
     }
+
     .economy-row {
         padding: 0 0 17px;
         border-bottom: 1px solid #81C14B;
@@ -3750,68 +3778,85 @@ select {
     .saved-form-div {
         margin-top: 0px;
     }
+
     .saved-form-div .pending-div {
         padding-right: 12px;
     }
+
     .saved-form-div .submitted-div {
         padding-left: 12px;
         margin-top: 34px;
-    }   
-     .manage-password-link-box .account-link {
-         text-align: center !important;
-         margin-top: 40px;
     }
+
+    .manage-password-link-box .account-link {
+        text-align: center !important;
+        margin-top: 40px;
+    }
+
     .myaccount-container form {
         margin-top: 0;
     }
+
     .saved-form-div h2 {
         font-size: 28px;
         line-height: 34px;
     }
+
     .submit-container-popup img {
         width: 79px !important;
         height: 74px !important;
         margin-bottom: 32px;
         margin-top: 0;
     }
+
     .submit-container-popup {
         padding: 40px 30px 60px 30px !important;
         width: 100% !important;
     }
+
     .submit-container-popup .custom-title {
         font-size: 20px;
         line-height: 24px;
     }
+
     .submit-container-popup .swal2-html-container {
         margin: 17px 0 0 0 !important;
     }
+
     .submit-container-popup .action-button-box {
         margin: 30px 0 0 0;
     }
+
     .manage-password-link-box {
         margin-right: 41px;
         padding: 0;
     }
+
     .manage-password-link-box .account-link:after {
         width: 25px;
         height: 18px;
         margin-left: 9px;
         margin-top: 2px;
     }
+
     .accordion-button td {
         font-size: 22px;
         line-height: 28px;
     }
+
     .pending-form .title-accodion span:before {
         width: 26px;
         height: 29px;
-    }    
-    .economy-row .input-col input[type="text"]{
+    }
+
+    .economy-row .input-col input[type="text"] {
         text-align: center;
     }
+
     .food-shopping p.gray-paragraph {
         text-align: left;
     }
+
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3822,4 +3867,3 @@ select {
         padding: 0;
     }
 }
-
