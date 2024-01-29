@@ -17,7 +17,7 @@ const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"]
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = ({selectedHome}) => {
+const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -151,7 +151,7 @@ const Homeform = ({selectedHome}) => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-  });
+    });
   }
 
   async function submitHandler(values) {
@@ -212,7 +212,8 @@ const Homeform = ({selectedHome}) => {
 
   const deleteHandler = async () => {
     try {
-      if (currentHomeId === null) {
+      if (currentHomeId === null || currentHomeId === undefined) {
+        LocalHomeDelete(selectedHome)
         return false
       }
       const result = await Swal.fire({
@@ -230,6 +231,7 @@ const Homeform = ({selectedHome}) => {
 
         await dispatch(homeFormDelete(currentHomeId));
         dispatch(homeformIds(general_information_id));
+        setSelectedHome(1)
         Swal.fire({
           title: "Deleted!",
           text: "Home deleted successfully",
@@ -1925,7 +1927,7 @@ const Homeform = ({selectedHome}) => {
                         </button> */}
                       </div>
                       {formik.submitCount > 0 && !formik.isValid ? (
-                        <span className="input-error-msg d-flex text-left">Please fill the required* fields before continuing.</span>
+                        <span className="input-error-msg d-flex justify-content-end">Please fill the required* fields before continuing.</span>
                       ) : null}
                     </div>
                   </div>

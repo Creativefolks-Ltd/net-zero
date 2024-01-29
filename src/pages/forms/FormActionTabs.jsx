@@ -10,7 +10,7 @@ import { homeformIds } from "../../redux-store/actions/user";
 import { setCurrentHomeId } from "../../redux-store/reducers/user";
 
 
-const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLength }) => {
+const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLength, deleteHome, setDeleteHome }) => {
   const dispatch = useDispatch()
   // const [activeTab, setActiveTab] = useState(activeTab);
   const [homeActiveTab, setHomeActiveTab] = useState(1);
@@ -31,10 +31,21 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   }
 
   useEffect(() => {
+    if (deleteHome) {
+      setHomeCount(homeCount - 1);
+      setHomeActiveTab(1);
+      setDeleteHome(false)
+    }
+  }, [deleteHome])
+
+  useEffect(() => {
     if (homeIds?.length > 0) {
-      setHomeCount(homeIds?.length)
+      const currentIndex = homeIds?.length < 5 ? 0 : 1
+      setHomeCount(homeIds?.length + currentIndex)
+      setHomeActiveTab(1);
     }
   }, [homeIds]);
+
 
   const handleHomeTabs = (activeIndex) => {
     setHomeActiveTab(activeIndex);
@@ -45,7 +56,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
     }
   }
   const addHomeHandler = () => {
-    if (homeCount < 5) {
+    if (homeCount < 5 && homeCount === homeIds?.length) {
       setHomeCount(prevCount => prevCount + 1);
     }
   };

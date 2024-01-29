@@ -14,11 +14,13 @@ import HomeForm from "./Homeform";
 import Travel from "./Travel";
 import FoodAndShopping from "./FoodAndShopping";
 import Financial from "./Financial";
+import Swal from "sweetalert2";
 
 const FormsLayout = () => {
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState("general");
     const [selectedHome, setSelectedHome] = useState(1);
+    const [deleteHome, setDeleteHome] = useState(false);
     const singleForm = useSelector((state) => state.admin.singleForm)
     const general_information_id = useSelector((state) => state.auth.generalInfoId)
     const formCompleted = useSelector((state) => state.auth.formCompleted)
@@ -51,15 +53,37 @@ const FormsLayout = () => {
 
     const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
+    const LocalHomeDelete = async (activeId) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (result.isConfirmed) {
+            await setDeleteHome(true)
+            await setSelectedHome(1)
+            Swal.fire({
+                title: "Deleted!",
+                text: "Home deleted successfully",
+                icon: "success",
+            });
+        }
+    }
+
     return (
         <div className={`main-header bg-${activeTab === "home" ? "home-form" : activeTab === "food" ? "food-shopping" : activeTab}`}>
             <Header bgTransparent={true} />
-            <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} />
+            <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} deleteHome={deleteHome} setDeleteHome={setDeleteHome} />
             {activeTab === "general" && (
                 formCompleted >= 1 ? <GeneralView general={general} /> : <General />
             )}
             {activeTab === "home" && (
-                formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} /> : <HomeForm selectedHome={selectedHome} />
+                formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome}/>
             )}
             {activeTab === "travel" && (
                 formCompleted >= 3 ? <TravelView travel={travel} /> : <Travel />

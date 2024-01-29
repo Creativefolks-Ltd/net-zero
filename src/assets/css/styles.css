@@ -193,7 +193,7 @@ input {
     justify-content: space-between;
 }
 
-.site-header .navbar ul {
+.site-header .navbar .nav-items ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -201,8 +201,13 @@ input {
     border: none;
     flex-wrap: wrap;
     margin-bottom: 0;
+    /* flex-direction: column; */
 }
-
+.site-header .navbar .navbar-toggler ul{
+   display: flex;
+   align-items: center;
+    gap: 20px;
+}
 
 .site-header .navbar ul li {
     list-style: none;
@@ -1733,6 +1738,7 @@ select {
 
 .saved-form-div {
     margin-top: 80px;
+    margin-bottom: 130px;
 }
 
 .saved-form-div .submitted-div {
@@ -2850,6 +2856,7 @@ select {
 }
 
 @media (max-width:767px) {
+
     .Policy h1 {
         font-size: 24px;
         line-height: 30px;
@@ -2876,13 +2883,18 @@ select {
 
     .hamburger img {
         width: 27px;
-        height: 23px;
+        height: 27px;
     }
 
     .site-header .navbar ul {
         gap: 26px;
     }
-
+.site-header .navbar .nav-items ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+}
     .navbar-toggler {
         padding-right: 0;
     }
@@ -3780,7 +3792,7 @@ select {
     }
 
     .saved-form-div {
-        margin-top: 0px;
+        margin-top: 100px;
     }
 
     .saved-form-div .pending-div {
