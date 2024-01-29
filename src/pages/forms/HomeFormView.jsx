@@ -218,7 +218,7 @@ const HomeFormView = ({ home, selectedHome }) => {
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true)
-        Swal.fire({
+        Swal.fire({ 
           title: "Success!",
           text: "Form submitted successfully",
           imageUrl: SuccessImg,
@@ -429,7 +429,7 @@ const HomeFormView = ({ home, selectedHome }) => {
               </div>
             </div>
             {/* Electricity Section */}
-            {home?.heating_type?.includes("Electricity") && (
+            {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type.includes("Electricity") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">

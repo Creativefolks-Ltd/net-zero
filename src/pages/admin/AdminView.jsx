@@ -11,6 +11,7 @@ import FormActionTabs from "../forms/FormActionTabs";
 import { downloadPdf } from "../../redux-store/actions/user";
 import FormTabsView from "../forms/FormTabsView";
 import FinancialView from "../forms/FinancialView";
+import moment from "moment";
 
 const AdminView = () => {
   const location = useLocation();
@@ -178,7 +179,7 @@ const AdminView = () => {
                     <p>First name: {general?.first_name}</p>
                     <p>Last name: {general?.last_name}</p>
                     <p>Email address: {general?.email}</p>
-                    <p>Calendar year: { }</p>
+                    <p>Calendar year: {moment(general?.created_at).format("DD/MM/YYYY")}</p>
                   </div>
                   <div className="admin-text-btn">
                     <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
@@ -210,7 +211,7 @@ const AdminView = () => {
             </div>
           </div>
         </section>)}
-      
+
       <section className={`full-form ${adminPath !== "admin" ? "mt-80" : ""}`}>
         <div className="container">
           <div className="row">

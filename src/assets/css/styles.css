@@ -177,6 +177,10 @@ input {
     cursor: wait;
 }
 
+.table-img.active img {
+    cursor: unset;
+}
+
 /* Transparent Header End */
 
 .container {
