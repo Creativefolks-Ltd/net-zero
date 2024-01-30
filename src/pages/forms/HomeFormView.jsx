@@ -218,7 +218,7 @@ const HomeFormView = ({ home, selectedHome }) => {
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true)
-        Swal.fire({ 
+        Swal.fire({
           title: "Success!",
           text: "Form submitted successfully",
           imageUrl: SuccessImg,
@@ -1418,27 +1418,29 @@ const HomeFormView = ({ home, selectedHome }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="form-div">
-                            <label htmlFor="land_details">
-                              <strong>22.&nbsp;</strong>Please provide some details
-                              on the land, and any livestock?{" "}
-                            </label>
-                            <textarea
-                              id="land_details"
-                              name="land_details"
-                              rows="6"
-                              className={`form-control`}
-                              value={formik.values.land_details}
-                              cols="50"
-                              maxLength={1000}
-                            ></textarea>
-                          </div>
+                          {formik?.values?.significant_land === "Yes" && (
+                            <div className="form-div">
+                              <label htmlFor="land_details">
+                                <strong>22.&nbsp;</strong>Please provide some details
+                                on the land, and any livestock?{" "}
+                              </label>
+                              <textarea
+                                id="land_details"
+                                name="land_details"
+                                rows="6"
+                                className={`form-control`}
+                                value={formik.values.land_details}
+                                cols="50"
+                                maxLength={1000}
+                              ></textarea>
+                            </div>
+                          )}
                           <div className="form-div">
                             <label htmlFor="other_details">
                               <strong>23.&nbsp;</strong>Is there anything else you
                               would like to tell us? For Example, What measures
                               have you taken to improve the sustainability of
-                              you home? Have you had any challenges in doing so?
+                              your home? Have you had any challenges in doing so?
                               Has the building has been developed to meet a
                               particular environmental standard (Passivhaus
                               standards etc) ? Do you use a heat pump?{" "}

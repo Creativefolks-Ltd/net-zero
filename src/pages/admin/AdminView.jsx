@@ -23,6 +23,7 @@ const AdminView = () => {
   const [activeTab, setActiveTab] = useState("general");
   const [selectedHome, setSelectedHome] = useState(1);
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const locationOfFile = location.pathname;
   const split1 = locationOfFile?.split('/');
@@ -34,7 +35,12 @@ const AdminView = () => {
 
   useEffect(() => {
     if (decodedFormId) {
-      dispatch(fetchParticularForm(decodedFormId))
+      const getFormDetails = async () => {
+        setLoading(true)
+        await dispatch(fetchParticularForm(decodedFormId))
+        setLoading(false)
+      }
+      getFormDetails()
     }
   }, [decodedFormId])
 
@@ -162,77 +168,94 @@ const AdminView = () => {
       {adminPath === "admin" && (
         <section className="admin-view">
           <div className="container">
-            <div className="admin-view-bg-color">
-              <div class="card">
-                <div className="admin-view-header">
-                  <div class="sub-heading">
-                    <h2>Form name</h2>
+            {loading ? (
+              <>
+                <p className="placeholder-glow">
+                  <span className="placeholder col-12 vh-30 "></span>
+                </p>
+              </>
+            ) : (
+              <div className="admin-view-bg-color">
+                <div class="card">
+                  <div className="admin-view-header">
+                    <div class="sub-heading">
+                      <h2>Form name</h2>
+                    </div>
+                    <div class="admin-header-btn">
+                      <Link to="/admin/dashboard" className="btn">
+                        Back
+                      </Link>
+                    </div>
                   </div>
-                  <div class="admin-header-btn">
-                    <Link to="/admin/dashboard" className="btn">
-                      Back
-                    </Link>
-                  </div>
-                </div>
-                <div className="admin-view-content">
-                  <div className="admin-text">
-                    <p>First name: {general?.first_name}</p>
-                    <p>Last name: {general?.last_name}</p>
-                    <p>Email address: {general?.email}</p>
-                    <p>Calendar year: {moment(general?.created_at).format("DD/MM/YYYY")}</p>
-                  </div>
-                  <div className="admin-text-btn">
-                    <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
-                      Download PDF
-                      {disabled ? (
-                        <div
-                          className="spinner-border text-primary"
-                          role="status"
-                        ></div>
-                      ) : (
-                        ""
-                      )}
-                    </button>
+                  <div className="admin-view-content">
+                    <div className="admin-text">
+                      <p>First name: {general?.first_name}</p>
+                      <p>Last name: {general?.last_name}</p>
+                      <p>Email address: {general?.email}</p>
+                      <p>Calendar year: {moment(general?.created_at).format("DD/MM/YYYY")}</p>
+                    </div>
+                    <div className="admin-text-btn">
+                      <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
+                        Download PDF
+                        {disabled ? (
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          ></div>
+                        ) : (
+                          ""
+                        )}
+                      </button>
 
-                    <button class="btn" type="button">
-                      Assign to different user
-                    </button>
+                      <button class="btn" type="button">
+                        Assign to different user
+                      </button>
 
-                    <button
-                      class="btn"
-                      type="button"
-                      onClick={(e) => handleDeleteConfirmation(e)}
-                    >
-                      Delete form
-                    </button>
+                      <button
+                        class="btn"
+                        type="button"
+                        onClick={(e) => handleDeleteConfirmation(e)}
+                      >
+                        Delete form
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </section>)}
 
       <section className={`full-form ${adminPath !== "admin" ? "mt-80" : ""}`}>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="full-form-div py-0 bg-secondary">
-                <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} />
-                {activeTab === "general" && (<GeneralView general={general} />)}
-                {activeTab === "home" && (<HomeFormView home={homeDetails} />)}
-                {activeTab === "travel" && (<TravelView travel={travel} />)}
-                {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
-                {activeTab === "financial" && (<FinancialView financial={financial} />)}
+          {loading ? (
+            <p className="placeholder-glow form-skeleton">
+              <div className="text-center">
+                Loading...
               </div>
+              <span className="placeholder col-12 vh-50"></span>
+            </p>
+          ) : (
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="full-form-div py-0 bg-secondary">
+                  <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} />
+                  {activeTab === "general" && (<GeneralView general={general} />)}
+                  {activeTab === "home" && (<HomeFormView home={homeDetails} />)}
+                  {activeTab === "travel" && (<TravelView travel={travel} />)}
+                  {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
+                  {activeTab === "financial" && (<FinancialView financial={financial} />)}
+                </div>
+              </div>
+              {adminPath === "admin" && (
+                <div class="admin-header-btn">
+                  <Link to="/admin/dashboard" className="btn">
+                    Back
+                  </Link>
+                </div>
+              )}
             </div>
-            {adminPath === "admin" && (
-              <div class="admin-header-btn">
-                <Link to="/admin/dashboard" className="btn">
-                  Back
-                </Link>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </section>
     </>

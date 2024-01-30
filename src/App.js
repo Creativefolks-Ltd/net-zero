@@ -26,24 +26,26 @@ import FormsLayout from "./pages/FormsLayout.jsx";
 import { useDispatch } from "react-redux";
 import { addGeneralInfo } from "./redux-store/actions/user.js";
 import { setFormCompleted } from "./redux-store/reducers/auth.js";
+import { singleFormReset } from "./redux-store/reducers/admin.js";
 import PageNotFound from "./pages/PageNotFound.jsx";
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const formsSectionOpened = (location.pathname === "/forms" ? true : false);
+  const formsSectionOpened = ((location.pathname === "/forms" || location.pathname?.includes("/form-view")) ? true : false);
 
   const resetFormStates = () => {
     dispatch(addGeneralInfo(null))
     dispatch(setFormCompleted(0))
-}
+    dispatch(singleFormReset())
+  }
 
-useEffect(() => {
+  useEffect(() => {
     if (!formsSectionOpened) {
-        resetFormStates()
+      resetFormStates()
     }
-}, [formsSectionOpened])
+  }, [formsSectionOpened])
 
   return (
     <div className="App">
@@ -65,10 +67,9 @@ useEffect(() => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin/*" element={<Dashboard />} />
-          <Route path="/admin/*" element={<Dashboard />} />
         </Route>
         <Route path="/forms" element={<ProtectedRoute><FormsLayout /></ProtectedRoute>} />
-          <Route path="/*" element={<PageNotFound />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

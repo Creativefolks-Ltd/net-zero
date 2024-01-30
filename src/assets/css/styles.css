@@ -3887,12 +3887,46 @@ select {
     }
 }
 
-/* ************************  container 404 */
-.error-block {
-    background: url("../images/pagenotfound_img.webp");
+/*********************** 404 Page Not Found *********************/
+.page-not-found-container {
+    background: url("../images/home_img1.png"); 
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
     height: 100vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
     opacity: 0.9;
+}
+
+.page-not-found-inner-container {
+    color: #fff;
+    margin: 0 auto;
+}
+
+.page-not-found-inner-container a button{
+    
+    background-color: #fff;
+    color: #000;
+    margin-top: 40px;
+}
+
+/*********************** Loader Skeleton *********************/
+.vh-4 {
+    height: 4vh;
+}
+.vh-6 {
+    height: 6ch;
+}
+
+.vh-30 {
+    height: 30vh;
+}
+
+.vh-50 {
+    height: 50vh;
+}
+
+.form-skeleton {
+    margin-bottom: 80px !important;
 }

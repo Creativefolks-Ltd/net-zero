@@ -211,6 +211,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxlength={1000}
+                                                readOnly
                                             ></textarea>
                                         </div>
                                     )}
@@ -247,6 +248,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             maxlength={1000}
+                                            readOnly
                                         ></textarea>
                                     </div>
 
@@ -262,7 +264,8 @@ const FoodAndShoppingView = ({ food }) => {
                                             id={"average_pieces_per_quarter"}
                                             defaultValue={formik.values.average_pieces_per_quarter}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}                     >
+                                            onBlur={formik.handleBlur}
+                                            readOnly>
                                             <option value="0">Select option</option>
                                             <option value="2">1 - 3</option>
                                             <option value="7">4 - 10</option>
@@ -285,7 +288,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             id={"pet_type"}
                                             defaultValue={formik.values.pet_type}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}  >
+                                            onBlur={formik.handleBlur} readOnly >
                                             <option value="">Select option</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -307,6 +310,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxlength={1000}
+                                                readOnly
                                             ></textarea>
                                         </div>
                                     )}
@@ -321,7 +325,7 @@ const FoodAndShoppingView = ({ food }) => {
                                         <select name="meat_based_meals_frequency" id="meat_based_meals_frequency" className="form-control "
                                             defaultValue={formik.values.meat_based_meals_frequency}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}>
+                                            onBlur={formik.handleBlur} readOnly>
                                             <option value="">Select option</option>
                                             <option value="Never">Never</option>
                                             <option value="Once or Twice">Once or Twice A Week</option>
@@ -341,7 +345,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             name="dairy_frequency" id="dairy_frequency"
                                             defaultValue={formik.values.dairy_frequency}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}>
+                                            onBlur={formik.handleBlur} readOnly>
                                             <option value="">Select option</option>
                                             <option value="Never">Never</option>
                                             <option value="Once or Twice">Once or Twice A Week</option>
@@ -366,6 +370,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             defaultValue={formik.values.food_purchase_statement}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
+                                            readOnly
                                         >
                                             <option value="">Select option</option>
                                             <option value="5">We rarely throw away uneaten food (less than 10%)</option>
@@ -400,6 +405,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             maxlength={1000}
+                                            readOnly
                                         ></textarea>
                                     </div>
 
@@ -426,7 +432,8 @@ const FoodAndShoppingView = ({ food }) => {
                                             id="planning_this_year"
                                             defaultValue={formik.values.planning_this_year}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}>
+                                            onBlur={formik.handleBlur}
+                                            readOnly>
                                             <option value="">Select option</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -447,6 +454,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 maxlength={1000}
+                                                readOnly
                                             ></textarea>
                                         </div>
                                     )}

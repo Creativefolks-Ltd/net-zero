@@ -6,10 +6,19 @@ const adminSlice = createSlice({
     name: "admin",
     initialState: {
         isLoading: false,
+        adminPageShow: false,
         adminDetails: {},
         getAllForms: {},
         singleForm: {},
         isError: false
+    },
+    reducers: {
+        singleFormReset(state, action){
+            state.singleForm = {}
+        },
+        adminPageViewFunc(state, action){
+            state.adminPageShow = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAdminDetails.pending, (state, action) => {
@@ -44,4 +53,5 @@ const adminSlice = createSlice({
     }
 });
 
+export const { singleFormReset, adminPageViewFunc } = adminSlice.actions;
 export default adminSlice.reducer;

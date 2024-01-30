@@ -1894,7 +1894,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
                               <strong>23.&nbsp;</strong>Is there anything else you
                               would like to tell us? For Example, What measures
                               have you taken to improve the sustainability of
-                              you home? Have you had any challenges in doing so?
+                              your home? Have you had any challenges in doing so?
                               Has the building has been developed to meet a
                               particular environmental standard (Passivhaus
                               standards etc) ? Do you use a heat pump?{" "}

@@ -9,6 +9,7 @@ import AdminChangePassword from "./AdminChangePassword.jsx";
 import { useDispatch } from "react-redux";
 import { addGeneralInfo } from "../../redux-store/actions/user.js";
 import AdminProtectedRoute from "../../routes/AdminProtectedRoute.js";
+import PageNotFound from "../PageNotFound.jsx";
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function Dashboard() {
             <Route path="form-view/:form_id" element={<AdminProtectedRoute><AdminView /></AdminProtectedRoute>} />
             <Route path="create-user" element={<AdminProtectedRoute><CreateNewUser /></AdminProtectedRoute>} />
             <Route path="manage-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
+            <Route path="/*" element={<PageNotFound isAdmin={true} />} />
         </Routes>
     );
 }

@@ -50,7 +50,7 @@ const TravelView = ({ travel }) => {
       partner_offset_flights: travel?.partner_offset_flights ?? null,
       additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
       additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
-      transport_selected_year: travel?.transport_selected_year !== undefined ? [travel?.transport_selected_year] : [], //"car,bike.name" //string,
+      transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(',') : [], //"car,bike.name" //string,
       transport_selected_year_details: travel?.transport_selected_year_details !== undefined ? JSON.parse(travel?.transport_selected_year_details) : [],
       hotel_nights: travel?.hotel_nights ?? null,
       other_travel_info: travel?.other_travel_info ?? ""
@@ -137,7 +137,7 @@ const TravelView = ({ travel }) => {
                                 type="text"
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
-                                defaultValue={formik.values[flightType][classType]}
+                                value={formik.values[flightType][classType]}
                                 readOnly
                               />
                             </div>
@@ -161,7 +161,7 @@ const TravelView = ({ travel }) => {
                     id="proportion_offset_flights"
                     className={`form-control `}
                     name={`proportion_offset_flights`}
-                    defaultValue={formik.values.proportion_offset_flights}
+                    value={formik.values.proportion_offset_flights}
                     readOnly
                   />
 
@@ -179,7 +179,7 @@ const TravelView = ({ travel }) => {
                     id={`how_many_cars`}
                     className={`form-control `}
                     readOnly
-                    defaultValue={formik.values.how_many_cars}>
+                    value={formik.values.how_many_cars}>
                     <option value="">Select option</option>
                     {Array(10)
                       .fill()
@@ -305,7 +305,7 @@ const TravelView = ({ travel }) => {
                                 type="text"
                                 placeholder="00"
                                 name={`${flightType}.${classType}`}
-                                defaultValue={formik.values[flightType][classType]}
+                                value={formik.values[flightType][classType]}
                                 readOnly
                               />
                             </div>
@@ -329,7 +329,7 @@ const TravelView = ({ travel }) => {
                     name="partner_offset_flights"
                     id="partner_offset_flights"
                     class="form-control undefined"
-                    defaultValue={formik.values.partner_offset_flights}
+                    value={formik.values.partner_offset_flights}
                     readOnly
                   />
 
@@ -344,7 +344,7 @@ const TravelView = ({ travel }) => {
                   </div>
                   <select className="form-control"
                     name={`additional_vehicles_by_partner_children`}
-                    defaultValue={formik.values.additional_vehicles_by_partner_children}
+                    value={formik.values.additional_vehicles_by_partner_children}
                     readOnly>
                     <option value="">Select option</option>
                     {Array(10)

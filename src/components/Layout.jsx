@@ -12,6 +12,7 @@ const Layout = () => {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth);
+    const adminPageShow = useSelector((state) => state.admin.adminPageShow);
 
     const [bgTransparent, setBgTransparent] = useState(false);
 
@@ -40,9 +41,12 @@ const Layout = () => {
 
     return (
         <div className={"main-header bg-" + pathname}>
-            <Header bgTransparent={bgTransparent} />
+            {!adminPageShow && (
+                <Header bgTransparent={bgTransparent} />
+            )}
             <Outlet />
-            <Footer />
+            {!adminPageShow && (
+                <Footer />)}
         </div>
     )
 }
