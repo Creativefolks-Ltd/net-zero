@@ -203,9 +203,10 @@ input {
     margin-bottom: 0;
     /* flex-direction: column; */
 }
-.site-header .navbar .navbar-toggler ul{
-   display: flex;
-   align-items: center;
+
+.site-header .navbar .navbar-toggler ul {
+    display: flex;
+    align-items: center;
     gap: 20px;
 }
 
@@ -2889,12 +2890,14 @@ select {
     .site-header .navbar ul {
         gap: 26px;
     }
-.site-header .navbar .nav-items ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    flex-direction: column;
-}
+
+    .site-header .navbar .nav-items ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        flex-direction: column;
+    }
+
     .navbar-toggler {
         padding-right: 0;
     }
@@ -3882,4 +3885,14 @@ select {
     .login-form-inner-bg-div {
         padding: 0;
     }
+}
+
+/* ************************  container 404 */
+.error-block {
+    background: url("../images/pagenotfound_img.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    opacity: 0.9;
 }
