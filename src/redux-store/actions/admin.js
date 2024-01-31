@@ -48,6 +48,15 @@ export const uploadCSV = createAsyncThunk('uploadCSV', async (file, thunkAPI) =>
     }
 });
 
+export const getUserList = createAsyncThunk('getUserList', async (thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/admin/user/list`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
 export const fetchParticularForm = createAsyncThunk('fetchParticularForm', async (form_id, thunkAPI) => {
     try {
         const response = await axios.get(`/api/admin/fetch/form?form_id=${form_id}`);

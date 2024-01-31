@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchParticularForm, getAdminDetails, getAllForms } from "../actions/admin";
+import { fetchParticularForm, getAdminDetails, getAllForms, getUserList } from "../actions/admin";
 
 
 const adminSlice = createSlice({
@@ -10,13 +10,14 @@ const adminSlice = createSlice({
         adminDetails: {},
         getAllForms: {},
         singleForm: {},
+        getUserList: [],
         isError: false
     },
     reducers: {
-        singleFormReset(state, action){
+        singleFormReset(state, action) {
             state.singleForm = {}
         },
-        adminPageViewFunc(state, action){
+        adminPageViewFunc(state, action) {
             state.adminPageShow = action.payload
         }
     },
@@ -46,6 +47,16 @@ const adminSlice = createSlice({
                 state.isLoading = false;
                 state.singleForm = action.payload?.data;
             }).addCase(fetchParticularForm.rejected, (state, action) => {
+                state.isError = true;
+                state.isLoading = false;
+            })
+
+            .addCase(getUserList.pending, (state, action) => {
+                state.isLoading = true;
+            }).addCase(getUserList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.getUserList = action.payload?.data;
+            }).addCase(getUserList.rejected, (state, action) => {
                 state.isError = true;
                 state.isLoading = false;
             })

@@ -67,9 +67,12 @@ const Travel = () => {
     const {
       proportion_offset_flights,
       how_many_cars,
+      cars_detail,
       partner_offset_flights,
       additional_vehicles_by_partner_children,
+      additional_vehicles_by_partner_detail,
       transport_selected_year,
+      transport_selected_year_details,
       hotel_nights,
       ...rest
     } = values;
@@ -80,12 +83,16 @@ const Travel = () => {
       ...rest,
       proportion_offset_flights: parseFloat(proportion_offset_flights),
       how_many_cars: Number(how_many_cars),
+      cars_detail: cars_detail?.slice(0, Number(how_many_cars)),
       partner_offset_flights: Number(partner_offset_flights),
       additional_vehicles_by_partner_children: Number(additional_vehicles_by_partner_children),
-      transport_selected_year: transport_selected_year.toString(),
+      additional_vehicles_by_partner_detail: additional_vehicles_by_partner_detail?.slice(0, Number(additional_vehicles_by_partner_children)),
+      transport_selected_year: transport_selected_year?.toString(),
+      transport_selected_year_details: transport_selected_year_details?.slice(0, Number(transport_selected_year?.length)),
       hotel_nights: Number(hotel_nights),
       general_information_id
     };
+
     return filteredValues;
   };
 
@@ -107,17 +114,6 @@ const Travel = () => {
         setIsSubmitted(true);
         dispatch(setFormCompleted(user?.formCompleted + 1))
         navigateToNext()
-        // Swal.fire({
-        //   title: "Success!",
-        //   text: "Form submitted successfully",
-        //   imageUrl: SuccessImg,
-        //   imageWidth: 100,
-        //   imageHeight: 100,
-        //   showCancelButton: false,
-        //   confirmButtonColor: "#3085d6",
-        //   cancelButtonColor: "#d33",
-        //   didClose: navigateToNext
-        // });
       } else {
         setDisabled(false)
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -587,17 +583,17 @@ const Travel = () => {
                       </label>
                     </div>
                     <div className="sub-btn">
-                      {vehicalTypes.map((type, index) => (
+                      {vehicalTypes?.map((type, index) => (
                         <div className="check-input" key={index}>
                           <input
                             id={type + "1"}
                             type="checkbox"
                             name="transport_selected_year"
                             value={type}
-                            checked={formik.values.transport_selected_year.includes("Don't know") ? formik.values?.transport_selected_year?.splice(0, formik?.values?.transport_selected_year?.length, "Don't know") : formik.values.transport_selected_year.includes(type)}
+                            checked={formik.values.transport_selected_year?.includes("Don't know") ? formik.values?.transport_selected_year?.splice(0, formik?.values?.transport_selected_year?.length, "Don't know") : formik.values.transport_selected_year?.includes(type)}
                             onChange={formik.handleChange}
                           />
-                          <label htmlFor={type + "1"} className={`${formik.values.transport_selected_year.includes(type) ? "active" : ""}`}>
+                          <label htmlFor={type + "1"} className={`${formik.values?.transport_selected_year?.includes(type) ? "active" : ""}`}>
                             {type}
                           </label>
                         </div>
@@ -605,7 +601,6 @@ const Travel = () => {
                     </div>
                   </div>
                 </div>
-
 
                 {formik.values?.transport_selected_year?.length > 0 && (
                   <div className="modal-row-main">

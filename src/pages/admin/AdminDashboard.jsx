@@ -35,6 +35,8 @@ const AdminDashboard = () => {
   const [searchByEmail, setSearchByEmail] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const handleModalClose = useRef(null);
+
   const serialNo = (currentPage - 1) * itemsPerPage;
   const userId = admin?.adminDetails?.user_id
 
@@ -132,6 +134,7 @@ const AdminDashboard = () => {
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
         });
+        handleModalClose.current.click();
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -162,10 +165,10 @@ const AdminDashboard = () => {
         showCancelButton: false,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-    });
+      });
     } finally {
-      setUploading(false)
-      setSelectedFile(null)
+      setUploading(false);
+      setSelectedFile(null);
     }
   }
 
@@ -382,7 +385,7 @@ const AdminDashboard = () => {
           <div class="modal-dialog" >
             <div class="modal-content">
               <div class="close-btn-box d-flex justify-content-end">
-                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close" ref={handleModalClose}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
                     <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
                       <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
@@ -398,18 +401,26 @@ const AdminDashboard = () => {
                 <div class="upload-box" onDragOver={handleDragOver}
                   onDrop={handleDrop}>
                   <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
-                  {loading ? <div className="spinner">Loading...</div> : (
-                    <>
-                      <label htmlFor="uploadCsv">{selectedFile ? selectedFile.name : 'Drag & drop your CSV file'} </label>
-                      {!selectedFile && (
-                        <><br /> or
-                          <br />
-                          <label className="btn btn-primary" htmlFor="uploadCsv">
-                            Browse files
-                          </label>
-                        </>
-                      )}
-                    </>)}
+
+                  {loading || uploading ?
+                    (
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                    ) : (
+                      <>
+                        <label htmlFor="uploadCsv">{selectedFile ? selectedFile.name : 'Drag & drop your CSV file'} </label>
+                        {!selectedFile && (
+                          <><br /> or
+                            <br />
+                            <label className="btn btn-primary" htmlFor="uploadCsv">
+                              Browse files
+                            </label>
+                          </>
+                        )}
+                      </>)}
                 </div>
               </div>
               <div class="">
