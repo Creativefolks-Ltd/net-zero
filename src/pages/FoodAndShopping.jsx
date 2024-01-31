@@ -33,15 +33,20 @@ const FoodAndShopping = () => {
 
 
   const validateAndFilterFields = (values) => {
-    const {
-      ...rest
-    } = values;
-
+    const { purchased_new_vehicle, vehicle_detail, pet_type, pet_detail, planning_this_year, events_details, ...rest } = values;
     const general_information_id = Number(user?.generalInfoId);
+
     const filteredValues = {
       ...rest,
       general_information_id,
+      purchased_new_vehicle,
+      vehicle_detail: (purchased_new_vehicle === "Yes") ? vehicle_detail?.trim() : "",
+      pet_type,
+      pet_detail: (pet_type === "Yes") ? pet_detail?.trim() : "",
+      planning_this_year,
+      events_details: (planning_this_year === "Yes") ? events_details?.trim() : "",
     };
+
     return filteredValues;
   };
 
@@ -73,53 +78,42 @@ const FoodAndShopping = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-  });
+    });
   }
 
   async function submitHandler(values) {
 
-      setDisabled(true);
-      const filteredValues = await validateAndFilterFields(values);
-      const response = await dispatch(foodFormSubmit(filteredValues));
-      setDisabled(false)
-      if (!response?.payload?.error && response?.payload?.data) {
-        setIsSubmitted(true);
-        dispatch(setFormCompleted(user?.formCompleted + 1))
-        navigateToNext()
-        // Swal.fire({
-        //   title: "Success!",
-        //   text: "Form submitted successfully",
-        //   imageUrl: SuccessImg,
-        //   imageWidth: 100,
-        //   imageHeight: 100,
-        //   showCancelButton: false,
-        //   confirmButtonColor: "#3085d6",
-        //   cancelButtonColor: "#d33",
-        //   didClose: navigateToNext
-        // });
-      } else {
-        const errorMsg = response?.payload?.response?.data?.errorMsg;
-        if (errorMsg) {
-          let errorMessage = "";
-          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
-            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
-              ? errorMessages.join("\n")
-              : "";
-          } else {
-            errorMessage = errorMsg?.toString() || "";
-          }
-          Swal.fire({
-            title: "Failed!",
-            html: errorMessage || "Failed to form submit, please try again",
-            icon: "error",
-            showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-          });
+    setDisabled(true);
+    const filteredValues = await validateAndFilterFields(values);
+    const response = await dispatch(foodFormSubmit(filteredValues));
+    setDisabled(false)
+    if (!response?.payload?.error && response?.payload?.data) {
+      setIsSubmitted(true);
+      dispatch(setFormCompleted(user?.formCompleted + 1))
+      navigateToNext()
+    } else {
+      const errorMsg = response?.payload?.response?.data?.errorMsg;
+      if (errorMsg) {
+        let errorMessage = "";
+        if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+          const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+          errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+            ? errorMessages.join("\n")
+            : "";
+        } else {
+          errorMessage = errorMsg?.toString() || "";
         }
+        Swal.fire({
+          title: "Failed!",
+          html: errorMessage || "Failed to form submit, please try again",
+          icon: "error",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+        });
       }
-    
+    }
+
   };
 
   const continueHandler = () => {

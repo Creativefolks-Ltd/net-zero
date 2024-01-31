@@ -13,7 +13,7 @@ import { downloadPdf, formlist } from "../../redux-store/actions/user";
 import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../../helpers/ordinalNumber";
-import { getAdminDetails, getAllForms, updateAdminDetails } from "../../redux-store/actions/admin";
+import { getAdminDetails, getAllForms, updateAdminDetails, uploadCSV } from "../../redux-store/actions/admin";
 import moment from "moment";
 
 const AdminDashboard = () => {
@@ -29,6 +29,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
 
   const [disabled, setDisabled] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [searchByEmail, setSearchByEmail] = useState("");
@@ -116,14 +117,65 @@ const AdminDashboard = () => {
     }
   };
 
+  const uploadCSVHandler = async (uploadedFile) => {
+    try {
+      setUploading(true);
+      const response = await dispatch(uploadCSV(uploadedFile))
+      if (!response?.payload?.error && response?.payload?.data) {
+        Swal.fire({
+          title: "Success!",
+          text: "CSV file uploaded successfully",
+          imageUrl: SuccessImg,
+          imageWidth: 100,
+          imageHeight: 100,
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+        });
+      } else {
+        const errorMsg = response?.payload?.response?.data?.errorMsg;
+        if (errorMsg) {
+          let errorMessage = "";
+          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+              ? errorMessages.join("\n")
+              : "";
+          } else {
+            errorMessage = errorMsg?.toString() || "";
+          }
+          Swal.fire({
+            title: "Failed!",
+            html: errorMessage || "Failed to upload csv file, please try again",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+          });
+        }
+      }
+    } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Something went wrong!",
+        icon: "error",
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+    });
+    } finally {
+      setUploading(false)
+      setSelectedFile(null)
+    }
+  }
 
   const handleFileUpload = () => {
     const files = fileInputRef.current.files;
     setLoading(true);
-    console.log(files)
     if (files.length > 0) {
       const uploadedFile = files[0];
       setSelectedFile(uploadedFile);
+      uploadCSVHandler(uploadedFile);
       setTimeout(() => {
         setLoading(false);
         console.log('File processed:', uploadedFile.name);
@@ -138,13 +190,13 @@ const AdminDashboard = () => {
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFiles = e.dataTransfer.files;
-    console.log(droppedFiles)
     if (droppedFiles.length > 0) {
       setSelectedFile(droppedFiles[0]);
       setLoading(true);
+      const uploadedFile = droppedFiles[0]
+      uploadCSVHandler(uploadedFile)
       setTimeout(() => {
         setLoading(false);
-        console.log('File processed:', droppedFiles[0].name);
       }, 1500);
     }
   };
@@ -312,7 +364,7 @@ const AdminDashboard = () => {
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
-                          <div class={`table-img ${loading? "active":""}`}><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                          <div class={`table-img ${loading ? "active" : ""}`}><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
                         </td>
                       </tr>
                     )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}

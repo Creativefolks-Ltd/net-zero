@@ -39,6 +39,15 @@ export const createNewUser = createAsyncThunk('createNewUser', async (data, thun
     }
 });
 
+export const uploadCSV = createAsyncThunk('uploadCSV', async (file, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/import/csv", { file: file }, { headers: { "Content-Type": "multipart/form-data" } });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
 export const fetchParticularForm = createAsyncThunk('fetchParticularForm', async (form_id, thunkAPI) => {
     try {
         const response = await axios.get(`/api/admin/fetch/form?form_id=${form_id}`);
