@@ -15,15 +15,15 @@ import { setUserEmail } from '../redux-store/reducers/auth'
 const validate = values => {
     const errors = {};
 
-    const strongPasswordRegex1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    // const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
 
     if (!values.password?.trim()) {
         errors.password = 'Password field is required';
     } else if (values.password.length < 6) {
         errors.password = 'Password must be at least 6 characters';
     } else if (!strongPasswordRegex.test(values.password)) {
-        errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and only one special character';
+        errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
     }
 
     if (!values.cpassword?.trim()) {

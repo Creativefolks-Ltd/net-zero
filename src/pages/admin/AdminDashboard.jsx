@@ -258,7 +258,7 @@ const AdminDashboard = () => {
             <div className="row admin-dashboard">
               <div class="personal-heading">
                 <img src={form_user} alt="" />
-                <h2>Personal information</h2>
+                <h2>Personal Information</h2>
               </div>
               <div className="col-lg-6">
                 <div className="information-box">
