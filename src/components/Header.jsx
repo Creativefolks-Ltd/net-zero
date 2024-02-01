@@ -55,7 +55,7 @@ const Header = ({ bgTransparent }) => {
     }
 
     const navbarHandler = (status) => {
-        if (authUser?.userInfo) {
+        if (authUser?.userInfo || (authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage)) {
             setOpenNavbar(status)
         }
     }
@@ -111,15 +111,22 @@ const Header = ({ bgTransparent }) => {
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>
-                                {authUser?.userInfo ? (
-                                    <>
-                                        <li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>
-                                        <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" />
-                                        </li>
-                                    </>
-                                ) : (
-                                    <li className='hamburger' ><Link to="/login"><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></Link></li>
-                                )}
+                                {authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage ?
+                                    (
+                                        <>
+                                            <li className='user-img'><img src={User_Icon} alt="" /></li>
+                                            <li className='hamburger' onClick={() => { navbarHandler(true); }}><img src={MenuImage} alt="" />
+                                            </li>
+                                        </>
+                                    ) : authUser?.userInfo ? (
+                                        <>
+                                            <li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>
+                                            <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" />
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <li className='hamburger' ><Link to="/login"><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></Link></li>
+                                    )}
                             </ul>
 
                         </div>
