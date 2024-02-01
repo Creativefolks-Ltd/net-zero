@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { createUserFormValidation } from "../../helpers/validations/Schema";
 import SuccessImg from "../../assets/images/Group 9106.png";
@@ -133,8 +133,17 @@ const CreateNewUser = () => {
                           {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
                         </div>
                       </div>
-                      <button className="submit-btn" type='submit' disabled={disabled} >
-                        Save {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
+                      <div className="d-flex justify-content-between">
+                        <div class="admin-header-btn">
+                          <Link to={"/admin/dashboard"} className="btn">
+                            Back
+                          </Link>
+                        </div>
+                        <div>
+                          <button className="submit-btn" type='submit' disabled={disabled} >
+                            Save {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
