@@ -175,7 +175,7 @@ Once you have submitted the information, the Good Business team will respond wit
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 offset-lg-1 offset-md-1 Protecting-content">
-                            <p>All of your responses in the <b>Net Zero Tool</b> will be encrypted with TLS and only accessed by the <Link to={"/privacy-policy"}><b>Good Business team</b></Link> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ privacy policy here. </p>
+                            <p>All of your responses in the <b>Net Zero Tool</b> will be encrypted with TLS and only accessed by the <b>Good Business team</b> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ <Link to={"/privacy-policy"}>privacy policy </Link> here. </p>
 
                             {/* <p>The <b>Net Zero Tool</b> met high data security requriements for pentration testing in <b>March 2023</b>. </p> */}
 

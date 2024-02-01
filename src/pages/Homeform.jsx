@@ -130,124 +130,124 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
     // Electricity
     if (zero_carbon_energy_tariff === "No" && heating_type?.includes("Electricity")) {
       filteredValues.electricity_usage_known = electricity_usage_known;
-      
+
       if (electricity_usage_known !== "No") {
         filteredValues.electricity_usage_amount = electricity_usage_amount?.trim();
         filteredValues.electricity_usage_unit = electricity_usage_unit;
-  
+
         if (electricity_usage_unit === "Billed per year") {
           filteredValues.electricity_usage_amount_currency = electricity_usage_amount_currency;
         }
       }
-  
+
       if (electricity_usage_known === "Yes, for part of the year") {
         filteredValues.electricity_usage_time_period = electricity_usage_time_period?.trim();
       }
-  
+
       if (electricity_usage_known === "No") {
         filteredValues.electricity_annual_spend = electricity_annual_spend;
-  
+
         if (electricity_annual_spend === "Yes") {
           filteredValues.electricity_annual_amount = electricity_annual_amount?.trim();
           filteredValues.electricity_annual_unit = electricity_annual_unit;
         }
       }
-  
+
       filteredValues.electricity_supplier = electricity_supplier?.trim();
       filteredValues.on_site_renewable_energy = on_site_renewable_energy;
-  
+
       if (on_site_renewable_energy !== "No") {
         filteredValues.on_site_renewable_amount = on_site_renewable_amount?.trim();
         filteredValues.on_site_renewable_unit = on_site_renewable_unit;
       }
     }
-    
+
     // Gas
     if (heating_type?.includes("Gas")) {
       filteredValues.natural_gas_usage_known = natural_gas_usage_known;
-  
+
       if (natural_gas_usage_known !== "No") {
         filteredValues.natural_gas_usage_amount = natural_gas_usage_amount?.trim();
         filteredValues.natural_gas_usage_unit = natural_gas_usage_unit;
       }
-  
+
       if (natural_gas_usage_known === "Yes, for part of the year") {
         filteredValues.natural_gas_usage_time_period = natural_gas_usage_time_period?.trim();
       }
-  
+
       if (natural_gas_usage_known === "No" && natural_gas_annual_spend !== "No") {
         filteredValues.natural_gas_annual_spend = natural_gas_annual_spend;
-  
+
         if (natural_gas_annual_spend === "Yes") {
           filteredValues.natural_gas_annual_amount = natural_gas_annual_amount?.trim();
           filteredValues.natural_gas_annual_unit = natural_gas_annual_unit;
         }
       }
-  
+
       filteredValues.gas_consumption_offset = gas_consumption_offset;
     }
-  
+
     // Oil
     if (heating_type?.includes("Oil")) {
       filteredValues.oil_usage_known = oil_usage_known;
-  
+
       if (oil_usage_known !== "No") {
         filteredValues.oil_usage_amount = oil_usage_amount?.trim();
         filteredValues.oil_usage_unit = oil_usage_unit;
       }
-  
+
       if (oil_usage_known === "No") {
         filteredValues.oil_annual_spend = oil_annual_spend;
-  
+
         if (oil_annual_spend === "Yes") {
           filteredValues.oil_annual_amount = oil_annual_amount?.trim();
           filteredValues.oil_annual_unit = oil_annual_unit;
         }
       }
     }
-  
+
     // Wood
     if (heating_type?.includes("Wood")) {
       filteredValues.wood_usage_known = wood_usage_known;
-  
+
       if (wood_usage_known !== "No") {
         filteredValues.wood_usage_amount = wood_usage_amount?.trim();
         filteredValues.wood_usage_unit = wood_usage_unit;
       }
-  
+
       if (wood_usage_known === "No") {
         filteredValues.wood_annual_spend = wood_annual_spend;
-  
+
         if (wood_annual_spend === "Yes") {
           filteredValues.wood_annual_amount = wood_annual_amount?.trim();
           filteredValues.wood_annual_unit = wood_annual_unit;
         }
       }
     }
-  
+
     // Coal
     if (heating_type?.includes("Coal")) {
       filteredValues.coal_usage_known = coal_usage_known;
-  
+
       if (coal_usage_known !== "No") {
         filteredValues.coal_usage_amount = coal_usage_amount?.trim();
         filteredValues.coal_usage_unit = coal_usage_unit;
       }
-  
+
       if (coal_usage_known === "No") {
         filteredValues.coal_annual_spend = coal_annual_spend;
-  
+
         if (coal_annual_spend === "Yes") {
           filteredValues.coal_annual_amount = coal_annual_amount?.trim();
           filteredValues.coal_annual_unit = coal_annual_unit;
         }
       }
     }
-  
+
     // Other
     if (heating_type?.includes("Coal") || heating_type?.includes("Oil") || heating_type?.includes("Wood")) {
       filteredValues.other_energy_usage = other_energy_usage;
-  
+
       if (other_energy_usage !== "No") {
         filteredValues.other_energy_which_and_amount = other_energy_which_and_amount?.trim();
       }
@@ -497,17 +497,34 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
                               <p>(Select all that apply)</p>
                             </div>
                             <div className="sub-btn">
-                              {heatingTypes.map((type, index) => (
+                              {heatingTypes?.map((type, index) => (
                                 <div className="check-input" key={index}>
                                   <input
                                     id={type + "1"}
                                     type="checkbox"
                                     name="heating_type"
                                     value={type}
-                                    checked={formik.values.heating_type.includes("Don't know") ? formik.values?.heating_type?.splice(0, formik?.values?.heating_type?.length, "Don't know") : formik.values.heating_type.includes(type)}
-                                    onChange={formik.handleChange}
+                                    // checked={formik.values.heating_type.includes("Don't know") ? formik.values?.heating_type?.splice(0, formik?.values?.heating_type?.length, "Don't know") : formik.values.heating_type.includes(type)}
+                                    // onChange={formik.handleChange}
+
+                                    checked={formik.values?.heating_type?.includes(type)}
+                                    onChange={(e) => {
+                                      const selectedType = e.target.value;
+                                      let updatedHeatingTypes;
+
+                                      if (selectedType === "Don't know") {
+                                        updatedHeatingTypes = formik.values?.heating_type?.includes("Don't know") ? [] : ["Don't know"];
+                                      } else {
+                                        updatedHeatingTypes = formik.values?.heating_type?.includes(selectedType)
+                                          ? formik.values.heating_type.filter((type) => type !== selectedType)
+                                          : [...formik.values.heating_type, selectedType];
+                                        updatedHeatingTypes = updatedHeatingTypes?.filter((type) => type !== "Don't know");
+                                      }
+
+                                      formik.setFieldValue("heating_type", updatedHeatingTypes);
+                                    }}
                                   />
-                                  <label htmlFor={type + "1"} className={`${formik.values.heating_type.includes(type) ? "active" : ""}`}>
+                                  <label htmlFor={type + "1"} className={`${formik.values?.heating_type?.includes(type) ? "active" : ""}`}>
                                     {type}
                                   </label>
                                 </div>
@@ -1808,8 +1825,25 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
                                       type="checkbox"
                                       name="property_features"
                                       value={type}
-                                      checked={formik.values.property_features.includes("Don't know") ? formik.values?.property_features?.splice(0, formik?.values?.property_features?.length, "Don't know") : formik.values.property_features.includes(type)}
-                                      onChange={formik.handleChange}
+                                      // checked={formik.values.property_features.includes("Don't know") ? formik.values?.property_features?.splice(0, formik?.values?.property_features?.length, "Don't know") : formik.values.property_features.includes(type)}
+                                      // onChange={formik.handleChange}
+
+                                      checked={formik.values?.property_features?.includes(type)}
+                                      onChange={(e) => {
+                                        const selectedType = e.target.value;
+                                        let updatedPropertyFeatures;
+
+                                        if (selectedType === "Don't know") {
+                                          updatedPropertyFeatures = formik.values?.property_features?.includes("Don't know") ? [] : ["Don't know"];
+                                        } else {
+                                          updatedPropertyFeatures = formik.values?.property_features?.includes(selectedType)
+                                            ? formik.values.property_features.filter((type) => type !== selectedType)
+                                            : [...formik.values?.property_features, selectedType];
+                                          updatedPropertyFeatures = updatedPropertyFeatures?.filter((type) => type !== "Don't know");
+                                        }
+
+                                        formik.setFieldValue("property_features", updatedPropertyFeatures);
+                                      }}
                                     />
                                     <label htmlFor={type + "2"} className={`${formik.values.property_features.includes(type) ? "active" : ""}`}>
                                       {type}

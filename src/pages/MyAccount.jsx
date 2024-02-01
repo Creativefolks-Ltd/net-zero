@@ -34,7 +34,7 @@ const MyAccount = () => {
   const isLoading = useSelector((state) => state.users.isLoading);
   const [disabled, setDisabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
 
   const serialNo = (currentPage - 1) * itemsPerPage;

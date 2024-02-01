@@ -31,7 +31,7 @@ const AdminDashboard = () => {
   const [disabled, setDisabled] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchByEmail, setSearchByEmail] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 

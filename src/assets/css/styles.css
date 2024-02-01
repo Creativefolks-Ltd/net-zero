@@ -982,6 +982,13 @@ section.protecting-data {
     }
 }
 
+@media(max-width:1281px) {
+    .container {
+        max-width: 1170px;
+    }
+
+}
+
 
 /********************information css*********************/
 
@@ -2594,8 +2601,8 @@ select {
 
     h1,
     .h1 {
-        font-size: 90px;
-        line-height: 98px;
+        font-size: 80px;
+        line-height: 88px;
     }
 }
 
@@ -2857,6 +2864,9 @@ select {
 }
 
 @media (max-width:767px) {
+    .submissions .modal, .submissions .modal-content {
+        max-width: 100% !important;
+    }
 
     .Policy h1 {
         font-size: 24px;
