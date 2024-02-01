@@ -3940,3 +3940,8 @@ select {
 .form-skeleton {
     margin-bottom: 80px !important;
 }
+
+a.view-form-link {
+    color: #212529;
+    text-decoration: none;
+}

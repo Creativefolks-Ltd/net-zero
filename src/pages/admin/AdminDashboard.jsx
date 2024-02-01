@@ -169,6 +169,7 @@ const AdminDashboard = () => {
     } finally {
       setUploading(false);
       setSelectedFile(null);
+      fileInputRef.current.value = null;
     }
   }
 
@@ -179,10 +180,7 @@ const AdminDashboard = () => {
       const uploadedFile = files[0];
       setSelectedFile(uploadedFile);
       uploadCSVHandler(uploadedFile);
-      setTimeout(() => {
-        setLoading(false);
-        console.log('File processed:', uploadedFile.name);
-      }, 1500);
+      setLoading(false);
     }
   };
 
@@ -363,7 +361,7 @@ const AdminDashboard = () => {
                         <td>{form.email}</td>
                         <td className="d-flex justify-content-between table-td">
                           <div className="d-flex justify-content-between align-items-center table-text">
-                            <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`}>
+                            <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`} className="view-form-link">
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
