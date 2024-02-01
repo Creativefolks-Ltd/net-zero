@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import SuccessImg from "../assets/images/Group 9106.png"
 import { useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
+import { setUserEmail } from '../redux-store/reducers/auth'
 
 const validate = values => {
     const errors = {};
@@ -23,43 +24,47 @@ const validate = values => {
 const ForgotPassword = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const [disabled, setDisabled] = useState(false)
+
     const { loading } = useSelector((state) => state.auth)
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+    const navigateToNext = async (e) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        navigate("/")
+    }
 
     const formik = useFormik({
         initialValues: {
             email: '',
             role: "2",
+            base_url: baseUrl
         },
 
         validate: validate,
 
         onSubmit: async (values) => {
-            if (!values.email) {
+            if (!values?.email?.trim()) {
                 return false
             }
             try {
-                const requestData = {
-                    email: values.email,
-                    base_url: baseUrl
-                }
+                setDisabled(true)
                 const response = await dispatch(forgetPassword(values));
                 if (!response?.payload?.error && response?.payload?.data) {
+                    dispatch(setUserEmail(values?.email))
                     Swal.fire({
                         title: "Success!",
-                        text: "User login successfully",
+                        text: "We've just sent you an email with instructions to reset your password. Please check your registered email inbox.",
                         imageUrl: SuccessImg,
                         imageWidth: 100,
                         imageHeight: 100,
-                        showCancelButton: false,
                         confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate("/")
-                        }
-                    });
+                        didClose: navigateToNext
+                    })
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {
@@ -74,11 +79,9 @@ const ForgotPassword = () => {
                         }
                         Swal.fire({
                             title: "Failed!",
-                            html: errorMessage || "Failed to reset password, please try again",
+                            html: errorMessage || "Failed to send reset password email. Please verify your email address and try again. For assistance, contact support.",
                             icon: "error",
-                            showCancelButton: false,
                             confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
                         });
                     }
                 }
@@ -89,8 +92,10 @@ const ForgotPassword = () => {
                     icon: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
                 });
+            }
+            finally {
+                setDisabled(false)
             }
         }
 
@@ -118,8 +123,9 @@ const ForgotPassword = () => {
                                                             <input type="text" name="email" className={`form-control ${formik.errors.email && formik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
                                                             {formik.errors.email && formik.touched.email ? <span className='input-error-msg'>{formik.errors.email}</span> : null}
                                                         </div>
-                                                        <button className="submit-btn" type='submit' >Submit {loading ? <div className="spinner-border text-primary" role="status">
+                                                        <button className="submit-btn" type='submit'  disabled={disabled}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
+                                                        
                                                     </form>
                                                 </div>
                                             </div>

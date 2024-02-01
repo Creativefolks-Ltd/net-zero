@@ -9,6 +9,7 @@ import SuccessImg from "../assets/images/Group 9106.png"
 import { useNavigate, useParams } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
+import { setUserEmail } from '../redux-store/reducers/auth'
 
 
 const validate = values => {
@@ -42,6 +43,16 @@ const ResetPassword = () => {
     const [showCPassword, setShowCPassword] = useState(false)
     const [disabled, setDisabled] = useState(false)
 
+    const userEmail = useSelector((state) => state.auth.userEmail)
+
+    const navigateToNext = async (e) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        navigate("/my-account")
+    }
+
     const formik = useFormik({
         initialValues: {
             password: '',
@@ -59,15 +70,16 @@ const ResetPassword = () => {
                 setDisabled(true)
 
                 const requestData = {
-                    email: "ravichaudhary.d4d@gmail.com",
+                    email: userEmail,
                     token: token,
-                    password: values.password,
-                    password_confirmation: values.cpassword
+                    password: values?.password,
+                    password_confirmation: values?.cpassword
                 }
 
                 const response = await dispatch(resetPassword(requestData));
                 setDisabled(false)
                 if (!response?.payload?.error && response?.payload?.data) {
+                    dispatch(setUserEmail(null))
                     Swal.fire({
                         title: "Success!",
                         text: "Password reset successfully",
@@ -76,12 +88,7 @@ const ResetPassword = () => {
                         imageHeight: 100,
                         showCancelButton: false,
                         confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate("/")
-                        }
+                        didClose: navigateToNext
                     });
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
