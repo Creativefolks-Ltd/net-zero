@@ -4,7 +4,9 @@ import * as Yup from 'yup';
 const requiredMsg = "This field is required";
 const selectOptionMsg = "Please select one option";
 const numberAllowMsg = "Only numbers are allowed";
-const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+const strongPasswordRegex1 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
 
 export const userFormValidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
@@ -15,12 +17,12 @@ export const createUserFormValidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
     last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
     email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required('Please enter your email'),
-    password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
+    password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and only one special character").required("Please enter your password"),
     cpassword: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('password'), null], 'Confirm Password not matched')
 });
 
 export const changePasswordFormValidation = Yup.object().shape({
-    new_password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
+    new_password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and only one special character").required("Please enter your password"),
     reenter_password: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('new_password'), null], 'Confirm Password not matched'),
     old_password: Yup.string().required("Old Password field is required")
 });
