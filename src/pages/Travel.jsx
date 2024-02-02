@@ -155,6 +155,34 @@ const Travel = () => {
     }
   }
 
+  const handleCheckboxChange = (event, type) => {
+    const { checked } = event.target;
+    let updatedTransportSelectedYear = [...formik.values.transport_selected_year];
+    let updatedTransportDetails = [...formik.values.transport_selected_year_details];
+
+    if (checked && !updatedTransportSelectedYear?.includes(type)) {
+      updatedTransportSelectedYear.push(type);
+      updatedTransportDetails.push({
+        type,
+        kms: '',
+        notes: '',
+        kmsInSelectedYear: '',
+      });
+    } else {
+      const index = updatedTransportSelectedYear.indexOf(type);
+      if (index !== -1) {
+        updatedTransportSelectedYear.splice(index, 1);
+        updatedTransportDetails.splice(index, 1);
+      }
+    }
+
+    formik.setValues({
+      ...formik.values,
+      transport_selected_year: updatedTransportSelectedYear,
+      transport_selected_year_details: updatedTransportDetails,
+    });
+  };
+
   return (
     <>
       {/* <FormActionTabs selectedTab={"travel"} /> */}
@@ -590,8 +618,9 @@ const Travel = () => {
                             type="checkbox"
                             name="transport_selected_year"
                             value={type}
-                            checked={formik.values.transport_selected_year?.includes("Don't know") ? formik.values?.transport_selected_year?.splice(0, formik?.values?.transport_selected_year?.length, "Don't know") : formik.values.transport_selected_year?.includes(type)}
-                            onChange={formik.handleChange}
+                            checked={formik.values.transport_selected_year?.includes(type)}
+                            // onChange={formik.handleChange}
+                            onChange={(event) => handleCheckboxChange(event, type)}
                           />
                           <label htmlFor={type + "1"} className={`${formik.values?.transport_selected_year?.includes(type) ? "active" : ""}`}>
                             {type}

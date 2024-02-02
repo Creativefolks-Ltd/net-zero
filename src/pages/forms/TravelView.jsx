@@ -51,7 +51,7 @@ const TravelView = ({ travel }) => {
       additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
       additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
       transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(',') : [], //"car,bike.name" //string,
-      transport_selected_year_details: travel?.transport_selected_year_details !== undefined ? JSON.parse(travel?.transport_selected_year_details) : [],
+      transport_selected_year_details: travel?.transport_selected_year_details !== undefined && travel?.transport_selected_year_details !== null ? JSON.parse(travel?.transport_selected_year_details) : [],
       hotel_nights: travel?.hotel_nights ?? null,
       other_travel_info: travel?.other_travel_info ?? ""
     })
@@ -445,8 +445,7 @@ const TravelView = ({ travel }) => {
                   </div>
                 </div>
 
-
-                {formik.values?.transport_selected_year?.length > 0 && (
+                {formik.values?.transport_selected_year !== null && formik.values?.transport_selected_year?.length > 0 && (
                   <div className="modal-row-main">
                     {formik.values?.transport_selected_year?.map((item, index) => (
                       <div className="modal-row" key={index}>

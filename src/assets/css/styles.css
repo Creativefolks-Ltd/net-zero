@@ -128,6 +128,9 @@ input {
 
 .nav-items {
     display: none;
+    position: absolute;
+    right: 0;
+    z-index: 1000;
 }
 
 /* .bg-home .nav-items.active { */
@@ -2128,7 +2131,7 @@ select {
     margin-bottom: 60px;
 }
 
-.modal-body {
+.modal-body.upload-box-body {
     border: 1px solid #48B8B1;
     padding: 48px 200px;
     border-style: dashed;
@@ -2497,7 +2500,10 @@ select {
     margin: 20px 0 0 0;
     padding: 13px 32px !important;
 }
-
+.form-name-label {
+    margin: 20px 0px 0px 38px;
+    justify-self: left;
+}
 
 @media(max-width:1660px) {
     .possinend-image {
