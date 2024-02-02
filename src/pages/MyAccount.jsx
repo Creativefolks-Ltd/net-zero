@@ -16,6 +16,7 @@ import {
   formDelete,
   addGeneralInfo,
   downloadPdf,
+  downloadCSV,
 } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
@@ -238,22 +239,36 @@ const MyAccount = () => {
     dispatch(setFormCompleted(form.total_forms));
   };
 
-  // const downloadHandler = async (formId) => {
-  //   try {
-  //     const response = await dispatch(downloadPdf(formId));
-  //     if (response?.payload?.data?.access_url) {
-  //       const link = document.createElement("a");
-  //       link.href = response?.payload?.data?.access_url;
-  //       link.download = "filename.pdf";
-  //       link.target = "_blank";
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //     }
-  //   } catch (err) {
-  //     console.log(err, "///////err/////");
-  //   }
-  // };
+  const downloadCSVHandler = async (formId) => {
+    try {
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      document.body.classList.add('cursor-spinner');
+      const response = await dispatch(downloadCSV(formId));
+      if (response?.payload?.data?.access_url) {
+        const link = document.createElement('a');
+        link.href = response?.payload?.data?.access_url;
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
+        const fileName = `net_zero_${formattedDate}_${formattedTime}.csv`;
+
+        link.download = fileName;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (err) {
+      console.log(err, "///////err/////");
+    } finally {
+      setLoading(false);
+      document.body.classList.remove('cursor-spinner');
+    }
+  };
 
   const downloadHandler = async (formId) => {
     if (loading) {
@@ -426,13 +441,13 @@ const MyAccount = () => {
                           aria-controls={`regularCollapse${index + 1}`}
                         >
                           {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
-                          <td>
-                            {form?.first_name}{" "}
+                          <td>{form?.form_name}
+                            {/* {form?.first_name}{" "}
                             {form?.created_at
                               ? "(" +
                               moment(form?.created_at).format("DD/MM/YYYY") +
                               ")"
-                              : ""}
+                              : ""} */}
                           </td>
                         </button>
                       </h2>
@@ -521,13 +536,13 @@ const MyAccount = () => {
                           aria-controls={`regularCollapse-submit${index + 1}`}
                         >
                           {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
-                          <td>
-                            {form?.first_name}{" "}
+                          <td>{form?.form_name}
+                            {/* {form?.first_name}{" "}
                             {form?.created_at
                               ? "(" +
                               moment(form?.created_at).format("DD/MM/YYYY") +
                               ")"
-                              : ""}
+                              : ""} */}
                           </td>
                         </button>
                       </h2>

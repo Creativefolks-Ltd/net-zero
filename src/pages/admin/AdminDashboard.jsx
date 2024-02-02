@@ -9,7 +9,7 @@ import missions_img from "../../assets/images/missions_img.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { userFormValidation } from "../../helpers/validations/Schema";
-import { downloadPdf, formlist } from "../../redux-store/actions/user";
+import { downloadCSV, downloadPdf } from "../../redux-store/actions/user";
 import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { ordinalNumbers } from "../../helpers/ordinalNumber";
@@ -202,22 +202,36 @@ const AdminDashboard = () => {
     }
   };
 
-  // const downloadHandler = async (formId) => {
-  //   try {
-  //     const response = await dispatch(downloadPdf(formId));
-  //     if (response?.payload?.data?.access_url) {
-  //       const link = document.createElement('a');
-  //       link.href = response?.payload?.data?.access_url;
-  //       link.download = 'filename.pdf';
-  //       link.target = "_blank";
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //     }
-  //   } catch (err) {
-  //     console.log(err, "///////err/////");
-  //   }
-  // };
+  const downloadCSVHandler = async (formId) => {
+    try {
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      document.body.classList.add('cursor-spinner');
+      const response = await dispatch(downloadCSV(formId));
+      if (response?.payload?.data?.access_url) {
+        const link = document.createElement('a');
+        link.href = response?.payload?.data?.access_url;
+
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
+        const fileName = `net_zero_${formattedDate}_${formattedTime}.csv`;
+
+        link.download = fileName;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (err) {
+      console.log(err, "///////err/////");
+    } finally {
+      setLoading(false);
+      document.body.classList.remove('cursor-spinner');
+    }
+  };
 
 
   const downloadHandler = async (formId) => {
@@ -347,9 +361,10 @@ const AdminDashboard = () => {
               <table class="customers" style={{ borderRadius: '20px' }}>
                 <thead className="table-header">
                   <tr style={{ borderRadius: '20px' }}>
-                    <th style={{ width: '25%' }}>Form name</th>
-                    <th style={{ width: '50%' }}>User email address</th>
-                    <th style={{ width: '25%' }}></th>
+                    <th style={{ width: '20%' }}>Form name</th>
+                    <th style={{ width: '30%' }}>User email address</th>
+                    <th style={{ width: '10%' }}>Date</th>
+                    <th style={{ width: '30%' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -357,15 +372,18 @@ const AdminDashboard = () => {
                     allForms?.length > 0 ? allForms?.map((form, index) => (
                       <tr key={index}>
                         {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
-                        <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td>
-                        <td>{form.email}</td>
+                        {/* <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td> */}
+                        <td>{form?.form_name}</td>
+                        <td>{form?.email}</td>
+                        <td>{moment(form?.created_at).format("DD/MM/YYYY")}</td>
                         <td className="d-flex justify-content-between table-td">
                           <div className="d-flex justify-content-between align-items-center table-text">
                             <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`} className="view-form-link">
                               View form <img src={arrowImg} />
                             </Link> </p>
                           </div>
-                          <div class={`table-img ${loading ? "active" : ""}`}><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                          <div class={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                          <div class={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
                         </td>
                       </tr>
                     )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}
@@ -380,7 +398,7 @@ const AdminDashboard = () => {
 
         {/* Modal popup */}
         <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" >
+          <div class="modal-dialog upload-csv-container" >
             <div class="modal-content">
               <div class="close-btn-box d-flex justify-content-end">
                 <button type="button" class="" data-bs-dismiss="modal" aria-label="Close" ref={handleModalClose}>
@@ -395,18 +413,18 @@ const AdminDashboard = () => {
               <div class="modal-headers d-flex justify-content-center ">
                 <h1 class="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
               </div>
-              <div class="modal-body">
+              <div class="modal-body upload-box-body">
                 <div class="upload-box" onDragOver={handleDragOver}
                   onDrop={handleDrop}>
                   <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
 
                   {loading || uploading ?
                     (
-                    <div class="d-flex justify-content-center">
-                      <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                      <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
                       </div>
-                    </div>
                     ) : (
                       <>
                         <label htmlFor="uploadCsv">{selectedFile ? selectedFile.name : 'Drag & drop your CSV file'} </label>

@@ -12,6 +12,7 @@ const initialState = {
     adminDetails: null,
     formCompleted: 0,
     userEmail: null,
+    formName: null,
 }
 
 const authSlice = createSlice({
@@ -27,7 +28,8 @@ const authSlice = createSlice({
         setFormCompleted(state, action) {
             state.formCompleted = action.payload
         },
-        loginAction(state, action) {
+        setFormName(state, action) {
+            state.formName = action.payload
         },
         logout(state) {
             state.loading = false;
@@ -102,5 +104,5 @@ const authSlice = createSlice({
     }
 });
 
-export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setUserEmail } = authSlice.actions;
+export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setUserEmail, setFormName } = authSlice.actions;
 export default authSlice.reducer;

@@ -74,3 +74,14 @@ export const formDelete = createAsyncThunk('formDelete', async (form_id, thunkAP
         return error;
     }
 });
+
+export const updateFormName = createAsyncThunk('updateFormName', async (data, thunkAPI) => {
+    try {
+        const id = data?.id;
+        const form_name = data?.form_name;
+        const response = await axios.patch(`/api/update/form/name/${id}`, { form_name: form_name });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});

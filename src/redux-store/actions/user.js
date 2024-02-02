@@ -134,8 +134,16 @@ export const downloadPdf = createAsyncThunk('downloadPdf', async (form_id, thunk
     } catch (error) {
         return error;
     }
-}
-);
+});
+
+export const downloadCSV = createAsyncThunk('downloadCSV', async (form_id, thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/download/form?form_id=${form_id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
 
 export const managePassword = createAsyncThunk('managePassword', async (data, thunkAPI) => {
     try {

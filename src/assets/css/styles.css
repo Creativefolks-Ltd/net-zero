@@ -2219,7 +2219,7 @@ select {
     fill: #fff;
 }
 
-.modal-dialog {
+.modal-dialog.upload-csv-container {
     max-width: unset;
     margin-right: 0;
     margin-left: 0;
@@ -3950,4 +3950,24 @@ select {
 a.view-form-link {
     color: #212529;
     text-decoration: none;
+}
+
+/*********************** Change form name modal *********************/
+.form-name-container .modal-content {
+    padding: 10px;
+    border-radius: 15px;
+}
+.form-name-container form{
+    margin-top: 14px !important;
+}
+
+.form-name-container input {
+    border: 1px solid #212529;
+}
+
+.form-name-container .close-btn-box button {
+    background: transparent;
+    box-shadow: none !important;
+    border: none;
+    
 }

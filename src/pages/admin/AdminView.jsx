@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { fetchParticularForm, formDelete } from "../../redux-store/actions/admin";
+import { fetchParticularForm, formDelete, updateFormName } from "../../redux-store/actions/admin";
 import HomeFormView from "../forms/HomeFormView";
 import GeneralView from "../forms/GeneralView";
 import TravelView from "../forms/TravelView";
 import FoodAndShoppingView from "../forms/FoodAndShoppingView";
 import FormActionTabs from "../forms/FormActionTabs";
+import SuccessImg from "../../assets/images/Group 9106.png";
+
 import { downloadPdf } from "../../redux-store/actions/user";
 import FormTabsView from "../forms/FormTabsView";
 import FinancialView from "../forms/FinancialView";
 import moment from "moment";
+import { useFormik } from "formik";
+import { setFormName } from "../../redux-store/reducers/auth";
+
+const validate = values => {
+  const errors = {};
+  if (!values.form_name?.trim()) {
+    errors.form_name = 'Form name field is required';
+  }
+  return errors;
+};
 
 const AdminView = () => {
   const location = useLocation();
@@ -19,12 +31,14 @@ const AdminView = () => {
   const navigate = useNavigate();
   const { form_id } = useParams()
   const singleForm = useSelector((state) => state.admin.singleForm)
+  const localFormName = useSelector((state) => state.auth.formName);
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
   const [selectedHome, setSelectedHome] = useState(1);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const closeModal = useRef(null);
   const locationOfFile = location.pathname;
   const split1 = locationOfFile?.split('/');
   const adminPath = split1[1];
@@ -118,26 +132,6 @@ const AdminView = () => {
 
   const { home, travel, food, financial, ...general } = singleForm || {};
 
-  // const downloadHandler = async () => {
-  //   try {
-  //     setDisabled(true)
-  //     const response = await dispatch(downloadPdf(decodedFormId));
-  //     if (response?.payload?.data?.access_url) {
-  //       const link = document.createElement('a');
-  //       link.href = response?.payload?.data?.access_url;
-  //       link.download = 'filename.pdf';
-  //       link.target = "_blank";
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //     }
-  //     setDisabled(false)
-  //   } catch (err) {
-  //     setDisabled(false)
-  //     console.log(err, "///////err/////");
-  //   }
-  // };
-
   const downloadHandler = async () => {
     try {
       setDisabled(true)
@@ -163,6 +157,82 @@ const AdminView = () => {
   };
   const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
+  useEffect(() => {
+    dispatch(setFormName(general?.form_name?.form_name))
+    formik.setValues({
+      form_name: general?.form_name?.form_name,
+      id: general?.id
+    })
+    
+    return (() => {
+      dispatch(setFormName(null))
+    })
+  }, [singleForm])
+
+  const formik = useFormik({
+    initialValues: {
+      form_name: localFormName
+    },
+
+    validate: validate,
+
+    onSubmit: async (values) => {
+      if (!values?.form_name?.trim()) {
+        return false
+      }
+      try {
+        setDisabled(true)
+        const response = await dispatch(updateFormName(values));
+        setDisabled(false)
+        if (!response?.payload?.error && response?.payload?.data) {
+          Swal.fire({
+            title: "Success!",
+            text: "Form name updated successfully",
+            imageUrl: SuccessImg,
+            imageWidth: 100,
+            imageHeight: 100,
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+          });
+          dispatch(setFormName(values?.form_name))
+          closeModal.current.click();
+        } else {
+          const errorMsg = response?.payload?.response?.data?.errorMsg;
+          if (errorMsg) {
+            let errorMessage = "";
+            if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+              const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+              errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+                ? errorMessages.join("\n")
+                : "";
+            } else {
+              errorMessage = errorMsg?.toString() || "";
+            }
+            Swal.fire({
+              title: "Failed!",
+              html: errorMessage || "Failed to updated form name, please try again",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+            });
+          }
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Failed!",
+          text: "Something went wrong",
+          icon: "error",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+        });
+      }
+      finally {
+        setDisabled(false)
+      }
+    }
+
+  });
+
   return (
     <>
       {adminPath === "admin" && (
@@ -178,8 +248,8 @@ const AdminView = () => {
               <div className="admin-view-bg-color">
                 <div class="card">
                   <div className="admin-view-header">
-                    <div class="sub-heading">
-                      <h2>Form name</h2>
+                    <div class="sub-heading" >
+                      <h2 data-bs-toggle="modal" data-bs-target="#exampleModal">{localFormName || general?.form_name?.form_name}</h2>
                     </div>
                     <div class="admin-header-btn">
                       <Link to="/admin/dashboard" className="btn">
@@ -258,6 +328,38 @@ const AdminView = () => {
           )}
         </div>
       </section>
+      {/* Modal popup */}
+      <div class="modal fade form-name-container" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+          <div class="modal-content">
+            <div class="close-btn-box d-flex justify-content-end">
+              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close" ref={closeModal}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
+                  <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
+                    <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
+                    <path id="Path_25" data-name="Path 25" d="M52.776,0H2.733a2.733,2.733,0,1,0,0,5.466H52.849A2.733,2.733,0,1,0,52.776,0Z" transform="translate(61.049 22.421) rotate(135)" fill="#2c2b34" />
+                  </g>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-headers d-flex justify-content-center ">
+              <h1 class="modal-title fs-2" id="exampleModalLabel mt-5">Change form name</h1>
+            </div>
+            <div class="modal-body form-name-box">
+              <form onSubmit={formik.handleSubmit}>
+                <div className="form-div">
+                  <label htmlFor="form_name">Form name</label>
+                  <input type="text" name="form_name" className={`form-control ${formik.errors.form_name && formik.touched.form_name ? "invalidInput" : ""} `} placeholder="Form  name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.form_name} />
+                  {formik.errors.form_name && formik.touched.form_name ? <span className='input-error-msg'>{formik.errors.form_name}</span> : null}
+                </div>
+                <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
+                </div> : ''}</button>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
