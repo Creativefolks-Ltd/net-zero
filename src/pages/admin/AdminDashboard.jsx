@@ -315,8 +315,15 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)}>
-                Save
+              <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)} disabled={disabled}>
+                Save {disabled ? (
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      ></div>
+                    ) : (
+                      ""
+                    )}
               </button>
             </div>
           </div>

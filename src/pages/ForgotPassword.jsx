@@ -9,12 +9,14 @@ import SuccessImg from "../assets/images/Group 9106.png"
 import { useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import { setUserEmail } from '../redux-store/reducers/auth'
+import { emailRegex } from '../helpers/validations/Schema'
 
 const validate = values => {
     const errors = {};
+
     if (!values.email?.trim()) {
         errors.email = 'Email Address field is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (!emailRegex.test(values?.email)) {
         errors.email = 'Invalid email address';
     }
 
@@ -28,8 +30,8 @@ const ForgotPassword = () => {
     const [disabled, setDisabled] = useState(false)
 
     const { loading } = useSelector((state) => state.auth)
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
-
+    const baseUrl = window?.location?.origin;
+    
     const navigateToNext = async (e) => {
         window.scrollTo({
             top: 0,

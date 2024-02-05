@@ -8,15 +8,18 @@ const numberAllowMsg = "Only numbers are allowed";
 const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 // const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
 
+// const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,4})?$/;
+export const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+
 export const userFormValidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
     last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required('Please enter your email'),
+    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
 });
 export const createUserFormValidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
     last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required('Please enter your email'),
+    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
     password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
     cpassword: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('password'), null], 'Confirm Password not matched')
 });
@@ -28,14 +31,14 @@ export const changePasswordFormValidation = Yup.object().shape({
 });
 
 export const loginFormValidation = Yup.object().shape({
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required('Please enter your email'),
+    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
     password: Yup.string().required("Please enter your password"),
 });
 
 export const formvalidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required(requiredMsg),
     last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required(requiredMsg),
-    email: Yup.string().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please enter valid email address').required(requiredMsg),
+    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required(requiredMsg),
     emailConfirmation: Yup.string().email().required(requiredMsg).oneOf([Yup.ref('email'), null], 'Email Confirmation must match with email'),
     year_of_birth: Yup.string().required(selectOptionMsg),
     country_of_residence: Yup.string().required(selectOptionMsg),

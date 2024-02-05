@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
 import AdminLoginImg from "../assets/images/admin-login.svg"
+import { emailRegex } from '../helpers/validations/Schema'
 
 
 const signupValidate = values => {
@@ -27,7 +28,7 @@ const signupValidate = values => {
 
     if (!values.email?.trim()) {
         errors.email = 'Email Address field is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (!emailRegex.test(values?.email)) {
         errors.email = 'Invalid email address';
     }
 
@@ -54,7 +55,7 @@ const validate = values => {
 
     if (!values.email?.trim()) {
         errors.email = 'Email Address field is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (!emailRegex.test(values?.email)) {
         errors.email = 'Invalid email address';
     }
 

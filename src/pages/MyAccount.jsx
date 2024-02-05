@@ -86,7 +86,7 @@ const MyAccount = () => {
     onSubmit: (values) => { },
   });
 
-  const UpdateUserDetails = async (e) => {
+  const fetchUserDetails = async (e) => {
     dispatch(getUserDetails(userId));
   };
 
@@ -113,7 +113,7 @@ const MyAccount = () => {
           showCancelButton: false,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          didClose: UpdateUserDetails,
+          didClose: fetchUserDetails,
         });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
