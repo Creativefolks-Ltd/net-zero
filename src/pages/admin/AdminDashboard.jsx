@@ -317,13 +317,13 @@ const AdminDashboard = () => {
               </div>
               <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)} disabled={disabled}>
                 Save {disabled ? (
-                      <div
-                        className="spinner-border text-primary"
-                        role="status"
-                      ></div>
-                    ) : (
-                      ""
-                    )}
+                  <div
+                    className="spinner-border text-primary"
+                    role="status"
+                  ></div>
+                ) : (
+                  ""
+                )}
               </button>
             </div>
           </div>
@@ -364,39 +364,39 @@ const AdminDashboard = () => {
                 </div>
               </form>
 
-
-              <table class="customers" style={{ borderRadius: '20px' }}>
-                <thead className="table-header">
-                  <tr style={{ borderRadius: '20px' }}>
-                    <th style={{ width: '20%' }}>Form name</th>
-                    <th style={{ width: '30%' }}>User email address</th>
-                    <th style={{ width: '10%' }}>Date</th>
-                    <th style={{ width: '30%' }}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {isLoading ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
-                    allForms?.length > 0 ? allForms?.map((form, index) => (
-                      <tr key={index}>
-                        {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
-                        {/* <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td> */}
-                        <td>{form?.form_name}</td>
-                        <td>{form?.email}</td>
-                        <td>{moment(form?.created_at).format("DD/MM/YYYY")}</td>
-                        <td className="d-flex justify-content-between table-td">
-                          <div className="d-flex justify-content-between align-items-center table-text">
-                            <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`} className="view-form-link">
-                              View form <img src={arrowImg} />
-                            </Link> </p>
-                          </div>
-                          <div class={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
-                          <div class={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
-                        </td>
-                      </tr>
-                    )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}
-                </tbody>
-              </table>
-
+              <div className="table-box">
+                <table class="customers" style={{ borderRadius: '20px' }}>
+                  <thead className="table-header">
+                    <tr style={{ borderRadius: '20px' }}>
+                      <th style={{ width: '20%' }}>Form name</th>
+                      <th style={{ width: '30%' }}>User email address</th>
+                      <th style={{ width: '10%' }}>Date</th>
+                      <th style={{ width: '30%' }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {isLoading ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
+                      allForms?.length > 0 ? allForms?.map((form, index) => (
+                        <tr key={index}>
+                          {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
+                          {/* <td>{form?.first_name} {form?.created_at ? "(" + moment(form?.created_at).format("DD/MM/YYYY") + ")" : ""}</td> */}
+                          <td>{form?.form_name}</td>
+                          <td>{form?.email}</td>
+                          <td>{moment(form?.created_at).format("DD/MM/YYYY")}</td>
+                          <td className="d-flex justify-content-between gap-3 table-td">
+                            <div className="d-flex justify-content-between align-items-center table-text">
+                              <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`} className="view-form-link">
+                                View form <img src={arrowImg} />
+                              </Link> </p>
+                            </div>
+                            <div class={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                            <div class={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
+                          </td>
+                        </tr>
+                      )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}
+                  </tbody>
+                </table>
+              </div>
               {!isLoading && resultcount > 0 && (<Pagination dataLength={resultcount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />)}
 
             </div>

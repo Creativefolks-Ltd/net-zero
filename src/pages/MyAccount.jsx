@@ -477,17 +477,30 @@ const MyAccount = () => {
                                 <a href="#">View form</a>
                               )}
                             </div>
-                            <div className={`accordion-img table-img ${loading ? "active" : ""}`}>
-                              <img
-                                src={share_img}
-                                alt=""
-                                onClick={() => downloadHandler(form.id)}
-                              />
-                              <img
-                                src={delete2_img}
-                                alt=""
-                                onClick={() => formDeleteHandler(form.id)}
-                              />
+                            <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
+                              <div className="icon-text d-flex flex-column">
+                                PDF
+                                <img
+                                  src={share_img}
+                                  alt=""
+                                  onClick={() => downloadHandler(form.id)}
+                                />
+                              </div>
+                              <div className="icon-text d-flex flex-column">
+                                CSV
+                                <img
+                                  src={share_img}
+                                  alt=""
+                                  onClick={() => downloadCSVHandler(form.id)}
+                                />
+                              </div>
+                              <div className="icon-text">
+                                <img
+                                  src={delete2_img}
+                                  alt=""
+                                  onClick={() => formDeleteHandler(form.id)}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -572,17 +585,30 @@ const MyAccount = () => {
                                 <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
                               )}
                             </div>
-                            <div className={`accordion-img table-img ${loading ? "active" : ""}`}>
-                              <img
-                                src={share_img}
-                                alt=""
-                                onClick={() => downloadHandler(form.id)}
-                              />
-                              <img
-                                src={delete2_img}
-                                alt=""
-                                onClick={() => formDeleteHandler(form.id)}
-                              />
+                            <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
+                              <div className="icon-text d-flex flex-column">
+                                PDF
+                                <img
+                                  src={share_img}
+                                  alt=""
+                                  onClick={() => downloadHandler(form.id)}
+                                />
+                              </div>
+                              <div className="icon-text d-flex flex-column">
+                                CSV
+                                <img
+                                  src={share_img}
+                                  alt=""
+                                  onClick={() => downloadCSVHandler(form.id)}
+                                />
+                              </div>
+                              <div className="icon-text">
+                                <img
+                                  src={delete2_img}
+                                  alt=""
+                                  onClick={() => formDeleteHandler(form.id)}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>

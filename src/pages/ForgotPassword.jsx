@@ -29,9 +29,10 @@ const ForgotPassword = () => {
 
     const [disabled, setDisabled] = useState(false)
 
-    const { loading } = useSelector((state) => state.auth)
-    const baseUrl = window?.location?.origin;
-    
+    const { loading } = useSelector((state) => state.auth);
+
+    const baseUrl = (window?.location?.origin + "/reset-password") || 'https://net-zero-inky.vercel.app/reset-password';
+
     const navigateToNext = async (e) => {
         window.scrollTo({
             top: 0,
@@ -125,9 +126,9 @@ const ForgotPassword = () => {
                                                             <input type="text" name="email" className={`form-control ${formik.errors.email && formik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
                                                             {formik.errors.email && formik.touched.email ? <span className='input-error-msg'>{formik.errors.email}</span> : null}
                                                         </div>
-                                                        <button className="submit-btn" type='submit'  disabled={disabled}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
+                                                        <button className="submit-btn" type='submit' disabled={disabled}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
-                                                        
+
                                                     </form>
                                                 </div>
                                             </div>
