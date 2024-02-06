@@ -204,7 +204,7 @@ const FoodAndShopping = () => {
                         cols="50"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        maxlength={1000}
+                        maxLength={1000}
                       ></textarea>
                       {formik.touched.vehicle_detail && formik.errors.vehicle_detail ? (
                         <span className="input-error-msg">
@@ -246,7 +246,7 @@ const FoodAndShopping = () => {
                       cols="50"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      maxlength={1000}
+                      maxLength={1000}
                     ></textarea>
                   </div>
 
@@ -306,7 +306,7 @@ const FoodAndShopping = () => {
                         value={formik.values.pet_detail}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        maxlength={1000}
+                        maxLength={1000}
                       ></textarea>
                     </div>
                   )}
@@ -399,7 +399,7 @@ const FoodAndShopping = () => {
                       value={formik.values.information_diet_clothes_parter}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      maxlength={1000}
+                      maxLength={1000}
                     ></textarea>
                   </div>
 
@@ -446,7 +446,7 @@ const FoodAndShopping = () => {
                         value={formik.values.events_details}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        maxlength={1000}
+                        maxLength={1000}
                       ></textarea>
                     </div>
                   )}

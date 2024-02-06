@@ -10,13 +10,14 @@ import Swal from "sweetalert2";
 import SuccessImg from "../../assets/images/Group 9106.png";
 import { useNavigate } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
+import { fetchParticularForm } from "../../redux-store/actions/admin";
 
 // import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const HomeFormView = ({ home, selectedHome }) => {
+const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -279,12 +280,14 @@ const HomeFormView = ({ home, selectedHome }) => {
         const general_information_id = Number(user?.generalInfoId);
 
         await dispatch(homeFormDelete(currentHomeId));
-        dispatch(homeformIds(general_information_id));
         Swal.fire({
           title: "Deleted!",
-          text: "Home deleted successfully",
+          text: `Home ${homeActiveTab} deleted successfully`,
           icon: "success",
         });
+        setSelectedHome(1)
+        await dispatch(homeformIds(general_information_id));
+        await dispatch(fetchParticularForm(general_information_id));
       }
     } catch (error) {
       console.error("Error deleting home:", error);

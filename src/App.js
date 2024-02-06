@@ -53,11 +53,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
-          <Route path="/general" element={<ProtectedRoute ><General /></ProtectedRoute >} />
+          {/* <Route path="/general" element={<ProtectedRoute ><General /></ProtectedRoute >} />
           <Route path="/home-form" element={<ProtectedRoute ><Homeform /></ProtectedRoute >} />
           <Route path="/travel" element={<ProtectedRoute ><Travel /></ProtectedRoute >} />
           <Route path="/food-shopping" element={<ProtectedRoute ><FoodAndShopping /></ProtectedRoute >} />
-          <Route path="/financial" element={<ProtectedRoute ><Financial /></ProtectedRoute >} />
+          <Route path="/financial" element={<ProtectedRoute ><Financial /></ProtectedRoute >} /> */}
           <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
           <Route path="/form-view/:form_id" element={<ProtectedRoute><AdminView /></ProtectedRoute>} />
           <Route path="/manage-password" element={<ProtectedRoute ><UserChangePassword /></ProtectedRoute >} />

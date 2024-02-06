@@ -17,7 +17,7 @@ const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"]
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
+const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActiveTab }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -339,6 +339,15 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
         if (user?.formCompleted == 1) {
           dispatch(setFormCompleted(user?.formCompleted + 1))
         }
+
+        if (user?.formCompleted === 2) {
+          handleActiveTab("travel")
+        } else if (user?.formCompleted === 3) {
+          handleActiveTab("food")
+        } else if (user?.formCompleted === 4) {
+          handleActiveTab("financial")
+        }
+
         navigateToNext()
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -370,31 +379,31 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
   const deleteHandler = async () => {
     try {
       if (currentHomeId === null || currentHomeId === undefined) {
-        LocalHomeDelete(selectedHome)
+        await LocalHomeDelete(selectedHome);
         return false
       }
-      const result = await Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      });
+      // const result = await Swal.fire({
+      //   title: "Are you sure?",
+      //   text: "You won't be able to revert this!",             
+      //   icon: "warning",
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#3085d6",
+      //   cancelButtonColor: "#d33",
+      //   confirmButtonText: "Yes, delete it!",
+      // });
 
-      if (result.isConfirmed) {
-        const general_information_id = Number(user?.generalInfoId);
+      // if (result.isConfirmed) {
+      //   const general_information_id = Number(user?.generalInfoId);
 
-        await dispatch(homeFormDelete(currentHomeId));
-        dispatch(homeformIds(general_information_id));
-        setSelectedHome(1)
-        Swal.fire({
-          title: "Deleted!",
-          text: "Home deleted successfully",
-          icon: "success",
-        });
-      }
+      //   await dispatch(homeFormDelete(currentHomeId));
+      //   dispatch(homeformIds(general_information_id));
+      //   setSelectedHome(1)
+      //   Swal.fire({
+      //     title: "Deleted!",
+      //     text: `Home ${homeActiveTab} deleted successfully`,
+      //     icon: "success",
+      //   });
+      // }
     } catch (error) {
       console.error("Error deleting home:", error);
       Swal.fire({
@@ -450,7 +459,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome }) => {
                           <h2>Home {homeActiveTab}</h2>
                         </div>
                         {homeActiveTab > 1 && (
-                          <div className="delete-box" onClick={deleteHandler}>
+                          <div className="delete-box" onClick={deleteHandler}>    
                             <span>Delete this home</span>
                             <img src={delete_img} alt="" />
                           </div>

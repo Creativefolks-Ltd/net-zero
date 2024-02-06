@@ -21,6 +21,7 @@ const FormsLayout = () => {
     const [activeTab, setActiveTab] = useState("general");
     const [selectedHome, setSelectedHome] = useState(1);
     const [deleteHome, setDeleteHome] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const singleForm = useSelector((state) => state.admin.singleForm)
     const general_information_id = useSelector((state) => state.auth.generalInfoId)
     const formCompleted = useSelector((state) => state.auth.formCompleted)
@@ -29,7 +30,12 @@ const FormsLayout = () => {
 
     useEffect(() => {
         // if (general_information_id) {
-        dispatch(fetchParticularForm(general_information_id));
+        const fetchFormsData = async () => {
+            setIsLoading(true)
+            await dispatch(fetchParticularForm(general_information_id));
+            setIsLoading(false)
+        }
+        fetchFormsData()
         // }
     }, [general_information_id, activeTab])
 
@@ -51,7 +57,7 @@ const FormsLayout = () => {
         setActiveTab(active)
     }
 
-    const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
+    let homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
     const LocalHomeDelete = async (activeId) => {
         const result = await Swal.fire({
@@ -69,7 +75,7 @@ const FormsLayout = () => {
             await setSelectedHome(1)
             Swal.fire({
                 title: "Deleted!",
-                text: "Home deleted successfully",
+                text: `Home ${activeId} deleted successfully`,
                 icon: "success",
             });
         }
@@ -79,20 +85,32 @@ const FormsLayout = () => {
         <div className={`main-header bg-${activeTab === "home" ? "home-form" : activeTab === "food" ? "food-shopping" : activeTab}`}>
             <Header bgTransparent={true} />
             <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} deleteHome={deleteHome} setDeleteHome={setDeleteHome} />
-            {activeTab === "general" && (
-                formCompleted >= 1 ? <GeneralView general={general} /> : <General />
-            )}
-            {activeTab === "home" && (
-                formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome}/>
-            )}
-            {activeTab === "travel" && (
-                formCompleted >= 3 ? <TravelView travel={travel} /> : <Travel />
-            )}
-            {activeTab === "food" && (
-                formCompleted >= 4 ? <FoodAndShoppingView food={food} /> : <FoodAndShopping />
-            )}
-            {activeTab === "financial" && (
-                formCompleted >= 5 ? <FinancialView financial={financial} /> : <Financial />
+            {isLoading ? (
+                <div className="container">
+                    <div className="bg-lightgray-color rounded-5">
+                        <p className="placeholder-glow form-skeleton mt-5">
+                            <span className="placeholder col-12 vh-50 "></span>
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {activeTab === "general" && (
+                        formCompleted >= 1 ? <GeneralView general={general} /> : <General />
+                    )}
+                    {activeTab === "home" && (
+                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
+                    )}
+                    {activeTab === "travel" && (
+                        formCompleted >= 3 ? <TravelView travel={travel} /> : <Travel />
+                    )}
+                    {activeTab === "food" && (
+                        formCompleted >= 4 ? <FoodAndShoppingView food={food} /> : <FoodAndShopping />
+                    )}
+                    {activeTab === "financial" && (
+                        formCompleted >= 5 ? <FinancialView financial={financial} /> : <Financial />
+                    )}
+                </>
             )}
             <Footer />
         </div>

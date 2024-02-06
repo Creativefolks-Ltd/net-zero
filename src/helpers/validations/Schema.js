@@ -302,7 +302,7 @@ export const homeFormvalidation = (values) => {
             errors.other_energy_which_and_amount = requiredMsg;
         }
     }
-    console.log(errors, "///////errors")
+    // console.log(errors, "///////errors")
     return errors;
 }
 

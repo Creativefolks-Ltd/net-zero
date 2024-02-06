@@ -14,6 +14,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   const dispatch = useDispatch()
   // const [activeTab, setActiveTab] = useState(activeTab);
   const [homeActiveTab, setHomeActiveTab] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [homeCount, setHomeCount] = useState(homeLength || 1);
 
   const user = useSelector((state) => state.auth);
@@ -23,7 +24,14 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   const formCompleted = Number(user?.formCompleted);
 
   useEffect(() => {
-    dispatch(homeformIds(general_information_id))
+    const fetchHomeIds = async () => {
+      if (activeTab === "home") {
+        setIsLoading(true)
+        await dispatch(homeformIds(general_information_id))
+        setIsLoading(false)
+      }
+    }
+    fetchHomeIds()
   }, [general_information_id, activeTab])
 
   const handleActiveTabFunc = (active) => {
@@ -82,7 +90,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
               <div className="col-div">
                 <div className="information-icon-box">
                   <div
-                    className={`information-cricle-box ${activeTab === "general" ? "active" : ""} ${submittedFormCount >= 1 ? "success" : ""} `} onClick={() => handleActiveTabFunc("general")}
+                    className={`information-cricle-box ${activeTab === "general" ? "active" : ""} ${formCompleted >= 1 ? "success" : ""} `} onClick={() => handleActiveTabFunc("general")}
                   >
                     <img src={generalImg} alt="" />
                   </div>
@@ -95,7 +103,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
                     <div
                       className={`information-cricle-box ${activeTab === "home" ? "active" : ""
                         } 
-                        ${submittedFormCount >= 2 ? "success" : ""}
+                        ${formCompleted >= 2 ? "success" : ""}
                         `}
                       onClick={() => handleActiveTabFunc("home")}
                     >
@@ -118,7 +126,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
                     <div
                       className={`information-cricle-box ${activeTab === "travel" ? "active" : ""
                         }
-                        ${submittedFormCount >= 3 ? "success" : ""}
+                        ${formCompleted >= 3 ? "success" : ""}
                         `}
                       onClick={() => handleActiveTabFunc("travel")}
                     >
@@ -141,7 +149,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
                     <div
                       className={`information-cricle-box ${activeTab === "food" ? "active" : ""
                         }
-                        ${submittedFormCount >= 4 ? "success" : ""}
+                        ${formCompleted >= 4 ? "success" : ""}
                         `}
                       onClick={() => handleActiveTabFunc("food")}
                     >
@@ -164,7 +172,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
                     <div
                       className={`information-cricle-box ${activeTab === "financial" ? "active" : ""
                         }
-                        ${submittedFormCount >= 5 ? "success" : ""}  `}
+                        ${formCompleted >= 5 ? "success" : ""}  `}
 
                       onClick={() => handleActiveTabFunc("financial")}
                     >

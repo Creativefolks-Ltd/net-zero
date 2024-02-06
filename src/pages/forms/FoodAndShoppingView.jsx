@@ -210,7 +210,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 cols="50"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                maxlength={1000}
+                                                maxLength={1000}
                                                 readOnly
                                             ></textarea>
                                         </div>
@@ -247,7 +247,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             cols="50"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
-                                            maxlength={1000}
+                                            maxLength={1000}
                                             readOnly
                                         ></textarea>
                                     </div>
@@ -309,7 +309,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 defaultValue={formik.values.pet_detail}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                maxlength={1000}
+                                                maxLength={1000}
                                                 readOnly
                                             ></textarea>
                                         </div>
@@ -404,7 +404,7 @@ const FoodAndShoppingView = ({ food }) => {
                                             defaultValue={formik.values.information_diet_clothes_parter}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
-                                            maxlength={1000}
+                                            maxLength={1000}
                                             readOnly
                                         ></textarea>
                                     </div>
@@ -453,7 +453,7 @@ const FoodAndShoppingView = ({ food }) => {
                                                 defaultValue={formik.values.events_details}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                maxlength={1000}
+                                                maxLength={1000}
                                                 readOnly
                                             ></textarea>
                                         </div>
