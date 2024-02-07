@@ -89,7 +89,7 @@ const FormsLayout = () => {
                 <div className="container">
                     <div className="bg-lightgray-color rounded-5">
                         <p className="placeholder-glow form-skeleton mt-5">
-                            <span className="placeholder col-12 vh-50 "></span>
+                            <span className="placeholder col-12 vh-50 rounded-5"></span>
                         </p>
                     </div>
                 </div>
