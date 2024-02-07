@@ -29,7 +29,8 @@ const AdminView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form_id } = useParams()
-  const singleForm = useSelector((state) => state.admin.singleForm)
+  const adminSingleForm = useSelector((state) => state.admin.singleForm)
+  const singleForm = useSelector((state) => state.users.singleForm)
   const localFormName = useSelector((state) => state.auth.formName);
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
@@ -42,6 +43,17 @@ const AdminView = () => {
   const split1 = locationOfFile?.split('/');
   const adminPath = split1[1];
 
+  let { home, travel, food, financial, ...general } = {};
+
+  if (adminPath === "admin") {
+    ({ home, travel, food, financial, ...general } = adminSingleForm || {});
+  } else {
+    ({ home, travel, food, financial, ...general } = singleForm || {});
+  }
+
+
+  const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
+
   const handleActiveTab = (active) => {
     setActiveTab(active)
   }
@@ -50,9 +62,9 @@ const AdminView = () => {
     if (decodedFormId) {
       const getFormDetails = async () => {
         setLoading(true)
-        if(adminPath ==="admin"){
+        if (adminPath === "admin") {
           await dispatch(adminFetchParticularForm(decodedFormId))
-        }else {
+        } else {
           await dispatch(fetchParticularForm(decodedFormId))
         }
         setLoading(false)
@@ -60,7 +72,6 @@ const AdminView = () => {
       getFormDetails()
     }
   }, [decodedFormId])
-
 
   const navigateToNext = (e) => {
     navigate("/admin/dashboard")
@@ -133,8 +144,6 @@ const AdminView = () => {
     }
   };
 
-  const { home, travel, food, financial, ...general } = singleForm || {};
-
   const downloadHandler = async () => {
     try {
       setDisabled(true)
@@ -158,7 +167,6 @@ const AdminView = () => {
       console.error('Error downloading PDF:', error.message);
     }
   };
-  const homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
   useEffect(() => {
     dispatch(setFormName(general?.form_name?.form_name))
@@ -166,11 +174,11 @@ const AdminView = () => {
       form_name: general?.form_name?.form_name,
       id: general?.id
     })
-    
+
     return (() => {
       dispatch(setFormName(null))
     })
-  }, [singleForm])
+  }, [adminSingleForm])
 
   const formik = useFormik({
     initialValues: {
