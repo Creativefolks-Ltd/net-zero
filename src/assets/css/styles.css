@@ -2257,6 +2257,17 @@ select {
     margin: 0 auto 60px;
 }
 
+.Policy h1.page-title {
+    text-decoration: none !important;
+    text-align: center;
+    font-size: 48px;
+    line-height: 38px;
+}
+
+.Policy h1.page-title::after {
+    content: unset;
+}
+
 .Policy h1::after {
     content: "";
     bottom: 0;

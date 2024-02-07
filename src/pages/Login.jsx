@@ -10,13 +10,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
 import AdminLoginImg from "../assets/images/admin-login.svg"
-import { emailRegex } from '../helpers/validations/Schema'
+import { emailRegex, strongPasswordRegex } from '../helpers/validations/Schema'
 
 
 const signupValidate = values => {
     const errors = {};
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    // const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
 
     if (!values.first_name?.trim()) {
         errors.first_name = 'First Name field is required';
@@ -36,7 +34,7 @@ const signupValidate = values => {
         errors.password = 'Password field is required';
     } else if (values.password.length < 6) {
         errors.password = 'Password must be at least 6 characters';
-    } else if (!strongPasswordRegex.test(values.password)) {
+    } else if (!strongPasswordRegex?.test(values.password)) {
         errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
     }
 

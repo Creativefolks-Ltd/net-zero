@@ -4,7 +4,7 @@ const PrivacyPolicy = () => {
         <>
             <section className="Policy">
                 <div className="container">
-                    
+                    <h1 className="page-title">Goodbusiness</h1>
                     <p className="text-end">Date reviewed: January 2024</p>
                     <h1>DATA PROTECTION POLICY -ANTHOS NET ZERO TOOL</h1>
                     <div className="policy-data">
@@ -208,7 +208,7 @@ const PrivacyPolicy = () => {
 
                         <p>
                             To make a subject access request, you should send the request to{" "}
-                            <a href="#">david@good.business</a>. We will usually ask for proof
+                            <a href="mailto:david@good.business">david@good.business</a>. We will usually ask for proof
                             of identification before the request can be processed.
                         </p>
 
@@ -259,7 +259,7 @@ const PrivacyPolicy = () => {
                         <p>
                             To ask Good Business to take any of these steps, you should send
                             the request to
-                            <a href="#"> david@good.business</a>.
+                            <a href="mailto:david@good.business"> david@good.business</a>.
                         </p>
 
                         <p>
@@ -411,7 +411,9 @@ const PrivacyPolicy = () => {
                             within 72 hours of discovery. We will record all data breaches
                             regardless of their effect.
                         </p>
-                        <p className="text-center">25 Gerrard Street, London, W1D 6JL | +44 (0)20 7494 0565 | www.good.business</p>
+                        <br />
+                        <br />
+                        <p className="text-center">25 Gerrard Street, London, W1D 6JL | +44 (0)20 7494 0565 | <a href="https://www.good.business" target="_blank">www.good.business</a></p>
                         <p className="text-center">Registered Company Number 356 1306</p>
 
 

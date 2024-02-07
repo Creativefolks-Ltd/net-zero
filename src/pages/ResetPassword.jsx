@@ -10,19 +10,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
 import { setUserEmail } from '../redux-store/reducers/auth'
+import { strongPasswordRegex } from '../helpers/validations/Schema'
 
 
 const validate = values => {
     const errors = {};
 
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    // const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=(?:[^@$!%*?&]*[@$!%*?&]){1}[^@$!%*?&]*$)[A-Za-z\d@$!%*?&]{6,}$/ ;
-
     if (!values.password?.trim()) {
         errors.password = 'Password field is required';
     } else if (values.password.length < 6) {
         errors.password = 'Password must be at least 6 characters';
-    } else if (!strongPasswordRegex.test(values.password)) {
+    } else if (!strongPasswordRegex?.test(values.password)) {
         errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
     }
 
