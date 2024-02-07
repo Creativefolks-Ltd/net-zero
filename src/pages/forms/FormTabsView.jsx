@@ -22,7 +22,9 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
   const general_information_id = Number(user?.generalInfoId);
 
   useEffect(() => {
-    dispatch(homeformIds(general_information_id))
+    if(general_information_id){
+      dispatch(homeformIds(general_information_id))
+    }
 
   }, [general_information_id])
 

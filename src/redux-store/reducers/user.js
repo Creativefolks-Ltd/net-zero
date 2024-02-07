@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../actions/auth";
-import { formlist, getCountry, getUserDetails, homeFormDelete, homeformIds, particularHomeDetails } from "../actions/user";
+import { fetchParticularForm, formlist, getCountry, getUserDetails, homeFormDelete, homeformIds, particularHomeDetails } from "../actions/user";
 
 const userSlice = createSlice({
     name: "fetchUsers",
@@ -13,6 +13,7 @@ const userSlice = createSlice({
         homeFormIdList: [],
         submittedFormCount: null,
         homeDetails: {},
+        singleForm: {},
         countries: [],
         isError: false
     }, reducers: {
@@ -81,6 +82,16 @@ const userSlice = createSlice({
             state.countries = action.payload.data;
         }).addCase(getCountry.rejected, (state, action) => {
             state.isError = true;
+        })
+
+        .addCase(fetchParticularForm.pending, (state, action) => {
+            state.isLoading = true;
+        }).addCase(fetchParticularForm.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.singleForm = action.payload?.data;
+        }).addCase(fetchParticularForm.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoading = false;
         })
     }
 });

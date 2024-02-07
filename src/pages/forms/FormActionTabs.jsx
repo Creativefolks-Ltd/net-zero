@@ -50,7 +50,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
     if (homeIds?.length > 0) {
       const currentIndex = homeIds?.length < 5 ? 0 : 1
       setHomeCount(homeIds?.length + currentIndex)
-      setHomeActiveTab(1);
+      // setHomeActiveTab(1);
     }
   }, [homeIds]);
 
