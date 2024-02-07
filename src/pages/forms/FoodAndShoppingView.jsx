@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
-import food_img from "../../assets/images/food_img.png";
-import FormActionTabs from "../../components/FormActionTabs";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { foodFormSubmit, getCountry } from "../../redux-store/actions/user";
-import SuccessImg from "../../assets/images/Group 9106.png";
-import Swal from "sweetalert2";
-import { foodFormValidation } from "../../helpers/validations/Schema";
+import { getCountry } from "../../redux-store/actions/user";
 
 const FoodAndShoppingView = ({ food }) => {
-
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const user = useSelector((state) => state.auth);
-    const [disabled, setDisabled] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false)
-
+    
     const endYear = new Date().getFullYear();
     const startYear = endYear - 20;
 
@@ -29,20 +18,6 @@ const FoodAndShoppingView = ({ food }) => {
     useEffect(() => {
         dispatch(getCountry());
     }, []);
-
-
-    const validateAndFilterFields = (values) => {
-        const {
-            ...rest
-        } = values;
-
-        const general_information_id = Number(user?.generalInfoId);
-        const filteredValues = {
-            ...rest,
-            general_information_id,
-        };
-        return filteredValues;
-    };
 
     useEffect(() => {
         formik.setValues({
@@ -76,78 +51,7 @@ const FoodAndShoppingView = ({ food }) => {
             events_details: food?.events_details,
             information_diet_clothes_parter: food?.information_diet_clothes_parter
         },
-
-        validationSchema: foodFormValidation,
-
-        onSubmit: submitHandler,
     });
-
-    const navigateToNext = async (e) => {
-        navigate("/financial")
-    }
-
-    async function submitHandler(values) {
-        if (!values?.vehicle_detail?.trim()) {
-            return false
-        } else {
-            setDisabled(true);
-
-            const filteredValues = await validateAndFilterFields(values);
-            const response = await dispatch(foodFormSubmit(filteredValues));
-            setDisabled(false)
-            if (!response?.payload?.error && response?.payload?.data) {
-                setIsSubmitted(true)
-                navigateToNext()
-                // Swal.fire({
-                //   title: "Success!",
-                //   text: "Form submitted successfully",
-                //   imageUrl: SuccessImg,
-                //   imageWidth: 100,
-                //   imageHeight: 100,
-                //   showCancelButton: false,
-                //   confirmButtonColor: "#3085d6",
-                //   cancelButtonColor: "#d33",
-                //   didClose: navigateToNext
-                // });
-            } else {
-                const errorMsg = response?.payload?.response?.data?.errorMsg;
-                if (errorMsg) {
-                    let errorMessage = "";
-                    if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
-                        const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-                        errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
-                            ? errorMessages.join("\n")
-                            : "";
-                    } else {
-                        errorMessage = errorMsg?.toString() || "";
-                    }
-                    Swal.fire({
-                        title: "Failed!",
-                        html: errorMessage || "Failed to form submit, please try again",
-                        icon: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                    });
-                }
-            }
-        }
-    };
-
-    const continueHandler = () => {
-        if (isSubmitted) {
-            navigateToNext()
-        } else {
-            Swal.fire({
-                title: "Warning!",
-                text: "Please save you progress before continuing",
-                icon: "warning",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-            });
-        }
-    }
 
     return (
         <>
@@ -459,15 +363,6 @@ const FoodAndShoppingView = ({ food }) => {
                                         </div>
                                     )}
                                 </div>
-                                {/* <div className="Additional-bottom-btn">
-                                    <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
-                                    </div> : ''}</button> */}
-                                {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>
-                  <button className="btn" type="button" onClick={continueHandler}>
-                    Continue
-                  </button> */}
-                                {/* </div> */}
                             </div>
                         </div>
                     </div>

@@ -209,28 +209,8 @@ const MyAccount = () => {
 
   const formSwitch = (form) => {
     return "/forms";
-    // const completedFormCount = form.total_forms;
-    // const formId = form.id;
-    // switch (completedFormCount) {
-    //   case 1: {
-    //     return "/home-form";
-    //   }
-    //   case 2: {
-    //     return "/travel";
-    //   }
-    //   case 3: {
-    //     return "/food-shopping";
-    //   }
-    //   case 4: {
-    //     return "/financial";
-    //   }
-    //   case 5: {
-    //     return "/financial";
-    //   }
-    //   default:
-    //     return "/general";
-    // }
   };
+
   const navigateToNext = (form) => {
     dispatch(addGeneralInfo(form.id));
     dispatch(setFormCompleted(form.total_forms));
@@ -545,14 +525,7 @@ const MyAccount = () => {
                           aria-expanded="false"
                           aria-controls={`regularCollapse-submit${index + 1}`}
                         >
-                          {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
                           <td>{form?.form_name}
-                            {/* {form?.first_name}{" "}
-                            {form?.created_at
-                              ? "(" +
-                              moment(form?.created_at).format("DD/MM/YYYY") +
-                              ")"
-                              : ""} */}
                           </td>
                         </button>
                       </h2>

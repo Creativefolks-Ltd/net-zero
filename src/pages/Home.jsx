@@ -89,7 +89,7 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to="/general" className="btn">Calculate your footprint</Link>
+                                <Link to="/forms" className="btn">Calculate your footprint</Link>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ const Home = () => {
                                 <p>You can save your responses if you are not able to complete the form, and return to it later. 
 Once you have submitted the information, the Good Business team will respond with initial results and suggested actions in their report, and an invitation to arrange a consultation to discuss your form.</p>
                              
-                                <Link to="/general" className="btn">Calculate your footprint</Link>
+                                <Link to="/forms" className="btn">Calculate your footprint</Link>
                             </div>
                         </div>
                         <div className="col-lg-3 Form-col-div">

@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import FormActionTabs from "../components/FormActionTabs";
 import CountryOptions from "../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../redux-store/actions/user";
 import { homeFormvalidation } from "../helpers/validations/Schema";
 import delete_img from "../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
-import SuccessImg from "../assets/images/Group 9106.png";
 import { Link, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../components/CurrencyOptions";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
-// import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
@@ -26,7 +23,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   const [disabled, setDisabled] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false)
-  // const [homeActiveTab, setHomeActiveTab] = useState(1);
   let homeActiveTab = selectedHome;
 
   const endYear = new Date().getFullYear();
@@ -41,10 +37,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   useEffect(() => {
     dispatch(getCountry());
   }, []);
-
-  // const handleFormActiveFunc = (active, home_id) => {
-  //   setHomeActiveTab(active)
-  // }
 
   const getWinterTemperature = (temperature) => {
     if (temperature >= 1 && temperature <= 18) {
@@ -445,7 +437,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   return (
     <>
-      {/* <FormActionTabs selectedTab={"home"} homeActiveTab={homeActiveTab} setHomeActiveTab={handleFormActiveFunc} /> */}
       <form onSubmit={formik.handleSubmit}>
         <section className="general-form mt-80 mb-80">
           <div className="container ">

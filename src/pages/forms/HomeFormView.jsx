@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import FormActionTabs from "../../components/FormActionTabs";
 import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchParticularForm, getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
-import { homeFormvalidation } from "../../helpers/validations/Schema";
+import { fetchParticularForm, getCountry, homeFormDelete, homeformIds } from "../../redux-store/actions/user";
 import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
-import SuccessImg from "../../assets/images/Group 9106.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
 
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
@@ -18,14 +15,10 @@ const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recyc
 const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
   const location = useLocation()
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const details = useSelector((state) => state.users);
   const user = useSelector((state) => state.auth);
   const currentHomeId = useSelector((state) => state.users?.currentHomeId);
 
-  const [disabled, setDisabled] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  // const [homeActiveTab, setHomeActiveTab] = useState(selectedHome);
   let homeActiveTab = selectedHome;
 
   let isUserFormView = location?.pathname === "/forms" ? true : false;
@@ -43,10 +36,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
     dispatch(getCountry());
   }, []);
 
-  // const handleFormActiveFunc = (active, home_id) => {
-  //   setHomeActiveTab(active)
-  // }
-
   const getWinterTemperature = (temperature) => {
     if (temperature === "< 14%") {
       return 15;
@@ -61,27 +50,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
     } else {
       return 0;
     }
-  };
-
-  const validateAndFilterFields = (values) => {
-    const {
-      heating_type,
-      property_features,
-      additional_property_features,
-      winter_temperature,
-      ...rest
-    } = values;
-
-    const general_information_id = Number(user?.generalInfoId);
-    const filteredValues = {
-      ...rest,
-      heating_type: heating_type?.toString(),
-      property_features: property_features?.toString(),
-      additional_property_features: additional_property_features?.toString(),
-      winter_temperature: getWinterTemperature(),
-      general_information_id,
-    };
-    return filteredValues;
   };
 
   useEffect(() => {
@@ -199,68 +167,8 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
       significant_land: home?.significant_land,
       land_details: home?.land_details,
       other_details: home?.other_details,
-
     },
-
-    // validationSchema: homeFormvalidation,
-    onSubmit: submitHandler,
   });
-
-  const navigateToNext = async (e) => {
-    navigate("/travel")
-  }
-
-  async function submitHandler(values) {
-    const { isValid, errors } = formik;
-    if (isValid) {
-      setDisabled(true);
-
-      const filteredValues = await validateAndFilterFields(values);
-      const response = await dispatch(homeFormSubmit(filteredValues));
-      setDisabled(false)
-      if (!response?.payload?.error && response?.payload?.data) {
-        setIsSubmitted(true)
-        Swal.fire({
-          title: "Success!",
-          text: "Form submitted successfully",
-          imageUrl: SuccessImg,
-          imageWidth: 100,
-          imageHeight: 100,
-          showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          didClose: navigateToNext
-          //   cancelButtonColor: "#d33",
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-          //     navigate("/travel")
-          //   }
-        });
-      } else {
-        const errorMsg = response?.payload?.response?.data?.errorMsg;
-        if (errorMsg) {
-          let errorMessage = "";
-          if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
-            const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-            errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
-              ? errorMessages.join("\n")
-              : "";
-          } else {
-            errorMessage = errorMsg?.toString() || "";
-          }
-          Swal.fire({
-            title: "Failed!",
-            html: errorMessage || "Failed to form submit, please try again",
-            icon: "error",
-            showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-          });
-        }
-      }
-    } else {
-      console.error('Form is not valid', errors);
-    }
-  };
 
   const deleteHandler = async () => {
     try {
@@ -300,7 +208,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
     }
   };
 
-
   const genSlideStyle = (value) => {
     return {
       point: {
@@ -313,21 +220,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
   };
 
   const slideStyle = genSlideStyle(formik.values.winter_temperature);
-
-  const continueHandler = () => {
-    if (isSubmitted) {
-      navigateToNext()
-    } else {
-      Swal.fire({
-        title: "Warning!",
-        text: "Please save you progress before continuing",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-      });
-    }
-  }
 
   return (
     <>

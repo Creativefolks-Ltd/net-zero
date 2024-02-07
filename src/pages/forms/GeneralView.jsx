@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
-import SuccessImg from "../../assets/images/Group 9106.png";
-import { useNavigate } from "react-router-dom";
-import { formvalidation } from "../../helpers/validations/Schema";
-import { generalFormSubmit, getCountry } from "../../redux-store/actions/user";
+import { getCountry } from "../../redux-store/actions/user";
 import CountryOptions from "../../components/CountryOptions";
-import FormActionTabs from "../../components/FormActionTabs";
 
 const GeneralView = ({ general }) => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [activeTab, setActiveTab] = useState("general")
-    const [disabled, setDisabled] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false)
     const user = useSelector((state) => state.auth);
     const details = useSelector((state) => state.users);
 
@@ -74,126 +65,7 @@ const GeneralView = ({ general }) => {
             other_dependants_details: general?.other_dependants_details || "",
             forest_or_farmland_details: general?.forest_or_farmland_details || "",
         },
-
-        validationSchema: formvalidation,
-        onSubmit: handleSubmit
     });
-
-    const validateAndFilterFields = (values) => {
-        const {
-            first_home_country,
-            second_home_country,
-            third_home_country,
-            fourth_home_country,
-            fifth_home_country,
-            num_of_homes,
-            other_dependants,
-            other_dependants_details,
-            year_of_birth,
-            num_of_children_under_18,
-            first_name,
-            last_name,
-            email,
-            emailConfirmation,
-            forest_or_farmland_details,
-            ...rest
-        } = values;
-
-        const user_id = Number(user.userInfo.user_id);
-        const filteredValues = {
-            ...rest,
-            ...(num_of_homes >= 1 ? { first_home_country } : {}),
-            ...(num_of_homes >= 2 ? { second_home_country } : {}),
-            ...(num_of_homes >= 3 ? { third_home_country } : {}),
-            ...(num_of_homes >= 4 ? { fourth_home_country } : {}),
-            ...(num_of_homes >= 5 ? { fifth_home_country } : {}),
-            ...(other_dependants === "Yes" ? { other_dependants_details: other_dependants_details?.trim() } : {}),
-            ...(emailConfirmation && {}),
-            other_dependants: other_dependants?.trim(),
-            num_of_homes: Number(num_of_homes),
-            year_of_birth: Number(year_of_birth),
-            num_of_children_under_18: Number(num_of_children_under_18),
-            user_id,
-            first_name: first_name?.trim(),
-            last_name: last_name?.trim(),
-            email: email?.trim(),
-            forest_or_farmland_details: forest_or_farmland_details?.trim()
-        };
-        return filteredValues;
-    };
-
-
-    const navigateToNext = async (e) => {
-        navigate("/home-form")
-    }
-    async function handleSubmit(values) {
-        try {
-            setDisabled(true)
-            const filteredValues = await validateAndFilterFields(values);
-            const response = await dispatch(generalFormSubmit(filteredValues));
-            setDisabled(false)
-            if (!response?.payload?.error && response?.payload?.data) {
-                setIsSubmitted(true)
-                Swal.fire({
-                    title: "Success!",
-                    text: "Form submitted successfully",
-                    imageUrl: SuccessImg,
-                    imageWidth: 100,
-                    imageHeight: 100,
-                    showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    didClose: navigateToNext
-                });
-            } else {
-                const errorMsg = response?.payload?.response?.data?.errorMsg;
-                if (errorMsg) {
-                    let errorMessage = "";
-                    if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
-                        const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
-                        errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
-                            ? errorMessages.join("\n")
-                            : "";
-                    } else {
-                        errorMessage = errorMsg?.toString() || "";
-                    }
-                    Swal.fire({
-                        title: "Failed!",
-                        html: errorMessage || "Failed to form submit, please try again",
-                        icon: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                    });
-                }
-            }
-        } catch (error) {
-            setDisabled(false);
-            Swal.fire({
-                title: "Failed!",
-                text: "Something went wrong, please check the form.",
-                icon: "error",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-            });
-        }
-    }
-
-    const continueHandler = () => {
-        if (isSubmitted) {
-            navigateToNext()
-        } else {
-            Swal.fire({
-                title: "Warning!",
-                text: "Please save you progress before continuing",
-                icon: "warning",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-            });
-        }
-    }
 
     return (
         <>

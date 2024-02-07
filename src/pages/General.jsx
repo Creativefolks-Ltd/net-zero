@@ -2,18 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import SuccessImg from "../assets/images/Group 9106.png";
 import { Link, useNavigate } from "react-router-dom";
 import { formvalidation } from "../helpers/validations/Schema";
 import { generalFormSubmit, getCountry } from "../redux-store/actions/user";
 import CountryOptions from "../components/CountryOptions";
-import FormActionTabs from "../components/FormActionTabs";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
 const General = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [activeTab, setActiveTab] = useState("general")
     const [disabled, setDisabled] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const user = useSelector((state) => state.auth);
@@ -121,17 +118,6 @@ const General = () => {
                 setIsSubmitted(true)
                 dispatch(setFormCompleted(user?.formCompleted + 1))
                 navigateToNext()
-                // Swal.fire({
-                //     title: "Success!",
-                //     text: "Form submitted successfully",
-                //     imageUrl: SuccessImg,
-                //     imageWidth: 100,
-                //     imageHeight: 100,
-                //     showCancelButton: false,
-                //     confirmButtonColor: "#3085d6",
-                //     cancelButtonColor: "#d33",
-                //     didClose: navigateToNext
-                // });
             } else {
                 const errorMsg = response?.payload?.response?.data?.errorMsg;
                 if (errorMsg) {
@@ -184,7 +170,6 @@ const General = () => {
 
     return (
         <>
-            {/* <FormActionTabs selectedTab={"general"} /> */}
             <form onSubmit={formik.handleSubmit}>
                 <section className="general-form mt-80 mb-80">
                     <div className="container ">

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import finance_img from "../assets/images/finance_img.png";
-import FormActionTabs from "../components/FormActionTabs";
 import { finanicialFormSubmit } from "../redux-store/actions/user";
 import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
@@ -52,7 +50,7 @@ const Financial = () => {
             behavior: 'smooth'
           });
         } else {
-          navigate("/general");
+          navigate("/forms");
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -86,7 +84,6 @@ const Financial = () => {
 
   return (
     <>
-      {/* <FormActionTabs selectedTab={"financial"} /> */}
       <section className="investments">
         <div className="container">
           <div className="sub-heading">

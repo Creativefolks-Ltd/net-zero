@@ -18,7 +18,6 @@ const Layout = () => {
 
     const pathname = location.pathname === "/" ? "home" : location.pathname.substring(1);
 
-    // const formsSectionOpened = (location.pathname === "/general" || location.pathname === "/home-form" || location.pathname === "/travel" || location.pathname === "/food-shopping" || location.pathname === "/financial") ? true : false
     const formsSectionOpened = (location.pathname === "/forms" ? true : false)
 
     useEffect(() => {

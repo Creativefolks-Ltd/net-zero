@@ -5,7 +5,6 @@ import User_Icon from '../assets/images/user.svg';
 import White_User_Icon from '../assets/images/profile_img.png';
 import MenuImage from '../assets/images/bur.svg';
 import WhiteMenuImage from '../assets/images/white-bar.svg';
-//import closeImage from '../assets/images/close.svg';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux-store/actions/auth";
@@ -22,10 +21,6 @@ const Header = ({ bgTransparent }) => {
     const adminPage = location?.pathname.includes("/admin")
 
     const authUser = useSelector((state) => state.auth)
-    // const navbarStyle = {
-    //     background: bgTransparent ? "transparent" : "#ffffff",
-    //     boxShadow: bgTransparent ? "none" : "1px 1px 6.5px rgba(0,0,0,0.16)",
-    // }
 
     const logoutHandler = (userType) => {
         Swal.fire({
@@ -87,13 +82,7 @@ const Header = ({ bgTransparent }) => {
                         ) : authUser?.userInfo && (
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
-
-                                    {/* <li className="nav-item"><Link to="/my-account"> My account</Link></li>
-                                    <li className="nav-item"><Link to="/general">Footprint Calculator</Link></li>
-                                    <li className="nav-item"><Link to="/privacy-policy"> T&Cs</Link></li>
-                                    <li className="nav-item emain-div">netzero@good.business</li> */}
                                     <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
-                                    {/* <li className="nav-item"><Link to="/general">Submit Data</Link></li> */}
                                     <li className="nav-item"><Link to="/forms">Submit Data</Link></li>
                                     <li className="nav-item emain-div"><a href="mailto:netzero@good.business">Help</a></li>
                                     <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>

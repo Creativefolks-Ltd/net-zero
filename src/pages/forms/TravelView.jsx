@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
-import FormActionTabs from "../../components/FormActionTabs";
-import travel_img from "../../assets/images/travel_img.png";
+import React, { useEffect } from "react";
 import { travelformvalidation } from "../../helpers/validations/Schema";
 import { useFormik } from "formik";
-import { travelFormSubmit } from "../../redux-store/actions/user";
-import SuccessImg from "../../assets/images/Group 9106.png";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const TravelView = ({ travel }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.auth);
-  const [disabled, setDisabled] = useState(false);
 
   const vehicalTypes = ["Motorbike", "Bicycle", "Passenger Ferry", "Train", "Private Yacht", "Private hire vehicles (taxis, transfers, limos, etc)", "Helicopter"];
 
@@ -514,15 +503,6 @@ const TravelView = ({ travel }) => {
                     defaultValue={formik.values.other_travel_info}
                     readOnly
                   ></textarea>
-                  {/* <div className="Additional-bottom-btn">
-                    <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button> */}
-                  {/* <button className="btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
-                    <button className="btn" type="button" onClick={continueHandler}>
-                      Continue
-                    </button> */}
-                  {/* </div> */}
                 </div>
               </div>
             </div>

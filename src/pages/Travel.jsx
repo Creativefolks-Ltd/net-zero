@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import FormActionTabs from "../components/FormActionTabs";
-import travel_img from "../assets/images/travel_img.png";
 import { travelformvalidation } from "../helpers/validations/Schema";
 import { useFormik } from "formik";
 import { travelFormSubmit } from "../redux-store/actions/user";
-import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -185,7 +182,6 @@ const Travel = () => {
 
   return (
     <>
-      {/* <FormActionTabs selectedTab={"travel"} /> */}
       <form onSubmit={formik.handleSubmit}>
         <section className="economy-table">
           <div className="container">

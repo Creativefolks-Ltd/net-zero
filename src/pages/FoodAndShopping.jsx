@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import food_img from "../assets/images/food_img.png";
-import FormActionTabs from "../components/FormActionTabs";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { foodFormSubmit, getCountry } from "../redux-store/actions/user";
-import SuccessImg from "../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { foodFormValidation } from "../helpers/validations/Schema";
 import { setFormCompleted } from "../redux-store/reducers/auth";
@@ -133,7 +130,6 @@ const FoodAndShopping = () => {
 
   return (
     <>
-      {/* <FormActionTabs selectedTab={"food"} /> */}
       <form onSubmit={formik.handleSubmit}>
         <section class="food-shopping top">
           <div className="container">
