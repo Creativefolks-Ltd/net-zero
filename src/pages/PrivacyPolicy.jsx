@@ -4,18 +4,15 @@ const PrivacyPolicy = () => {
         <>
             <section className="Policy">
                 <div className="container">
-                    <h1>DATA PROTECTION POLICY</h1>
+                    
+                    <p className="text-end">Date reviewed: January 2024</p>
+                    <h1>DATA PROTECTION POLICY -ANTHOS NET ZERO TOOL</h1>
                     <div className="policy-data">
                         <h2>1. INTRODUCTION</h2>
                         <p>
-                            Good Business needs to gather and use certain information about
-                            individuals.
+                            Good Business needs to gather and use certain information for the <b><u>Anthos Net Zero Tool</u></b>
                         </p>
-                        <p>
-                            These individuals can include customers, suppliers, business
-                            contacts, and other people we have arelationship with or may need
-                            to contact, as well as you as employees.{" "}
-                        </p>
+
                         <p>
                             Good Business is committed to being transparent about how it
                             collects and uses the personal data of its workforce, and to
@@ -26,30 +23,8 @@ const PrivacyPolicy = () => {
                         <p>
                             It describes how this personal data must be collected, handled and
                             stored to meet our data protection standards — and to comply with
-                            the law. It is important that you understand the policy and how it
-                            applies to you, and that you implement the policy whenever you
-                            gather, use or store information about people.
+                            the law.
                         </p>
-                        <p>
-                            This policy helps to protect us from some very real data security
-                            risks, including:
-                        </p>
-                        <ul>
-                            <li>
-                                <span>Breaches of confidentiality.</span> This could include
-                                information being given outinappropriately, or to the wrong
-                                person.{" "}
-                            </li>
-                            <li>
-                                <span>Failing to offer choice. </span> People need to be free to
-                                choose how we use data relating to them.
-                            </li>
-                            <li>
-                                <span>Reputational damage.</span> If data is used
-                                inappropriately, or access to data is given to people who have
-                                no right to use it, this creates a reputational risk.{" "}
-                            </li>
-                        </ul>
 
                         <h2>2. POLICY SCOPE</h2>
                         <p>
@@ -61,34 +36,36 @@ const PrivacyPolicy = () => {
                             identifiable individuals, including:
                         </p>
                         <ul>
-                            <li>Names of individuals </li>
-                            <li>Postal addresses</li>
-                            <li>Telephone numbers </li>
+                            <li>Contact information (name,email).</li>
+                            <li>Country of residence and holiday homes.</li>
+                            <li>Household composition.</li>
                             <li>
-                                Any other information relating to individuals, including
-                                photographs and video recordings taken for the purposes of
-                                research.{" "}
+                                General data concerning their homes,travels,food and shopping habits.
+                            </li>
+                            <li>
+                                Clients can provide percentages and types of outside investments.
                             </li>
                         </ul>
 
                         <h2>3. DEFINITIONS</h2>
                         <p>
-                            <span>"Personal data"</span>is any information that relates to an
+                            <span>"Personal data" </span> is any information that relates to an
                             individual who can be identified from that information. Processing
                             is any use that is made of data, including collecting, storing,
                             amending, disclosing or destroying it.
                         </p>
                         <p>
-                            <span>"Special categories of personal data" </span>" means
-                            information about an individual's racial or ethnic origin,
-                            political opinions, religious or philosophical beliefs, trade
-                            union membership, health, sex life or sexual orientation and
-                            biometric data.
+                            <span>"Special categories of Personal Data": </span> Personal data revealing racial or ethnic origin, political
+                            opinions, religious or philosophical beliefs, or trade union membership, and genetic data, biometric
+                            data for the purpose of uniquely identifying a natural person, data concerning health or data
+                            concerning a natural person's sex life or sexual orientation within the meaning of Article 9 of the
+                            GDPR. This also includes personal data relating to criminal convictions and offences within the
+                            meaning of Article 10 of the GDPR and national identification numbers.
                         </p>
                         <p>
-                            <span>"Criminal records data"</span> means information about an
-                            individual's criminal convictions and offences, and information
-                            relating to criminal allegations and proceedings.
+                            <span>"GDPR”": </span>  Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016
+                            on the protection of natural persons with regard to the processing of personal data and on the free
+                            movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).
                         </p>
 
                         <h2>4. DATA PROTECTION LAW AND PRINCIPLES</h2>
@@ -141,24 +118,54 @@ const PrivacyPolicy = () => {
                         </p>
                         <p>
                             Where Good Business processes special categories of personal data
-                            or criminal records data to perform obligations or to exercise
-                            rights in employment law, this is done in accordance with a policy
-                            on special categories of data and criminal records data.
+                            this is done in accordance with a policy
+                            on special categories of data.
                         </p>
-                        <p>
-                            Personal data about employees is held in the individual's
-                            personnel file (in hard copy or electronic format, or both), and
-                            on HR systems, including Breathe HR. The periods for which Good
-                            Business holds HR-related personal data are contained in its
-                            privacy notices to individuals.
-                        </p>
+
                         <p>
                             Good Business keeps a record of its processing activities in
                             respect of personal data in accordance with the requirements of
                             the GDPR.{" "}
                         </p>
+                        <h2>5. DATA PROCESSING OPERATIONS</h2>
+                        <p><b>Description of the nature of the Data Processing Operation</b></p>
+                        <ul>
+                            <li>Collection, recording, organisation, analysis and reporting on data associated with personal
+                                carbon footprints and consultation with data subjects on this issue</li>
+                            <li>Due to the SK Carbon Pledge, the individual SK client data will be used to create the yearly
+                                SK Carbon Pledge group report </li>
+                        </ul>
+                        <p><b>Purposes of the Data Processing Operation</b></p>
+                        <ul>
+                            <li>To allow Good Business to calculate individual carbon footprints, communicate with the
+                                Data Subjects and provide advice and guidance and to report to Anthos on the individual
+                                and aggregated results of this analysis as part of a contract to deliver these services to
+                                Anthos. </li>
+                        </ul>
+                        <p><b>Categories of Data Subjects</b></p>
+                        <ul>
+                            <li>SKs.</li>
+                            <li>Family members.</li>
+                            <li>Anthos employees.</li>
+                        </ul>
+                        <p><b>(Categories of) Personal Data</b></p>
+                        <ul>
+                            <li>Contact information (name, email)</li>
+                            <li>Country of residence and holiday homes.</li>
+                            <li>Household composition.</li>
+                            <li>General data concerning their homes, travels, food and shopping habits.</li>
+                            <li>Clients can provide percentages and types of outside investments.</li>
+                        </ul>
+                        <p><b>Retention period for the Personal Data, or the criteria used to establish the retention period</b></p>
+                        <ul>
+                            <li>We retain the information we collect no longer than is reasonably necessary to fulfil the
+                                purposes that such data was originally collected in accordance with our internal data
+                                retention polices or to comply with our legal and regulatory obligations. Data collected will
+                                be held for as long as is necessary to allow us to make comparisons over time and to assess
+                                trends, both at an aggregated level and an individual level</li>
 
-                        <h2>5. INDIVIDUAL RIGHTS</h2>
+                        </ul>
+                        <h2>6. INDIVIDUAL RIGHTS</h2>
                         <p>
                             Those about whom we hold and process personal data, including
                             employees, have a number of rights in relation to their personal
@@ -220,7 +227,7 @@ const PrivacyPolicy = () => {
                             responding to the request.{" "}
                         </p>
 
-                        <p>Other rights</p>
+                        <p><b>Other rights</b></p>
 
                         <p>
                             You have a number of other rights in relation to your personal
@@ -284,37 +291,7 @@ const PrivacyPolicy = () => {
                             ensuring data is collected, stored and handled appropriately.
                         </p>
 
-                        <p>
-                            <span>Individual responsibilities</span>
-                        </p>
 
-                        <p>
-                            You are responsible for helping us keep your personal data up to
-                            date, and should notify Good Business of any changes promptly.
-                        </p>
-
-                        <p>
-                            You may have access to the personal data of other individuals in
-                            the course of your job role. Individuals who have access to
-                            personal data are required to follow the guidelines in respect of
-                            data use, data storage and data accuracy set out below at all
-                            times.
-                        </p>
-
-                        <p>
-                            If you are concerned that there may have been a data breach, you
-                            should notify David Lourie immediately in order that the necessary
-                            steps can be taken to rectify the breach.
-                        </p>
-
-                        <p>
-                            Failing to observe these requirements may amount to a disciplinary
-                            offence, which will be dealt with under our disciplinary
-                            procedure. Significant or deliberate breaches of this policy, such
-                            as accessing employee or customer data without authorisation or a
-                            legitimate reason to do so, may constitute gross misconduct and
-                            could lead to dismissal without notice.
-                        </p>
 
                         <p>
                             <span>Specific responsibilities</span>
@@ -371,19 +348,28 @@ const PrivacyPolicy = () => {
                                 </li>
                             </ul>
                         </ul>
+
+
                         <ul>
-                            <li>The Senior Partner, Larissa Persons, is responsible for:</li>
+                            <li>Fluid IT  (our IT partner) are responsible for (in relation to all Good Business IT provision):</li>
                             <ul className="inner-list">
                                 <li>
-                                    Ensuring our research projects are structured to take account
-                                    of data protection principles and that data collected for the
-                                    purposes of research is stored and handled correctly.
+                                    Ensuring all systems, services and equipment used for storing
+                                    data meet acceptable security standards.
+                                </li>
+                                <li>
+                                    Performing regular checks and scans to ensure security
+                                    hardware and software is functioning properly.
+                                </li>
+                                <li>
+                                    Evaluating any third-party services the company is considering
+                                    using to store or process data. For instance, cloud computing
+                                    services.
                                 </li>
                             </ul>
                         </ul>
-
                         <ul>
-                            <li>Fluid IT are responsible for:</li>
+                            <li>Creative Folks are responsible for (in relation to all Anthos Net Zero Tool hosting provision):</li>
                             <ul className="inner-list">
                                 <li>
                                     Ensuring all systems, services and equipment used for storing
@@ -425,228 +411,10 @@ const PrivacyPolicy = () => {
                             within 72 hours of discovery. We will record all data breaches
                             regardless of their effect.
                         </p>
+                        <p className="text-center">25 Gerrard Street, London, W1D 6JL | +44 (0)20 7494 0565 | www.good.business</p>
+                        <p className="text-center">Registered Company Number 356 1306</p>
 
-                        <h2>9. GUIDELINES: GENERAL</h2>
-                        <ul>
-                            <li>
-                                The only people able to access data covered by this policy
-                                should be those who <span>need it for their work</span>. If you
-                                are responsible for the data, you should make sure that it is
-                                stored in a way that it can only be accessed by people who need
-                                it. If you believe you have access to data that you have no
-                                reason to access, you must inform the Managing Partner.{" "}
-                            </li>
 
-                            <li>
-                                Data <span>should not be shared informally</span>. When access
-                                to confidential information is required, employees can request
-                                it from the Managing Partner.{" "}
-                            </li>
-
-                            <li>
-                                If you believe that you have access to data that you should not
-                                have access to in the normal course of fulfilling your
-                                employment responsibilities, you must notify the Managing
-                                Partner immediately.
-                            </li>
-
-                            <li>
-                                <span>We provide training to employees</span> to help you
-                                understand your responsibilities when handling data.{" "}
-                            </li>
-                            <li>
-                                Employees should keep all data secure, by taking sensible
-                                precautions and following the guidelines below.
-                            </li>
-
-                            <li>
-                                In particular, <span>strong passwords must be used</span> and
-                                they should never be shared. Passwords for files should be
-                                unique, and stored securely. Guidance on what counts as a strong
-                                password is available from Fluid IT or from the Managing
-                                Partner.
-                            </li>
-
-                            <li>
-                                Personal data <span>should not be disclosed</span> to
-                                unauthorised people, either within the company or externally.
-                            </li>
-
-                            <li>
-                                Data should be <span>regularly reviewed and updated</span> if it
-                                is found to be out of date. If no longer required, or if it is
-                                out of date, it should be deleted and disposed of.{" "}
-                            </li>
-
-                            <li>
-                                Employees <span>should request help</span> from the Managing
-                                Partner if they are unsure about any aspect of data protection.
-                            </li>
-                        </ul>
-
-                        <h2>10. GUIDELINES: DATA STORAGE</h2>
-
-                        <p>
-                            These rules describe how and where data should be safely stored.
-                            Questions about storing data safely can be directed to the
-                            Managing Partner or Fluid IT.
-                        </p>
-
-                        <p>
-                            When data is{" "}
-                            <span>
-                                stored on paper, or when it is stored electronically but has
-                                been printed out for some reason,
-                            </span>{" "}
-                            it should be kept in a secure place (a locked drawer or filing
-                            cabinet) where unauthorised people cannot see it. Do not leave
-                            sensitive or personal information in unsecured{" "}
-                        </p>
-
-                        <p>
-                            locations, or on desks overnight, or anywhere where unauthorised
-                            people may see them, such as on the printer. Sensitive or
-                            confidential information that is no longer needed should be
-                            disposed of by using the shredder which is by the printer.{" "}
-                        </p>
-
-                        <p>
-                            When data is <span>stored electronically,</span> it must be
-                            protected from unauthorised access, accidental deletion and
-                            malicious hacking attempts:
-                        </p>
-                        <ul>
-                            <li>
-                                Data should be <span>protected by strong passwords</span> that
-                                are changed regularly and never shared between employees. This
-                                applies to the password that you use to protect your device, but
-                                also to any files that store data, which should have separate
-                                passwords to protect them.
-                            </li>
-
-                            <li>
-                                If data is <span>stored on removable media</span> (like an
-                                external hard drive or DVD), these should be kept locked away
-                                securely when not being used.
-                            </li>
-
-                            <li>
-                                Data should only be stored on{" "}
-                                <span>designated drives and servers,</span> and should only be
-                                uploaded to an <span>approved cloud computing services</span>.{" "}
-                            </li>
-
-                            <li>
-                                Data that is{" "}
-                                <span>
-                                    transferred outside the organisation should be encrypted
-                                </span>{" "}
-                                and an <span>approved file sharing service</span> (currently
-                                WeTransfer or Dropbox) should be used. Data should be deleted
-                                from the transfer service when it has been retrieved and
-                                downloaded by the recipient.{" "}
-                            </li>
-
-                            <li>
-                                Data should be <span>backed up frequently</span>. Those backups
-                                are tested regularly, in line with the company’s standard backup
-                                procedures.
-                            </li>
-
-                            <li>
-                                Data should <span>never be saved directly</span> to laptops or
-                                other mobile devices like tablets or smart phones but should
-                                only be saved onto the server. This applies even if you are
-                                working remotely, using your own personal device.{" "}
-                            </li>
-                        </ul>
-
-                        <h2>11. GUIDELINES: DATA USE</h2>
-
-                        <p>
-                            Personal data is of no value to Good Business unless the business
-                            can make use of it. However, it is when personal data is accessed
-                            and used that it can be at the greatest risk of loss, corruption
-                            or theft:
-                        </p>
-
-                        <ul>
-                            <li>
-                                When working with personal data, you should make sure that{" "}
-                                <span>the screen of your computer is always locked</span> when
-                                left unattended.
-                            </li>
-
-                            <li>
-                                Personal data <span>should not be shared informally</span>. In
-                                particular, it should not be sent by email, as this form of
-                                communication is not secure. If you need to send it by email,
-                                make sure it is encrypted with a suitable password.{" "}
-                            </li>
-
-                            <li>
-                                Data must be{" "}
-                                <span>encrypted before being transferred electronically</span>.
-                                You should transmit the password to access the data separately.{" "}
-                            </li>
-
-                            <li>
-                                Personal data should{" "}
-                                <span>
-                                    never be transferred outside of the European Economic Area.
-                                </span>
-                            </li>
-
-                            <li>
-                                Employees{" "}
-                                <span>
-                                    should not save copies of personal data to their own computers
-                                </span>
-                                . Always access and update the central copy of any data
-                            </li>
-                        </ul>
-
-                        <h2>12. GUIDELINES: DATA ACCURACY</h2>
-                        <p>
-                            The law requires us take reasonable steps to ensure data is kept
-                            accurate and up to date.
-                        </p>
-                        <p>
-                            The more important it is that the personal data is accurate, the
-                            greater the effort we need to make to ensure its accuracy. It is
-                            the responsibility of all employees who work with data to take
-                            reasonable steps to ensure it is kept as accurate and up to date
-                            as possible.
-                        </p>
-                        <ul>
-                            <li>
-                                Data will be held in <span>as few places as necessary</span>.
-                                Staff should not create any unnecessary additional data sets.
-                            </li>
-
-                            <li>
-                                Staff should{" "}
-                                <span>take every opportunity to ensure data is updated</span>.
-                                For instance, if you know that someone’s details have changed,
-                                you should update these as soon as possible.{" "}
-                            </li>
-
-                            <li>
-                                Data should be{" "}
-                                <span>updated as inaccuracies are discovered</span>. For
-                                instance, if a customer can no longer be reached on their stored
-                                telephone number, it should be removed from the database.{" "}
-                            </li>
-                        </ul>
-
-                        <h2>13. RESEARCH PROJECTS – SPECIFIC GUIDANCE</h2>
-
-                        <p>
-                            Specific information and guidance is available separately for any
-                            employees involved in consumer or stakeholder research projects.
-                            Larissa Persons is responsible for these in her capacity as Senior
-                            Partner of Strategy.
-                        </p>
                     </div>
                 </div>
             </section>
