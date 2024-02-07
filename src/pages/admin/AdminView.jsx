@@ -2,20 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { fetchParticularForm, formDelete, updateFormName } from "../../redux-store/actions/admin";
+import { downloadPdf, adminFetchParticularForm, formDelete, updateFormName } from "../../redux-store/actions/admin";
 import HomeFormView from "../forms/HomeFormView";
 import GeneralView from "../forms/GeneralView";
 import TravelView from "../forms/TravelView";
 import FoodAndShoppingView from "../forms/FoodAndShoppingView";
-import FormActionTabs from "../forms/FormActionTabs";
 import SuccessImg from "../../assets/images/Group 9106.png";
 
-import { downloadPdf } from "../../redux-store/actions/user";
 import FormTabsView from "../forms/FormTabsView";
 import FinancialView from "../forms/FinancialView";
 import moment from "moment";
 import { useFormik } from "formik";
 import { setFormName } from "../../redux-store/reducers/auth";
+import { fetchParticularForm } from "../../redux-store/actions/user";
 
 const validate = values => {
   const errors = {};
@@ -51,7 +50,11 @@ const AdminView = () => {
     if (decodedFormId) {
       const getFormDetails = async () => {
         setLoading(true)
-        await dispatch(fetchParticularForm(decodedFormId))
+        if(adminPath ==="admin"){
+          await dispatch(adminFetchParticularForm(decodedFormId))
+        }else {
+          await dispatch(fetchParticularForm(decodedFormId))
+        }
         setLoading(false)
       }
       getFormDetails()

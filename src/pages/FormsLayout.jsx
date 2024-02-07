@@ -4,7 +4,7 @@ import HomeFormView from "./forms/HomeFormView";
 import TravelView from "./forms/TravelView";
 import FoodAndShoppingView from "./forms/FoodAndShoppingView";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchParticularForm } from "../redux-store/actions/admin";
+import { fetchParticularForm } from "../redux-store/actions/user";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import FormActionTabs from "./forms/FormActionTabs";

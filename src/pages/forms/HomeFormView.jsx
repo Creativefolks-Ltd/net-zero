@@ -3,21 +3,20 @@ import { useFormik } from "formik";
 import FormActionTabs from "../../components/FormActionTabs";
 import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
+import { fetchParticularForm, getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
 import { homeFormvalidation } from "../../helpers/validations/Schema";
 import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
 import SuccessImg from "../../assets/images/Group 9106.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
-import { fetchParticularForm } from "../../redux-store/actions/admin";
 
-// import homeimage from "../assets/images/home-img.png"
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
 const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
+  const location = useLocation()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -28,6 +27,8 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   // const [homeActiveTab, setHomeActiveTab] = useState(selectedHome);
   let homeActiveTab = selectedHome;
+
+  let isUserFormView = location?.pathname === "/forms" ? true : false;
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 100;
@@ -342,7 +343,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                         <div className="home-title">
                           <h2>Home {homeActiveTab}</h2>
                         </div>
-                        {homeActiveTab > 1 && (
+                        {(homeActiveTab > 1 && isUserFormView)&& (
                           <div className="delete-box" onClick={deleteHandler}>
                             <span>Delete this home</span>
                             <img src={delete_img} alt="" />

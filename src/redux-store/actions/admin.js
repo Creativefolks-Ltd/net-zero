@@ -63,9 +63,9 @@ export const getUserList = createAsyncThunk('getUserList', async (thunkAPI) => {
     }
 });
 
-export const fetchParticularForm = createAsyncThunk('fetchParticularForm', async (form_id, thunkAPI) => {
+export const adminFetchParticularForm = createAsyncThunk('adminFetchParticularForm', async (form_id, thunkAPI) => {
     try {
-        const token = thunkAPI?.getState()?.auth?.userInfo?.token || thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
         const response = await axios.get(`/api/admin/fetch/form?form_id=${form_id}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
@@ -75,8 +75,8 @@ export const fetchParticularForm = createAsyncThunk('fetchParticularForm', async
 
 export const formDelete = createAsyncThunk('formDelete', async (form_id, thunkAPI) => {
     try {
-        const token = thunkAPI?.getState()?.auth?.userInfo?.token || thunkAPI?.getState()?.auth?.adminDetails?.token;
-        const response = await axios.delete(`/api/delete/user/form/${form_id}`, { headers: { Authorization: `Bearer ${token}` } });
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const response = await axios.delete(`/api/delete/admin/form/${form_id}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         return error;
@@ -89,6 +89,37 @@ export const updateFormName = createAsyncThunk('updateFormName', async (data, th
         const id = data?.id;
         const form_name = data?.form_name;
         const response = await axios.patch(`/api/update/form/name/${id}`, { form_name: form_name }, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+
+export const downloadPdf = createAsyncThunk('downloadPdf', async (form_id, thunkAPI) => {
+    try {
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const response = await axios.get(`/api/download/pdf?form_id=${form_id}`, { responseType: 'blob', headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const downloadCSV = createAsyncThunk('downloadCSV', async (form_id, thunkAPI) => {
+    try {
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const response = await axios.get(`/api/download/form?form_id=${form_id}`, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const adminManagePassword = createAsyncThunk('adminManagePassword', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const response = await axios.post("/api/admin/manage-password", data, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         return error;

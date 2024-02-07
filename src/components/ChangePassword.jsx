@@ -6,7 +6,7 @@ import { changePasswordFormValidation } from "../helpers/validations/Schema";
 import SuccessImg from "../assets/images/Group 9106.png";
 import lock from "../assets/images/lock.svg";
 import Swal from "sweetalert2";
-import { updateAdminDetails } from "../redux-store/actions/admin";
+import { adminManagePassword } from "../redux-store/actions/admin";
 import PasswordInput from "../components/PasswordInput";
 import { managePassword } from "../redux-store/actions/user";
 
@@ -29,7 +29,12 @@ const ChangePassword = ({ isAdmin }) => {
 
     if (isValid) {
       setDisabled(true);
-      const response = await dispatch(managePassword(values));
+      let response;
+      if (isAdmin) {
+        response = await dispatch(adminManagePassword(values));
+      } else {
+        response = await dispatch(managePassword(values));
+      }
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
         Swal.fire({
