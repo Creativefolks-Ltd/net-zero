@@ -2227,6 +2227,9 @@ select {
     margin-right: 0;
     margin-left: 0;
 }
+.upload-box-body.drag-over {
+    border: 3px solid #48B8B1;
+}
 
 .close-icon,
 .hamburger,
@@ -2801,6 +2804,9 @@ select {
 }
 
 @media (max-width:991px) {
+    .submissions .modal-content {
+        width: 94% !important;
+    }
     .Policy .policy-data h2 {
         margin-top: 40px;
     }
@@ -3917,6 +3923,9 @@ select {
         font-size: 19px;
         line-height: 22px;
     }
+    .form-name-container .close-btn-box button svg {
+        width: 30px;
+    }
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -3980,8 +3989,11 @@ a.view-form-link {
 
 /*********************** Change form name modal *********************/
 .form-name-container .modal-content {
-    padding: 10px;
+    padding: 30px;
     border-radius: 15px;
+}
+.form-name-container .modal-body {
+  padding: 0;
 }
 
 .form-name-container form {
@@ -3997,4 +4009,26 @@ a.view-form-link {
     box-shadow: none !important;
     border: none;
 
+}
+
+
+@media (max-width: 480px){
+.submissions .modal, .submissions .modal-content {
+    max-width: 96%!important;
+    text-align: center;
+    margin: 0 auto !important;
+    transform: translate(4px, 10px);
+}
+.submissions .modal-content {
+   padding: 30px;
+}
+.submissions .modal-content h1 {
+    font-size: 30px !important;
+    font-weight: 600;
+    line-height: 38px;
+    margin-bottom: 30px;
+}
+.submissions .close-btn-box button svg {
+    width: 30px;
+}
 }

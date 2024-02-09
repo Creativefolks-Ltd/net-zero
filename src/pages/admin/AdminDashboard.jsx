@@ -32,6 +32,7 @@ const AdminDashboard = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchByEmail, setSearchByEmail] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [dragOver, setDragOver] = useState(false);
 
   const handleModalClose = useRef(null);
 
@@ -184,10 +185,17 @@ const AdminDashboard = () => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    setDragOver(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setDragOver(false);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
+    setDragOver(false);
     const droppedFiles = e.dataTransfer.files;
     if (droppedFiles.length > 0) {
       setSelectedFile(droppedFiles[0]);
@@ -418,9 +426,9 @@ const AdminDashboard = () => {
               <div class="modal-headers d-flex justify-content-center ">
                 <h1 class="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
               </div>
-              <div class="modal-body upload-box-body">
-                <div class="upload-box" onDragOver={handleDragOver}
-                  onDrop={handleDrop}>
+              <div class={`modal-body upload-box-body ${dragOver ? "drag-over" : ""}`} onDragOver={handleDragOver}  onDragLeave={handleDragLeave}
+                onDrop={handleDrop}>
+                <div class="upload-box" >
                   <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
 
                   {loading || uploading ?
