@@ -13,6 +13,7 @@ const General = () => {
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [completeLater, setCompleteLater] = useState(false)
     const user = useSelector((state) => state.auth);
     const details = useSelector((state) => state.users);
 
@@ -102,11 +103,13 @@ const General = () => {
 
 
     const navigateToNext = async (e) => {
+        if (completeLater) {
+            navigate("/my-account")
+        }
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        // navigate("/home-form")
     }
     async function handleSubmit(values) {
         try {
@@ -628,17 +631,13 @@ const General = () => {
                                                 </span>
                                             ) : null} */}
                                             <div className="Additional-bottom-btn">
-                                                <Link to="/my-account" ><button className="btn" type='button'>Save & Complete Later</button></Link>
-                                                <button className="btn" type='submit' disabled={disabled} >Continue {disabled ? <div className="spinner-border text-primary" role="status">
+                                                <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
-                                                {/* <button className="btn" type='submit' disabled={disabled} >Save progress {disabled ? <div className="spinner-border text-primary" role="status">
+                                                <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
                                                 </div> : ''}</button>
-                                                <button className="btn" type="button" onClick={continueHandler}>
-                                                Continue
-                                            </button> */}
                                             </div>
                                             {formik.submitCount > 0 && !formik.isValid ? (
-                                                <span className="input-error-msg d-flex justify-content-end">Please fill the required* fields before continuing.</span>
+                                                <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
                                             ) : null}
                                         </div>
                                     </div>
