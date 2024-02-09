@@ -37,6 +37,9 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   useEffect(() => {
     dispatch(getCountry());
+    return (() => {
+      formik.resetForm();
+    })
   }, []);
 
   const getWinterTemperature = (temperature) => {

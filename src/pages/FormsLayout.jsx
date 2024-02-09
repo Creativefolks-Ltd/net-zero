@@ -29,55 +29,69 @@ const FormsLayout = () => {
     const { home, travel, food, financial, ...general } = singleForm || {};
 
     useEffect(() => {
-        // if (general_information_id) {
         const fetchFormsData = async () => {
-            setIsLoading(true)
-            await dispatch(fetchParticularForm(general_information_id));
-            setIsLoading(false)
+            try {
+                setIsLoading(true);
+                await dispatch(fetchParticularForm(general_information_id));
+            } catch (error) {
+                console.error("Error fetching form data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        if (general_information_id) {
+            fetchFormsData();
         }
-        fetchFormsData()
-        // }
-    }, [general_information_id, activeTab])
+    }, [dispatch, general_information_id]);
 
     useEffect(() => {
-        if (formCompleted === 1) {
-            setActiveTab("home")
-        } else if (formCompleted === 2) {
-            setActiveTab("travel")
-        } else if (formCompleted === 3) {
-            setActiveTab("food")
-        } else if (formCompleted === 4) {
-            setActiveTab("financial")
-        } else {
-            setActiveTab("general")
+        switch (formCompleted) {
+            case 1:
+                setActiveTab("home");
+                break;
+            case 2:
+                setActiveTab("travel");
+                break;
+            case 3:
+                setActiveTab("food");
+                break;
+            case 4:
+                setActiveTab("financial");
+                break;
+            default:
+                setActiveTab("general");
         }
-    }, [formCompleted])
+    }, [formCompleted]);
 
     const handleActiveTab = (active) => {
         setActiveTab(active)
     }
 
     let homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
-
+    
     const LocalHomeDelete = async (activeId) => {
-        const result = await Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-        });
-
-        if (result.isConfirmed) {
-            await setDeleteHome(true)
-            await setSelectedHome(1)
-            Swal.fire({
-                title: "Deleted!",
-                text: `Home ${activeId} deleted successfully`,
-                icon: "success",
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
             });
+
+            if (result.isConfirmed) {
+                await setDeleteHome(true)
+                await setSelectedHome(1)
+                Swal.fire({
+                    title: "Deleted!",
+                    text: `Home ${activeId} deleted successfully`,
+                    icon: "success",
+                });
+            }
+        } catch (error) {
+            console.error("Error deleting home:", error);
         }
     }
 
