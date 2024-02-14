@@ -133,6 +133,12 @@ const CreateNewUser = () => {
                           {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
                         </div>
                       </div>
+                      <div className="form-div login-pass-filed">
+                        <select type="text" name="role" id="role" className={`form-control`} value={formik.values.role} onChange={formik.handleChange} onBlur={formik.handleBlur} >
+                          <option value="2">User</option>
+                          <option value="1">Admin</option>
+                        </select>
+                      </div>
                       <div className="d-flex justify-content-between">
                         <div class="admin-header-btn">
                           <Link to={"/admin/dashboard"} className="btn">
