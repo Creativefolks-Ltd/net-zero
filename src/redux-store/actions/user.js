@@ -27,6 +27,8 @@ export const homeFormSubmit = createAsyncThunk('home', async (data, thunkAPI) =>
         return response.data;
     } catch (error) {
         return error;
+    } finally {
+        await thunkAPI.dispatch(fetchParticularForm(data?.general_information_id));
     }
 });
 

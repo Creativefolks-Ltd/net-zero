@@ -14,7 +14,6 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   const dispatch = useDispatch()
   // const [activeTab, setActiveTab] = useState(activeTab);
   const [homeActiveTab, setHomeActiveTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
   const [homeCount, setHomeCount] = useState(homeLength || 1);
 
   const user = useSelector((state) => state.auth);
@@ -26,9 +25,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   useEffect(() => {
     const fetchHomeIds = async () => {
       if (activeTab === "home") {
-        setIsLoading(true)
         await dispatch(homeformIds(general_information_id))
-        setIsLoading(false)
       }
     }
     fetchHomeIds()
@@ -47,9 +44,9 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   }, [deleteHome])
 
   useEffect(() => {
-    if (homeIds?.length > 0) {
-      const currentIndex = homeIds?.length < 5 ? 0 : 1
-      setHomeCount(homeIds?.length + currentIndex)
+    if (homeIds?.length > 0) {      
+      const currentIndex = homeIds?.length <= 5 ? 0 : 1
+      setHomeCount(homeIds?.length + currentIndex);
       // setHomeActiveTab(1);
     }
   }, [homeIds]);
