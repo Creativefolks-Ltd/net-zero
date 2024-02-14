@@ -191,7 +191,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
         await dispatch(homeFormDelete(currentHomeId));
         Swal.fire({
           title: "Deleted!",
-          text: `Home ${homeActiveTab} deleted successfully`,
+          text: `Home deleted successfully`,
           icon: "success",
         });
         setSelectedHome(1)
@@ -309,7 +309,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                             name="zero_carbon_energy_tariff"
                             id="zero_carbon_energy_tariff"
                             className={`form-control`}
-
                             value={formik.values.zero_carbon_energy_tariff}
                           >
                             <option value="">Select option</option>
@@ -363,8 +362,10 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     name="electricity_usage_amount"
                                     id="electricity_usage_amount"
                                     className={`form-control `}
+                                    onChange={formik.handleChange}
                                     value={formik.values.electricity_usage_amount}
-                                  />
+                                    readOnly
+                                    />
 
                                 </div>
                                 <div className="col-md-6">
@@ -416,9 +417,11 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   name="electricity_usage_time_period"
                                   id="electricity_usage_time_period"
                                   className={`form-control`}
+                                  onChange={formik.handleChange}
                                   value={
                                     formik.values.electricity_usage_time_period
                                   }
+                                  readOnly
                                 />
                               </div>
                             )}
@@ -454,8 +457,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         name="electricity_annual_amount"
                                         id="electricity_annual_amount"
                                         className={`form-control`}
-
+                                        onChange={formik.handleChange}
                                         value={formik.values.electricity_annual_amount}
+                                        readOnly
                                       />
 
                                     </div>
@@ -495,7 +499,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 name="electricity_supplier"
                                 id="electricity_supplier"
                                 className={`form-control`}
+                                onChange={formik.handleChange}
                                 value={formik.values.electricity_supplier}
+                                readOnly
                               />
 
                             </div>
@@ -512,7 +518,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 name="on_site_renewable_energy"
                                 id="on_site_renewable_energy"
                                 className={`form-control `}
-
                                 value={formik.values.on_site_renewable_energy}
                               >
                                 <option value="">Select option</option>
@@ -532,9 +537,10 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                       name="on_site_renewable_amount"
                                       id="on_site_renewable_amount"
                                       className={`form-control  `}
-
                                       placeholder="Amount"
+                                      onChange={formik.handleChange}
                                       value={formik.values.on_site_renewable_amount}
+                                      readOnly
                                     />
 
                                   </div>
@@ -603,7 +609,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     name="natural_gas_usage_amount"
                                     id="natural_gas_usage_amount"
                                     className={`form-control `}
+                                    onChange={formik.handleChange}
                                     value={formik.values.natural_gas_usage_amount}
+                                    readOnly
                                   />
 
                                 </div>
@@ -640,9 +648,11 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   name="natural_gas_usage_time_period"
                                   id="natural_gas_usage_time_period"
                                   className={`form-control `}
+                                  onChange={formik.handleChange}
                                   value={
                                     formik.values.natural_gas_usage_time_period
                                   }
+                                  readOnly
                                 />
                               </div>
                             )}
@@ -674,7 +684,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         name="natural_gas_annual_amount"
                                         id="natural_gas_annual_amount"
                                         className={`form-control`}
+                                        onChange={formik.handleChange}
                                         value={formik.values.natural_gas_annual_amount}
+                                        readOnly
                                       />
 
                                     </div>
@@ -683,7 +695,6 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         name="natural_gas_annual_unit"
                                         id="natural_gas_annual_unit"
                                         className={`form-control `}
-
                                         value={formik.values.natural_gas_annual_unit}
                                       >
                                         <option value="">Select option</option>
@@ -766,7 +777,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         name="oil_usage_amount"
                                         id="oil_usage_amount"
                                         className={`form-control`}
+                                        onChange={formik.handleChange}
                                         value={formik.values.oil_usage_amount}
+                                        readOnly
                                       />
 
                                     </div>
@@ -815,7 +828,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             name="oil_annual_amount"
                                             id="oil_annual_amount"
                                             className={`form-control`}
+                                            onChange={formik.handleChange}
                                             value={formik.values.oil_annual_amount}
+                                            readOnly
                                           />
 
                                         </div>
@@ -869,7 +884,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                           name="wood_usage_amount"
                                           id="wood_usage_amount"
                                           className={`form-control`}
+                                          onChange={formik.handleChange}
                                           value={formik.values.wood_usage_amount}
+                                          readOnly
                                         />
 
                                       </div>
@@ -919,7 +936,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             name="wood_annual_amount"
                                             id="wood_annual_amount"
                                             className={`form-control`}
+                                            onChange={formik.handleChange}
                                             value={formik.values.wood_annual_amount}
+                                            readOnly
                                           />
                                         </div>
                                         <div className="col-md-6">
@@ -971,7 +990,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                           name="coal_usage_amount"
                                           id="coal_usage_amount"
                                           className={`form-control `}
+                                          onChange={formik.handleChange}
                                           value={formik.values.coal_usage_amount}
+                                          readOnly
                                         />
 
                                       </div>
@@ -1020,7 +1041,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             name="coal_annual_amount"
                                             id="coal_annual_amount"
                                             className={`form-control `}
+                                            onChange={formik.handleChange}
                                             value={formik.values.coal_annual_amount}
+                                            readOnly
                                           />
                                         </div>
                                         <div className="col-md-6">
@@ -1069,7 +1092,9 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 name="other_energy_which_and_amount"
                                 id="other_energy_which_and_amount"
                                 className={`form-control`}
+                                onChange={formik.handleChange}
                                 value={formik.values.other_energy_which_and_amount}
+                                readOnly
                               />
 
                             </div>
@@ -1325,9 +1350,11 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 name="land_details"
                                 rows="6"
                                 className={`form-control`}
+                                onChange={formik.handleChange}
                                 value={formik.values.land_details}
                                 cols="50"
                                 maxLength={1000}
+                                readOnly
                               ></textarea>
                             </div>
                           )}
@@ -1346,9 +1373,11 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               name="other_details"
                               rows="6"
                               className={`form-control`}
+                              onChange={formik.handleChange}
                               value={formik.values.other_details}
                               cols="50"
                               maxLength={1000}
+                              readOnly
                             ></textarea>
                           </div>
                         </div>

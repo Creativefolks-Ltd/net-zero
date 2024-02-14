@@ -42,7 +42,8 @@ const FormsLayout = () => {
         if (general_information_id) {
             fetchFormsData();
         }
-    }, [dispatch, general_information_id]);
+
+    }, [dispatch, formCompleted, general_information_id]);
 
     useEffect(() => {
         switch (formCompleted) {
@@ -86,7 +87,7 @@ const FormsLayout = () => {
                 await setSelectedHome(1)
                 Swal.fire({
                     title: "Deleted!",
-                    text: `Home ${activeId} deleted successfully`,
+                    text: `Home deleted successfully`,
                     icon: "success",
                 });
             }
