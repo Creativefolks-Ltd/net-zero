@@ -20,7 +20,6 @@ const CreateNewUser = () => {
     navigate("/admin/dashboard");
   };
 
-
   const submitHandler = async (values) => {
     const { isValid, errors } = formik;
     if (isValid) {
@@ -28,9 +27,10 @@ const CreateNewUser = () => {
       const response = await dispatch(createNewUser(values));
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
+        let roleType = (values?.role === "1") ? "Admin" : "User";
         Swal.fire({
           title: "Success!",
-          text: "User created successfully",
+          text: `${roleType} created successfully`,
           imageUrl: SuccessImg,
           imageWidth: 100,
           imageHeight: 100,
@@ -79,7 +79,6 @@ const CreateNewUser = () => {
     onSubmit: submitHandler,
   });
 
-
   return (
     <>
       <div className="admin-login-container">
@@ -95,7 +94,7 @@ const CreateNewUser = () => {
                     <div className="col-lg-12 admin-dashboard">
                       <div className="information-box">
                         <div className="form-div">
-                          <input type="text" name="first_name" id="first_name" placeholder="First name" className={`${formik.errors.first_name && formik.touched.first_name && "invalidInput"}`} value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          <input type="text" name="first_name" id="first_name" placeholder="First name" className={`text-capitalize ${formik.errors.first_name && formik.touched.first_name && "invalidInput"}`} value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                           {formik.errors.first_name && formik.touched.first_name ? (
                             <span className="input-error-msg">
                               {formik.errors.first_name}
@@ -103,7 +102,7 @@ const CreateNewUser = () => {
                           ) : null}
                         </div>
                         <div className="form-div">
-                          <input type="text" name="last_name" id="last_name" placeholder="Last name" className={`${formik.errors.last_name && formik.touched.last_name && "invalidInput"}`} value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          <input type="text" name="last_name" id="last_name" placeholder="Last name" className={`text-capitalize ${formik.errors.last_name && formik.touched.last_name && "invalidInput"}`} value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                           {formik.errors.last_name && formik.touched.last_name ? (
                             <span className="input-error-msg">
                               {formik.errors.last_name}
