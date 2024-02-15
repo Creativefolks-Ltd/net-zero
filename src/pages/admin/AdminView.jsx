@@ -406,7 +406,7 @@ const AdminView = () => {
                 <div className="full-form-div py-0 bg-secondary">
                   <FormTabsView activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} />
                   {activeTab === "general" && (<GeneralView general={general} />)}
-                  {activeTab === "home" && (<HomeFormView home={homeDetails} />)}
+                  {activeTab === "home" && (<HomeFormView home={homeDetails} selectedHome={selectedHome}/>)}
                   {activeTab === "travel" && (<TravelView travel={travel} />)}
                   {activeTab === "food" && (<FoodAndShoppingView food={food} />)}
                   {activeTab === "financial" && (<FinancialView financial={financial} />)}
