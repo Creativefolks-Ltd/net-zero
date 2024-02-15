@@ -1079,7 +1079,8 @@ select {
 .Additional-box textarea.invalidInput,
 .economy-table input.invalidInput,
 .economy-table select.invalidInput,
-.Personal-information input.invalidInput {
+.Personal-information input.invalidInput,
+.assign-to-user-box select.invalidInput {
     border: 2px solid #fd0200 !important;
 }
 
@@ -4000,7 +4001,8 @@ a.view-form-link {
     margin-top: 14px !important;
 }
 
-.form-name-container input {
+.form-name-container input, 
+.form-name-container select {
     border: 1px solid #212529;
 }
 

@@ -53,7 +53,7 @@ export const uploadCSV = createAsyncThunk('uploadCSV', async (file, thunkAPI) =>
     }
 });
 
-export const getUserList = createAsyncThunk('getUserList', async (thunkAPI) => {
+export const getUserList = createAsyncThunk('getUserList', async (_, thunkAPI) => {
     try {
         const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
         const response = await axios.get(`/api/admin/user/list`, { headers: { Authorization: `Bearer ${token}` } });
@@ -89,6 +89,18 @@ export const updateFormName = createAsyncThunk('updateFormName', async (data, th
         const id = data?.id;
         const form_name = data?.form_name;
         const response = await axios.patch(`/api/update/form/name/${id}`, { form_name: form_name }, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const assignToNewUser = createAsyncThunk('assignToNewUser', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
+        const user_id = data?.user_id;
+        const form_id = data?.form_id;
+        const response = await axios.put(`/api/admin/assign/form/${form_id}`, { user_id: user_id }, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         return error;

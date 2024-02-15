@@ -10,7 +10,7 @@ const adminSlice = createSlice({
         adminDetails: {},
         getAllForms: {},
         singleForm: {},
-        getUserList: [],
+        assignUserList: [],
         isError: false
     },
     reducers: {
@@ -55,7 +55,7 @@ const adminSlice = createSlice({
                 state.isLoading = true;
             }).addCase(getUserList.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.getUserList = action.payload?.data;
+                state.assignUserList = action.payload?.data;
             }).addCase(getUserList.rejected, (state, action) => {
                 state.isError = true;
                 state.isLoading = false;

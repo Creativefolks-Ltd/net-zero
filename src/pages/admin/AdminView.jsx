@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { downloadPdf, adminFetchParticularForm, formDelete, updateFormName } from "../../redux-store/actions/admin";
+import { downloadPdf, adminFetchParticularForm, formDelete, updateFormName, getUserList, assignToNewUser } from "../../redux-store/actions/admin";
 import HomeFormView from "../forms/HomeFormView";
 import GeneralView from "../forms/GeneralView";
 import TravelView from "../forms/TravelView";
@@ -24,16 +24,26 @@ const validate = values => {
   return errors;
 };
 
+const validate2 = values => {
+  const errors = {};
+  if (!values.user_id?.trim()) {
+    errors.user_id = 'Please select one option';
+  }
+  return errors;
+};
+
 const AdminView = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form_id } = useParams()
   const adminSingleForm = useSelector((state) => state.admin.singleForm)
+  const assignUserList = useSelector((state) => state.admin.assignUserList)
   const singleForm = useSelector((state) => state.users.singleForm)
   const localFormName = useSelector((state) => state.auth.formName);
   const decodedFormId = atob(form_id);
   const [activeTab, setActiveTab] = useState("general");
+  const [openModal, setOpenModal] = useState("");
   const [selectedHome, setSelectedHome] = useState(1);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -72,6 +82,15 @@ const AdminView = () => {
       getFormDetails()
     }
   }, [decodedFormId])
+
+  useEffect(() => {
+    if (general?.user_id === null) {
+      const fetchUserList = async () => {
+        await dispatch(getUserList())
+      }
+      fetchUserList()
+    }
+  }, [general?.user_id])
 
   const navigateToNext = (e) => {
     navigate("/admin/dashboard")
@@ -244,6 +263,66 @@ const AdminView = () => {
 
   });
 
+  const formik2 = useFormik({
+    initialValues: {
+      user_id: "",
+      form_id: decodedFormId
+    },
+
+    validate: validate2,
+
+    onSubmit: async (values) => {
+      try {
+        setDisabled(true)
+        const response = await dispatch(assignToNewUser(values));
+        setDisabled(false)
+        if (!response?.payload?.error && response?.payload?.data) {
+          Swal.fire({
+            title: "Success!",
+            text: "User assigned successfully",
+            imageUrl: SuccessImg,
+            imageWidth: 100,
+            imageHeight: 100,
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+          });
+          closeModal.current.click();
+        } else {
+          const errorMsg = response?.payload?.response?.data?.errorMsg;
+          if (errorMsg) {
+            let errorMessage = "";
+            if (Array.isArray(errorMsg) || typeof errorMsg === 'object') {
+              const errorMessages = Object.values(errorMsg).flatMap(messages => messages);
+              errorMessage = Array.isArray(errorMessages) && errorMessages.length > 0
+                ? errorMessages.join("\n")
+                : "";
+            } else {
+              errorMessage = errorMsg?.toString() || "";
+            }
+            Swal.fire({
+              title: "Failed!",
+              html: errorMessage || "Failed to user assign, please try again",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+            });
+          }
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Failed!",
+          text: "Something went wrong",
+          icon: "error",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+        });
+      }
+      finally {
+        setDisabled(false)
+      }
+    }
+  });
+
   return (
     <>
       {adminPath === "admin" && (
@@ -260,7 +339,7 @@ const AdminView = () => {
                 <div class="card">
                   <div className="admin-view-header">
                     <div class="sub-heading" >
-                      <h2 data-bs-toggle="modal" data-bs-target="#exampleModal">{localFormName || general?.form_name?.form_name}</h2>
+                      <h2 data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("CHANGE_FORM_NAME")}>{localFormName || general?.form_name?.form_name}</h2>
                     </div>
                     <div class="admin-header-btn">
                       <Link to="/admin/dashboard" className="btn">
@@ -287,10 +366,15 @@ const AdminView = () => {
                           ""
                         )}
                       </button>
-
-                      <button class="btn" type="button">
-                        Assign to different user
-                      </button>
+                      {general?.user_id === null ? (
+                        <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("ASSIGN_TO_USER")}>
+                          Assign to different user
+                        </button>
+                      ) : (
+                        <button class="btn" type="button" >
+                          Assign to different user
+                        </button>
+                      )}
 
                       <button
                         class="btn"
@@ -340,7 +424,7 @@ const AdminView = () => {
         </div>
       </section>
       {/* Modal popup */}
-      <div class="modal fade form-name-container" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      < div class="modal fade form-name-container" id="exampleModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" >
           <div class="modal-content">
             <div class="close-btn-box d-flex justify-content-end">
@@ -354,23 +438,44 @@ const AdminView = () => {
               </button>
             </div>
             <div class="modal-headers d-flex justify-content-center ">
-              <h1 class="modal-title fs-2" id="exampleModalLabel mt-5">Change form name</h1>
+              <h1 class="modal-title fs-2" id="exampleModalLabel mt-5">{(openModal === "ASSIGN_TO_USER") ? "Assign to different user" : "Change form name"}</h1>
             </div>
             <div class="modal-body form-name-box">
-              <form onSubmit={formik.handleSubmit}>
-                <div className="form-div">
-                  <label htmlFor="form_name">Form name</label>
-                  <input type="text" name="form_name" className={`form-control ${formik.errors.form_name && formik.touched.form_name ? "invalidInput" : ""} `} placeholder="Form  name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.form_name} />
-                  {formik.errors.form_name && formik.touched.form_name ? <span className='input-error-msg'>{formik.errors.form_name}</span> : null}
-                </div>
-                <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
-                </div> : ''}</button>
+              {openModal === "ASSIGN_TO_USER" ? (
+                <div className="assign-to-user-box">
+                  <form onSubmit={formik2.handleSubmit}>
+                    <div className="form-div">
+                      <label htmlFor="user_id" className="mb-1">User's name</label>
+                      <select name="user_id" className={`form-control ${formik2.errors.user_id && formik2.touched.user_id ? "invalidInput" : ""} `} onChange={formik2.handleChange} onBlur={formik2.handleBlur} value={formik2.values.user_id} >
+                        <option>Select option</option>
+                        {assignUserList !== null && assignUserList?.length > 0 && assignUserList?.map((user, index) => ((
+                          <option value={user?.id} key={"user" + index}>{`${user?.first_name} ${user?.last_name}`}</option>
+                        )))}
+                      </select>
+                      {formik2.errors.user_id && formik2.touched.user_id ? <span className='input-error-msg'>{formik2.errors.user_id}</span> : null}
+                    </div>
+                    <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
+                    </div> : ''}</button>
 
-              </form>
+                  </form>
+                </div>
+              ) : (
+                <div className="change-form-name-box">
+                  <form onSubmit={formik.handleSubmit}>
+                    <div className="form-div">
+                      <label htmlFor="form_name" className="mb-1">Form name</label>
+                      <input type="text" name="form_name" className={`form-control ${formik.errors.form_name && formik.touched.form_name ? "invalidInput" : ""} `} placeholder="Form  name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.form_name} />
+                      {formik.errors.form_name && formik.touched.form_name ? <span className='input-error-msg'>{formik.errors.form_name}</span> : null}
+                    </div>
+                    <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
+                    </div> : ''}</button>
+                  </form>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };
