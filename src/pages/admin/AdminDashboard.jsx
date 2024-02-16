@@ -44,10 +44,13 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const params = { itemsPerPage: itemsPerPage, pageNumber: currentPage, query: searchQuery }
-    dispatch(getAllForms(params));
+    fetchFormList();
   }, [currentPage, searchQuery]);
 
+  const fetchFormList =()=>{
+    const params = { itemsPerPage: itemsPerPage, pageNumber: currentPage, query: searchQuery }
+    dispatch(getAllForms(params));
+  }
   const searchFilter = (e) => {
     setSearchQuery(searchByEmail)
     setCurrentPage(1)
@@ -133,7 +136,9 @@ const AdminDashboard = () => {
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
         });
+
         handleModalClose.current.click();
+        fetchFormList();
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -156,7 +161,8 @@ const AdminDashboard = () => {
           });
         }
       }
-    } catch (err) {
+    }
+     catch (err) {
       Swal.fire({
         title: "Failed!",
         text: "Something went wrong!",

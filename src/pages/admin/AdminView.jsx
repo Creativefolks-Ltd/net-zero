@@ -84,13 +84,13 @@ const AdminView = () => {
   }, [decodedFormId])
 
   useEffect(() => {
-    if (general?.user_id === null) {
+    if (general?.form_name?.imported?.toUpperCase() === "YES") {
       const fetchUserList = async () => {
         await dispatch(getUserList())
       }
       fetchUserList()
     }
-  }, [general?.user_id])
+  }, [general?.form_name?.imported])
 
   const navigateToNext = (e) => {
     navigate("/admin/dashboard")
@@ -366,7 +366,7 @@ const AdminView = () => {
                           ""
                         )}
                       </button>
-                      {general?.user_id === null ? (
+                      {general?.form_name?.imported?.toUpperCase() === "YES" ? (
                         <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("ASSIGN_TO_USER")}>
                           Assign to different user
                         </button>
