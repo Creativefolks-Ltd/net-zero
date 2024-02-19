@@ -1919,11 +1919,10 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               value={formik.values.year_built}
                             >
                               <option value="">Select option</option>
-                              {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                  {year}
-                                </option>
-                              ))}
+                              <option value="<1970">{"<1970"}</option>
+                              <option value="1970-2000">1970-2000</option>
+                              <option value="2000-2010">2000-2010</option>
+                              <option value="2010+">2010+</option>
                             </select>
                             {formik.errors.year_built &&
                               formik.touched.year_built ? (

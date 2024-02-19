@@ -140,6 +140,7 @@ const GeneralView = ({ general }) => {
                                                         className={`form-control`}
                                                         readOnly
                                                         defaultValue={formik.values.year_of_birth}
+                                                        disabled
                                                     >
                                                         <option value="">Select option</option>
                                                         {years.map((year, index) => (
@@ -161,6 +162,7 @@ const GeneralView = ({ general }) => {
                                                                 className={`form-control`}
                                                                 readOnly
                                                                 defaultValue={formik.values.country_of_residence}
+                                                                disabled
                                                             >
                                                                 <option value="">Select option</option>
                                                                 <CountryOptions countries={details?.countries} />
@@ -179,6 +181,7 @@ const GeneralView = ({ general }) => {
                                                                 className={`form-control`}
                                                                 defaultValue={formik.values.num_of_homes}
                                                                 readOnly
+                                                                disabled
                                                             >
                                                                 <option value={""}>Select Option</option>
                                                                 {Array(5)
@@ -221,6 +224,7 @@ const GeneralView = ({ general }) => {
                                                                             ]
                                                                         }
                                                                         readOnly
+                                                                        disabled
                                                                     >
                                                                         <option value="">Select option</option>
                                                                         <CountryOptions countries={details?.countries} />
@@ -276,6 +280,7 @@ const GeneralView = ({ general }) => {
                                                         className={`form-control `}
                                                         defaultValue={formik.values.num_of_children_under_18}
                                                         readOnly
+                                                        disabled
                                                     >
                                                         <option value="">Select option</option>
                                                         {Array(20)
@@ -303,6 +308,7 @@ const GeneralView = ({ general }) => {
                                                         className={`form-control`}
                                                         defaultValue={formik.values.other_dependants}
                                                         readOnly
+                                                        disabled
                                                     >
                                                         <option value="">Select option</option>
                                                         <option value="Yes">Yes</option>

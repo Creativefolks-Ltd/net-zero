@@ -235,7 +235,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                         <div className="home-title">
                           <h2>Home {homeActiveTab}</h2>
                         </div>
-                        {(homeActiveTab > 1 && isUserFormView)&& (
+                        {(homeActiveTab > 1 && isUserFormView) && (
                           <div className="delete-box" onClick={deleteHandler}>
                             <span>Delete this home</span>
                             <img src={delete_img} alt="" />
@@ -259,6 +259,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               placeholder="Location of home"
                               readOnly
                               value={formik.values.location}
+                              disabled
                             >
                               <option value="">Select option</option>
                               <CountryOptions countries={details?.countries} />
@@ -310,6 +311,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                             id="zero_carbon_energy_tariff"
                             className={`form-control`}
                             value={formik.values.zero_carbon_energy_tariff}
+                            disabled
                           >
                             <option value="">Select option</option>
                             <option value="Yes">Yes</option>
@@ -346,6 +348,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 id="electricity_usage_known"
                                 className={`form-control `}
                                 value={formik.values.electricity_usage_known}
+                                disabled
                               >
                                 <option value="">Select option</option>
                                 <option value="Yes, for part of the year">Yes, for part of the year</option>
@@ -365,7 +368,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     onChange={formik.handleChange}
                                     value={formik.values.electricity_usage_amount}
                                     readOnly
-                                    />
+                                  />
 
                                 </div>
                                 <div className="col-md-6">
@@ -376,6 +379,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     id="electricity_usage_unit"
                                     className={`form-control  `}
                                     value={formik.values.electricity_usage_unit}
+                                    disabled
                                   >
                                     <option value="">Select option</option>
                                     <option value="kWh">kWh</option>
@@ -394,6 +398,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   id="electricity_usage_amount_currency"
                                   className={`form-control `}
                                   value={formik.values.electricity_usage_amount_currency}
+                                  disabled
                                 >
                                   <option value="">Select currency</option>
                                   <CurrencyOptions />
@@ -442,6 +447,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   id="electricity_annual_spend"
                                   className={`form-control`}
                                   value={formik.values.electricity_annual_spend}
+                                  disabled
                                 >
                                   <option value="">Select option</option>
                                   <option value="Yes">Yes</option>
@@ -469,6 +475,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         id="electricity_annual_unit"
                                         className={`form-control `}
                                         value={formik.values.electricity_annual_unit}
+                                        disabled
                                       >
                                         <option value="">Select option</option>
                                         <option value="Dollars">$</option>
@@ -519,6 +526,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 id="on_site_renewable_energy"
                                 className={`form-control `}
                                 value={formik.values.on_site_renewable_energy}
+                                disabled
                               >
                                 <option value="">Select option</option>
                                 <option value="Yes">Yes</option>
@@ -553,6 +561,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                       id="on_site_renewable_unit"
                                       className={`form-control  `}
                                       value={formik.values.on_site_renewable_unit}
+                                      disabled
                                     >
                                       <option value={""}>Select option</option>
                                       <option value="percent">%</option>
@@ -595,6 +604,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 id="natural_gas_usage_known"
                                 className={`form-control`}
                                 value={formik.values.natural_gas_usage_known}
+                                disabled
                               >
                                 <option value="">Select option</option>
                                 <option value="Yes, for part of the year">Yes, for part of the year</option>
@@ -622,6 +632,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     id="natural_gas_usage_unit"
                                     className={`form-control `}
                                     value={formik.values.natural_gas_usage_unit}
+                                    disabled
                                   >
                                     <option value={""}>Select option</option>
                                     <option value="kWh">kWh</option>
@@ -669,6 +680,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   id="natural_gas_annual_spend"
                                   className={`form-control `}
                                   value={formik.values.natural_gas_annual_spend}
+                                  disabled
                                 >
                                   <option value="">Select option</option>
                                   <option value="Yes">Yes</option>
@@ -696,6 +708,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         id="natural_gas_annual_unit"
                                         className={`form-control `}
                                         value={formik.values.natural_gas_annual_unit}
+                                        disabled
                                       >
                                         <option value="">Select option</option>
                                         <option value="Dollars">$</option>
@@ -722,6 +735,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                 id="gas_consumption_offset"
                                 className={`form-control `}
                                 value={formik.values.gas_consumption_offset}
+                                disabled
                               >
                                 <option value="">Select option</option>
                                 <option value="Yes">Yes</option>
@@ -764,6 +778,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     id="oil_usage_known"
                                     className={`form-control  `}
                                     value={formik.values.oil_usage_known}
+                                    disabled
                                   >
                                     <option value="">Select option</option>
                                     <option value="Yes">Yes</option>
@@ -790,6 +805,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                         id="oil_usage_unit"
                                         className={`form-control  `}
                                         value={formik.values.oil_usage_unit}
+                                        disabled
                                       >
                                         <option value={""}>Select option</option>
                                         <option value="kWh" >kWh</option>
@@ -814,6 +830,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                       id="oil_annual_spend"
                                       className={`form-control  `}
                                       value={formik.values.oil_annual_spend}
+                                      disabled
                                     >
                                       <option value="">Select option</option>
                                       <option value="Yes">Yes</option>
@@ -840,6 +857,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             id="oil_annual_unit"
                                             className={`form-control  `}
                                             value={formik.values.oil_annual_unit}
+                                            disabled
                                           >
                                             <option value="">Select option</option>
                                             <option value="Dollars">$</option>
@@ -870,6 +888,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     id="wood_usage_known"
                                     className={`form-control `}
                                     value={formik.values.wood_usage_known}
+                                    disabled
                                   >
                                     <option value="">Select option</option>
                                     <option value="Yes">Yes</option>
@@ -896,6 +915,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                           id="wood_usage_unit"
                                           className={`form-control `}
                                           value={formik.values.wood_usage_unit}
+                                          disabled
                                         >
                                           <option value={""}>Select option</option>
                                           <option value="kWh" >kWh</option>
@@ -922,6 +942,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                       id="wood_annual_spend"
                                       className={`form-control  `}
                                       value={formik.values.wood_annual_spend}
+                                      disabled
                                     >
                                       <option value="">Select option</option>
                                       <option value="Yes">Yes</option>
@@ -947,6 +968,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             id="wood_annual_unit"
                                             className={`form-control `}
                                             value={formik.values.wood_annual_unit}
+                                            disabled
                                           >
                                             <option value="">Select option</option>
                                             <option value="Dollars" >$</option>
@@ -976,6 +998,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                     id="coal_usage_known"
                                     className={`form-control `}
                                     value={formik.values.coal_usage_known}
+                                    disabled
                                   >
                                     <option value="">Select option</option>
                                     <option value="Yes">Yes</option>
@@ -1004,6 +1027,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                           id="coal_usage_unit"
                                           className={`form-control `}
                                           value={formik.values.coal_usage_unit}
+                                          disabled
                                         >
                                           <option value="">Select option</option>
                                           <option value="kWh">kWh</option>
@@ -1027,6 +1051,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                       id="coal_annual_spend"
                                       className={`form-control `}
                                       value={formik.values.coal_annual_spend}
+                                      disabled
                                     >
                                       <option value="">Select option</option>
                                       <option value="Yes">Yes</option>
@@ -1052,6 +1077,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                             id="coal_annual_unit"
                                             className={`form-control`}
                                             value={formik.values.coal_annual_unit}
+                                            disabled
                                           >
                                             <option value="">Select option</option>
                                             <option value="Dollars">$</option>
@@ -1078,6 +1104,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               id="other_energy_usage"
                               className={`form-control`}
                               value={formik.values.other_energy_usage}
+                              disabled
                             >
                               <option value="">Select option</option>
                               <option value="Yes">Yes</option>
@@ -1161,6 +1188,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               id="house_type"
                               className={`form-control`}
                               value={formik.values.house_type}
+                              disabled
                             >
                               <option value="">Select option</option>
                               <option value="Detached">Detached</option>
@@ -1181,6 +1209,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               id="construction_material"
                               className={`form-control`}
                               value={formik.values.construction_material}
+                              disabled
                             >
                               <option value="">Select option</option>
                               <option value="Brick">Brick</option>
@@ -1199,6 +1228,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               id="year_built"
                               className={`form-control`}
                               value={formik.values.year_built}
+                              disabled
                             >
                               <option value="">Select option</option>
                               {years.map((year, index) => (
@@ -1274,6 +1304,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               id="live_in_staff"
                               className={`form-control`}
                               value={formik.values.live_in_staff}
+                              disabled
                             >
                               <option value="">Select option</option>
                               {Array(20)

@@ -168,7 +168,9 @@ const TravelView = ({ travel }) => {
                     id={`how_many_cars`}
                     className={`form-control `}
                     readOnly
-                    value={formik.values.how_many_cars}>
+                    value={formik.values.how_many_cars}
+                    disabled
+                    >
                     <option value="">Select option</option>
                     {Array(10)
                       .fill()
@@ -209,6 +211,7 @@ const TravelView = ({ travel }) => {
                                   name={`cars_detail.${index}.vehicalType`}
                                   className="form-control"
                                   defaultValue={formik.values.cars_detail[index]?.vehicalType || ''}
+                                  disabled
                                 >
                                   <option value="">Select option</option>
                                   <option value="Petrol">Petrol</option>
@@ -334,7 +337,9 @@ const TravelView = ({ travel }) => {
                   <select className="form-control"
                     name={`additional_vehicles_by_partner_children`}
                     value={formik.values.additional_vehicles_by_partner_children}
-                    readOnly>
+                    readOnly
+                    disabled
+                    >
                     <option value="">Select option</option>
                     {Array(10)
                       .fill()
@@ -377,6 +382,7 @@ const TravelView = ({ travel }) => {
                                     name={`additional_vehicles_by_partner_detail.${index}.vehicalType`}
                                     defaultValue={formik.values.additional_vehicles_by_partner_detail[index]?.vehicalType || ''}
                                     readOnly
+                                    disabled
                                   >
                                     <option value="">Select option</option>
                                     <option value="Petrol">Petrol</option>
