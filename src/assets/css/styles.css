@@ -408,10 +408,12 @@ input {
     border: none;
     border-radius: 10px !important;
 }
-
+select.form-control:disabled {
+    background-color: #fff;
+}
 
 .card p a {
-    color: #000;
+    color: #000; 
 }
 
 .card p {
