@@ -24,7 +24,7 @@ const Home = () => {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-6">
-                            <div class="home-banner-content">
+                            <div className="home-banner-content">
                                 <h1>The Anthos<br/>Net Zero Tool</h1>
                                 <div className="P_Lead">
                                     <p>Designed for Anthos clients to provide insights into personal emissions and support with emissions reductions</p>
@@ -49,7 +49,7 @@ const Home = () => {
             {/* <!--------------------- personal-carbon -----------------------> */}
 
             <section className="personal-carbon bg-lightgray-color pt-80 pb-80">
-            <div class="possinend-image"><img src={circleImg} alt="" /></div>
+            <div className="possinend-image"><img src={circleImg} alt="" /></div>
                 <div className="container">
                     <div className="carbon-top">
                         <div className="row">
@@ -103,7 +103,7 @@ const Home = () => {
                         <div className="col-lg-9 col-md-8">
                             <div className="form-content">
                                 <div className="title-block">
-                                <div class='sub-title'>FORM GUIDE</div>
+                                <div className='sub-title'>FORM GUIDE</div>
                                     <h2>How to complete the form</h2>
                                 </div>
                                 <p>The first step is to provide information through the tailored form, relating to your home, travel, shopping and assets. Information is encrypted and held on a secure server and the form should take no more than 15 minutes to complete. </p>

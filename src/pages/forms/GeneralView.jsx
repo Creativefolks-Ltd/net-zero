@@ -267,7 +267,7 @@ const GeneralView = ({ general }) => {
                                                     </div>
                                                 </div>
                                                 <div className="form-div">
-                                                    <div class="form-label-div">
+                                                    <div className="form-label-div">
                                                         <label htmlFor="homeCount">
                                                             <strong>8.&nbsp;</strong>How many children under 18 living with you?
                                                             <span>*</span>{" "}
@@ -294,7 +294,7 @@ const GeneralView = ({ general }) => {
 
                                                 </div>
                                                 <div className="form-div">
-                                                    <div class="form-label-div">
+                                                    <div className="form-label-div">
                                                         <label htmlFor="other_dependants">
                                                             <strong>9.&nbsp;</strong>Do you have any other dependants who live with you
                                                             all of the time or most of the time?<span>*</span>{" "}

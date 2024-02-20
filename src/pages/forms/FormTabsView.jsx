@@ -132,7 +132,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
               </div>
             </div>
             {activeTab === "home" && (
-              <div class="information-header-nav">
+              <div className="information-header-nav">
                 <ul>
                   {renderHomes()}
                 </ul>

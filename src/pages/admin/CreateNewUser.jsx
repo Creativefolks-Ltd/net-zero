@@ -85,8 +85,8 @@ const CreateNewUser = () => {
         <form onSubmit={formik.handleSubmit}>
           <section className="Personal-information create-user">
             <div className="container">
-              <div class="row justify-content-center">
-                <div class="col-lg-8">
+              <div className="row justify-content-center">
+                <div className="col-lg-8">
                   <div className="">
                     <h1>Create New User</h1>
                   </div>
@@ -139,7 +139,7 @@ const CreateNewUser = () => {
                         </select>
                       </div>
                       <div className="d-flex justify-content-between">
-                        <div class="admin-header-btn">
+                        <div className="admin-header-btn">
                           <Link to={"/admin/dashboard"} className="btn">
                             Back
                           </Link>

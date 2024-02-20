@@ -27,7 +27,7 @@ const FinancialView = () => {
                 Management and want to include these in the discussion, please
                 have these details to hand.
               </p>
-              <div class="form">
+              <div className="form">
                 <form>
                 </form>
               </div>

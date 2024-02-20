@@ -282,13 +282,13 @@ const AdminDashboard = () => {
           <div className="container">
             <h1>Admin Dashboard</h1>
             <div className="row admin-dashboard">
-              <div class="personal-heading">
+              <div className="personal-heading">
                 <img src={form_user} alt="" />
                 <h2>Personal Information</h2>
               </div>
               <div className="col-lg-6">
                 <div className="information-box">
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="first_name">Your name</label>
                     <input type="text" name="first_name" placeholder="First name" className={`${formik.errors.first_name && formik.touched.first_name && "invalidInput"}`} value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                     {formik.errors.first_name && formik.touched.first_name ? (
@@ -297,7 +297,7 @@ const AdminDashboard = () => {
                       </span>
                     ) : null}
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="email">Your email address</label>
                     <input type="email" name="email" id="email" placeholder="Email address" className={`${formik.errors.email && formik.touched.email && "invalidInput"}`} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                     {formik.errors.email && formik.touched.email ? (
@@ -311,7 +311,7 @@ const AdminDashboard = () => {
 
               <div className="col-lg-6">
                 <div className="information-box">
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="last_name">Last name</label>
                     <input type="text" name="last_name" id="last_name" className={`${formik.errors.last_name && formik.touched.last_name && "invalidInput"}`} placeholder="Last name" value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
                     {formik.errors.last_name && formik.touched.last_name ? (
@@ -327,7 +327,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <button class="submit-btn " type="button" onClick={(e) => submitHandler(e)} disabled={disabled}>
+              <button className="submit-btn " type="button" onClick={(e) => submitHandler(e)} disabled={disabled}>
                 Save {disabled ? (
                   <div
                     className="spinner-border text-primary"
@@ -347,37 +347,37 @@ const AdminDashboard = () => {
         <div className="container">
           <div className="submissions-bg-color">
             <div className="submissions-header">
-              <div class="personal-heading">
+              <div className="personal-heading">
                 <img src={missions_img} alt="" />
                 <h2>Submissions</h2>
               </div>
               <div className="submissions-header-btn">
-                <button class="submit-btn " type="button">
+                <button className="submit-btn " type="button">
                   <Link to={"/admin/create-user"}>
                     Create new user
                   </Link>
                 </button>
-                <button class="submit-btn " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button className="submit-btn " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Upload CSV form
                 </button>
               </div>
             </div>
-            <div class="information-box">
+            <div className="information-box">
               <form>
                 <div className="submission-form">
 
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="searchByEmail">Search submitted forms by user email address.</label>
                     <input type="text" name="searchByEmail" value={searchByEmail} id="searchByEmail" placeholder="Email" onChange={(e) => setSearchByEmail(e.target.value)} />
                   </div>
-                  <button class="submit-btn " type="button" onClick={(e) => searchFilter(e)}>
+                  <button className="submit-btn " type="button" onClick={(e) => searchFilter(e)}>
                     Submit
                   </button>
                 </div>
               </form>
 
               <div className="table-box">
-                <table class="customers" style={{ borderRadius: '20px' }}>
+                <table className="customers" style={{ borderRadius: '20px' }}>
                   <thead className="table-header">
                     <tr style={{ borderRadius: '20px' }}>
                       <th style={{ width: '20%' }}>Form name</th>
@@ -401,8 +401,8 @@ const AdminDashboard = () => {
                                 View form <img src={arrowImg} />
                               </Link> </p>
                             </div>
-                            <div class={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
-                            <div class={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
+                            <div className={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
+                            <div className={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
                           </td>
                         </tr>
                       )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}
@@ -416,11 +416,11 @@ const AdminDashboard = () => {
         </div>
 
         {/* Modal popup */}
-        <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog upload-csv-container" >
-            <div class="modal-content">
-              <div class="close-btn-box d-flex justify-content-end">
-                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close" ref={handleModalClose}>
+        <div className="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog upload-csv-container" >
+            <div className="modal-content">
+              <div className="close-btn-box d-flex justify-content-end">
+                <button type="button" className="" data-bs-dismiss="modal" aria-label="Close" ref={handleModalClose}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
                     <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
                       <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
@@ -429,19 +429,19 @@ const AdminDashboard = () => {
                   </svg>
                 </button>
               </div>
-              <div class="modal-headers d-flex justify-content-center ">
-                <h1 class="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
+              <div className="modal-headers d-flex justify-content-center ">
+                <h1 className="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
               </div>
-              <div class={`modal-body upload-box-body ${dragOver ? "drag-over" : ""}`} onDragOver={handleDragOver}  onDragLeave={handleDragLeave}
+              <div className={`modal-body upload-box-body ${dragOver ? "drag-over" : ""}`} onDragOver={handleDragOver}  onDragLeave={handleDragLeave}
                 onDrop={handleDrop}>
-                <div class="upload-box" >
+                <div className="upload-box" >
                   <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
 
                   {loading || uploading ?
                     (
-                      <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                          <span class="visually-hidden">Loading...</span>
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
                         </div>
                       </div>
                     ) : (
@@ -458,9 +458,9 @@ const AdminDashboard = () => {
                       </>)}
                 </div>
               </div>
-              <div class="">
-                {/* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
-                {/* <button type="button" class="btn btn-primary">Upload</button> */}
+              <div className="">
+                {/* <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
+                {/* <button type="button" className="btn btn-primary">Upload</button> */}
               </div>
             </div>
           </div>

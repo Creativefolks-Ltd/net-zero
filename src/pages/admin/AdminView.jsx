@@ -336,12 +336,12 @@ const AdminView = () => {
               </>
             ) : (
               <div className="admin-view-bg-color">
-                <div class="card">
+                <div className="card">
                   <div className="admin-view-header">
-                    <div class="sub-heading" >
+                    <div className="sub-heading" >
                       <h2 data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("CHANGE_FORM_NAME")}>{localFormName || general?.form_name?.form_name}</h2>
                     </div>
-                    <div class="admin-header-btn">
+                    <div className="admin-header-btn">
                       <Link to="/admin/dashboard" className="btn">
                         Back
                       </Link>
@@ -355,7 +355,7 @@ const AdminView = () => {
                       <p>Calendar year: {moment(general?.created_at).format("DD/MM/YYYY")}</p>
                     </div>
                     <div className="admin-text-btn">
-                      <button class="btn" type="button" onClick={downloadHandler} disabled={disabled}>
+                      <button className="btn" type="button" onClick={downloadHandler} disabled={disabled}>
                         Download PDF
                         {disabled ? (
                           <div
@@ -367,17 +367,17 @@ const AdminView = () => {
                         )}
                       </button>
                       {general?.form_name?.imported?.toUpperCase() === "YES" ? (
-                        <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("ASSIGN_TO_USER")}>
+                        <button className="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setOpenModal("ASSIGN_TO_USER")}>
                           Assign to different user
                         </button>
                       ) : (
-                        <button class="btn" type="button" >
+                        <button className="btn" type="button" >
                           Assign to different user
                         </button>
                       )}
 
                       <button
-                        class="btn"
+                        className="btn"
                         type="button"
                         onClick={(e) => handleDeleteConfirmation(e)}
                       >
@@ -413,7 +413,7 @@ const AdminView = () => {
                 </div>
               </div>
               {adminPath === "admin" && (
-                <div class="admin-header-btn">
+                <div className="admin-header-btn">
                   <Link to="/admin/dashboard" className="btn">
                     Back
                   </Link>
@@ -424,11 +424,11 @@ const AdminView = () => {
         </div>
       </section>
       {/* Modal popup */}
-      < div class="modal fade form-name-container" id="exampleModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" >
-          <div class="modal-content">
-            <div class="close-btn-box d-flex justify-content-end">
-              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close" ref={closeModal}>
+      < div className="modal fade form-name-container" id="exampleModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" >
+          <div className="modal-content">
+            <div className="close-btn-box d-flex justify-content-end">
+              <button type="button" className="" data-bs-dismiss="modal" aria-label="Close" ref={closeModal}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
                   <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
                     <path id="Path_24" data-name="Path 24" d="M64.076,21.563H14.033a2.733,2.733,0,1,1,0-5.466H64.149a2.733,2.733,0,1,1-.073,5.466Z" transform="translate(25.139 -0.817) rotate(45)" fill="#2c2b34" />
@@ -437,10 +437,10 @@ const AdminView = () => {
                 </svg>
               </button>
             </div>
-            <div class="modal-headers d-flex justify-content-center ">
-              <h1 class="modal-title fs-2" id="exampleModalLabel mt-5">{(openModal === "ASSIGN_TO_USER") ? "Assign to different user" : "Change form name"}</h1>
+            <div className="modal-headers d-flex justify-content-center ">
+              <h1 className="modal-title fs-2" id="exampleModalLabel mt-5">{(openModal === "ASSIGN_TO_USER") ? "Assign to different user" : "Change form name"}</h1>
             </div>
-            <div class="modal-body form-name-box">
+            <div className="modal-body form-name-box">
               {openModal === "ASSIGN_TO_USER" ? (
                 <div className="assign-to-user-box">
                   <form onSubmit={formik2.handleSubmit}>

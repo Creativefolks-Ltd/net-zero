@@ -231,7 +231,7 @@ const Login = () => {
                                                             {loginFormik.errors.password && loginFormik.touched.password ? <span className='input-error-msg'>{loginFormik.errors.password}</span> : null}
                                                         </div>
                                                         <p><Link to="/forgot-password">Forgot your password?</Link></p>
-                                                        <button className="submit-btn " type='submit' >Sign in {loading ? <div class="spinner-border text-primary" role="status">
+                                                        <button className="submit-btn " type='submit' >Sign in {loading ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
                                                         <div className='admin-login-icon'>
                                                             <img src={AdminLoginImg} alt="" width={40} height={40} />
@@ -278,7 +278,7 @@ const Login = () => {
                                 <div className="login-img">
                                     <img src={login_img} alt="" />
                                 </div>
-                                <div class="login-img-two">
+                                <div className="login-img-two">
                                     <img src={login_img1} alt="" />
                                 </div>
                             </div>

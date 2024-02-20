@@ -97,7 +97,7 @@ const ChangePassword = ({ isAdmin }) => {
               <div className="row align-items-center admin-dashboard change-password">
                 <div className="col-lg-6">
                   <div className="information-box">
-                    <div class="personal-heading">
+                    <div className="personal-heading">
                       <img src={lock} alt="" />
                       <h2>Manage Password</h2>
                     </div>
@@ -136,7 +136,7 @@ const ChangePassword = ({ isAdmin }) => {
                 <div className="col-lg-4 offset-lg-2">
                   <button className="submit-btn" type='submit' disabled={disabled} >
                     Save new password {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
-                  <div class="admin-header-btn">
+                  <div className="admin-header-btn">
                     <Link to={isAdmin ? "/admin/dashboard" : "/my-account"} className="btn">
                       Back
                     </Link>

@@ -188,7 +188,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
               </div>
             </div>
             {activeTab === "home" && (
-              <div class="information-header-nav">
+              <div className="information-header-nav">
                 <ul>
                   {renderHomes()}
                   {homeCount < 5 && (

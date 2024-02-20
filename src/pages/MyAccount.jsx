@@ -288,12 +288,12 @@ const MyAccount = () => {
                 <div className="information-box">
 
                   <div className="row justify-content-between">
-                    <div class="personal-heading">
+                    <div className="personal-heading">
                       <img src={form_user} alt="" />
                       <h2>Personal information</h2>
                     </div>
                     <div className="col-lg-6 col-md-6">
-                      <div class="form-div">
+                      <div className="form-div">
                         <label htmlFor="first_name">Your name</label>
                         <input
                           type="text"
@@ -316,7 +316,7 @@ const MyAccount = () => {
                         ) : null}
                       </div>
 
-                      <div class="form-div">
+                      <div className="form-div">
                         <label htmlFor="email">Your email address</label>
                         <input
                           type="email"
@@ -339,7 +339,7 @@ const MyAccount = () => {
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6">
-                      <div class="form-div">
+                      <div className="form-div">
                         <label htmlFor="last_name">Last name</label>
                         <input
                           type="text"
@@ -392,7 +392,7 @@ const MyAccount = () => {
             <div className="col-lg-6 col-md-6 pending-div">
               <h2>Pending forms </h2>
 
-              <div class="accordion" id="regularAccordionRobots">
+              <div className="accordion" id="regularAccordionRobots">
                 {isLoading ? (
                   <div className="text-center">loading...</div>
                 ) : pendingItems?.length > 0 ? (
@@ -406,11 +406,11 @@ const MyAccount = () => {
                       key={index}
                     >
                       <h2
-                        class="accordion-header"
+                        className="accordion-header"
                         id={`regularHeading${index + 1}`}
                       >
                         <button
-                          class="accordion-button collapsed"
+                          className="accordion-button collapsed"
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target={`#regularCollapse${index + 1}`}
@@ -430,11 +430,11 @@ const MyAccount = () => {
                       </h2>
                       <div
                         id={`regularCollapse${index + 1}`}
-                        class="accordion-collapse collapse"
+                        className="accordion-collapse collapse"
                         aria-labelledby={`regularHeading${index + 1}`}
                         data-bs-parent="#regularAccordionRobots"
                       >
-                        <div class="accordion-body">
+                        <div className="accordion-body">
                           <div className="accordion-content">
                             <div className="title-accodion">
                               <span>
@@ -500,7 +500,7 @@ const MyAccount = () => {
             </div>
             <div className="col-lg-6 col-md-6 submitted-div">
               <h2>Submitted forms</h2>
-              <div class="accordion" id="regularAccordionRobots">
+              <div className="accordion" id="regularAccordionRobots">
                 {isLoading ? (
                   <div className="text-center">loading...</div>
                 ) : completedItems?.length > 0 ? (
@@ -514,11 +514,11 @@ const MyAccount = () => {
                       key={index}
                     >
                       <h2
-                        class="accordion-header"
+                        className="accordion-header"
                         id={`regularHeading${index + 1}`}
                       >
                         <button
-                          class="accordion-button collapsed"
+                          className="accordion-button collapsed"
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target={`#regularCollapse-submit${index + 1}`}
@@ -531,11 +531,11 @@ const MyAccount = () => {
                       </h2>
                       <div
                         id={`regularCollapse-submit${index + 1}`}
-                        class="accordion-collapse collapse"
+                        className="accordion-collapse collapse"
                         aria-labelledby={`regularHeading${index + 1}`}
                         data-bs-parent="#regularAccordionRobots"
                       >
-                        <div class="accordion-body">
+                        <div className="accordion-body">
                           <div className="accordion-content">
                             <div className="title-accodion">
                               <span>

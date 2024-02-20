@@ -83,19 +83,19 @@ const TravelView = ({ travel }) => {
             <div className=" bg-color">
               <div className="card card-par">
 
-                <div class="form-div">
+                <div className="form-div">
                   <label htmlFor="www">
                     <strong>1.&nbsp;</strong>How many flights did you take in the
                     selected year?<span>*</span>
                   </label>
                   <ul>
-                    <li class="main-li">
+                    <li className="main-li">
                       Please include all flights you took in a personal capacity (i.e. not for a business you work for).{" "}
                     </li>
-                    <li class="main-li">
+                    <li className="main-li">
                       Include return flights as two flights and use the
                       following guide for length:
-                      <ul class="inner-li">
+                      <ul className="inner-li">
                         <li>
                           Short flights: shorter than 3,000 km or 4 hours
                         </li>
@@ -137,8 +137,8 @@ const TravelView = ({ travel }) => {
                   ))}
                 </div>
 
-                <div class="form-div">
-                  <div class="form-label-div">
+                <div className="form-div">
+                  <div className="form-label-div">
                     <label htmlFor="proportion_offset_flights">
                       <strong>2.&nbsp;</strong>What proportion of your flights do you
                       offset ?<span>*</span>
@@ -157,7 +157,7 @@ const TravelView = ({ travel }) => {
                 </div>
 
                 <div className="form-div">
-                  <div class="form-label-div">
+                  <div className="form-label-div">
                     <label htmlFor="how_many_cars">
                       <strong>3.&nbsp;</strong>How many cars do you use ?
                       <span>*</span>
@@ -251,22 +251,22 @@ const TravelView = ({ travel }) => {
             </div>
             <div className=" bg-color">
               <div className="card">
-                <div class="form-div">
+                <div className="form-div">
                   <label htmlFor="www">
                     <strong>4.&nbsp;</strong>How many flights did your
                     partner/children take in the selected year?
                   </label>
                   <ul>
-                    <li class="main-li">
+                    <li className="main-li">
                       For private flights, please only include any additional
                       private flights taken by family members that you were not
                       on. If multiple family members were on the same flight,
                       this is considered one flight.{" "}
                     </li>
-                    <li class="main-li">
+                    <li className="main-li">
                       Include return flights as two flights and use the
                       following guide for length:
-                      <ul class="inner-li">
+                      <ul className="inner-li">
                         <li>
                           Short flights: shorter than 3,000 km or 4 hours
                         </li>
@@ -308,8 +308,8 @@ const TravelView = ({ travel }) => {
                   ))}
                 </div>
 
-                <div class="form-div">
-                  <div class="form-label-div">
+                <div className="form-div">
+                  <div className="form-label-div">
                     <label htmlFor="partner_offset_flights">
                       <strong>5.&nbsp;</strong>What proportion of these flights did you
                       offset?
@@ -320,7 +320,7 @@ const TravelView = ({ travel }) => {
                     type="text"
                     name="partner_offset_flights"
                     id="partner_offset_flights"
-                    class="form-control undefined"
+                    className="form-control undefined"
                     value={formik.values.partner_offset_flights}
                     readOnly
                   />
@@ -328,7 +328,7 @@ const TravelView = ({ travel }) => {
                 </div>
 
                 <div className="form-div">
-                  <div class="form-label-div">
+                  <div className="form-label-div">
                     <label htmlFor="other_dependants">
                       <strong>6.&nbsp;</strong>How many additional vehicles used by
                       your partner/children?
@@ -412,9 +412,9 @@ const TravelView = ({ travel }) => {
 
                 {/********checkbox********/}
 
-                <div class="checkbox-btn">
+                <div className="checkbox-btn">
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="other_dependants">
                         <strong>7.&nbsp;</strong>Did you use any other form of
                         transport in the selected year?
@@ -447,21 +447,21 @@ const TravelView = ({ travel }) => {
                         <div className="modal-label-block">{item}</div>
                         <div className="modal-input-block">
                           <div className="modal-input-row">
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>My kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kms`}
                                 defaultValue={formik.values.transport_selected_year_details[index]?.kms || ''}
                                 readOnly />
                             </div>
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>Notes</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.notes`}
                                 defaultValue={formik.values.transport_selected_year_details[index]?.notes || ''}
                                 readOnly />
                             </div>
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>Partner/children kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
@@ -476,7 +476,7 @@ const TravelView = ({ travel }) => {
                 )}
 
                 <div className="Additional-box">
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="hotel_nights">
                       <strong>8.&nbsp;</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
@@ -487,7 +487,7 @@ const TravelView = ({ travel }) => {
                       type="text"
                       name="hotel_nights"
                       id="hotel_nights"
-                      class="form-control undefined"
+                      className="form-control undefined"
                       defaultValue={formik.values.hotel_nights}
                       readOnly
                     />
