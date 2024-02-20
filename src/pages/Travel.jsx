@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { travelformvalidation } from "../helpers/validations/Schema";
 import { useFormik } from "formik";
-import { travelFormSubmit } from "../redux-store/actions/user";
+import { travelFormSubmit, travelFormUpdate } from "../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
-const Travel = () => {
+const Travel = ({ isEdit, travel }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
@@ -33,6 +33,32 @@ const Travel = () => {
     partner_children_long_flights: { economy: '', business: '', firstClass: '', private: '' },
     partner_children_extended_flights: { economy: '', business: '', firstClass: '', private: '' },
   }
+
+  useEffect(() => {
+    if (isEdit) {
+      formik.setValues({
+        short_flights: travel?.short_flights !== undefined ? JSON.parse(travel?.short_flights) : {},
+        medium_flights: travel?.medium_flights !== undefined ? JSON.parse(travel?.medium_flights) : {},
+        long_flights: travel?.long_flights !== undefined ? JSON.parse(travel?.long_flights) : {},
+        extended_flights: travel?.extended_flights !== undefined ? JSON.parse(travel?.extended_flights) : {},
+        proportion_offset_flights: travel?.proportion_offset_flights ?? null,
+        how_many_cars: travel?.how_many_cars,
+        cars_detail: travel?.cars_detail ? JSON.parse(travel?.cars_detail) : [],
+        partner_children_short_flights: travel?.partner_children_short_flights !== undefined ? JSON.parse(travel?.partner_children_short_flights) : {},
+        partner_children_medium_flights: travel?.partner_children_medium_flights !== undefined ? JSON.parse(travel?.partner_children_medium_flights) : {},
+        partner_children_long_flights: travel?.partner_children_long_flights !== undefined ? JSON.parse(travel?.partner_children_long_flights) : {},
+        partner_children_extended_flights: travel?.partner_children_extended_flights !== undefined ? JSON.parse(travel?.partner_children_extended_flights) : {},
+        partner_offset_flights: travel?.partner_offset_flights ?? null,
+        additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
+        additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
+        transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(',') : [], //"car,bike.name" //string,
+        transport_selected_year_details: travel?.transport_selected_year_details !== undefined && travel?.transport_selected_year_details !== null ? JSON.parse(travel?.transport_selected_year_details) : [],
+        hotel_nights: travel?.hotel_nights ?? null,
+        other_travel_info: travel?.other_travel_info ?? ""
+      })
+    }
+  }, [travel])
+
 
   const formik = useFormik({
     initialValues: {
@@ -75,8 +101,6 @@ const Travel = () => {
       ...rest
     } = values;
 
-    const general_information_id = Number(user?.generalInfoId);
-
     const filteredValues = {
       ...rest,
       proportion_offset_flights: parseFloat(proportion_offset_flights),
@@ -88,7 +112,6 @@ const Travel = () => {
       transport_selected_year: transport_selected_year?.toString(),
       transport_selected_year_details: transport_selected_year_details?.slice(0, Number(transport_selected_year?.length)),
       hotel_nights: Number(hotel_nights),
-      general_information_id
     };
 
     return filteredValues;
@@ -107,12 +130,22 @@ const Travel = () => {
   async function submitHandler(values) {
     if (formik.isValid) {
       setDisabled(true)
-      const filteredValues = await validateAndFilterFields(values);
-      const response = await dispatch(travelFormSubmit(filteredValues));
-      setDisabled(false)
+      let response;
+      let filteredValues = await validateAndFilterFields(values);
+
+      if (isEdit) {
+        const data = { formValues: filteredValues, form_id: travel?.id }
+        response = await dispatch(travelFormUpdate(data));
+      } else {
+        filteredValues.general_information_id = Number(user?.generalInfoId);
+        response = await dispatch(travelFormSubmit(filteredValues));
+      }
+      setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true);
-        dispatch(setFormCompleted(user?.formCompleted + 1))
+        if (!isEdit) {
+          dispatch(setFormCompleted(user?.formCompleted + 1))
+        }
         navigateToNext()
       } else {
         setDisabled(false)
@@ -157,8 +190,8 @@ const Travel = () => {
 
   const handleCheckboxChange = (event, type) => {
     const { checked } = event.target;
-    let updatedTransportSelectedYear = [...formik.values.transport_selected_year];
-    let updatedTransportDetails = [...formik.values.transport_selected_year_details];
+    let updatedTransportSelectedYear = formik.values?.transport_selected_year !== undefined ? [...formik.values?.transport_selected_year] : [];
+    let updatedTransportDetails = formik.values?.transport_selected_year_details !== undefined ? [...formik.values?.transport_selected_year_details] : [];
 
     if (checked && !updatedTransportSelectedYear?.includes(type)) {
       updatedTransportSelectedYear.push(type);
@@ -196,19 +229,19 @@ const Travel = () => {
                 <p>
                   Fields marked with an <span>*</span> are required
                 </p>
-                <div class="form-div">
-                  <label for="www">
+                <div className="form-div">
+                  <label htmlFor="www">
                     <strong>1.&nbsp;</strong>How many flights did you take in the
                     selected year?<span>*</span>
                   </label>
                   <ul>
-                    <li class="main-li">
+                    <li className="main-li">
                       Please include all flights you took in a personal capacity (i.e. not for a business you work for).{" "}
                     </li>
-                    <li class="main-li">
+                    <li className="main-li">
                       Include return flights as two flights and use the
                       following guide for length:
-                      <ul class="inner-li">
+                      <ul className="inner-li">
                         <li>
                           Short flights: shorter than 3,000 km or 4 hours
                         </li>
@@ -259,9 +292,9 @@ const Travel = () => {
                   ))}
                 </div>
 
-                <div class="form-div">
-                  <div class="form-label-div">
-                    <label for="proportion_offset_flights">
+                <div className="form-div">
+                  <div className="form-label-div">
+                    <label htmlFor="proportion_offset_flights">
                       <strong>2.&nbsp;</strong>What proportion of your flights do you
                       offset ?<span>*</span>
                     </label>
@@ -289,7 +322,7 @@ const Travel = () => {
                 </div>
 
                 <div className="form-div">
-                  <div class="form-label-div">
+                  <div className="form-label-div">
                     <label htmlFor="how_many_cars">
                       <strong>3.&nbsp;</strong>How many cars do you use ?
                       <span>*</span>
@@ -410,22 +443,22 @@ const Travel = () => {
             </div>
             <div className=" bg-color">
               <div className="card">
-                <div class="form-div">
-                  <label for="www">
+                <div className="form-div">
+                  <label htmlFor="www">
                     <strong>4.&nbsp;</strong>How many flights did your
                     partner/children take in the selected year?
                   </label>
                   <ul>
-                    <li class="main-li">
+                    <li className="main-li">
                       For private flights, please only include any additional
                       private flights taken by family members that you were not
                       on. If multiple family members were on the same flight,
                       this is considered one flight.{" "}
                     </li>
-                    <li class="main-li">
+                    <li className="main-li">
                       Include return flights as two flights and use the
                       following guide for length:
-                      <ul class="inner-li">
+                      <ul className="inner-li">
                         <li>
                           Short flights: shorter than 3,000 km or 4 hours
                         </li>
@@ -474,9 +507,9 @@ const Travel = () => {
                   ))}
                 </div>
 
-                <div class="form-div">
-                  <div class="form-label-div">
-                    <label for="partner_offset_flights">
+                <div className="form-div">
+                  <div className="form-label-div">
+                    <label htmlFor="partner_offset_flights">
                       <strong>5.&nbsp;</strong>What proportion of these flights did you
                       offset?
                     </label>
@@ -486,7 +519,7 @@ const Travel = () => {
                     type="text"
                     name="partner_offset_flights"
                     id="partner_offset_flights"
-                    class="form-control undefined"
+                    className="form-control undefined"
                     value={formik.values.partner_offset_flights}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -501,7 +534,7 @@ const Travel = () => {
                 </div>
 
                 <div className="form-div">
-                  <div class="form-label-div">
+                  <div className="form-label-div">
                     <label htmlFor="other_dependants">
                       <strong>6.&nbsp;</strong>How many additional vehicles used by
                       your partner/children?
@@ -601,9 +634,9 @@ const Travel = () => {
 
                 {/********checkbox********/}
 
-                <div class="checkbox-btn">
+                <div className="checkbox-btn">
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="other_dependants">
                         <strong>7.&nbsp;</strong>Did you use any other form of
                         transport in the selected year?
@@ -617,7 +650,7 @@ const Travel = () => {
                             type="checkbox"
                             name="transport_selected_year"
                             value={type}
-                            checked={formik.values.transport_selected_year?.includes(type)}
+                            checked={formik.values?.transport_selected_year?.includes(type)}
                             // onChange={formik.handleChange}
                             onChange={(event) => handleCheckboxChange(event, type)}
                           />
@@ -630,14 +663,14 @@ const Travel = () => {
                   </div>
                 </div>
 
-                {formik.values?.transport_selected_year?.length > 0 && (
+                {formik.values?.transport_selected_year !== undefined && formik.values?.transport_selected_year?.length > 0 && (
                   <div className="modal-row-main">
                     {formik.values?.transport_selected_year?.map((item, index) => (
                       <div className="modal-row" key={index}>
                         <div className="modal-label-block">{item}</div>
                         <div className="modal-input-block">
                           <div className="modal-input-row">
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>My kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kms`}
@@ -645,7 +678,7 @@ const Travel = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} />
                             </div>
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>Notes</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.notes`}
@@ -653,7 +686,7 @@ const Travel = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} />
                             </div>
-                            <div class="modal-input-col">
+                            <div className="modal-input-col">
                               <label>Partner/children kms</label>{" "}
                               <input type="text" placeholder=""
                                 name={`transport_selected_year_details.${index}.kmsInSelectedYear`}
@@ -669,8 +702,8 @@ const Travel = () => {
                 )}
 
                 <div className="Additional-box">
-                  <div class="form-div">
-                    <label for="hotel_nights">
+                  <div className="form-div">
+                    <label htmlFor="hotel_nights">
                       <strong>8.&nbsp;</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
@@ -680,7 +713,7 @@ const Travel = () => {
                       type="text"
                       name="hotel_nights"
                       id="hotel_nights"
-                      class="form-control undefined"
+                      className="form-control undefined"
                       value={formik.values.hotel_nights}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}

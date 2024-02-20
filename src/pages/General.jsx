@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { formvalidation } from "../helpers/validations/Schema";
-import { generalFormSubmit, getCountry } from "../redux-store/actions/user";
+import { generalFormSubmit, generalFormUpdate, getCountry } from "../redux-store/actions/user";
 import CountryOptions from "../components/CountryOptions";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
-const General = () => {
+const General = ({ isEdit, general }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(false)
@@ -32,6 +32,31 @@ const General = () => {
     useEffect(() => {
         dispatch(getCountry())
     }, [])
+
+    useEffect(() => {
+        if (isEdit) {
+            formik.setValues({
+                first_name: general?.first_name || "",
+                last_name: general?.last_name || "",
+                email: general?.email || "",
+                emailConfirmation: general?.email || "",
+                year_of_birth: general?.year_of_birth || "",
+                country_of_residence: general?.country_of_residence || "",
+                num_of_homes: general?.num_of_homes || "",
+                first_home_country: general?.first_home_country || "",
+                second_home_country: general?.second_home_country || "",
+                third_home_country: general?.third_home_country || "",
+                fourth_home_country: general?.fourth_home_country || "",
+                fifth_home_country: general?.fifth_home_country || "",
+                living_with_partner: general?.living_with_partner || "",
+                num_of_children_under_18: general?.num_of_children_under_18 || undefined,
+                other_dependants: general?.other_dependants || "",
+                other_dependants_details: general?.other_dependants_details || "",
+                forest_or_farmland_details: general?.forest_or_farmland_details || "",
+            });
+        }
+    }, [general]);
+
 
     const formik = useFormik({
         initialValues: {
@@ -111,15 +136,26 @@ const General = () => {
             behavior: 'smooth'
         });
     }
+
     async function handleSubmit(values) {
         try {
             setDisabled(true)
+            let response;
             const filteredValues = await validateAndFilterFields(values);
-            const response = await dispatch(generalFormSubmit(filteredValues));
+
+            if (isEdit) {
+                const data = { formValues: filteredValues, form_id: general?.id }
+                response = await dispatch(generalFormUpdate(data));
+            } else {
+                response = await dispatch(generalFormSubmit(filteredValues));
+            }
             setDisabled(false)
+
             if (!response?.payload?.error && response?.payload?.data) {
                 setIsSubmitted(true)
-                dispatch(setFormCompleted(user?.formCompleted + 1))
+                if (!isEdit) {
+                    dispatch(setFormCompleted(user?.formCompleted + 1))
+                }
                 navigateToNext()
             } else {
                 const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -489,7 +525,7 @@ const General = () => {
                                                     </div>
                                                 </div>
                                                 <div className="form-div">
-                                                    <div class="form-label-div">
+                                                    <div className="form-label-div">
                                                         <label htmlFor="homeCount">
                                                             <strong>8.&nbsp;</strong>How many children under 18 living with you?
                                                             <span>*</span>{" "}
@@ -525,7 +561,7 @@ const General = () => {
                                                     ) : null}
                                                 </div>
                                                 <div className="form-div">
-                                                    <div class="form-label-div">
+                                                    <div className="form-label-div">
                                                         <label htmlFor="other_dependants">
                                                             <strong>9.&nbsp;</strong>Do you have any other dependants who live with you
                                                             all of the time or most of the time?<span>*</span>{" "}

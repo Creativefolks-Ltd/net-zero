@@ -584,7 +584,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
               </div>
             </div>
             {/* Electricity Section */}
-            {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type.includes("Electricity") && (
+            {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type?.includes("Electricity") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -958,7 +958,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
               </div>
             )}
             {/* Gas Section */}
-            {formik.values.heating_type.includes("Gas") && (
+            {formik.values.heating_type?.includes("Gas") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -1208,7 +1208,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
               </div>
             )}
             {/* Other energy Section */}
-            {(formik.values.heating_type.includes("Oil") || formik.values.heating_type.includes("Coal") || formik.values.heating_type.includes("Wood")) && (
+            {(formik.values.heating_type?.includes("Oil") || formik.values.heating_type?.includes("Coal") || formik.values.heating_type?.includes("Wood")) && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -1219,7 +1219,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                         <div className="form ">
                           <div className="row">
                             {/* Oil */}
-                            {formik.values.heating_type.includes("Oil") && (
+                            {formik.values.heating_type?.includes("Oil") && (
                               <>
                                 <div className="form-div">
                                   <div className="form-label-div">
@@ -1390,7 +1390,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               </>
                             )}
                             {/* Wood */}
-                            {formik.values.heating_type.includes("Wood") && (
+                            {formik.values.heating_type?.includes("Wood") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="wood_usage_known">
@@ -1561,7 +1561,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                 )}
                               </>)}
                             {/* Coal */}
-                            {formik.values.heating_type.includes("Coal") && (
+                            {formik.values.heating_type?.includes("Coal") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="coal_usage_known">
@@ -1851,7 +1851,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                         formik.setFieldValue("property_features", updatedPropertyFeatures);
                                       }}
                                     />
-                                    <label htmlFor={type + "2"} className={`${formik.values.property_features.includes(type) ? "active" : ""}`}>
+                                    <label htmlFor={type + "2"} className={`${formik.values.property_features?.includes(type) ? "active" : ""}`}>
                                       {type}
                                     </label>
                                   </div>
@@ -1976,10 +1976,10 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                     type="checkbox"
                                     name="additional_property_features"
                                     value={type}
-                                    checked={formik.values.additional_property_features.includes(type)}
+                                    checked={formik.values?.additional_property_features?.includes(type)}
                                     onChange={formik.handleChange}
                                   />
-                                  <label htmlFor={type + "1"} className={`${formik.values.additional_property_features.includes(type) ? "active" : ""}`}>
+                                  <label htmlFor={type + "1"} className={`${formik.values?.additional_property_features?.includes(type) ? "active" : ""}`}>
                                     {type}
                                   </label>
                                 </div>

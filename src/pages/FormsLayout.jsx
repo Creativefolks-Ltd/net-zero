@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import GeneralView from "./forms/GeneralView";
-import HomeFormView from "./forms/HomeFormView";
-import TravelView from "./forms/TravelView";
-import FoodAndShoppingView from "./forms/FoodAndShoppingView";
+import HomeFormView from "./forms-view/HomeFormView";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchParticularForm } from "../redux-store/actions/user";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import FormActionTabs from "./forms/FormActionTabs";
-import FinancialView from "./forms/FinancialView";
+import FormActionTabs from "./forms-view/FormActionTabs";
+import FinancialView from "./forms-view/FinancialView";
 import General from "./General";
 import HomeForm from "./Homeform";
 import Travel from "./Travel";
@@ -69,7 +66,7 @@ const FormsLayout = () => {
     }
 
     let homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
-    
+
     const LocalHomeDelete = async (activeId) => {
         try {
             const result = await Swal.fire({
@@ -111,16 +108,16 @@ const FormsLayout = () => {
             ) : (
                 <>
                     {activeTab === "general" && (
-                        formCompleted >= 1 ? <GeneralView general={general} /> : <General />
+                        formCompleted >= 1 ? <General isEdit={true} general={general} /> : <General isEdit={false} />
                     )}
                     {activeTab === "home" && (
                         formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
                     )}
                     {activeTab === "travel" && (
-                        formCompleted >= 3 ? <TravelView travel={travel} /> : <Travel />
+                        formCompleted >= 3 ? <Travel isEdit={true} travel={travel} /> : <Travel isEdit={false} />
                     )}
                     {activeTab === "food" && (
-                        formCompleted >= 4 ? <FoodAndShoppingView food={food} /> : <FoodAndShopping />
+                        formCompleted >= 4 ? <FoodAndShopping isEdit={true} food={food} /> : <FoodAndShopping isEdit={false} />
                     )}
                     {activeTab === "financial" && (
                         formCompleted >= 5 ? <FinancialView financial={financial} /> : <Financial />

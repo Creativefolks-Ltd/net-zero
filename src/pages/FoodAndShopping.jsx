@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { foodFormSubmit, getCountry } from "../redux-store/actions/user";
+import { foodFormSubmit, foodFormUpdate, getCountry } from "../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { foodFormValidation } from "../helpers/validations/Schema";
 import { setFormCompleted } from "../redux-store/reducers/auth";
 
-const FoodAndShopping = () => {
+const FoodAndShopping = ({ isEdit, food }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,14 +29,30 @@ const FoodAndShopping = () => {
     dispatch(getCountry());
   }, []);
 
+  useEffect(() => {
+    if (isEdit) {
+      formik.setValues({
+        purchased_new_vehicle: food?.purchased_new_vehicle,
+        vehicle_detail: food?.vehicle_detail,
+        important_purchases_detail: food?.important_purchases_detail,
+        average_pieces_per_quarter: food?.average_pieces_per_quarter,
+        pet_type: food?.pet_type,
+        pet_detail: food?.pet_detail,
+        meat_based_meals_frequency: food?.meat_based_meals_frequency,
+        dairy_frequency: food?.dairy_frequency,
+        food_purchase_statement: food?.food_purchase_statement,
+        planning_this_year: food?.planning_this_year,
+        events_details: food?.events_details,
+        information_diet_clothes_parter: food?.information_diet_clothes_parter
+      })
+    }
+  }, [food])
 
   const validateAndFilterFields = (values) => {
     const { purchased_new_vehicle, vehicle_detail, pet_type, pet_detail, planning_this_year, events_details, ...rest } = values;
-    const general_information_id = Number(user?.generalInfoId);
 
     const filteredValues = {
       ...rest,
-      general_information_id,
       purchased_new_vehicle,
       vehicle_detail: (purchased_new_vehicle === "Yes") ? vehicle_detail?.trim() : "",
       pet_type,
@@ -85,11 +101,20 @@ const FoodAndShopping = () => {
 
     setDisabled(true);
     const filteredValues = await validateAndFilterFields(values);
-    const response = await dispatch(foodFormSubmit(filteredValues));
+    let response;
+    if (isEdit) {
+      const data = { formValues: filteredValues, form_id: food?.id }
+      response = await dispatch(foodFormUpdate(data));
+    } else {
+      filteredValues.general_information_id = Number(user?.generalInfoId);
+      response = await dispatch(foodFormSubmit(filteredValues));
+    }
     setDisabled(false)
     if (!response?.payload?.error && response?.payload?.data) {
       setIsSubmitted(true);
-      dispatch(setFormCompleted(user?.formCompleted + 1))
+      if (!isEdit) {
+        dispatch(setFormCompleted(user?.formCompleted + 1))
+      }
       navigateToNext()
     } else {
       const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -134,7 +159,7 @@ const FoodAndShopping = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <section class="food-shopping top">
+        <section className="food-shopping top">
           <div className="container">
             <div className="sub-heading">
               <h2>Food and shopping</h2>
@@ -218,7 +243,7 @@ const FoodAndShopping = () => {
           </div>
         </section>
 
-        <section class="food-shopping">
+        <section className="food-shopping">
           <div className="container">
             <div className="sub-heading">
               <h2>Additional information</h2>
@@ -250,7 +275,7 @@ const FoodAndShopping = () => {
                   </div>
 
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="average_pieces_per_quarter">
                         <strong>3.&nbsp;</strong>On average, how many new pieces of
                         clothing do you buy each quarter?
@@ -273,7 +298,7 @@ const FoodAndShopping = () => {
                     </select>
                   </div>
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="pet_type">
                         <strong>4.&nbsp;</strong>Do you have any domestic pets or
                         animals??
@@ -310,7 +335,7 @@ const FoodAndShopping = () => {
                     </div>
                   )}
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="meat_based_meals_frequency">
                         <strong>5.&nbsp;</strong>How often does your diet include
                         meat-based meals?
@@ -330,7 +355,7 @@ const FoodAndShopping = () => {
                   </div>
 
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="dairy_frequency">
                         <strong>6.&nbsp;</strong>How often does your diet include
                         dairy?
@@ -350,7 +375,7 @@ const FoodAndShopping = () => {
                   </div>
 
                   <div className="form-div">
-                    <div class="form-label-div">
+                    <div className="form-label-div">
                       <label htmlFor="food_purchase_statement">
                         <strong>7.&nbsp;</strong>Thinking about the food you buy,
                         which of the following statements applies?
@@ -373,18 +398,18 @@ const FoodAndShopping = () => {
                     </select>
                   </div>
 
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="information_diet_clothes_parter">
                       <strong>8.&nbsp;</strong>Please enter any information about the
                       diet and clothes purchases of your partner and dependents,
                       where relevant.
                     </label>
                     <ul>
-                      <li class="main-li">
+                      <li className="main-li">
                         Please answer in terms of how often they eat meat and
                         dairy, and how many clothes they buy per quarter.{" "}
                       </li>
-                      <li class="main-li">
+                      <li className="main-li">
                         If no information is supplied, we will assume the same
                         diet and clothes shopping patterns for other family
                         members.
@@ -403,17 +428,17 @@ const FoodAndShopping = () => {
                   </div>
 
 
-                  <div class="form-div">
+                  <div className="form-div">
                     <label htmlFor="planning_this_year">
                       <strong>9.&nbsp;</strong>Do you have any plans to host or
                       organise any large events this year or next year?
                     </label>
                     <ul>
-                      <li class="main-li">
+                      <li className="main-li">
                         This question only applies for submissions for the
                         latest full calendar year.{" "}
                       </li>
-                      <li class="main-li">
+                      <li className="main-li">
                         This is not essential for the calculation of your carbon
                         footprint, but allows us to give you tailored,
                         forward-looking recommendations.
@@ -432,7 +457,7 @@ const FoodAndShopping = () => {
                     </select>
                   </div>
                   {formik.values.planning_this_year !== "No" && (
-                    <div class="form-div">
+                    <div className="form-div">
                       <label htmlFor="events_details">
                         <strong>9b.&nbsp;</strong>Please provide more details
                       </label>

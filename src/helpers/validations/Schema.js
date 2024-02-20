@@ -9,6 +9,8 @@ export const strongPasswordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[
 
 export const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
+export const numberRegex = /^\d*\.?\d+$/;
+
 export const userFormValidation = Yup.object().shape({
     first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
     last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
@@ -86,7 +88,7 @@ export const homeFormvalidation = (values) => {
         if (values?.electricity_usage_known !== "No") {
             if (!values?.electricity_usage_amount?.trim()) {
                 errors.electricity_usage_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.electricity_usage_amount)) {
+            } else if (!numberRegex.test(values?.electricity_usage_amount)) {
                 errors.electricity_usage_amount = numberAllowMsg;
             }
 
@@ -109,7 +111,7 @@ export const homeFormvalidation = (values) => {
         if (values?.electricity_usage_known === "No" && values?.electricity_annual_spend === "Yes") {
             if (!values?.electricity_annual_amount?.trim()) {
                 errors.electricity_annual_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.electricity_annual_amount)) {
+            } else if (!numberRegex.test(values?.electricity_annual_amount)) {
                 errors.electricity_annual_amount = numberAllowMsg;
             }
 
@@ -129,7 +131,7 @@ export const homeFormvalidation = (values) => {
         if (values?.on_site_renewable_energy !== "No") {
             if (!values?.on_site_renewable_amount?.trim()) {
                 errors.on_site_renewable_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.on_site_renewable_amount)) {
+            } else if (!numberRegex.test(values?.on_site_renewable_amount)) {
                 errors.on_site_renewable_amount = numberAllowMsg;
             }
 
@@ -148,7 +150,7 @@ export const homeFormvalidation = (values) => {
         if (values?.natural_gas_usage_known !== "No") {
             if (!values?.natural_gas_usage_amount?.trim()) {
                 errors.natural_gas_usage_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.natural_gas_usage_amount)) {
+            } else if (!numberRegex.test(values?.natural_gas_usage_amount)) {
                 errors.natural_gas_usage_amount = numberAllowMsg;
             }
 
@@ -168,7 +170,7 @@ export const homeFormvalidation = (values) => {
         if (values?.natural_gas_usage_known === "No" && values?.natural_gas_annual_spend !== "No") {
             if (!values?.natural_gas_annual_amount?.trim()) {
                 errors.natural_gas_annual_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.natural_gas_annual_amount)) {
+            } else if (!numberRegex.test(values?.natural_gas_annual_amount)) {
                 errors.natural_gas_annual_amount = numberAllowMsg;
             }
 
@@ -191,7 +193,7 @@ export const homeFormvalidation = (values) => {
         if (values?.oil_usage_known !== "No") {
             if (!values?.oil_usage_amount?.trim()) {
                 errors.oil_usage_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.oil_usage_amount)) {
+            } else if (!numberRegex.test(values?.oil_usage_amount)) {
                 errors.oil_usage_amount = numberAllowMsg;
             }
 
@@ -208,7 +210,7 @@ export const homeFormvalidation = (values) => {
             if (values?.oil_annual_spend !== "No") {
                 if (!values?.oil_annual_amount?.trim()) {
                     errors.oil_annual_amount = requiredMsg;
-                } else if (!/^[0-9]+$/.test(values?.oil_annual_amount)) {
+                } else if (!numberRegex.test(values?.oil_annual_amount)) {
                     errors.oil_annual_amount = numberAllowMsg;
                 }
                 if (!values?.oil_annual_unit?.trim()) {
@@ -227,7 +229,7 @@ export const homeFormvalidation = (values) => {
         if (values?.wood_usage_known !== "No") {
             if (!values?.wood_usage_amount?.trim()) {
                 errors.wood_usage_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.wood_usage_amount)) {
+            } else if (!numberRegex.test(values?.wood_usage_amount)) {
                 errors.wood_usage_amount = numberAllowMsg;
             }
 
@@ -244,7 +246,7 @@ export const homeFormvalidation = (values) => {
             if (values?.wood_annual_spend !== "No") {
                 if (!values?.wood_annual_amount?.trim()) {
                     errors.wood_annual_amount = requiredMsg;
-                } else if (!/^[0-9]+$/.test(values?.wood_annual_amount)) {
+                } else if (!numberRegex.test(values?.wood_annual_amount)) {
                     errors.wood_annual_amount = numberAllowMsg;
                 }
 
@@ -264,7 +266,7 @@ export const homeFormvalidation = (values) => {
         if (values?.coal_usage_known !== "No") {
             if (!values?.coal_usage_amount?.trim()) {
                 errors.coal_usage_amount = requiredMsg;
-            } else if (!/^[0-9]+$/.test(values?.coal_usage_amount)) {
+            } else if (!numberRegex.test(values?.coal_usage_amount)) {
                 errors.coal_usage_amount = numberAllowMsg;
             }
 
@@ -280,7 +282,7 @@ export const homeFormvalidation = (values) => {
             if (values?.coal_annual_spend !== "No") {
                 if (!values?.coal_annual_amount?.trim()) {
                     errors.coal_annual_amount = requiredMsg;
-                } else if (!/^[0-9]+$/.test(values?.coal_annual_amount)) {
+                } else if (!numberRegex.test(values?.coal_annual_amount)) {
                     errors.coal_annual_amount = numberAllowMsg;
                 }
 
@@ -314,7 +316,7 @@ export const homeFormvalidation = (values) => {
 
 // // If  electricity_usage_known !== "No" 
 // electricity_usage_amount: Yup.string().when('electricity_usage_known', (value, schema) => {
-//     return value?.toString() !== null && value?.toString() !== "No" ? schema.required(requiredMsg).nullable().matches(/^[0-9]+$/, numberAllowMsg) : schema;
+//     return value?.toString() !== null && value?.toString() !== "No" ? schema.required(requiredMsg).nullable().matches(numberRegex, numberAllowMsg) : schema;
 // }),
 // electricity_usage_unit: Yup.string().when('electricity_usage_known', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(selectOptionMsg) : schema;
@@ -331,7 +333,7 @@ export const homeFormvalidation = (values) => {
 // }),
 
 // // If  electricity_annual_spend !== "No" 
-// electricity_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('electricity_annual_spend', (value, schema) => {
+// electricity_annual_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('electricity_annual_spend', (value, schema) => {
 //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
 // }),
 // electricity_annual_unit: Yup.string().when('electricity_annual_spend', (value, schema) => {
@@ -344,7 +346,7 @@ export const homeFormvalidation = (values) => {
 // on_site_renewable_energy: Yup.string().required(selectOptionMsg),
 
 // // If on_site_renewable_energy !== "No"
-// on_site_renewable_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
+// on_site_renewable_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('on_site_renewable_energy', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
 // }),
 // on_site_renewable_unit: Yup.string().when('on_site_renewable_energy', (value, schema) => {
@@ -355,7 +357,7 @@ export const homeFormvalidation = (values) => {
 // //// Gas
 // natural_gas_usage_known: Yup.string().required(selectOptionMsg),
 // // If  natural_gas_usage_known !== "No" 
-// natural_gas_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_usage_known', (value, schema) => {
+// natural_gas_usage_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('natural_gas_usage_known', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
 // }),
 // natural_gas_usage_unit: Yup.string().when('natural_gas_usage_known', (value, schema) => {
@@ -373,7 +375,7 @@ export const homeFormvalidation = (values) => {
 // }),
 
 // // If  natural_gas_annual_spend !== "No" 
-// natural_gas_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('natural_gas_annual_spend', (value, schema) => {
+// natural_gas_annual_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('natural_gas_annual_spend', (value, schema) => {
 //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
 // }),
 // natural_gas_annual_unit: Yup.string().when('natural_gas_annual_spend', (value, schema) => {
@@ -386,7 +388,7 @@ export const homeFormvalidation = (values) => {
 // //// Oil
 // oil_usage_known: Yup.string().required(selectOptionMsg),
 // // If  oil_usage_known !== "No" 
-// oil_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_usage_known', (value, schema) => {
+// oil_usage_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('oil_usage_known', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
 // }),
 // oil_usage_unit: Yup.string().when('oil_usage_known', (value, schema) => {
@@ -399,7 +401,7 @@ export const homeFormvalidation = (values) => {
 // }),
 
 // // If  oil_annual_spend !== "No" 
-// oil_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('oil_annual_spend', (value, schema) => {
+// oil_annual_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('oil_annual_spend', (value, schema) => {
 //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
 // }),
 // oil_annual_unit: Yup.string().when('oil_annual_spend', (value, schema) => {
@@ -410,7 +412,7 @@ export const homeFormvalidation = (values) => {
 // // Wood
 // wood_usage_known: Yup.string().required(selectOptionMsg),
 // // If  wood_usage_known !== "No" 
-// wood_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_usage_known', (value, schema) => {
+// wood_usage_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('wood_usage_known', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
 // }),
 // wood_usage_unit: Yup.string().when('wood_usage_known', (value, schema) => {
@@ -423,7 +425,7 @@ export const homeFormvalidation = (values) => {
 // }),
 
 // // If  wood_annual_spend !== "No" 
-// wood_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('wood_annual_spend', (value, schema) => {
+// wood_annual_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('wood_annual_spend', (value, schema) => {
 //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
 // }),
 // wood_annual_unit: Yup.string().when('wood_annual_spend', (value, schema) => {
@@ -434,7 +436,7 @@ export const homeFormvalidation = (values) => {
 // // Coal
 // coal_usage_known: Yup.string().required(selectOptionMsg),
 // // If  coal_usage_known !== "No" 
-// coal_usage_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_usage_known', (value, schema) => {
+// coal_usage_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('coal_usage_known', (value, schema) => {
 //     return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
 // }),
 // coal_usage_unit: Yup.string().when('coal_usage_known', (value, schema) => {
@@ -447,7 +449,7 @@ export const homeFormvalidation = (values) => {
 // }),
 
 // // If  coal_annual_spend !== "No" 
-// coal_annual_amount: Yup.string().nullable().matches(/^[0-9]+$/, numberAllowMsg).when('coal_annual_spend', (value, schema) => {
+// coal_annual_amount: Yup.string().nullable().matches(numberRegex, numberAllowMsg).when('coal_annual_spend', (value, schema) => {
 //     return value?.toString() === "Yes" ? schema.required(requiredMsg) : schema;
 // }),
 // coal_annual_unit: Yup.string().when('coal_annual_spend', (value, schema) => {
@@ -524,7 +526,7 @@ export const travelformvalidation = Yup.object().shape({
             private: Yup.string().matches(/^[0-9]+$/, 'Only numbers are allowed'),
         }),
 
-    proportion_offset_flights: Yup.string().matches(/^[0-9]+$/, 'Only numbers are allowed').required(requiredMsg),
+    proportion_offset_flights: Yup.string().matches(numberRegex, 'Only numbers are allowed').required(requiredMsg),
     how_many_cars: Yup.string().required(selectOptionMsg),
     cars_detail: Yup.array().of(
         Yup.object().shape({

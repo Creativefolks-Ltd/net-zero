@@ -27,6 +27,18 @@ export const generalFormSubmit = createAsyncThunk('general', async (data, thunkA
     }
 });
 
+export const generalFormUpdate = createAsyncThunk('generalFormUpdate', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState()?.auth?.userInfo?.token
+        const form_id = data.form_id;
+        const formValues = data.formValues;
+        const response = await axios.put(`/api/update/user/general/form/${form_id}`, formValues, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        TokenExpiredLogout(error, thunkAPI)
+    }
+});
+
 export const homeFormSubmit = createAsyncThunk('home', async (data, thunkAPI) => {
     try {
         const token = thunkAPI?.getState()?.auth?.userInfo?.token;
@@ -36,6 +48,18 @@ export const homeFormSubmit = createAsyncThunk('home', async (data, thunkAPI) =>
         TokenExpiredLogout(error, thunkAPI)
     } finally {
         await thunkAPI.dispatch(fetchParticularForm(data?.general_information_id));
+    }
+});
+
+export const homeFormUpdate = createAsyncThunk('homeFormUpdate', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState()?.auth?.userInfo?.token
+        const form_id = data.form_id;
+        const formValues = data.formValues;
+        const response = await axios.put(`/api/update/user/home/form/${form_id}`, formValues, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        TokenExpiredLogout(error, thunkAPI)
     }
 });
 
@@ -49,10 +73,34 @@ export const travelFormSubmit = createAsyncThunk('travel', async (data, thunkAPI
     }
 });
 
+export const travelFormUpdate = createAsyncThunk('travelFormUpdate', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState()?.auth?.userInfo?.token
+        const form_id = data.form_id;
+        const formValues = data.formValues;
+        const response = await axios.put(`/api/update/user/travel/form/${form_id}`, formValues, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        TokenExpiredLogout(error, thunkAPI)
+    }
+});
+
 export const foodFormSubmit = createAsyncThunk('food', async (data, thunkAPI) => {
     try {
         const token = thunkAPI?.getState()?.auth?.userInfo?.token;
         const response = await axios.post("/api/user/food/form/submit", data, { headers: { Authorization: `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        TokenExpiredLogout(error, thunkAPI)
+    }
+});
+
+export const foodFormUpdate = createAsyncThunk('foodFormUpdate', async (data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState()?.auth?.userInfo?.token
+        const form_id = data.form_id;
+        const formValues = data.formValues;
+        const response = await axios.put(`/api/update/user/food/form/${form_id}`, formValues, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         TokenExpiredLogout(error, thunkAPI)
