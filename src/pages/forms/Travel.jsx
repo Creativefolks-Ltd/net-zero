@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { travelformvalidation } from "../helpers/validations/Schema";
+import { travelformvalidation } from "../../helpers/validations/Schema";
 import { useFormik } from "formik";
-import { travelFormSubmit, travelFormUpdate } from "../redux-store/actions/user";
+import { travelFormSubmit, travelFormUpdate } from "../../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const Travel = ({ isEdit, travel }) => {
   const dispatch = useDispatch();

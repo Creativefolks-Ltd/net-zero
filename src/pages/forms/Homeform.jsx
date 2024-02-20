@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import CountryOptions from "../components/CountryOptions";
+import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../redux-store/actions/user";
-import { homeFormvalidation } from "../helpers/validations/Schema";
-import delete_img from "../assets/images/delete_img.svg";
+import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
+import { homeFormvalidation } from "../../helpers/validations/Schema";
+import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import CurrencyOptions from "../components/CurrencyOptions";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import CurrencyOptions from "../../components/CurrencyOptions";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]

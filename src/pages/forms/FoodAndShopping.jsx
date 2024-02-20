@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { foodFormSubmit, foodFormUpdate, getCountry } from "../redux-store/actions/user";
+import { foodFormSubmit, foodFormUpdate, getCountry } from "../../redux-store/actions/user";
 import Swal from "sweetalert2";
-import { foodFormValidation } from "../helpers/validations/Schema";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import { foodFormValidation } from "../../helpers/validations/Schema";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const FoodAndShopping = ({ isEdit, food }) => {
 

@@ -6,12 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import "./assets/css/styles.css"
-import General from "./pages/General";
-import Homeform from "./pages/Homeform";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Travel from "./pages/Travel";
-import FoodAndShopping from "./pages/FoodAndShopping";
-import Financial from "./pages/Financial";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import MyAccount from "./pages/MyAccount";
@@ -22,7 +17,7 @@ import Dashboard from "./pages/admin";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import UserChangePassword from "./pages/UserChangePassword.jsx";
 import AdminView from "./pages/admin/AdminView.jsx";
-import FormsLayout from "./pages/FormsLayout.jsx";
+import FormsLayout from "./pages/forms/FormsLayout.jsx";
 import { useDispatch } from "react-redux";
 import { addGeneralInfo } from "./redux-store/actions/user.js";
 import { setFormCompleted } from "./redux-store/reducers/auth.js";
@@ -53,11 +48,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
-          {/* <Route path="/general" element={<ProtectedRoute ><General /></ProtectedRoute >} />
-          <Route path="/home-form" element={<ProtectedRoute ><Homeform /></ProtectedRoute >} />
-          <Route path="/travel" element={<ProtectedRoute ><Travel /></ProtectedRoute >} />
-          <Route path="/food-shopping" element={<ProtectedRoute ><FoodAndShopping /></ProtectedRoute >} />
-          <Route path="/financial" element={<ProtectedRoute ><Financial /></ProtectedRoute >} /> */}
           <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
           <Route path="/form-view/:form_id" element={<ProtectedRoute><AdminView /></ProtectedRoute>} />
           <Route path="/manage-password" element={<ProtectedRoute ><UserChangePassword /></ProtectedRoute >} />

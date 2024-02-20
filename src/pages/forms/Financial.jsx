@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { finanicialFormSubmit } from "../redux-store/actions/user";
-import SuccessImg from "../assets/images/Group 9106.png";
+import { finanicialFormSubmit } from "../../redux-store/actions/user";
+import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const Financial = () => {
   const dispatch = useDispatch();

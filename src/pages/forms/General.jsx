@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import { formvalidation } from "../helpers/validations/Schema";
-import { generalFormSubmit, generalFormUpdate, getCountry } from "../redux-store/actions/user";
-import CountryOptions from "../components/CountryOptions";
-import { setFormCompleted } from "../redux-store/reducers/auth";
+import { formvalidation } from "../../helpers/validations/Schema";
+import { generalFormSubmit, generalFormUpdate, getCountry } from "../../redux-store/actions/user";
+import CountryOptions from "../../components/CountryOptions";
+import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const General = ({ isEdit, general }) => {
     const navigate = useNavigate();

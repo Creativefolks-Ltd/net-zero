@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import HomeFormView from "./forms-view/HomeFormView";
+import HomeFormView from "../forms-view/HomeFormView";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchParticularForm } from "../redux-store/actions/user";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import FormActionTabs from "./forms-view/FormActionTabs";
-import FinancialView from "./forms-view/FinancialView";
+import { fetchParticularForm } from "../../redux-store/actions/user";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import FormActionTabs from "../forms-view/FormActionTabs";
+import FinancialView from "../forms-view/FinancialView";
 import General from "./General";
 import HomeForm from "./Homeform";
 import Travel from "./Travel";
