@@ -31,10 +31,10 @@ export const updateAdminDetails = createAsyncThunk('updateAdminDetails', async (
 
 
 export const getAllForms = createAsyncThunk('getAllForms', async (params, thunkAPI) => {
-    const { itemsPerPage, pageNumber, query } = params
+    const { itemsPerPage, pageNumber, query, order, sort} = params
     try {
         const token = thunkAPI?.getState()?.auth?.adminDetails?.token;
-        const response = await axios.get(`/api/get/all/forms?limit=${itemsPerPage}&page=${pageNumber}&query=${query}`, { headers: { Authorization: `Bearer ${token}` } });
+        const response = await axios.get(`/api/get/all/forms?limit=${itemsPerPage}&page=${pageNumber}&query=${query}&order=${order}&sort=${sort}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data.data;
     } catch (error) {
         return TokenExpiredLogout(error, thunkAPI);

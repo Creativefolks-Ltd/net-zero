@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   const admin = useSelector((state) => state.auth);
   const formDetails = useSelector((state) => state.admin);
   const isLoading = formDetails.isLoading;
-  const allForms = formDetails?.getAllForms?.list;
+  let allForms = formDetails?.getAllForms?.list;
   const resultcount = formDetails?.getAllForms?.count;
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,6 +31,8 @@ const AdminDashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchByEmail, setSearchByEmail] = useState("");
+  const [orderByAsc, setOrderByAsc] = useState(false);
+  const [sortColumn, setSortColumn] = useState("created_at");
   const [searchQuery, setSearchQuery] = useState("");
   const [dragOver, setDragOver] = useState(false);
 
@@ -45,12 +47,14 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchFormList();
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, orderByAsc]);
 
-  const fetchFormList =()=>{
-    const params = { itemsPerPage: itemsPerPage, pageNumber: currentPage, query: searchQuery }
+  const fetchFormList = () => {
+    const order = orderByAsc ? "asc" : "desc"
+    const params = { itemsPerPage: itemsPerPage, pageNumber: currentPage, query: searchQuery, order: order, sort: sortColumn }
     dispatch(getAllForms(params));
   }
+
   const searchFilter = (e) => {
     setSearchQuery(searchByEmail)
     setCurrentPage(1)
@@ -69,7 +73,6 @@ const AdminDashboard = () => {
   const fetchAdminDetails = async (e) => {
     dispatch(getAdminDetails(userId));
   }
-
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -162,7 +165,7 @@ const AdminDashboard = () => {
         }
       }
     }
-     catch (err) {
+    catch (err) {
       Swal.fire({
         title: "Failed!",
         text: "Something went wrong!",
@@ -380,9 +383,9 @@ const AdminDashboard = () => {
                 <table className="customers" style={{ borderRadius: '20px' }}>
                   <thead className="table-header">
                     <tr style={{ borderRadius: '20px' }}>
-                      <th style={{ width: '20%' }}>Form name</th>
-                      <th style={{ width: '30%' }}>User email address</th>
-                      <th style={{ width: '10%' }}>Date</th>
+                      <th style={{ width: '20%' }}>Form name </th>
+                      <th style={{ width: '30%' }}>User email address </th>
+                      <th style={{ width: '10%' }} onClick={() => setOrderByAsc(!orderByAsc)}>Date <i class={`fa ${orderByAsc ? "fa-arrow-down" : "fa-arrow-up"}`}></i></th>
                       <th style={{ width: '30%' }}></th>
                     </tr>
                   </thead>
@@ -432,7 +435,7 @@ const AdminDashboard = () => {
               <div className="modal-headers d-flex justify-content-center ">
                 <h1 className="modal-title fs-5" id="exampleModalLabel mt-5">Upload CSV form</h1>
               </div>
-              <div className={`modal-body upload-box-body ${dragOver ? "drag-over" : ""}`} onDragOver={handleDragOver}  onDragLeave={handleDragLeave}
+              <div className={`modal-body upload-box-body ${dragOver ? "drag-over" : ""}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave}
                 onDrop={handleDrop}>
                 <div className="upload-box" >
                   <input type="file" name="" id="uploadCsv" ref={fileInputRef} style={{ visibility: "hidden" }} onChange={handleFileUpload} />
