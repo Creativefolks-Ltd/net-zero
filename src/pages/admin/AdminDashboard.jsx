@@ -47,7 +47,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchFormList();
-  }, [currentPage, searchQuery, orderByAsc]);
+  }, [currentPage, searchQuery, orderByAsc, itemsPerPage]);
 
   const fetchFormList = () => {
     const order = orderByAsc ? "asc" : "desc"
@@ -412,9 +412,23 @@ const AdminDashboard = () => {
                   </tbody>
                 </table>
               </div>
-              {!isLoading && resultcount > 0 && (<Pagination dataLength={resultcount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />)}
 
+              {!isLoading && resultcount > 0 && (
+                <div className="d-flex justify-content-between">
+                  <div className="entries-box">
+                    Show
+                    <select onChange={(e)=>setItemsPerPage(e.target.value)} value={itemsPerPage}>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>entries
+                  </div>
+                  <Pagination dataLength={resultcount} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                </div>
+              )}
             </div>
+
           </div>
         </div>
 

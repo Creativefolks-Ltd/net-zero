@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
-import { homeFormvalidation } from "../../helpers/validations/Schema";
+import { fetchParticularForm, getCountry, homeFormDelete, homeFormUpdate, homeformIds } from "../../redux-store/actions/user";
 import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
-import { setFormCompleted } from "../../redux-store/reducers/auth";
+import validateAndFilterFields from "../../helpers/formsValueFilters/homeForm";
+import { homeFormvalidation } from "../../helpers/validations/Schema";
 
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActiveTab }) => {
+const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, LocalHomeDelete}) => {
+  const location = useLocation()
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const details = useSelector((state) => state.users);
   const user = useSelector((state) => state.auth);
   const currentHomeId = useSelector((state) => state.users?.currentHomeId);
@@ -25,6 +26,8 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   const [completeLater, setCompleteLater] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   let homeActiveTab = selectedHome;
+
+  let isUserFormView = location?.pathname === "/forms" ? true : false;
 
   const endYear = new Date().getFullYear();
   const startYear = endYear - 100;
@@ -37,282 +40,144 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   useEffect(() => {
     dispatch(getCountry());
-    return (() => {
-      formik.resetForm();
-    })
   }, []);
 
   const getWinterTemperature = (temperature) => {
-    if (temperature >= 1 && temperature <= 18) {
-      return "< 14%";
-    } else if (temperature > 18 && temperature < 40) {
-      return "14% - 17%";
-    } else if (temperature >= 40 && temperature < 61) {
-      return "18% - 21%";
-    } else if (temperature >= 61 && temperature < 80) {
-      return "> 21%";
-    } else if (temperature >= 80) {
-      return "Don't know";
+    if (temperature === "< 14%") {
+      return 10;
+    } else if (temperature === "14% - 17%") {
+      return 30;
+    } else if (temperature === "18% - 21%") {
+      return 50;
+    } else if (temperature === "> 21%") {
+      return 70;
+    } else if (temperature === "Don't know") {
+      return 90;
     } else {
-      return "";
+      return 0;
     }
   };
 
-  const validateAndFilterFields = (values) => {
-    const {
-      heating_type,
-      property_features,
-      additional_property_features,
-      winter_temperature,
-      electricity_usage_known,
-      electricity_usage_amount,
-      electricity_usage_unit,
-      electricity_usage_amount_currency,
-      electricity_usage_time_period,
-      electricity_annual_spend,
-      electricity_annual_amount,//: null,
-      electricity_annual_unit,
-      electricity_supplier,
-      on_site_renewable_energy,
-      on_site_renewable_amount,//: null,
-      on_site_renewable_unit,
-      natural_gas_usage_known,
-      natural_gas_usage_amount,//: null,
-      natural_gas_usage_unit,
-      natural_gas_usage_time_period,
-      natural_gas_annual_spend,
-      natural_gas_annual_amount,//: null,
-      natural_gas_annual_unit,
-      gas_consumption_offset,
-      oil_usage_known,
-      oil_usage_amount,//: null,
-      oil_usage_unit,
-      oil_annual_spend,
-      oil_annual_amount,//: null,
-      oil_annual_unit,
-      wood_usage_known,
-      wood_usage_amount,//: null,
-      wood_usage_unit,
-      wood_annual_spend,
-      wood_annual_amount,//: null,
-      wood_annual_unit,
-      coal_usage_known,
-      coal_usage_amount,//: null,
-      coal_usage_unit,
-      coal_annual_spend,
-      coal_annual_amount,//: null,
-      coal_annual_unit,
-      other_energy_usage,
-      other_energy_which_and_amount,
-      significant_land,
-      land_details,
-      zero_carbon_energy_tariff,
-      ...rest
-    } = values;
-
-    const general_information_id = Number(user?.generalInfoId);
-    const filteredValues = {
-      ...rest,
-      heating_type: heating_type?.toString(),
-      property_features: property_features?.toString(),
-      additional_property_features: additional_property_features?.toString(),
-      winter_temperature: getWinterTemperature(winter_temperature),
-      significant_land,
-      ...(significant_land === "Yes" ? { land_details: land_details?.trim() } : {}),
-      general_information_id,
-      zero_carbon_energy_tariff,
-    };
-
-    // Electricity
-    if (zero_carbon_energy_tariff === "No" && heating_type?.includes("Electricity")) {
-      filteredValues.electricity_usage_known = electricity_usage_known;
-
-      if (electricity_usage_known !== "No") {
-        filteredValues.electricity_usage_amount = electricity_usage_amount?.trim();
-        filteredValues.electricity_usage_unit = electricity_usage_unit;
-
-        if (electricity_usage_unit === "Billed per year") {
-          filteredValues.electricity_usage_amount_currency = electricity_usage_amount_currency;
-        }
-      }
-
-      if (electricity_usage_known === "Yes, for part of the year") {
-        filteredValues.electricity_usage_time_period = electricity_usage_time_period?.trim();
-      }
-
-      if (electricity_usage_known === "No") {
-        filteredValues.electricity_annual_spend = electricity_annual_spend;
-
-        if (electricity_annual_spend === "Yes") {
-          filteredValues.electricity_annual_amount = electricity_annual_amount?.trim();
-          filteredValues.electricity_annual_unit = electricity_annual_unit;
-        }
-      }
-
-      filteredValues.electricity_supplier = electricity_supplier?.trim();
-      filteredValues.on_site_renewable_energy = on_site_renewable_energy;
-
-      if (on_site_renewable_energy !== "No") {
-        filteredValues.on_site_renewable_amount = on_site_renewable_amount?.trim();
-        filteredValues.on_site_renewable_unit = on_site_renewable_unit;
-      }
-    }
-
-    // Gas
-    if (heating_type?.includes("Gas")) {
-      filteredValues.natural_gas_usage_known = natural_gas_usage_known;
-
-      if (natural_gas_usage_known !== "No") {
-        filteredValues.natural_gas_usage_amount = natural_gas_usage_amount?.trim();
-        filteredValues.natural_gas_usage_unit = natural_gas_usage_unit;
-      }
-
-      if (natural_gas_usage_known === "Yes, for part of the year") {
-        filteredValues.natural_gas_usage_time_period = natural_gas_usage_time_period?.trim();
-      }
-
-      if (natural_gas_usage_known === "No" && natural_gas_annual_spend !== "No") {
-        filteredValues.natural_gas_annual_spend = natural_gas_annual_spend;
-
-        if (natural_gas_annual_spend === "Yes") {
-          filteredValues.natural_gas_annual_amount = natural_gas_annual_amount?.trim();
-          filteredValues.natural_gas_annual_unit = natural_gas_annual_unit;
-        }
-      }
-
-      filteredValues.gas_consumption_offset = gas_consumption_offset;
-    }
-
-    // Oil
-    if (heating_type?.includes("Oil")) {
-      filteredValues.oil_usage_known = oil_usage_known;
-
-      if (oil_usage_known !== "No") {
-        filteredValues.oil_usage_amount = oil_usage_amount?.trim();
-        filteredValues.oil_usage_unit = oil_usage_unit;
-      }
-
-      if (oil_usage_known === "No") {
-        filteredValues.oil_annual_spend = oil_annual_spend;
-
-        if (oil_annual_spend === "Yes") {
-          filteredValues.oil_annual_amount = oil_annual_amount?.trim();
-          filteredValues.oil_annual_unit = oil_annual_unit;
-        }
-      }
-    }
-
-    // Wood
-    if (heating_type?.includes("Wood")) {
-      filteredValues.wood_usage_known = wood_usage_known;
-
-      if (wood_usage_known !== "No") {
-        filteredValues.wood_usage_amount = wood_usage_amount?.trim();
-        filteredValues.wood_usage_unit = wood_usage_unit;
-      }
-
-      if (wood_usage_known === "No") {
-        filteredValues.wood_annual_spend = wood_annual_spend;
-
-        if (wood_annual_spend === "Yes") {
-          filteredValues.wood_annual_amount = wood_annual_amount?.trim();
-          filteredValues.wood_annual_unit = wood_annual_unit;
-        }
-      }
-    }
-
-    // Coal
-    if (heating_type?.includes("Coal")) {
-      filteredValues.coal_usage_known = coal_usage_known;
-
-      if (coal_usage_known !== "No") {
-        filteredValues.coal_usage_amount = coal_usage_amount?.trim();
-        filteredValues.coal_usage_unit = coal_usage_unit;
-      }
-
-      if (coal_usage_known === "No") {
-        filteredValues.coal_annual_spend = coal_annual_spend;
-
-        if (coal_annual_spend === "Yes") {
-          filteredValues.coal_annual_amount = coal_annual_amount?.trim();
-          filteredValues.coal_annual_unit = coal_annual_unit;
-        }
-      }
-    }
-
-    // Other
-    if (heating_type?.includes("Coal") || heating_type?.includes("Oil") || heating_type?.includes("Wood")) {
-      filteredValues.other_energy_usage = other_energy_usage;
-
-      if (other_energy_usage !== "No") {
-        filteredValues.other_energy_which_and_amount = other_energy_which_and_amount?.trim();
-      }
-    }
-    return filteredValues;
-  };
+  useEffect(() => {
+    formik.setValues({
+      location: home?.location,
+      heating_type: home?.heating_type?.split(','),
+      zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
+      electricity_usage_known: home?.electricity_usage_known,
+      electricity_usage_amount: home?.electricity_usage_amount,
+      electricity_usage_unit: home?.electricity_usage_unit,
+      electricity_usage_amount_currency: home?.electricity_usage_amount_currency,
+      electricity_usage_time_period: home?.electricity_usage_time_period,
+      electricity_annual_spend: home?.electricity_annual_spend,
+      electricity_annual_amount: home?.electricity_annual_amount,
+      electricity_annual_unit: home?.electricity_annual_unit,
+      electricity_supplier: home?.electricity_supplier,
+      on_site_renewable_energy: home?.on_site_renewable_energy,
+      on_site_renewable_amount: home?.on_site_renewable_amount,
+      on_site_renewable_unit: home?.on_site_renewable_unit,
+      natural_gas_usage_known: home?.natural_gas_usage_known,
+      natural_gas_usage_amount: home?.natural_gas_usage_amount,
+      natural_gas_usage_unit: home?.natural_gas_usage_unit,
+      natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
+      natural_gas_annual_spend: home?.natural_gas_annual_spend,
+      natural_gas_annual_amount: home?.natural_gas_annual_amount,
+      natural_gas_annual_unit: home?.natural_gas_annual_unit,
+      gas_consumption_offset: home?.gas_consumption_offset,
+      oil_usage_known: home?.oil_usage_known,
+      oil_usage_amount: home?.oil_usage_amount,
+      oil_usage_unit: home?.oil_usage_unit,
+      oil_annual_spend: home?.oil_annual_spend,
+      oil_annual_amount: home?.oil_annual_amount,
+      oil_annual_unit: home?.oil_annual_unit,
+      wood_usage_known: home?.wood_usage_known,
+      wood_usage_amount: home?.wood_usage_amount,
+      wood_usage_unit: home?.wood_usage_unit,
+      wood_annual_spend: home?.wood_annual_spend,
+      wood_annual_amount: home?.wood_annual_amount,
+      wood_annual_unit: home?.wood_annual_unit,
+      coal_usage_known: home?.coal_usage_known,
+      coal_usage_amount: home?.coal_usage_amount,
+      coal_usage_unit: home?.coal_usage_unit,
+      coal_annual_spend: home?.coal_annual_spend,
+      coal_annual_amount: home?.coal_annual_amount,
+      coal_annual_unit: home?.coal_annual_unit,
+      other_energy_usage: home?.other_energy_usage,
+      other_energy_which_and_amount: home?.other_energy_which_and_amount,
+      property_features: home?.property_features?.split(','),
+      house_type: home?.house_type,
+      construction_material: home?.construction_material,
+      year_built: home?.year_built,
+      winter_temperature: getWinterTemperature(home?.winter_temperature),
+      additional_property_features: home?.additional_property_features?.split(','),
+      live_in_staff: home?.live_in_staff,
+      planned_renovations: home?.planned_renovations,
+      significant_land: home?.significant_land,
+      land_details: home?.land_details,
+      other_details: home?.other_details,
+    })
+  }, [home])
 
   const formik = useFormik({
-
     initialValues: {
-      location: "",
-      heating_type: [],
-      zero_carbon_energy_tariff: "",
-      electricity_usage_known: "",
-      electricity_usage_amount: "",
-      electricity_usage_unit: "",
-      electricity_usage_amount_currency: "",
-      electricity_usage_time_period: "",
-      electricity_annual_spend: "",
-      electricity_annual_amount: null,
-      electricity_annual_unit: "",
-      electricity_supplier: "",
-      on_site_renewable_energy: "",
-      on_site_renewable_amount: null,
-      on_site_renewable_unit: "",
-      natural_gas_usage_known: "",
-      natural_gas_usage_amount: null,
-      natural_gas_usage_unit: "",
-      natural_gas_usage_time_period: "",
-      natural_gas_annual_spend: "",
-      natural_gas_annual_amount: null,
-      natural_gas_annual_unit: "",
-      gas_consumption_offset: "",
-      oil_usage_known: "",
-      oil_usage_amount: null,
-      oil_usage_unit: "",
-      oil_annual_spend: "",
-      oil_annual_amount: null,
-      oil_annual_unit: "",
-      wood_usage_known: "",
-      wood_usage_amount: null,
-      wood_usage_unit: "",
-      wood_annual_spend: "",
-      wood_annual_amount: null,
-      wood_annual_unit: "",
-      coal_usage_known: "",
-      coal_usage_amount: null,
-      coal_usage_unit: "",
-      coal_annual_spend: "",
-      coal_annual_amount: null,
-      coal_annual_unit: "",
-      other_energy_usage: "",
-      other_energy_which_and_amount: "",
-      property_features: "",
-      house_type: "",
-      construction_material: "",
-      year_built: "",
-      winter_temperature: "",
-      additional_property_features: "",
-      live_in_staff: "",
-      planned_renovations: "",
-      significant_land: "",
-      land_details: "",
-      other_details: "",
+      location: home?.location,
+      heating_type: home?.heating_type,
+      zero_carbon_energy_tariff: home?.zero_carbon_energy_tariff,
+      electricity_usage_known: home?.electricity_usage_known,
+      electricity_usage_amount: home?.electricity_usage_amount,
+      electricity_usage_unit: home?.electricity_usage_unit,
+      electricity_usage_amount_currency: home?.electricity_usage_amount_currency,
+      electricity_usage_time_period: home?.electricity_usage_time_period,
+      electricity_annual_spend: home?.electricity_annual_spend,
+      electricity_annual_amount: home?.electricity_annual_amount,
+      electricity_annual_unit: home?.electricity_annual_unit,
+      electricity_supplier: home?.electricity_supplier,
+      on_site_renewable_energy: home?.on_site_renewable_energy,
+      on_site_renewable_amount: home?.on_site_renewable_amount,
+      on_site_renewable_unit: home?.on_site_renewable_unit,
+      natural_gas_usage_known: home?.natural_gas_usage_known,
+      natural_gas_usage_amount: home?.natural_gas_usage_amount,
+      natural_gas_usage_unit: home?.natural_gas_usage_unit,
+      natural_gas_usage_time_period: home?.natural_gas_usage_time_period,
+      natural_gas_annual_spend: home?.natural_gas_annual_spend,
+      natural_gas_annual_amount: home?.natural_gas_annual_amount,
+      natural_gas_annual_unit: home?.natural_gas_annual_unit,
+      gas_consumption_offset: home?.gas_consumption_offset,
+      oil_usage_known: home?.oil_usage_known,
+      oil_usage_amount: home?.oil_usage_amount,
+      oil_usage_unit: home?.oil_usage_unit,
+      oil_annual_spend: home?.oil_annual_spend,
+      oil_annual_amount: home?.oil_annual_amount,
+      oil_annual_unit: home?.oil_annual_unit,
+      wood_usage_known: home?.wood_usage_known,
+      wood_usage_amount: home?.wood_usage_amount,
+      wood_usage_unit: home?.wood_usage_unit,
+      wood_annual_spend: home?.wood_annual_spend,
+      wood_annual_amount: home?.wood_annual_amount,
+      wood_annual_unit: home?.wood_annual_unit,
+      coal_usage_known: home?.coal_usage_known,
+      coal_usage_amount: home?.coal_usage_amount,
+      coal_usage_unit: home?.coal_usage_unit,
+      coal_annual_spend: home?.coal_annual_spend,
+      coal_annual_amount: home?.coal_annual_amount,
+      coal_annual_unit: home?.coal_annual_unit,
+      other_energy_usage: home?.other_energy_usage,
+      other_energy_which_and_amount: home?.other_energy_which_and_amount,
+      property_features: home?.property_features,
+      house_type: home?.house_type,
+      construction_material: home?.construction_material,
+      year_built: home?.year_built,
+      winter_temperature: home?.winter_temperature,
+      additional_property_features: home?.additional_property_features,
+      live_in_staff: home?.live_in_staff,
+      planned_renovations: home?.planned_renovations,
+      significant_land: home?.significant_land,
+      land_details: home?.land_details,
+      other_details: home?.other_details,
     },
-
     validate: homeFormvalidation,
     onSubmit: submitHandler,
   });
+
 
   const navigateToNext = async (e) => {
     if (completeLater) {
@@ -324,20 +189,22 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     });
   }
 
+
   async function submitHandler(values) {
     const { isValid, errors } = formik;
     if (isValid) {
       setDisabled(true);
-
       const filteredValues = await validateAndFilterFields(values);
-      const response = await dispatch(homeFormSubmit(filteredValues));
+
+      const data = { formValues: filteredValues, form_id: home?.id }
+
+      const response = await dispatch(homeFormUpdate(data));
+
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
+        const general_information_id = Number(user?.generalInfoId);
         setIsSubmitted(true);
-        if (user?.formCompleted == 1) {
-          dispatch(setFormCompleted(user?.formCompleted + 1))
-        }
-
+        
         if (user?.formCompleted === 2) {
           handleActiveTab("travel")
         } else if (user?.formCompleted === 3) {
@@ -345,8 +212,9 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
         } else if (user?.formCompleted === 4) {
           handleActiveTab("financial")
         }
+        navigateToNext()   
+        await dispatch(fetchParticularForm(general_information_id));
 
-        navigateToNext()
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -376,32 +244,10 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   const deleteHandler = async () => {
     try {
-      if (currentHomeId === null || currentHomeId === undefined) {
-        await LocalHomeDelete(true);
+      if (currentHomeId === null) {
         return false
       }
-      // const result = await Swal.fire({
-      //   title: "Are you sure?",
-      //   text: "You won't be able to revert this!",             
-      //   icon: "warning",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#3085d6",
-      //   cancelButtonColor: "#d33",
-      //   confirmButtonText: "Yes, delete it!",
-      // });
-
-      // if (result.isConfirmed) {
-      //   const general_information_id = Number(user?.generalInfoId);
-
-      //   await dispatch(homeFormDelete(currentHomeId));
-      //   dispatch(homeformIds(general_information_id));
-      //   setSelectedHome(1)
-      //   Swal.fire({
-      //     title: "Deleted!",
-      //     text: `Home ${homeActiveTab} deleted successfully`,
-      //     icon: "success",
-      //   });
-      // }
+      await LocalHomeDelete(false);
     } catch (error) {
       console.error("Error deleting home:", error);
       Swal.fire({
@@ -411,7 +257,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
       });
     }
   };
-
 
   const genSlideStyle = (value) => {
     return {
@@ -425,21 +270,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   };
 
   const slideStyle = genSlideStyle(formik.values.winter_temperature);
-
-  const continueHandler = () => {
-    if (isSubmitted) {
-      navigateToNext()
-    } else {
-      Swal.fire({
-        title: "Warning!",
-        text: "Please save you progress before continuing",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-      });
-    }
-  }
 
   return (
     <>
@@ -455,7 +285,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                         <div className="home-title">
                           <h2>Home {homeActiveTab}</h2>
                         </div>
-                        {homeActiveTab > 1 && (
+                        {(homeActiveTab > 1 && isUserFormView) && (
                           <div className="delete-box" onClick={deleteHandler}>
                             <span>Delete this home</span>
                             <img src={delete_img} alt="" />
@@ -1819,11 +1649,10 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               <div className="form-label-div">
                                 <label htmlFor="property_features">
                                   <strong>13.&nbsp;</strong>Does the property have any
-                                  of the folllowing?
+                                  of the following?
                                 </label>
                                 <p>(mains supply)</p>
-                              </div>
-                              <div className="sub-btn">
+                              </div><div className="sub-btn">
                                 {home_features.map((type, index) => (
                                   <div className="check-input" key={index}>
                                     <input
@@ -1831,21 +1660,19 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                       type="checkbox"
                                       name="property_features"
                                       value={type}
-                                      // checked={formik.values.property_features.includes("Don't know") ? formik.values?.property_features?.splice(0, formik?.values?.property_features?.length, "Don't know") : formik.values.property_features.includes(type)}
-                                      // onChange={formik.handleChange}
-
-                                      checked={formik.values?.property_features?.includes(type)}
+                                      checked={formik.values.property_features?.includes(type)}
                                       onChange={(e) => {
                                         const selectedType = e.target.value;
                                         let updatedPropertyFeatures;
 
                                         if (selectedType === "Don't know") {
-                                          updatedPropertyFeatures = formik.values?.property_features?.includes("Don't know") ? [] : ["Don't know"];
+                                          updatedPropertyFeatures = formik.values.property_features?.includes("Don't know") ? [] : ["Don't know"];
                                         } else {
-                                          updatedPropertyFeatures = formik.values?.property_features?.includes(selectedType)
-                                            ? formik.values.property_features.filter((type) => type !== selectedType)
-                                            : [...formik.values?.property_features, selectedType];
-                                          updatedPropertyFeatures = updatedPropertyFeatures?.filter((type) => type !== "Don't know");
+                                          const currentFeatures = formik.values.property_features || [];
+                                          updatedPropertyFeatures = currentFeatures.includes(selectedType)
+                                            ? currentFeatures.filter((type) => type !== selectedType)
+                                            : [...currentFeatures, selectedType];
+                                          updatedPropertyFeatures = updatedPropertyFeatures.filter((type) => type !== "Don't know");
                                         }
 
                                         formik.setFieldValue("property_features", updatedPropertyFeatures);
@@ -1935,7 +1762,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                             <div className="form-label-div ">
                               <label htmlFor="winter_temperature">
                                 <strong>17.&nbsp;</strong>What temprature was the home
-                                kept in the winter?
+                                kept in the winter?{formik.values.winter_temperature}
                               </label>
                               <p>(Use slider below)</p>
                             </div>
@@ -1966,7 +1793,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                           <div className="form-div ">
                             <label htmlFor="additional_property_features">
                               <strong>18.&nbsp;</strong>Does the property have any of
-                              the following?{" "}
+                              the following?
                             </label>
                             <div className="sub-btn">
                               {additionalPropertyFeatures.map((type, index) => (
@@ -2133,4 +1960,4 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   );
 };
 
-export default Homeform;
+export default HomeFormEdit;

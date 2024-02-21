@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import HomeFormView from "../forms-view/HomeFormView";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchParticularForm } from "../../redux-store/actions/user";
+import { fetchParticularForm, homeFormDelete } from "../../redux-store/actions/user";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import FormActionTabs from "../forms-view/FormActionTabs";
@@ -12,6 +11,7 @@ import Travel from "./Travel";
 import FoodAndShopping from "./FoodAndShopping";
 import Financial from "./Financial";
 import Swal from "sweetalert2";
+import HomeFormEdit from "./HomeFormEdit";
 
 const FormsLayout = () => {
     const dispatch = useDispatch()
@@ -67,7 +67,7 @@ const FormsLayout = () => {
 
     let homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
 
-    const LocalHomeDelete = async (activeId) => {
+    const LocalHomeDelete = async (IsLocalHome) => {
         try {
             const result = await Swal.fire({
                 title: "Are you sure?",
@@ -80,13 +80,22 @@ const FormsLayout = () => {
             });
 
             if (result.isConfirmed) {
-                await setDeleteHome(true)
-                await setSelectedHome(1)
+                if (!IsLocalHome) {
+                    const currentHomeId = homeDetails !== null && homeDetails !== undefined && homeDetails?.id
+                    if (currentHomeId) {
+                        await dispatch(homeFormDelete(currentHomeId));
+                    }
+                }
                 Swal.fire({
                     title: "Deleted!",
                     text: `Home deleted successfully`,
                     icon: "success",
                 });
+                await setDeleteHome(true)
+                await setSelectedHome(1)
+                if (!IsLocalHome) {
+                    await dispatch(fetchParticularForm(general_information_id))
+                }
             }
         } catch (error) {
             console.error("Error deleting home:", error);
@@ -111,7 +120,7 @@ const FormsLayout = () => {
                         formCompleted >= 1 ? <General isEdit={true} general={general} /> : <General isEdit={false} />
                     )}
                     {activeTab === "home" && (
-                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormView home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
+                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
                     )}
                     {activeTab === "travel" && (
                         formCompleted >= 3 ? <Travel isEdit={true} travel={travel} /> : <Travel isEdit={false} />

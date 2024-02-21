@@ -2167,6 +2167,21 @@ select {
 
 /********************pagination ********************/
 
+.entries-box {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+}
+.entries-box select {
+    width: 100%;
+    padding: 10px 15px;
+    line-height: 26px;
+    color: #2C2B34;
+    background-color: #fff;
+    border-radius: 10px !important;
+    margin: 0 10px;
+}
+
 .pagination {
     margin-top: 35px;
     float: right;
