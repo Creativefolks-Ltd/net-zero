@@ -42,7 +42,8 @@ const Header = ({ bgTransparent }) => {
                 Swal.fire({
                     title: "Logout!",
                     text: "User logout successfully",
-                    icon: "success"
+                    icon: "success",
+                    confirmButtonColor: "#81c14b",
                 });
             }
         });

@@ -118,7 +118,6 @@ const ResetPassword = () => {
                     icon: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#81c14b",
-                    cancelButtonColor: "#d33",
                 });
             }
         }

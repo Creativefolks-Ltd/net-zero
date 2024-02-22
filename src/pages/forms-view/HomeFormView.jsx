@@ -193,6 +193,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
           title: "Deleted!",
           text: `Home deleted successfully`,
           icon: "success",
+          confirmButtonColor: "#81c14b",
         });
         setSelectedHome(1)
         await dispatch(homeformIds(general_information_id));
@@ -204,6 +205,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
         title: "Error!",
         text: "An error occurred while deleting the home",
         icon: "error",
+        confirmButtonColor: "#81c14b",
       });
     }
   };

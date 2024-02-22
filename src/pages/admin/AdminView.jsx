@@ -135,6 +135,7 @@ const AdminView = () => {
       title: "Deleted!",
       text: "Form deleted successfully",
       icon: "success",
+      confirmButtonColor: "#81c14b",
     });
     navigateToNext();
   };

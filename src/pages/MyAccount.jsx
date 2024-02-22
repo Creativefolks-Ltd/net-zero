@@ -178,6 +178,7 @@ const MyAccount = () => {
       title: "Deleted!",
       text: "Form deleted successfully",
       icon: "success",
+      confirmButtonColor: "#81c14b",
     });
     dispatch(formlist(userId));
   };
