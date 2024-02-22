@@ -48,7 +48,7 @@ const Travel = ({ isEdit, travel }) => {
         partner_children_medium_flights: travel?.partner_children_medium_flights !== undefined ? JSON.parse(travel?.partner_children_medium_flights) : {},
         partner_children_long_flights: travel?.partner_children_long_flights !== undefined ? JSON.parse(travel?.partner_children_long_flights) : {},
         partner_children_extended_flights: travel?.partner_children_extended_flights !== undefined ? JSON.parse(travel?.partner_children_extended_flights) : {},
-        partner_offset_flights: travel?.partner_offset_flights ?? null,
+        partner_offset_flights: travel?.partner_offset_flights ?? "",
         additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
         additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
         transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(',') : [], //"car,bike.name" //string,
@@ -73,7 +73,7 @@ const Travel = ({ isEdit, travel }) => {
       partner_children_medium_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
       partner_children_long_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
       partner_children_extended_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      partner_offset_flights: null,
+      partner_offset_flights: "",
       additional_vehicles_by_partner_children: null,
       additional_vehicles_by_partner_detail: [],
       transport_selected_year: [], //"car,bike.name" //string,
@@ -516,19 +516,23 @@ const Travel = ({ isEdit, travel }) => {
                     <p>(estimated % by distance)</p>
                   </div>
                   <input
-                    type="number"
+                    type="text"
                     name="partner_offset_flights"
                     id="partner_offset_flights"
-                    className="form-control undefined"
-                    value={formik.values.partner_offset_flights}
+                    className={`form-control ${formik.errors.partner_offset_flights &&
+                      formik.touched.partner_offset_flights
+                      ? "invalidInput"
+                      : ""
+                      } `}
+                    value={formik?.values?.partner_offset_flights ||""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
 
                   />
-                  {formik.errors.partner_offset_flights &&
-                    formik.touchederrors.partner_offset_flights && (
+                  {formik.errors?.partner_offset_flights &&
+                    formik.touched?.partner_offset_flights && (
                       <span className="input-error-msg">
-                        {formik.errors.partner_offset_flights}
+                        {formik.errors?.partner_offset_flights}
                       </span>
                     )}
                 </div>
