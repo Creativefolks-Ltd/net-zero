@@ -176,8 +176,7 @@ const General = ({ isEdit, general }) => {
                         html: errorMessage || "Failed to form submit, please try again",
                         icon: "error",
                         showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
+                        confirmButtonColor: "#81c14b",
                     });
                 }
             }
@@ -188,23 +187,7 @@ const General = ({ isEdit, general }) => {
                 text: "Something went wrong, please check the form.",
                 icon: "error",
                 showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-            });
-        }
-    }
-
-    const continueHandler = () => {
-        if (isSubmitted) {
-            navigateToNext()
-        } else {
-            Swal.fire({
-                title: "Warning!",
-                text: "Please save you progress before continuing",
-                icon: "warning",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
+                confirmButtonColor: "#81c14b",
             });
         }
     }

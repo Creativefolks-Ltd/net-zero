@@ -6,6 +6,7 @@ import { foodFormSubmit, foodFormUpdate } from "../../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { foodFormValidation } from "../../helpers/validations/Schema";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
+import { CompletePreviousForms } from "../../helpers/CompletePreviousForms";
 
 const FoodAndShopping = ({ isEdit, food }) => {
 
@@ -120,28 +121,12 @@ const FoodAndShopping = ({ isEdit, food }) => {
           html: errorMessage || "Failed to form submit, please try again",
           icon: "error",
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
         });
       }
     }
 
   };
-
-  const continueHandler = () => {
-    if (isSubmitted) {
-      navigateToNext()
-    } else {
-      Swal.fire({
-        title: "Warning!",
-        text: "Please save you progress before continuing",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-      });
-    }
-  }
 
   return (
     <>
@@ -462,7 +447,7 @@ const FoodAndShopping = ({ isEdit, food }) => {
                     </div>
                   )}
                 </div>
-                {user?.formCompleted >= 3 && (
+                {user?.formCompleted >= 3 ? (
                   <>
                     <div className="Additional-bottom-btn">
                       <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
@@ -474,7 +459,12 @@ const FoodAndShopping = ({ isEdit, food }) => {
                       <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
                     ) : null}
                   </>
-                )}
+                ) : (
+                    <div className="Additional-bottom-btn">
+                      <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Save & Complete Later </button>
+                      <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Continue </button>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

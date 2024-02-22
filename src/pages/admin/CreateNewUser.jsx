@@ -35,8 +35,7 @@ const CreateNewUser = () => {
           imageWidth: 100,
           imageHeight: 100,
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
           didClose: fetchAdminDetails,
         });
       } else {
@@ -56,8 +55,7 @@ const CreateNewUser = () => {
             html: errorMessage || "Failed to create new user, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }

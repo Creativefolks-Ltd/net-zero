@@ -86,7 +86,7 @@ const ResetPassword = () => {
                         imageWidth: 100,
                         imageHeight: 100,
                         showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
+                        confirmButtonColor: "#81c14b",
                         didClose: navigateToNext
                     });
                 } else {
@@ -106,8 +106,7 @@ const ResetPassword = () => {
                             html: errorMessage || "Failed to reset password, please try again",
                             icon: "error",
                             showCancelButton: false,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#81c14b",
                         });
                     }
                 }
@@ -118,7 +117,7 @@ const ResetPassword = () => {
                     text: "Something went wrong!",
                     icon: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
+                    confirmButtonColor: "#81c14b",
                     cancelButtonColor: "#d33",
                 });
             }

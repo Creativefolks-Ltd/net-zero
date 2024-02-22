@@ -95,25 +95,13 @@ const Login = () => {
                 const response = await dispatch(userLogin(values))
                 if (!response?.payload?.error && response?.payload?.data) {
                     navigateToNext();
-                    // Swal.fire({
-                    //     title: "Success!",
-                    //     text: "User login successfully",
-                    //     imageUrl: SuccessImg,
-                    //     imageWidth: 100,
-                    //     imageHeight: 100,
-                    //     showCancelButton: false,
-                    //     confirmButtonColor: "#3085d6",
-                    //     cancelButtonColor: "#d33",
-                    //     didClose: navigateToNext
-                    // });
                 } else {
                     Swal.fire({
                         title: "Failed!",
                         text: response?.payload?.response?.data?.errorMsg || "Something went wrong!",
                         icon: "error",
                         showCancelButton: false,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
+                        confirmButtonColor: "#81c14b",
                     });
                 }
             } catch (error) {
@@ -122,8 +110,7 @@ const Login = () => {
                     text: "Something went wrong!",
                     icon: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#81c14b",
                 });
             }
         },
@@ -148,17 +135,6 @@ const Login = () => {
                 const response = await dispatch(userSignup(values));
                 if (!response?.payload?.error && response?.payload?.data) {
                     navigateToNext();
-                    // Swal.fire({
-                    //     title: "Success!",
-                    //     text: "User login successfully",
-                    //     imageUrl: SuccessImg,
-                    //     imageWidth: 100,
-                    //     imageHeight: 100,
-                    //     showCancelButton: false,
-                    //     confirmButtonColor: "#3085d6",
-                    //     cancelButtonColor: "#d33",
-                    //     didClose: navigateToNext
-                    // });
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {
@@ -176,8 +152,7 @@ const Login = () => {
                             html: errorMessage || "Failed to signup, please try again",
                             icon: "error",
                             showCancelButton: false,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#81c14b",
                         });
                     }
                 }
@@ -187,8 +162,7 @@ const Login = () => {
                     text: "Something went wrong!",
                     icon: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#81c14b",
                 });
             }
         }

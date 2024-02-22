@@ -29,17 +29,6 @@ const AdminLogin = () => {
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
         navigateToNext()
-        // Swal.fire({
-        //   title: "Success!",
-        //   text: "Admin login successfully",
-        //   imageUrl: SuccessImg,
-        //   imageWidth: 100,
-        //   imageHeight: 100,
-        //   showCancelButton: false,
-        //   confirmButtonColor: "#3085d6",
-        //   cancelButtonColor: "#d33",
-        //   didClose: navigateToNext,
-        // });
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -57,8 +46,7 @@ const AdminLogin = () => {
             html: errorMessage || "Failed to login, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }

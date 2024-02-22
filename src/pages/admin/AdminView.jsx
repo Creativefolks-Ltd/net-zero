@@ -103,7 +103,7 @@ const AdminView = () => {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#81c14b",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       });
@@ -157,8 +157,7 @@ const AdminView = () => {
         html: errorMessage || "Failed to delete form, please try again",
         icon: "error",
         showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#81c14b",
       });
     }
   };
@@ -222,7 +221,7 @@ const AdminView = () => {
             imageWidth: 100,
             imageHeight: 100,
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#81c14b",
           });
           dispatch(setFormName(values?.form_name))
           closeModal.current.click();
@@ -243,7 +242,7 @@ const AdminView = () => {
               html: errorMessage || "Failed to updated form name, please try again",
               icon: "error",
               showCancelButton: false,
-              confirmButtonColor: "#3085d6",
+              confirmButtonColor: "#81c14b",
             });
           }
         }
@@ -253,7 +252,7 @@ const AdminView = () => {
           text: "Something went wrong",
           icon: "error",
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "#81c14b",
         });
       }
       finally {
@@ -284,7 +283,7 @@ const AdminView = () => {
             imageWidth: 100,
             imageHeight: 100,
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#81c14b",
           });
           closeModal.current.click();
         } else {
@@ -304,7 +303,7 @@ const AdminView = () => {
               html: errorMessage || "Failed to user assign, please try again",
               icon: "error",
               showCancelButton: false,
-              confirmButtonColor: "#3085d6",
+              confirmButtonColor: "#81c14b",
             });
           }
         }
@@ -314,7 +313,7 @@ const AdminView = () => {
           text: "Something went wrong",
           icon: "error",
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "#81c14b",
         });
       }
       finally {

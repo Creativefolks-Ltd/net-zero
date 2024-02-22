@@ -108,8 +108,7 @@ const MyAccount = () => {
           imageWidth: 100,
           imageHeight: 100,
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
           didClose: fetchUserDetails,
         });
       } else {
@@ -129,8 +128,7 @@ const MyAccount = () => {
             html: errorMessage || "Failed to saved profile Information, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }
@@ -147,7 +145,7 @@ const MyAccount = () => {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#81c14b",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       });
@@ -201,8 +199,7 @@ const MyAccount = () => {
         html: errorMessage || "Failed to delete form, please try again",
         icon: "error",
         showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#81c14b",
       });
     }
   };

@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
+import {CompletePreviousForms} from  "../../helpers/CompletePreviousForms"
 
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
@@ -366,8 +367,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
             html: errorMessage || "Failed to form submit, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }
@@ -402,21 +402,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   };
 
   const slideStyle = genSlideStyle(formik.values.winter_temperature);
-
-  const continueHandler = () => {
-    if (isSubmitted) {
-      navigateToNext()
-    } else {
-      Swal.fire({
-        title: "Warning!",
-        text: "Please save you progress before continuing",
-        icon: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-      });
-    }
-  }
 
   return (
     <>
@@ -2087,8 +2072,8 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                       </div>
                     </div>
                   </div>
-                  {user?.formCompleted >= 1 && (
-                    <div className="card card-box-btn">
+                  <div className="card card-box-btn">
+                    {user?.formCompleted >= 1 ? (
                       <div className="Additional-box">
                         <div className="Additional-bottom-btn">
                           <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
@@ -2100,8 +2085,15 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                           <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
                         ) : null}
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="Additional-box">
+                        <div className="Additional-bottom-btn">
+                          <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Save & Complete Later </button>
+                          <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Continue </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

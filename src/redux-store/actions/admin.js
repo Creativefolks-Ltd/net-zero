@@ -142,6 +142,6 @@ export const adminManagePassword = createAsyncThunk('adminManagePassword', async
         const response = await axios.post("/api/admin/manage-password", data, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        return TokenExpiredLogout(error, thunkAPI);
+        return error;
     }
 });

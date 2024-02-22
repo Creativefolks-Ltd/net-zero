@@ -234,8 +234,7 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
             html: errorMessage || "Failed to form submit, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }

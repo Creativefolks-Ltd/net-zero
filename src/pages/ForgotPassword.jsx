@@ -65,7 +65,7 @@ const ForgotPassword = () => {
                         imageUrl: SuccessImg,
                         imageWidth: 100,
                         imageHeight: 100,
-                        confirmButtonColor: "#3085d6",
+                        confirmButtonColor: "#81c14b",
                         didClose: navigateToNext
                     })
                 } else {
@@ -84,7 +84,7 @@ const ForgotPassword = () => {
                             title: "Failed!",
                             html: errorMessage || "Failed to send reset password email. Please verify your email address and try again. For assistance, contact support.",
                             icon: "error",
-                            confirmButtonColor: "#3085d6",
+                            confirmButtonColor: "#81c14b",
                         });
                     }
                 }
@@ -94,7 +94,7 @@ const ForgotPassword = () => {
                     text: "Something went wrong!",
                     icon: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
+                    confirmButtonColor: "#81c14b",
                 });
             }
             finally {

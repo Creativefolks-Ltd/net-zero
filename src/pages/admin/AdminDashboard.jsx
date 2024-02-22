@@ -93,8 +93,7 @@ const AdminDashboard = () => {
           imageWidth: 100,
           imageHeight: 100,
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
           didClose: fetchAdminDetails()
         });
       } else {
@@ -114,8 +113,7 @@ const AdminDashboard = () => {
             html: errorMessage || "Failed to saved profile Information, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }
@@ -136,8 +134,7 @@ const AdminDashboard = () => {
           imageWidth: 100,
           imageHeight: 100,
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
         });
 
         handleModalClose.current.click();
@@ -159,8 +156,7 @@ const AdminDashboard = () => {
             html: errorMessage || "Failed to upload csv file, please try again",
             icon: "error",
             showCancelButton: false,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#81c14b",
           });
         }
       }
@@ -171,8 +167,7 @@ const AdminDashboard = () => {
         text: "Something went wrong!",
         icon: "error",
         showCancelButton: false,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#81c14b",
       });
     } finally {
       setUploading(false);

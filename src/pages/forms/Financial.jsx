@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { finanicialFormSubmit } from "../../redux-store/actions/user";
 import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
+import { CompletePreviousForms } from "../../helpers/CompletePreviousForms";
 
 const Financial = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (user?.formCompleted < 4) {
-      setDisabled(true)
-    }
-  }, [user?.formCompleted])
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setDisabled(true);
     let values = { general_information_id: Number(user?.generalInfoId), form_status: "Submit" }
 
     const response = await dispatch(finanicialFormSubmit(values));
-    setDisabled(false);
-    setIsLoading(false)
+    setDisabled(false)
 
     if (!response?.payload?.error && response?.payload?.data) {
       Swal.fire({
@@ -83,8 +75,7 @@ const Financial = () => {
           html: errorMessage || "Failed to form submit, please try again",
           icon: "error",
           showCancelButton: false,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "#81c14b",
         });
       }
     }
@@ -115,8 +106,10 @@ const Financial = () => {
               </p>
               <div className="form">
                 <form>
-                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Submit {isLoading ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>
+                  {user?.formCompleted >= 4 ? (<button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
+                  </div> : ''}</button>) : (
+                    <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Submit </button>
+                  )}
                 </form>
               </div>
             </div>
