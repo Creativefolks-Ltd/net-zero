@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { foodFormSubmit, foodFormUpdate, getCountry } from "../../redux-store/actions/user";
+import { useNavigate } from "react-router-dom";
+import { foodFormSubmit, foodFormUpdate } from "../../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { foodFormValidation } from "../../helpers/validations/Schema";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
@@ -13,21 +13,8 @@ const FoodAndShopping = ({ isEdit, food }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   const [disabled, setDisabled] = useState(false);
-  const [completeLater, setCompleteLater] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const endYear = new Date().getFullYear();
-  const startYear = endYear - 20;
-
-  const years = [];
-
-  for (let year = endYear; year >= startYear; year--) {
-    years.push(year);
-  }
-
-  useEffect(() => {
-    dispatch(getCountry());
-  }, []);
+  const [completeLater, setCompleteLater] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -475,15 +462,19 @@ const FoodAndShopping = ({ isEdit, food }) => {
                     </div>
                   )}
                 </div>
-                <div className="Additional-bottom-btn">
-                  <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>
-                  <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>
-                </div>
-                {formik.submitCount > 0 && !formik.isValid ? (
-                  <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
-                ) : null}
+                {user?.formCompleted >= 3 && (
+                  <>
+                    <div className="Additional-bottom-btn">
+                      <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
+                      </div> : ''}</button>
+                      <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
+                      </div> : ''}</button>
+                    </div>
+                    {formik.submitCount > 0 && !formik.isValid ? (
+                      <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
+                    ) : null}
+                  </>
+                )}
               </div>
             </div>
           </div>

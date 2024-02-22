@@ -39,8 +39,10 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
   }
 
   useEffect(() => {
-    dispatch(getCountry());
-  }, []);
+    if (details?.countries === undefined || details?.countries?.length === 0) {
+      dispatch(getCountry())
+    }
+  }, [details?.countries]);
 
   const getWinterTemperature = (temperature) => {
     if (temperature === "< 14%") {

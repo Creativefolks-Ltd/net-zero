@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { travelFormSubmit, travelFormUpdate } from "../../redux-store/actions/user";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
 
 const Travel = ({ isEdit, travel }) => {
@@ -516,7 +516,7 @@ const Travel = ({ isEdit, travel }) => {
                     <p>(estimated % by distance)</p>
                   </div>
                   <input
-                    type="text"
+                    type="number"
                     name="partner_offset_flights"
                     id="partner_offset_flights"
                     className="form-control undefined"
@@ -737,15 +737,19 @@ const Travel = ({ isEdit, travel }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   ></textarea>
-                  <div className="Additional-bottom-btn">
-                    <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
-                    <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
-                  </div>
-                  {formik.submitCount > 0 && !formik.isValid ? (
-                    <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
-                  ) : null}
+                  {user?.formCompleted >= 2 && (
+                    <>
+                      <div className="Additional-bottom-btn">
+                        <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button>
+                        <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
+                        </div> : ''}</button>
+                      </div>
+                      {formik.submitCount > 0 && !formik.isValid ? (
+                        <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
+                      ) : null}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

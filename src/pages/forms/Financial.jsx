@@ -10,15 +10,24 @@ const Financial = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user?.formCompleted < 4) {
+      setDisabled(true)
+    }
+  }, [user?.formCompleted])
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setDisabled(true);
     let values = { general_information_id: Number(user?.generalInfoId), form_status: "Submit" }
 
     const response = await dispatch(finanicialFormSubmit(values));
-    setDisabled(false)
+    setDisabled(false);
+    setIsLoading(false)
 
     if (!response?.payload?.error && response?.payload?.data) {
       Swal.fire({
@@ -81,7 +90,6 @@ const Financial = () => {
     }
   };
 
-
   return (
     <>
       <section className="investments">
@@ -107,7 +115,7 @@ const Financial = () => {
               </p>
               <div className="form">
                 <form>
-                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Submit {disabled ? <div className="spinner-border text-primary" role="status">
+                  <button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)} >Submit {isLoading ? <div className="spinner-border text-primary" role="status">
                   </div> : ''}</button>
                 </form>
               </div>

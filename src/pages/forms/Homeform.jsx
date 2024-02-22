@@ -36,11 +36,13 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
   }
 
   useEffect(() => {
-    dispatch(getCountry());
+    if (details?.countries === undefined || details?.countries?.length === 0) {
+      dispatch(getCountry())
+    }
     return (() => {
       formik.resetForm();
     })
-  }, []);
+  }, [details?.countries]);
 
   const getWinterTemperature = (temperature) => {
     if (temperature >= 1 && temperature <= 18) {
@@ -376,32 +378,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
 
   const deleteHandler = async () => {
     try {
-      if (currentHomeId === null || currentHomeId === undefined) {
-        await LocalHomeDelete(true);
-        return false
-      }
-      // const result = await Swal.fire({
-      //   title: "Are you sure?",
-      //   text: "You won't be able to revert this!",             
-      //   icon: "warning",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#3085d6",
-      //   cancelButtonColor: "#d33",
-      //   confirmButtonText: "Yes, delete it!",
-      // });
-
-      // if (result.isConfirmed) {
-      //   const general_information_id = Number(user?.generalInfoId);
-
-      //   await dispatch(homeFormDelete(currentHomeId));
-      //   dispatch(homeformIds(general_information_id));
-      //   setSelectedHome(1)
-      //   Swal.fire({
-      //     title: "Deleted!",
-      //     text: `Home ${homeActiveTab} deleted successfully`,
-      //     icon: "success",
-      //   });
-      // }
+      await LocalHomeDelete(true);
     } catch (error) {
       console.error("Error deleting home:", error);
       Swal.fire({
@@ -2110,19 +2087,21 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                       </div>
                     </div>
                   </div>
-                  <div className="card card-box-btn">
-                    <div className="Additional-box">
-                      <div className="Additional-bottom-btn">
-                        <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
-                        <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
+                  {user?.formCompleted >= 1 && (
+                    <div className="card card-box-btn">
+                      <div className="Additional-box">
+                        <div className="Additional-bottom-btn">
+                          <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
+                          </div> : ''}</button>
+                          <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
+                          </div> : ''}</button>
+                        </div>
+                        {formik.submitCount > 0 && !formik.isValid ? (
+                          <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
+                        ) : null}
                       </div>
-                      {formik.submitCount > 0 && !formik.isValid ? (
-                        <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>
-                      ) : null}
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

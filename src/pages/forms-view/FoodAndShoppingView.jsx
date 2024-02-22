@@ -1,23 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { getCountry } from "../../redux-store/actions/user";
 
 const FoodAndShoppingView = ({ food }) => {
-    const dispatch = useDispatch();
-    
-    const endYear = new Date().getFullYear();
-    const startYear = endYear - 20;
-
-    const years = [];
-
-    for (let year = endYear; year >= startYear; year--) {
-        years.push(year);
-    }
-
-    useEffect(() => {
-        dispatch(getCountry());
-    }, []);
 
     useEffect(() => {
         formik.setValues({
