@@ -1,147 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchParticularForm, homeFormDelete } from "../../redux-store/actions/user";
-// import Footer from "../../components/Footer";
-// import Header from "../../components/Header";
-// import FormActionTabs from "../forms-view/FormActionTabs";
-// import FinancialView from "../forms-view/FinancialView";
-// import General from "./General";
-// import HomeForm from "./Homeform";
-// import Travel from "./Travel";
-// import FoodAndShopping from "./FoodAndShopping";
-// import Financial from "./Financial";
-// import Swal from "sweetalert2";
-// import HomeFormEdit from "./HomeFormEdit";
-
-// const FormsLayout = () => {
-//     const dispatch = useDispatch()
-//     const [activeTab, setActiveTab] = useState("general");
-//     const [selectedHome, setSelectedHome] = useState(1);
-//     const [deleteHome, setDeleteHome] = useState(false);
-//     const [isLoading, setIsLoading] = useState(false);
-//     const singleForm = useSelector((state) => state.users.singleForm)
-//     const general_information_id = useSelector((state) => state.auth.generalInfoId)
-//     const formCompleted = useSelector((state) => state.auth.formCompleted)
-
-//     const { home, travel, food, financial, ...general } = singleForm || {};
-
-//     useEffect(() => {
-//         const fetchFormsData = async () => {
-//             try {
-//                 setIsLoading(true);
-//                 await dispatch(fetchParticularForm(general_information_id));
-//             } catch (error) {
-//                 console.error("Error fetching form data:", error);
-//             } finally {
-//                 setIsLoading(false);
-//             }
-//         };
-//         if (general_information_id) {
-//             fetchFormsData();
-//         }
-
-//     }, [dispatch, formCompleted, general_information_id]);
-
-//     useEffect(() => {
-//         switch (formCompleted) {
-//             case 1:
-//                 setActiveTab("home");
-//                 break;
-//             case 2:
-//                 setActiveTab("travel");
-//                 break;
-//             case 3:
-//                 setActiveTab("food");
-//                 break;
-//             case 4:
-//                 setActiveTab("financial");
-//                 break;
-//             default:
-//                 setActiveTab("general");
-//         }
-//     }, [formCompleted]);
-
-//     const handleActiveTab = (active) => {
-//         setActiveTab(active)
-//     }
-
-//     let homeDetails = (home && home?.length > 0 && home[selectedHome - 1]) || {};
-
-//     const LocalHomeDelete = async (IsLocalHome) => {
-//         try {
-//             const result = await Swal.fire({
-//                 title: "Are you sure?",
-//                 text: "You won't be able to revert this!",
-//                 icon: "warning",
-//                 showCancelButton: true,
-//                 confirmButtonColor: "#81c14b",
-//                 cancelButtonColor: "#d33",
-//                 confirmButtonText: "Yes, delete it!",
-//             });
-
-//             if (result.isConfirmed) {
-//                 if (!IsLocalHome) {
-//                     const currentHomeId = homeDetails !== null && homeDetails !== undefined && homeDetails?.id
-//                     if (currentHomeId) {
-//                         await dispatch(homeFormDelete(currentHomeId));
-//                     }
-//                 }
-//                 Swal.fire({
-//                     title: "Deleted!",
-//                     text: `Home deleted successfully`,
-//                     icon: "success",
-//                 });
-//                 await setDeleteHome(true)
-//                 await setSelectedHome(1)
-//                 if (!IsLocalHome) {
-//                     await dispatch(fetchParticularForm(general_information_id))
-//                 }
-//             }
-//         } catch (error) {
-//             console.error("Error deleting home:", error);
-//         }
-//     }
-
-//     return (
-//         <div className={`main-header bg-${activeTab === "home" ? "home-form" : activeTab === "food" ? "food-shopping" : activeTab}`}>
-//             <Header bgTransparent={true} />
-//             <FormActionTabs activeTab={activeTab} handleActiveTab={handleActiveTab} setSelectedHome={setSelectedHome} homeLength={home?.length} deleteHome={deleteHome} setDeleteHome={setDeleteHome} />
-//             {isLoading ? (
-//                 <div className="container">
-//                     <div className="bg-lightgray-color rounded-5">
-//                         <p className="placeholder-glow form-skeleton mt-5">
-//                             <span className="placeholder col-12 vh-50 rounded-5"></span>
-//                         </p>
-//                     </div>
-//                 </div>
-//             ) : (
-//                 <>
-//                     {activeTab === "general" && (
-//                         formCompleted >= 1 ? <General isEdit={true} general={general} /> : <General isEdit={false} />
-//                     )}
-//                     {activeTab === "home" && (
-//                         formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
-//                     )}
-//                     {activeTab === "travel" && (
-//                         formCompleted >= 3 ? <Travel isEdit={true} travel={travel} /> : <Travel isEdit={false} />
-//                     )}
-//                     {activeTab === "food" && (
-//                         formCompleted >= 4 ? <FoodAndShopping isEdit={true} food={food} /> : <FoodAndShopping isEdit={false} />
-//                     )}
-//                     {activeTab === "financial" && (
-//                         formCompleted >= 5 ? <FinancialView financial={financial} /> : <Financial />
-//                     )}
-//                 </>
-//             )}
-//             <Footer />
-//         </div>
-//     )
-// }
-
-// export default FormsLayout
-
-
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -161,6 +17,7 @@ import foodImg from "../../assets/images/food.svg";
 import carImg from "../../assets/images/t_car.svg";
 import financialImg from "../../assets/images/financial .svg";
 import FinancialView from "../forms-view/FinancialView";
+import { decrementHomeCount, setHomeCount } from "../../redux-store/reducers/forms";
 
 const formTabs = [
     { tab: "general", text: "General Information", img: generalImg },
@@ -172,12 +29,13 @@ const formTabs = [
 
 const FormsLayout = () => {
     const dispatch = useDispatch();
-    const [homeCount, setHomeCount] = useState(1);
+    // const [homeCount, setHomeCount] = useState(1);
     const [activeTab, setActiveTab] = useState("general");
     const [isLoading, setIsLoading] = useState(false);
     const [newHome, setNewHome] = useState(false);
     const [selectedHome, setSelectedHome] = useState(1);
     const singleForm = useSelector((state) => state.users.singleForm);
+    const homeCount = useSelector((state) => state.forms.homeCount);
     const general_information_id = useSelector((state) => state.auth.generalInfoId);
     const formCompleted = useSelector((state) => state.auth.formCompleted);
     const { home, travel, food, financial, ...general } = singleForm || {};
@@ -225,9 +83,15 @@ const FormsLayout = () => {
                 currentIndex = 1;
                 setNewHome(false)
             }
-            setHomeCount(home?.length + currentIndex);
+            dispatch(setHomeCount(home?.length + currentIndex));
         }
     }, [home]);
+
+    useEffect(() => {
+        if (!selectedHome) {
+            setSelectedHome(1);
+        }
+    }, [activeTab, selectedHome]);    
 
     const handleActiveTabFunc = (active) => {
         setActiveTab(active);
@@ -241,9 +105,9 @@ const FormsLayout = () => {
         }
     };
 
-    const addHomeHandler = () => {
+    const addHomeHandler = async () => {
         if (homeCount < 5 && homeCount === home?.length) {
-            setHomeCount(prevCount => prevCount + 1);
+            await dispatch(setHomeCount(homeCount + 1));
             setSelectedHome(homeCount + 1)
         }
     };
@@ -288,10 +152,12 @@ const FormsLayout = () => {
                     title: "Deleted!",
                     text: `Home deleted successfully`,
                     icon: "success",
+                    confirmButtonColor: "#81c14b",
                 });
                 setSelectedHome(1);
-                setHomeCount(homeCount - 1);
-                if (homeCount > home?.length) {
+                dispatch(decrementHomeCount())
+                // setHomeCount(homeCount - 1);
+                if (!IsLocalHome && homeCount > home?.length) {
                     setNewHome(true);
                 }
                 if (!IsLocalHome) {
@@ -304,6 +170,7 @@ const FormsLayout = () => {
                 title: "Error!",
                 text: "An error occurred while deleting the home",
                 icon: "error",
+                confirmButtonColor: "#81c14b",
             });
         }
     };
@@ -363,7 +230,7 @@ const FormsLayout = () => {
                         formCompleted >= 1 ? <General isEdit={true} general={general} /> : <General isEdit={false} />
                     )}
                     {activeTab === "home" && (
-                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
+                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} addHomeHandler={addHomeHandler} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} addHomeHandler={addHomeHandler} />
                     )}
                     {activeTab === "travel" && (
                         formCompleted >= 3 ? <Travel isEdit={true} travel={travel} /> : <Travel isEdit={false} />

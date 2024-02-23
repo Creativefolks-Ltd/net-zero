@@ -4,6 +4,7 @@ import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchParticularForm, getCountry, homeFormDelete, homeFormUpdate, homeformIds } from "../../redux-store/actions/user";
 import delete_img from "../../assets/images/delete_img.svg";
+import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
@@ -14,13 +15,14 @@ const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"]
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, LocalHomeDelete}) => {
+const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, LocalHomeDelete, addHomeHandler }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const details = useSelector((state) => state.users);
   const user = useSelector((state) => state.auth);
   const currentHomeId = useSelector((state) => state.users?.currentHomeId);
+  const homeCount = useSelector((state) => state.forms.homeCount);
 
   const [disabled, setDisabled] = useState(false);
   const [completeLater, setCompleteLater] = useState(false)
@@ -180,17 +182,37 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
     onSubmit: submitHandler,
   });
 
+  const HomeAddedHandler = async (e) => {
+    Swal.fire({
+      title: "Success!",
+      html: "Home form submitted successfully. Do you want to add more homes?",
+      imageUrl: SuccessImg,
+      imageWidth: 100,
+      imageHeight: 100,
+      showCancelButton: true,
+      confirmButtonColor: "#81c14b",
+      confirmButtonText: "Yes, add more",
+      cancelButtonText: "No, I'm done",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await addHomeHandler();
+      }
+    });
+  }
 
   const navigateToNext = async (e) => {
     if (completeLater) {
       navigate("/my-account")
+    } else {
+      if (homeCount < 5) {
+        await HomeAddedHandler();
+      }
     }
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   }
-
 
   async function submitHandler(values) {
     const { isValid, errors } = formik;
@@ -206,15 +228,14 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
       if (!response?.payload?.error && response?.payload?.data) {
         const general_information_id = Number(user?.generalInfoId);
         setIsSubmitted(true);
-        
-        if (user?.formCompleted === 2) {
-          handleActiveTab("travel")
-        } else if (user?.formCompleted === 3) {
-          handleActiveTab("food")
-        } else if (user?.formCompleted === 4) {
-          handleActiveTab("financial")
-        }
-        navigateToNext()   
+        // if (user?.formCompleted === 2) {
+        //   handleActiveTab("travel")
+        // } else if (user?.formCompleted === 3) {
+        //   handleActiveTab("food")
+        // } else if (user?.formCompleted === 4) {
+        //   handleActiveTab("financial")
+        // }
+        navigateToNext()
         await dispatch(fetchParticularForm(general_information_id));
 
       } else {
@@ -255,6 +276,7 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
         title: "Error!",
         text: "An error occurred while deleting the home",
         icon: "error",
+        confirmButtonColor: "#81c14b",
       });
     }
   };

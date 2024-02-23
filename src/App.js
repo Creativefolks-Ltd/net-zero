@@ -23,6 +23,7 @@ import { addGeneralInfo } from "./redux-store/actions/user.js";
 import { setFormCompleted } from "./redux-store/reducers/auth.js";
 import { singleFormReset } from "./redux-store/reducers/admin.js";
 import PageNotFound from "./pages/PageNotFound.jsx";
+import { setHomeCount } from "./redux-store/reducers/forms.js";
 
 function App() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
     dispatch(addGeneralInfo(null))
     dispatch(setFormCompleted(0))
     dispatch(singleFormReset())
+    dispatch(setHomeCount(1))
   }
 
   useEffect(() => {

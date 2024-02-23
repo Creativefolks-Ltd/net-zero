@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormCompleted } from "../../redux-store/reducers/auth";
 import { CompletePreviousForms } from "../../helpers/CompletePreviousForms";
+import { setHomeCount } from "../../redux-store/reducers/forms";
 
 const Financial = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Financial = () => {
           });
         } else {
           navigate("/forms");
+          dispatch(setHomeCount(1))
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
