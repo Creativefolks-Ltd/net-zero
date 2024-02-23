@@ -12,6 +12,7 @@ import { setFormCompleted } from "../../redux-store/reducers/auth";
 import { CompletePreviousForms } from "../../helpers/CompletePreviousForms"
 import SuccessImg from "../../assets/images/Group 9106.png";
 import validateAndFilterFields from "../../helpers/formsValueFilters/homeForm";
+import { incrementHomeCount } from "../../redux-store/reducers/forms";
 
 const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
