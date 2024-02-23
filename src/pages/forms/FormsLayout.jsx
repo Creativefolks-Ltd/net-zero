@@ -91,7 +91,7 @@ const FormsLayout = () => {
         if (!selectedHome) {
             setSelectedHome(1);
         }
-    }, [activeTab, selectedHome]);    
+    }, [activeTab, selectedHome]);
 
     const handleActiveTabFunc = (active) => {
         setActiveTab(active);
@@ -230,7 +230,7 @@ const FormsLayout = () => {
                         formCompleted >= 1 ? <General isEdit={true} general={general} /> : <General isEdit={false} />
                     )}
                     {activeTab === "home" && (
-                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} addHomeHandler={addHomeHandler} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} addHomeHandler={addHomeHandler} />
+                        formCompleted >= 2 && home?.length >= selectedHome ? <HomeFormEdit home={homeDetails} selectedHome={selectedHome} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} LocalHomeDelete={LocalHomeDelete} addHomeHandler={addHomeHandler} /> : <HomeForm selectedHome={selectedHome} LocalHomeDelete={LocalHomeDelete} setSelectedHome={setSelectedHome} handleActiveTab={handleActiveTab} />
                     )}
                     {activeTab === "travel" && (
                         formCompleted >= 3 ? <Travel isEdit={true} travel={travel} /> : <Travel isEdit={false} />

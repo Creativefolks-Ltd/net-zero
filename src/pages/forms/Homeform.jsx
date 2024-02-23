@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import CountryOptions from "../../components/CountryOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountry, homeFormDelete, homeFormSubmit, homeformIds } from "../../redux-store/actions/user";
+import { getCountry, homeFormSubmit } from "../../redux-store/actions/user";
 import { homeFormvalidation } from "../../helpers/validations/Schema";
 import delete_img from "../../assets/images/delete_img.svg";
 import Swal from "sweetalert2";
@@ -17,7 +17,7 @@ const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"]
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
-const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActiveTab, addHomeHandler }) => {
+const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActiveTab }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector((state) => state.users);
@@ -124,7 +124,8 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
       cancelButtonText: "No, I'm done",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await addHomeHandler();
+        dispatch(incrementHomeCount())
+        setSelectedHome(homeCount + 1)
       }
     });
   }
@@ -133,15 +134,15 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     if (completeLater) {
       navigate("/my-account")
     } else {
-      if (homeCount < 5) {
+      if (homeCount > 1 && homeCount < 5) {
         await HomeAddedHandler();
       }
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
   }
 
   async function submitHandler(values) {
