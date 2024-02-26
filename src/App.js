@@ -23,26 +23,29 @@ import { addGeneralInfo } from "./redux-store/actions/user.js";
 import { setFormCompleted } from "./redux-store/reducers/auth.js";
 import { singleFormReset } from "./redux-store/reducers/admin.js";
 import PageNotFound from "./pages/PageNotFound.jsx";
+import { userFormReset } from "./redux-store/reducers/user.js";
 import { setHomeCount } from "./redux-store/reducers/forms.js";
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const formsSectionOpened = ((location.pathname === "/forms" || location.pathname?.includes("/form-view")) ? true : false);
+  const formsSectionOpened = (location.pathname === "/forms" || location.pathname?.includes("/form-view")) ? true : false;
+  const homeSectionOpened = location.pathname === "/" || location.pathname === "";
 
-  const resetFormStates = () => {
-    dispatch(addGeneralInfo(null))
-    dispatch(setFormCompleted(0))
-    dispatch(singleFormReset())
-    dispatch(setHomeCount(1))
+  const resetFormStates = async () => {
+    await dispatch(addGeneralInfo(null))
+    await dispatch(setFormCompleted(0))
+    await dispatch(singleFormReset());
+    await dispatch(userFormReset());
+    await dispatch(setHomeCount(1));
   }
 
   useEffect(() => {
-    if (!formsSectionOpened) {
+    if (!formsSectionOpened || homeSectionOpened) {
       resetFormStates()
     }
-  }, [formsSectionOpened])
+  }, [formsSectionOpened, homeSectionOpened])
 
   return (
     <div className="App">

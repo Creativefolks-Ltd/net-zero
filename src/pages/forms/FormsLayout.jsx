@@ -45,6 +45,7 @@ const FormsLayout = () => {
             try {
                 setIsLoading(true);
                 await dispatch(fetchParticularForm(general_information_id));
+                await dispatch(homeformIds(general_information_id));
             } catch (error) {
                 console.error("Error fetching form data:", error);
             } finally {

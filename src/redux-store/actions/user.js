@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../api/axios";
-import { generalInfo, logout } from "../reducers/auth";
+import { generalInfo, logout, setFormCompleted } from "../reducers/auth";
 
 const TokenExpiredLogout = (error, thunkAPI) => {
     if (error.response && error.response.status === 401) {
@@ -179,6 +179,8 @@ export const homeformIds = createAsyncThunk('homeformIds', async (general_id, th
     try {
         const token = thunkAPI?.getState()?.auth?.userInfo?.token;
         const response = await axios.get(`/api/get/user/home/list?general_information_id=${general_id}`, { headers: { Authorization: `Bearer ${token}` } });
+        const completed_form_count = response?.data?.data?.count_form
+        thunkAPI.dispatch(setFormCompleted(completed_form_count))
         return response?.data;
     } catch (error) {
         TokenExpiredLogout(error, thunkAPI)

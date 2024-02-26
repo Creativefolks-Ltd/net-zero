@@ -20,6 +20,9 @@ const userSlice = createSlice({
         setCurrentHomeId(state, action) {
             state.currentHomeId = action.payload
         },
+        userFormReset(state, action) {
+            state.singleForm = {}
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsers.pending, (state, action) => {
@@ -96,6 +99,6 @@ const userSlice = createSlice({
     }
 });
 
-export const { setCurrentHomeId } = userSlice.actions;
+export const { setCurrentHomeId, userFormReset } = userSlice.actions;
 
 export default userSlice.reducer;
