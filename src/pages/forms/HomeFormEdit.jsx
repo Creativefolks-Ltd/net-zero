@@ -1785,7 +1785,7 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
                             <div className="form-label-div ">
                               <label htmlFor="winter_temperature">
                                 <strong>17.&nbsp;</strong>What temprature was the home
-                                kept in the winter?{formik.values.winter_temperature}
+                                kept in the winter?
                               </label>
                               <p>(Use slider below)</p>
                             </div>
