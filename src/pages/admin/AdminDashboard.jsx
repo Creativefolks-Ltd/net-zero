@@ -227,7 +227,7 @@ const AdminDashboard = () => {
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
         const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
-        const fileName = `net_zero_${formattedDate}_${formattedTime}.csv`;
+        const fileName = `carbon_tracker_${formattedDate}_${formattedTime}.csv`;
 
         link.download = fileName;
         link.target = "_blank";
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString().split('T')[0];
         const formattedTime = currentDate.toTimeString().split(' ')[0].replace(/:/g, '');
-        const fileName = `net_zero_${formattedDate}_${formattedTime}.pdf`;
+        const fileName = `carbon_tracker_${formattedDate}_${formattedTime}.pdf`;
 
         const downloadLink = document.createElement('a');
         downloadLink.href = URL.createObjectURL(blob);

@@ -964,7 +964,7 @@ section.protecting-data {
     padding-left: 100px;
 }    */
 .navbar .logo-img {
-    width: 133px;
+    /* width: 133px; */
     height: 127px;
 }
 
@@ -2932,7 +2932,7 @@ select {
     }
 
     .navbar .logo-img {
-        width: 56px;
+        /* width: 56px; */
         height: 54px;
     }
 

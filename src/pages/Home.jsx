@@ -25,7 +25,7 @@ const Home = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6">
                             <div className="home-banner-content">
-                                <h1>The Anthos<br/>Net Zero Tool</h1>
+                                <h1>The Anthos<br/>Carbon Tracker Tool</h1>
                                 <div className="P_Lead">
                                     <p>Designed for Anthos clients to provide insights into personal emissions and support with emissions reductions</p>
                                 </div>
@@ -39,7 +39,7 @@ const Home = () => {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-6">
-                            <h1>The Anthos<br></br> Net Zero Project</h1>
+                            <h1>The Anthos<br></br> Carbon Tracker Project</h1>
                             <p>Created to provied an ongoing <br /> service to help all family members</p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ const Home = () => {
                                     <div className="text-col">
                                         <div className="text-scroll">
                                             <div className="p-box">
-                                                <p style={{color:"#2C2B34",fontWeight:600}}>The Anthos Net Zero project has been created to provide an ongoing service to help all family members:</p>
+                                                <p style={{color:"#2C2B34",fontWeight:600}}>The Anthos Carbon Tracker project has been created to provide an ongoing service to help all family members:</p>
 
                                                 <p style={{color:"#31405A",fontWeight:600}}>Understand the shape and size of your carbon footprint.</p>
 
@@ -175,9 +175,9 @@ Once you have submitted the information, the Good Business team will respond wit
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 offset-lg-1 offset-md-1 Protecting-content">
-                            <p>All of your responses in the <b>Net Zero Tool</b> will be encrypted with TLS and only accessed by the <b>Good Business team</b> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ <Link to={"/privacy-policy"}>privacy policy </Link> here. </p>
+                            <p>All of your responses in the <b>Carbon Tracker Tool</b> will be encrypted with TLS and only accessed by the <b>Good Business team</b> for the purposes of calculating your footprint and providing recommendations to reduce it. You can find more information in Good Business’ <Link to={"/privacy-policy"}>privacy policy </Link> here. </p>
 
-                            {/* <p>The <b>Net Zero Tool</b> met high data security requriements for pentration testing in <b>March 2023</b>. </p> */}
+                            {/* <p>The <b>Carbon Tracker Tool</b> met high data security requriements for pentration testing in <b>March 2023</b>. </p> */}
 
                         </div>
                     </div>

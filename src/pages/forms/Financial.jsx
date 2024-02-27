@@ -25,7 +25,7 @@ const Financial = () => {
     if (!response?.payload?.error && response?.payload?.data) {
       Swal.fire({
         title: "Your form has been submitted successfully",
-        text: "The Net Zero team will begin the calculation of your carbon footprint and will get back to you shortly with the results or to request additional information..",
+        text: "The Carbon Tracker team will begin the calculation of your carbon footprint and will get back to you shortly with the results or to request additional information..",
         imageUrl: SuccessImg,
         imageWidth: 100,
         imageHeight: 100,

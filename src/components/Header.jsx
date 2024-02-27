@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Anthos_logo from '../assets/images/Anthos-logo-grey.svg';
+import Anthos_logo from '../assets/images/Anthos-Logo-Blue.svg';
 import White_Anthos_logo from '../assets/images/Anthos-logo-White.svg';
 import User_Icon from '../assets/images/user.svg';
 import White_User_Icon from '../assets/images/profile_img.png';
@@ -85,7 +85,7 @@ const Header = ({ bgTransparent }) => {
                                 <ul>
                                     <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
                                     <li className="nav-item"><Link to="/forms">Submit Data</Link></li>
-                                    <li className="nav-item emain-div"><a href="mailto:netzero@good.business">Help</a></li>
+                                    <li className="nav-item emain-div"><a href="mailto:admin@anthos-carbon-tracker.com">Help</a></li>
                                     <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">

@@ -6,11 +6,11 @@ const PrivacyPolicy = () => {
                 <div className="container">
                     <h1 className="page-title">Goodbusiness</h1>
                     <p className="text-end">Date reviewed: January 2024</p>
-                    <h1>DATA PROTECTION POLICY -ANTHOS NET ZERO TOOL</h1>
+                    <h1>DATA PROTECTION POLICY - ANTHOS CARBON TRACKER TOOL</h1>
                     <div className="policy-data">
                         <h2>1. INTRODUCTION</h2>
                         <p>
-                            Good Business needs to gather and use certain information for the <b><u>Anthos Net Zero Tool</u></b>
+                            Good Business needs to gather and use certain information for the <b><u>Anthos Carbon Tracker Tool</u></b>
                         </p>
 
                         <p>
@@ -369,7 +369,7 @@ const PrivacyPolicy = () => {
                             </ul>
                         </ul>
                         <ul>
-                            <li>Creative Folks are responsible for (in relation to all Anthos Net Zero Tool hosting provision):</li>
+                            <li>Creative Folks are responsible for (in relation to all Anthos Carbon Tracker Tool hosting provision):</li>
                             <ul className="inner-list">
                                 <li>
                                     Ensuring all systems, services and equipment used for storing
