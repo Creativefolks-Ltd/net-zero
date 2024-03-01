@@ -14,7 +14,7 @@ import SuccessImg from "../../assets/images/Group 9106.png";
 import validateAndFilterFields from "../../helpers/formsValueFilters/homeForm";
 import { incrementHomeCount } from "../../redux-store/reducers/forms";
 
-const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
+const heatingTypes = ["Electricity", "Oil", "District heating", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
@@ -991,7 +991,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
               </div>
             )}
             {/* Other energy Section */}
-            {(formik.values.heating_type?.includes("Oil") || formik.values.heating_type?.includes("Coal") || formik.values.heating_type?.includes("Wood")) && (
+            {(formik.values.heating_type?.includes("Oil") || formik.values.heating_type?.includes("District heating") || formik.values.heating_type?.includes("Wood")) && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -1344,11 +1344,11 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                 )}
                               </>)}
                             {/* Coal */}
-                            {formik.values.heating_type?.includes("Coal") && (
+                            {formik.values.heating_type?.includes("District heating") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="coal_usage_known">
-                                    <strong>11.&nbsp;</strong>Do you know how much coal
+                                    <strong>11.&nbsp;</strong>Do you know how much district heating
                                     was used at the home in the selected year?{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -1434,7 +1434,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                                   <div className="form-div">
                                     <div className="form-label-div">
                                       <label htmlFor="">
-                                        <strong>11b.&nbsp;</strong>Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
+                                        <strong>11b.&nbsp;</strong>Do you know what the annual spend was on district heating at property in the selected year? <span>*</span>{" "}
                                       </label>
                                     </div>
                                     <select
