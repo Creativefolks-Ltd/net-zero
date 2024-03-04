@@ -76,7 +76,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
                   >
                     <img src={generalImg} alt="" />
                   </div>
-                  <p>General Information</p>
+                  <p onClick={() => handleActiveTabFunc("general")}>General Information</p>
                 </div>
               </div>
               <div className="col-div">
@@ -89,7 +89,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
                   >
                     <img src={houseImg} alt="" />
                   </div>
-                  <p>Your Home</p>
+                  <p onClick={() => handleActiveTabFunc("home")}>Your Home</p>
                 </div>
               </div>
               <div className="col-div">
@@ -102,7 +102,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
                   >
                     <img src={carImg} alt="" />
                   </div>
-                  <p>Travel</p>
+                  <p onClick={() => handleActiveTabFunc("travel")}>Travel</p>
                 </div>
               </div>
               <div className="col-div">
@@ -115,7 +115,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
                   >
                     <img src={foodImg} alt="" />
                   </div>
-                  <p>Food and Shopping</p>
+                  <p onClick={() => handleActiveTabFunc("food")}>Food and Shopping</p>
                 </div>
               </div>
               <div className="col-div">
@@ -127,7 +127,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
                   >
                     <img src={financialImg} alt="" />
                   </div>
-                  <p>Financial assets</p>
+                  <p onClick={() => handleActiveTabFunc("financial")}>Financial assets</p>
                 </div>
               </div>
             </div>

@@ -1045,6 +1045,9 @@ section.protecting-data {
 .information-cricle-box.success:after {
     background: #81C14B;
 }
+.information .information-icon-box .information-cricle-box.active + p{    
+    font-weight: 600;
+}
 
 .information-header .col-div:last-child .information-cricle-box:after {
     display: none;
@@ -1605,6 +1608,7 @@ select {
     align-items: center;
     border-right: 2px solid #fff;
     justify-content: center;
+    cursor: pointer;
 }
 
 .information-cricle-box.active,

@@ -193,7 +193,7 @@ const FormsLayout = () => {
                                             >
                                                 <img src={img} alt="" />
                                             </div>
-                                            <p>{text}</p>
+                                            <p onClick={() => handleActiveTabFunc(tab)}>{text}</p>
                                         </div>
                                     </div>
                                 ))}
