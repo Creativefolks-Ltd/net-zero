@@ -4,9 +4,10 @@ import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormCompleted } from "../../redux-store/reducers/auth";
+import { generalInfo, setFormCompleted } from "../../redux-store/reducers/auth";
 import { CompletePreviousForms } from "../../helpers/CompletePreviousForms";
 import { setHomeCount } from "../../redux-store/reducers/forms";
+import { userFormReset } from "../../redux-store/reducers/user";
 
 const Financial = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,7 @@ const Financial = () => {
           actions: "action-button-box"
         }
 
-      }).then((result) => {
-        dispatch(setFormCompleted(0))
+      }).then(async (result) => {
         if (result.isConfirmed) {
           navigate("/my-account");
           window.scrollTo({
@@ -53,7 +53,10 @@ const Financial = () => {
           });
         } else {
           navigate("/forms");
-          dispatch(setHomeCount(1))
+          await dispatch(generalInfo(null))
+          await dispatch(setFormCompleted(0))
+          await dispatch(userFormReset());
+          await dispatch(setHomeCount(1))
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
