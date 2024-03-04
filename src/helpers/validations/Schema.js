@@ -258,7 +258,7 @@ export const homeFormvalidation = (values) => {
     }
 
     //// Coal
-    if (values?.heating_type?.includes("Coal")) {
+    if (values?.heating_type?.includes("District heating")) {
         if (!values?.coal_usage_known?.trim()) {
             errors.coal_usage_known = selectOptionMsg;
         }
@@ -294,7 +294,7 @@ export const homeFormvalidation = (values) => {
     }
 
     //// Other
-    if (values?.heating_type?.includes("Coal") || values?.heating_type?.includes("Oil") || values?.heating_type?.includes("Wood")) {
+    if (values?.heating_type?.includes("District heating") || values?.heating_type?.includes("Oil") || values?.heating_type?.includes("Wood")) {
         if (!values?.other_energy_usage?.trim()) {
             errors.other_energy_usage = selectOptionMsg;
         }

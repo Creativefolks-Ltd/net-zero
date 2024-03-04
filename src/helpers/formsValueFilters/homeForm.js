@@ -175,8 +175,8 @@ const validateAndFilterFields = (values) => {
       }
     }
 
-    // Coal
-    if (heating_type?.includes("Coal")) {
+    // District heating
+    if (heating_type?.includes("District heating")) {
       filteredValues.coal_usage_known = coal_usage_known;
 
       if (coal_usage_known !== "No") {
@@ -195,7 +195,7 @@ const validateAndFilterFields = (values) => {
     }
 
     // Other
-    if (heating_type?.includes("Coal") || heating_type?.includes("Oil") || heating_type?.includes("Wood")) {
+    if (heating_type?.includes("District heating") || heating_type?.includes("Oil") || heating_type?.includes("Wood")) {
       filteredValues.other_energy_usage = other_energy_usage;
 
       if (other_energy_usage !== "No") {

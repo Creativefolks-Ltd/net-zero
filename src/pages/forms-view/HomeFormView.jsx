@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import CurrencyOptions from "../../components/CurrencyOptions";
 
-const heatingTypes = ["Electricity", "Oil", "Coal", "Gas", "Wood", "Don't know"];
+const heatingTypes = ["Electricity", "Oil", "District heating", "Gas", "Wood", "Don't know"];
 const additionalPropertyFeatures = ["Swimming Pool", "Sauna", "Solarium", "Hot Tub", "Server Room"]
 const home_features = ["Food Waste Collection", "Plastic/Glass/Metal/Paper recycling services provided", "Home Composting", "Don't know"];
 
@@ -754,7 +754,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
               </div>
             )}
             {/* Other energy Section */}
-            {(home?.heating_type?.includes("Oil") || home?.heating_type?.includes("Coal") || home?.heating_type?.includes("Wood")) && (
+            {(home?.heating_type?.includes("Oil") || home?.heating_type?.includes("District heating") || home?.heating_type?.includes("Wood")) && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -985,12 +985,12 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   </div>
                                 )}
                               </>)}
-                            {/* Coal */}
-                            {home?.heating_type?.includes("Coal") && (
+                            {/* District heating */}
+                            {home?.heating_type?.includes("District heating") && (
                               <>
                                 <div className="form-div">
                                   <label htmlFor="coal_usage_known">
-                                    <strong>11.&nbsp;</strong>Do you know how much coal
+                                    <strong>11.&nbsp;</strong>Do you know how much district heating
                                     was used at the home in the selected year?{" "}
                                     <span>*</span>{" "}
                                   </label>
@@ -1045,7 +1045,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                                   <div className="form-div">
                                     <div className="form-label-div">
                                       <label htmlFor="">
-                                        <strong>11b.&nbsp;</strong>Do you know what the annual spend was on coal at property in the selected year? <span>*</span>{" "}
+                                        <strong>11b.&nbsp;</strong>Do you know what the annual spend was on district heating at property in the selected year? <span>*</span>{" "}
                                       </label>
                                     </div>
                                     <select
