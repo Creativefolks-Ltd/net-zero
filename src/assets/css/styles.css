@@ -4018,7 +4018,7 @@ a.view-form-link {
     border-radius: 15px;
 }
 .form-name-container .modal-body {
-  padding: 0;
+    padding: 0;
 }
 
 .form-name-container form {
@@ -4034,7 +4034,13 @@ a.view-form-link {
     background: transparent;
     box-shadow: none !important;
     border: none;
+    
+}
 
+/*********************** Cookie section *********************/
+.cookie-accept-btn {
+    background: #81c14b !important;
+    color: #fff !important;
 }
 
 

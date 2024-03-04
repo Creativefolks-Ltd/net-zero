@@ -112,6 +112,12 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     onSubmit: submitHandler,
   });
 
+  const handleFormCompleted = async () => {
+    if (user?.formCompleted == 1) {
+      await dispatch(setFormCompleted(user?.formCompleted + 1))
+    }
+  }
+
   const HomeAddedHandler = async (e) => {
     Swal.fire({
       title: "Success!",
@@ -126,16 +132,22 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     }).then(async (result) => {
       if (result.isConfirmed) {
         dispatch(incrementHomeCount())
-        setSelectedHome(homeCount + 1)
+        setSelectedHome(homeCount + 1);
+        formik.resetForm()
+      } else {
+        handleFormCompleted();
+        handleActiveTab("travel")
       }
     });
   }
 
   const navigateToNext = async (e) => {
     if (completeLater) {
-      navigate("/my-account")
+      navigate("/my-account");
+
     } else {
-      if (homeCount > 1 && homeCount < 5) {
+      // if (homeCount > 1 && homeCount < 5) {
+      if (homeCount < 5) {
         await HomeAddedHandler();
       }
       window.scrollTo({
@@ -157,18 +169,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true);
-        if (user?.formCompleted == 1) {
-          dispatch(setFormCompleted(user?.formCompleted + 1))
-        }
-
-        // if (user?.formCompleted === 2) {
-        //   handleActiveTab("travel")
-        // } else if (user?.formCompleted === 3) {
-        //   handleActiveTab("food")
-        // } else if (user?.formCompleted === 4) {
-        //   handleActiveTab("financial")
-        // }
-
+        
         navigateToNext()
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;

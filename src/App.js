@@ -25,6 +25,7 @@ import { singleFormReset } from "./redux-store/reducers/admin.js";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import { userFormReset } from "./redux-store/reducers/user.js";
 import { setHomeCount } from "./redux-store/reducers/forms.js";
+import CookieConsent from "react-cookie-consent";
 
 function App() {
   const location = useLocation();
@@ -66,6 +67,17 @@ function App() {
         <Route path="/forms" element={<ProtectedRoute><FormsLayout /></ProtectedRoute>} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
+      <CookieConsent
+        location="bottom"
+        buttonText="Agree"
+        declineButtonText="Decline"
+        cookieName="carbon-tracker-cookie"
+        enableDeclineButton
+        buttonClasses="cookie-accept-btn"
+        expires={150}
+      >
+        We use cookies to personalize content and ads, to provide social media features, and to analyze our traffic.
+      </CookieConsent>
     </div>
   );
 }
