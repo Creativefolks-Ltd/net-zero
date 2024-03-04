@@ -69,7 +69,7 @@ const Header = ({ bgTransparent }) => {
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
                                     <li className="nav-item"><Link to="/admin/dashboard"> Dashboard</Link></li>
-                                    <li className="nav-item" onClick={() => logoutHandler("admin")}>Logout</li>
+                                    <li className="nav-item" onClick={() => logoutHandler("admin")}><a>Logout</a></li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
                                             <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
@@ -86,7 +86,8 @@ const Header = ({ bgTransparent }) => {
                                     <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
                                     <li className="nav-item"><Link to="/forms">Submit Data</Link></li>
                                     <li className="nav-item emain-div"><a href="mailto:admin@anthos-carbon-tracker.com">Help</a></li>
-                                    <li className="nav-item" onClick={() => logoutHandler("user")}>Logout</li>
+                                    <li className="nav-item" onClick={() => logoutHandler("user")}>
+                                        <a>Logout</a></li>
                                     <li className="nav-item close-icon" onClick={() => { navbarHandler(false) }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="43.167" height="43.167" viewBox="0 0 43.167 43.167">
                                             <g id="np_menu_1166835_000000" transform="translate(-17.882 -18.556)">
