@@ -132,6 +132,9 @@ input {
     right: 0;
     z-index: 1000;
 }
+ul li a {
+    cursor: pointer;
+}
 
 /* .bg-home .nav-items.active { */
 .main-header:not(.bg-home) .nav-items.active {
