@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
-// import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminDashboard from "./AdminDashboard.jsx";
 import AdminView from "./AdminView.jsx";
 import AdminLogin from "./AdminLogin.jsx";
 import CreateNewUser from "./CreateNewUser.jsx";
 import AdminChangePassword from "./AdminChangePassword.jsx";
-import { useDispatch } from "react-redux";
-import { addGeneralInfo } from "../../redux-store/actions/user.js";
+import ForgotPassword from "./ForgotPassword.jsx";
+import ResetPassword from "./ResetPassword.jsx";
+
 import AdminProtectedRoute from "../../routes/AdminProtectedRoute.js";
 import PageNotFound from "../PageNotFound.jsx";
 
 function Dashboard() {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        // dispatch(addGeneralInfo(null))
-    }, []);
 
     return (
         <Routes>
@@ -26,6 +21,8 @@ function Dashboard() {
             <Route path="form-view/:form_id" element={<AdminProtectedRoute><AdminView /></AdminProtectedRoute>} />
             <Route path="create-user" element={<AdminProtectedRoute><CreateNewUser /></AdminProtectedRoute>} />
             <Route path="manage-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
+            <Route path="reset-password/:token" element={<ResetPassword />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="/*" element={<PageNotFound isAdmin={true} />} />
         </Routes>
     );

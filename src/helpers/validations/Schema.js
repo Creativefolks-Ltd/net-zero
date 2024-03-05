@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 //// General Form Validations
-const requiredMsg = "This field is required";   
+const requiredMsg = "This field is required";
 const selectOptionMsg = "Please select one option";
 const numberAllowMsg = "Only numbers are allowed";
 
@@ -383,3 +383,36 @@ export const foodFormValidation = Yup.object().shape({
         return value?.toString() !== "No" ? schema.required(requiredMsg) : schema;
     }).nullable(),
 })
+
+
+export const forgotPasswordValidation = (values) => {
+    const errors = {};
+
+    if (!values.email?.trim()) {
+        errors.email = 'Email Address field is required';
+    } else if (!emailRegex.test(values?.email)) {
+        errors.email = 'Invalid email address';
+    }
+
+    return errors;
+};
+
+export const resetPasswordValidation = (values) => {
+    const errors = {};
+
+    if (!values.password?.trim()) {
+        errors.password = 'Password field is required';
+    } else if (values.password.length < 6) {
+        errors.password = 'Password must be at least 6 characters';
+    } else if (!strongPasswordRegex?.test(values.password)) {
+        errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
+    }
+
+    if (!values.cpassword?.trim()) {
+        errors.cpassword = 'Confirm Password field is required';
+    } else if (values.password !== values.cpassword) {
+        errors.cpassword = 'Confirm Password not matched';
+    }
+
+    return errors;
+};

@@ -1,58 +1,71 @@
 import React, { useState } from 'react'
-import login_img from '../assets/images/login_img.png'
-import login_img1 from '../assets/images/login_img1.png'
-import { forgetPassword } from '../redux-store/actions/auth'
+import login_img from '../../assets/images/login_img.png'
+import login_img1 from '../../assets/images/login_img1.png'
+import { resetPassword } from '../../redux-store/actions/auth'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
-import SuccessImg from "../assets/images/Group 9106.png"
-import { useNavigate } from 'react-router-dom';
-import { setUserEmail } from '../redux-store/reducers/auth'
-import { forgotPasswordValidation } from '../helpers/validations/Schema'
+import SuccessImg from "../../assets/images/Group 9106.png"
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import PasswordInput from '../../components/PasswordInput'
+import { resetPasswordValidation } from '../../helpers/validations/Schema'
 
 
-const ForgotPassword = () => {
-    const navigate = useNavigate()
+const ResetPassword = () => {
+    const { token } = useParams();
+    const [params, setParams] = useSearchParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch()
-
+    const [showPassword, setShowPassword] = useState(false)
+    const [showCPassword, setShowCPassword] = useState(false)
     const [disabled, setDisabled] = useState(false)
 
-    const baseUrl = (window?.location?.origin + "/reset-password") || 'https://anthos-carbon-tracker.com/reset-password';
+    const adminEmail = params.get('email');
 
     const navigateToNext = async (e) => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        navigate("/")
+        navigate("/admin/dashboard")
     }
 
     const formik = useFormik({
         initialValues: {
-            email: '',
-            role: "2",
-            base_url: baseUrl
+            password: '',
+            cpassword: '',
+            role: "1",
         },
 
-        validate: forgotPasswordValidation,
+        validate: resetPasswordValidation,
 
         onSubmit: async (values) => {
-            if (!values?.email?.trim()) {
+            if (!values.password || !values.cpassword) {
                 return false
             }
             try {
                 setDisabled(true)
-                const response = await dispatch(forgetPassword(values));
+
+                const requestData = {
+                    email: adminEmail,
+                    token: token,
+                    password: values?.password,
+                    password_confirmation: values?.cpassword
+                }
+
+                const response = await dispatch(resetPassword(requestData));
+                setDisabled(false)
                 if (!response?.payload?.error && response?.payload?.data) {
                     Swal.fire({
                         title: "Success!",
-                        text: "We've just sent you an email with instructions to reset your password. Please check your registered email inbox.",
+                        text: "Password reset successfully",
                         imageUrl: SuccessImg,
                         imageWidth: 100,
                         imageHeight: 100,
+                        showCancelButton: false,
                         confirmButtonColor: "#81c14b",
                         didClose: navigateToNext
-                    })
+                    });
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {
@@ -67,13 +80,15 @@ const ForgotPassword = () => {
                         }
                         Swal.fire({
                             title: "Failed!",
-                            html: errorMessage || "Failed to send reset password email. Please verify your email address and try again. For assistance, contact support.",
+                            html: errorMessage || "Failed to reset password, please try again",
                             icon: "error",
+                            showCancelButton: false,
                             confirmButtonColor: "#81c14b",
                         });
                     }
                 }
             } catch (error) {
+                setDisabled(false)
                 Swal.fire({
                     title: "Failed!",
                     text: "Something went wrong!",
@@ -81,9 +96,6 @@ const ForgotPassword = () => {
                     showCancelButton: false,
                     confirmButtonColor: "#81c14b",
                 });
-            }
-            finally {
-                setDisabled(false)
             }
         }
 
@@ -100,20 +112,24 @@ const ForgotPassword = () => {
                                     <div className="card">
                                         <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                             <li className="nav-item text-center" >
-                                                <a className={`nav-link btl active`} id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Forgot Password</a>
+                                                <a className={`nav-link btl active`} id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Reset Password</a>
                                             </li>
                                         </ul>
                                         <div className="tab-content" id="pills-tabContent">
+
                                             <div className={`tab-pane fade show active `} id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                                 <div className="form ">
                                                     <form onSubmit={formik.handleSubmit}>
-                                                        <div className="form-div">
-                                                            <input type="text" name="email" className={`form-control ${formik.errors.email && formik.touched.email ? "invalidInput" : ""} `} placeholder="Email Address" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
-                                                            {formik.errors.email && formik.touched.email ? <span className='input-error-msg'>{formik.errors.email}</span> : null}
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+                                                            {formik.errors.password && formik.touched.password ? <span className='input-error-msg'>{formik.errors.password}</span> : null}
                                                         </div>
-                                                        <button className="submit-btn" type='submit' disabled={disabled}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
+                                                        <div className="form-div login-pass-filed">
+                                                            <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
+                                                            {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
+                                                        </div>
+                                                        <button className="submit-btn" type='submit' disabled={disabled} >Submit {disabled ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
-
                                                     </form>
                                                 </div>
                                             </div>
@@ -132,11 +148,9 @@ const ForgotPassword = () => {
                         </div>
                     </div>
                 </div >
-
             </section >
-
         </>
     )
 }
 
-export default ForgotPassword
+export default ResetPassword

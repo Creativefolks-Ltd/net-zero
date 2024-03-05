@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import login_img from '../assets/images/login_img.png'
-import login_img1 from '../assets/images/login_img1.png'
-import { forgetPassword } from '../redux-store/actions/auth'
+import login_img from '../../assets/images/login_img.png'
+import login_img1 from '../../assets/images/login_img1.png'
+import { forgetPassword } from '../../redux-store/actions/auth'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
-import SuccessImg from "../assets/images/Group 9106.png"
+import SuccessImg from "../../assets/images/Group 9106.png"
 import { useNavigate } from 'react-router-dom';
-import { setUserEmail } from '../redux-store/reducers/auth'
-import { forgotPasswordValidation } from '../helpers/validations/Schema'
-
+import { forgotPasswordValidation } from '../../helpers/validations/Schema'
 
 const ForgotPassword = () => {
     const navigate = useNavigate()
@@ -17,7 +15,7 @@ const ForgotPassword = () => {
 
     const [disabled, setDisabled] = useState(false)
 
-    const baseUrl = (window?.location?.origin + "/reset-password") || 'https://anthos-carbon-tracker.com/reset-password';
+    const baseUrl = (window?.location?.origin + "/admin/reset-password") || 'https://anthos-carbon-tracker.com/admin/reset-password';
 
     const navigateToNext = async (e) => {
         window.scrollTo({
@@ -30,7 +28,7 @@ const ForgotPassword = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
-            role: "2",
+            role: "1",
             base_url: baseUrl
         },
 

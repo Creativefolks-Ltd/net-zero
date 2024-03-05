@@ -20,9 +20,6 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUserEmail(state, action) {
-            state.userEmail = action.payload
-        },
         generalInfo(state, action) {
             state.generalInfoId = action.payload
         },
@@ -91,7 +88,7 @@ const authSlice = createSlice({
             }).addCase(getUserDetails.pending, (state, action) => {
                 state.loading = true;
             }).addCase(getUserDetails.fulfilled, (state, action) => {
-                const updatedFields = action.payload?.data[0] || action.payload?.data;
+                const updatedFields = (action.payload?.data && action.payload.data[0]) || action.payload?.data;
                 state.userInfo = {
                     ...state.userInfo,
                     ...updatedFields,
@@ -123,7 +120,7 @@ const authSlice = createSlice({
             .addCase(updateAdminDetails.pending, (state, action) => {
                 state.loading = true;
             }).addCase(updateAdminDetails.fulfilled, (state, action) => {
-                const updatedFields = action.payload?.data[0] || action.payload?.data;
+                const updatedFields = (action.payload?.data && action.payload.data[0]) || action.payload?.data;
                 state.adminDetails = {
                     ...state.adminDetails,
                     ...updatedFields,
@@ -137,5 +134,5 @@ const authSlice = createSlice({
     }
 });
 
-export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setUserEmail, setFormName } = authSlice.actions;
+export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setFormName } = authSlice.actions;
 export default authSlice.reducer;

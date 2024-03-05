@@ -2,47 +2,24 @@ import React, { useState } from 'react'
 import login_img from '../assets/images/login_img.png'
 import login_img1 from '../assets/images/login_img1.png'
 import { resetPassword } from '../redux-store/actions/auth'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import SuccessImg from "../assets/images/Group 9106.png"
-import { useNavigate, useParams } from 'react-router-dom';
-import SweetAlert from '../components/SweetAlert';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import PasswordInput from '../components/PasswordInput'
-import { setUserEmail } from '../redux-store/reducers/auth'
-import { strongPasswordRegex } from '../helpers/validations/Schema'
-
-
-const validate = values => {
-    const errors = {};
-
-    if (!values.password?.trim()) {
-        errors.password = 'Password field is required';
-    } else if (values.password.length < 6) {
-        errors.password = 'Password must be at least 6 characters';
-    } else if (!strongPasswordRegex?.test(values.password)) {
-        errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
-    }
-
-    if (!values.cpassword?.trim()) {
-        errors.cpassword = 'Confirm Password field is required';
-    } else if (values.password !== values.cpassword) {
-        errors.cpassword = 'Confirm Password not matched';
-    }
-
-    return errors;
-};
-
+import { resetPasswordValidation } from '../helpers/validations/Schema'
 
 const ResetPassword = () => {
     const { token } = useParams();
+    const [params, setParams] = useSearchParams();
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false)
     const [showCPassword, setShowCPassword] = useState(false)
     const [disabled, setDisabled] = useState(false)
 
-    const userEmail = useSelector((state) => state.auth.userEmail)
+    const userEmail = params.get('email');
 
     const navigateToNext = async (e) => {
         window.scrollTo({
@@ -59,7 +36,7 @@ const ResetPassword = () => {
             role: "2",
         },
 
-        validate: validate,
+        validate: resetPasswordValidation,
 
         onSubmit: async (values) => {
             if (!values.password || !values.cpassword) {
@@ -78,7 +55,6 @@ const ResetPassword = () => {
                 const response = await dispatch(resetPassword(requestData));
                 setDisabled(false)
                 if (!response?.payload?.error && response?.payload?.data) {
-                    dispatch(setUserEmail(null))
                     Swal.fire({
                         title: "Success!",
                         text: "Password reset successfully",
