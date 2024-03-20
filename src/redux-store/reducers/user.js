@@ -72,7 +72,6 @@ const userSlice = createSlice({
             //     state.isLoading = true;
             // }).addCase(getUserDetails.fulfilled, (state, action) => {
             //     console.log(action.payload);
-            //     console.log(state.data);
             //     state.isLoading = false;
             // }).addCase(getUserDetails.rejected, (state, action) => {
             //     state.isError = true;
