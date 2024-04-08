@@ -1,12 +1,12 @@
 const getWinterTemperature = (temperature) => {
   if (temperature >= 1 && temperature <= 18) {
-    return "< 14%";
+    return "< 14°C";
   } else if (temperature > 18 && temperature < 40) {
-    return "14% - 17%";
+    return "14°C - 17°C";
   } else if (temperature >= 40 && temperature < 61) {
-    return "18% - 21%";
+    return "18°C - 21°C";
   } else if (temperature >= 61 && temperature < 80) {
-    return "> 21%";
+    return "> 21°C";
   } else if (temperature >= 80) {
     return "Don't know";
   } else {

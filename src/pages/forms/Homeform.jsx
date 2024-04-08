@@ -1718,7 +1718,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                           <div className="form-div">
                             <div className="form-label-div ">
                               <label htmlFor="winter_temperature">
-                                <strong>17.&nbsp;</strong>What temprature was the home
+                                <strong>17.&nbsp;</strong>What temperature was the home
                                 kept in the winter?
                               </label>
                               <p>(Use slider below)</p>
@@ -1740,10 +1740,10 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               />
                             </div>
                             <div className="slider-labels">
-                              <span className={`${formik.values.winter_temperature >= 1 && formik.values.winter_temperature < 18 ? "active" : ""}`}>{"< 14%"}</span>
-                              <span className={`${formik.values.winter_temperature >= 18 && formik.values.winter_temperature < 40 ? "active" : ""}`}>{"14% - 17%"}</span>
-                              <span className={`${formik.values.winter_temperature >= 40 && formik.values.winter_temperature < 61 ? "active" : ""}`}>{"18% - 21%"}</span >
-                              <span className={`${formik.values.winter_temperature >= 61 && formik.values.winter_temperature < 80 ? "active" : ""}`}>{"> 21%"}</span>
+                              <span className={`${formik.values.winter_temperature >= 1 && formik.values.winter_temperature < 18 ? "active" : ""}`}>{"< 14°C"}</span>
+                              <span className={`${formik.values.winter_temperature >= 18 && formik.values.winter_temperature < 40 ? "active" : ""}`}>{"14°C - 17°C"}</span>
+                              <span className={`${formik.values.winter_temperature >= 40 && formik.values.winter_temperature < 61 ? "active" : ""}`}>{"18°C - 21°C"}</span >
+                              <span className={`${formik.values.winter_temperature >= 61 && formik.values.winter_temperature < 80 ? "active" : ""}`}>{"> 21°C"}</span>
                               <span className={`${formik.values.winter_temperature >= 80 ? "active" : ""}`}>{"Don't know"}</span>
                             </div>
                           </div>
