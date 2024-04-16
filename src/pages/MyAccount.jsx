@@ -39,10 +39,14 @@ const MyAccount = () => {
 
   const completedData = [];
   const pendingData = [];
+  const importedData = [];
 
   formList?.map((item, index) => {
     if (item.form_status === "Complete") {
       completedData.push(item);
+    }
+    else if(item.imported === "Yes"){
+      importedData.push(item)
     }
     else {
       pendingData.push(item)
@@ -53,6 +57,7 @@ const MyAccount = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const pendingItems = pendingData?.slice(indexOfFirstItem, indexOfLastItem);
   const completedItems = completedData?.slice(indexOfFirstItem, indexOfLastItem);
+  const importedItems = importedData?.slice(indexOfFirstItem, indexOfLastItem);
 
   const userId = user?.userInfo?.user_id;
 
@@ -387,7 +392,7 @@ const MyAccount = () => {
           </div>
 
           <div className="row justify-content-between saved-form-div">
-            <div className="col-lg-6 col-md-6 pending-div">
+            <div className="col-xl-4 col-md-6 pending-div">
               <h2>Pending forms </h2>
 
               <div className="accordion" id="regularAccordionRobots">
@@ -415,14 +420,7 @@ const MyAccount = () => {
                           aria-expanded="false"
                           aria-controls={`regularCollapse${index + 1}`}
                         >
-                          {/* {serialNo + index + 1}.{ordinalNumbers[serialNo + index]} form */}
                           <td>{form?.form_name}
-                            {/* {form?.first_name}{" "}
-                            {form?.created_at
-                              ? "(" +
-                              moment(form?.created_at).format("DD/MM/YYYY") +
-                              ")"
-                              : ""} */}
                           </td>
                         </button>
                       </h2>
@@ -436,21 +434,14 @@ const MyAccount = () => {
                           <div className="accordion-content">
                             <div className="title-accodion">
                               <span>
-                                Form{" "}
-                                {form?.form_status === "Complete"
-                                  ? "submitted"
-                                  : form?.form_status?.toLowerCase()}
+                                Form pending
                               </span>
-                              {form?.form_status === "Pending" ? (
-                                <Link
-                                  to={formSwitch(form)}
-                                  onClick={() => navigateToNext(form)}
-                                >
-                                  Continue form
-                                </Link>
-                              ) : (
-                                <a href="#">View form</a>
-                              )}
+                              <Link
+                                to={formSwitch(form)}
+                                onClick={() => navigateToNext(form)}
+                              >
+                                Continue form
+                              </Link>
                             </div>
                             <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
                               <div className="icon-text d-flex flex-column">
@@ -461,14 +452,7 @@ const MyAccount = () => {
                                   onClick={() => downloadHandler(form.id)}
                                 />
                               </div>
-                              <div className="icon-text d-flex flex-column">
-                                CSV
-                                <img
-                                  src={share_img}
-                                  alt=""
-                                  onClick={() => downloadCSVHandler(form.id)}
-                                />
-                              </div>
+
                               <div className="icon-text">
                                 <img
                                   src={delete2_img}
@@ -481,6 +465,7 @@ const MyAccount = () => {
                         </div>
                       </div>
                     </div>
+                    
                   ))
                 ) : (
                   <div className="text-center">Data not found</div>
@@ -496,7 +481,7 @@ const MyAccount = () => {
                 />
               )}
             </div>
-            <div className="col-lg-6 col-md-6 submitted-div">
+            <div className="col-xl-4 col-md-6 submitted-div">
               <h2>Submitted forms</h2>
               <div className="accordion" id="regularAccordionRobots">
                 {isLoading ? (
@@ -537,21 +522,11 @@ const MyAccount = () => {
                           <div className="accordion-content">
                             <div className="title-accodion">
                               <span>
-                                Form{" "}
-                                {form?.form_status === "Complete"
-                                  ? "submitted"
-                                  : form?.form_status?.toLowerCase()}
+                                Form submitted
                               </span>
-                              {form?.form_status === "Pending" ? (
-                                <Link
-                                  to={formSwitch(form)}
-                                  onClick={() => navigateToNext(form)}
-                                >
-                                  Complete form
-                                </Link>
-                              ) : (
-                                <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
-                              )}
+
+                              <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
+
                             </div>
                             <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
                               <div className="icon-text d-flex flex-column">
@@ -560,14 +535,6 @@ const MyAccount = () => {
                                   src={share_img}
                                   alt=""
                                   onClick={() => downloadHandler(form.id)}
-                                />
-                              </div>
-                              <div className="icon-text d-flex flex-column">
-                                CSV
-                                <img
-                                  src={share_img}
-                                  alt=""
-                                  onClick={() => downloadCSVHandler(form.id)}
                                 />
                               </div>
                               <div className="icon-text">
@@ -597,6 +564,97 @@ const MyAccount = () => {
                 />
               )}
             </div>
+            <div className="col-xl-4 col-md-6 historical-div">
+              <h2>Historical forms </h2>
+
+              <div className="accordion" id="regularAccordionRobots">
+                {isLoading ? (
+                  <div className="text-center">loading...</div>
+                ) : importedItems?.length > 0 ? (
+                  importedItems?.map((form, index) => (
+                    <div
+                      className={
+                        "accordion-item " +
+                        form?.form_status?.toLowerCase() +
+                        "-form"
+                      }
+                      key={index}
+                    >
+                      <h2
+                        className="accordion-header"
+                        id={`regularHeading${index + 1}`}
+                      >
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#regularCollapse-history${index + 1}`}
+                          aria-expanded="false"
+                          aria-controls={`regularCollapse-history${index + 1}`}
+                        >
+                         
+                          <td>{form?.form_name}
+                          </td>
+                        </button>
+                      </h2>
+                      <div
+                        id={`regularCollapse-history${index + 1}`}
+                        className="accordion-collapse collapse"
+                        aria-labelledby={`regularHeading${index + 1}`}
+                        data-bs-parent="#regularAccordionRobots"
+                      >
+                        <div className="accordion-body">
+                          <div className="accordion-content">
+                            <div className="title-accodion">
+                              <span>
+                                Form pending
+                              </span>
+                                <Link
+                                  to={formSwitch(form)}
+                                  onClick={() => navigateToNext(form)}
+                                >
+                                  Continue form
+                                </Link>
+                              
+                            </div>
+                            <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
+                              <div className="icon-text d-flex flex-column">
+                                PDF
+                                <img
+                                  src={share_img}
+                                  alt=""
+                                  onClick={() => downloadHandler(form.id)}
+                                />
+                              </div>
+
+                              <div className="icon-text">
+                                <img
+                                  src={delete2_img}
+                                  alt=""
+                                  onClick={() => formDeleteHandler(form.id)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center">Data not found</div>
+                )}
+              </div>
+
+              {!isLoading && importedData?.length > 0 && (
+                <Pagination
+                  dataLength={importedData?.length}
+                  itemsPerPage={itemsPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              )}
+            </div>
+
           </div>
         </div>
       </section>

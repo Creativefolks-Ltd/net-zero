@@ -132,6 +132,7 @@ input {
     right: 0;
     z-index: 1000;
 }
+
 ul li a {
     cursor: pointer;
 }
@@ -411,12 +412,13 @@ ul li a {
     border: none;
     border-radius: 10px !important;
 }
+
 select.form-control:disabled {
     background-color: #fff;
 }
 
 .card p a {
-    color: #000; 
+    color: #000;
 }
 
 .card p {
@@ -1045,7 +1047,8 @@ section.protecting-data {
 .information-cricle-box.success:after {
     background: #81C14B;
 }
-.information .information-icon-box .information-cricle-box.active + p{    
+
+.information .information-icon-box .information-cricle-box.active+p {
     font-weight: 600;
 }
 
@@ -1762,12 +1765,13 @@ select {
     margin-bottom: 130px;
 }
 
-.saved-form-div .submitted-div {
+.saved-form-div .submitted-div,
+.saved-form-div .historical-div {
     padding-left: 38px;
 }
 
 .saved-form-div .pending-div {
-    padding-right: 38px;
+    /* padding-right: 38px; */
 }
 
 /*****************accordion****************/
@@ -1801,7 +1805,7 @@ select {
 
 .accordion-body {
     background: #FAFCF7;
-    padding: 22px 26px 30px 58px;
+    padding: 22px 26px 30px 26px;
 }
 
 .accordion-img img {
@@ -1825,7 +1829,7 @@ select {
 }
 
 .title-accodion span {
-    font-size: 28px;
+    font-size: 25px;
     line-height: 34px;
     font-weight: 300;
     margin-bottom: 10px;
@@ -1841,7 +1845,7 @@ select {
 }
 
 .title-accodion a {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 28px;
     font-weight: 500;
     text-decoration: none;
@@ -1888,8 +1892,9 @@ select {
 }
 
 .pending-div h2,
-.submitted-div h2 {
-    font-size: 44px;
+.submitted-div h2,
+.historical-div h2 {
+    font-size: 40px;
     line-height: 48px;
 }
 
@@ -2076,6 +2081,7 @@ select {
     background: #fff;
     overflow: hidden;
 }
+
 .submissions .table-box {
     overflow: auto;
 }
@@ -2179,6 +2185,7 @@ select {
     display: flex;
     align-items: center;
 }
+
 .entries-box select {
     width: 100%;
     padding: 10px 15px;
@@ -2252,6 +2259,7 @@ select {
     margin-right: 0;
     margin-left: 0;
 }
+
 .upload-box-body.drag-over {
     border: 3px solid #48B8B1;
 }
@@ -2659,6 +2667,10 @@ select {
     .tab-content {
         padding-left: 25px;
     }
+    .saved-form-div .historical-div {
+        margin-top: 34px;
+        padding-left: 1rem;
+    }
 }
 
 @media (max-width:1199px) {
@@ -2713,7 +2725,7 @@ select {
     }
 
     .saved-form-div h2 {
-        font-size: 52px;
+        font-size: 41px;
         line-height: 58px;
     }
 
@@ -2832,6 +2844,7 @@ select {
     .submissions .modal-content {
         width: 94% !important;
     }
+
     .Policy .policy-data h2 {
         margin-top: 40px;
     }
@@ -2919,6 +2932,7 @@ select {
     .modal-body.upload-box-body {
         padding: 20px 10px;
     }
+
     .submissions .modal,
     .submissions .modal-content {
         max-width: 100% !important;
@@ -3820,9 +3834,11 @@ select {
     .submissions {
         margin-bottom: 80px;
     }
+
     .table-box {
         margin-top: 40px;
     }
+
     .submissions-header-btn .submit-btn {
         width: 92%;
         margin: 0 auto;
@@ -3870,7 +3886,8 @@ select {
         padding-right: 12px;
     }
 
-    .saved-form-div .submitted-div {
+    .saved-form-div .submitted-div,
+    .saved-form-div .historical-div {
         padding-left: 12px;
         margin-top: 34px;
     }
@@ -3943,14 +3960,17 @@ select {
     .food-shopping p.gray-paragraph {
         text-align: left;
     }
-    .submissions .customers th { 
+
+    .submissions .customers th {
         color: white;
         font-size: 19px;
         line-height: 22px;
     }
+
     .form-name-container .close-btn-box button svg {
         width: 30px;
     }
+
     /*********************** forgotpaddword *********************/
 
     .login-form-inner-bg {
@@ -4017,6 +4037,7 @@ a.view-form-link {
     padding: 30px;
     border-radius: 15px;
 }
+
 .form-name-container .modal-body {
     padding: 0;
 }
@@ -4025,7 +4046,7 @@ a.view-form-link {
     margin-top: 14px !important;
 }
 
-.form-name-container input, 
+.form-name-container input,
 .form-name-container select {
     border: 1px solid #212529;
 }
@@ -4034,7 +4055,7 @@ a.view-form-link {
     background: transparent;
     box-shadow: none !important;
     border: none;
-    
+
 }
 
 /*********************** Cookie section *********************/
@@ -4044,23 +4065,28 @@ a.view-form-link {
 }
 
 
-@media (max-width: 480px){
-.submissions .modal, .submissions .modal-content {
-    max-width: 96%!important;
-    text-align: center;
-    margin: 0 auto !important;
-    transform: translate(4px, 10px);
-}
-.submissions .modal-content {
-   padding: 30px;
-}
-.submissions .modal-content h1 {
-    font-size: 30px !important;
-    font-weight: 600;
-    line-height: 38px;
-    margin-bottom: 30px;
-}
-.submissions .close-btn-box button svg {
-    width: 30px;
-}
+@media (max-width: 480px) {
+
+    .submissions .modal,
+    .submissions .modal-content {
+        max-width: 96% !important;
+        text-align: center;
+        margin: 0 auto !important;
+        transform: translate(4px, 10px);
+    }
+
+    .submissions .modal-content {
+        padding: 30px;
+    }
+
+    .submissions .modal-content h1 {
+        font-size: 30px !important;
+        font-weight: 600;
+        line-height: 38px;
+        margin-bottom: 30px;
+    }
+
+    .submissions .close-btn-box button svg {
+        width: 30px;
+    }
 }
