@@ -39,7 +39,7 @@ const TravelView = ({ travel }) => {
       partner_offset_flights: travel?.partner_offset_flights ?? null,
       additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
       additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
-      transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(',') : [], //"car,bike.name" //string,
+      transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(/,(?![^(]*\))/) : [],
       transport_selected_year_details: travel?.transport_selected_year_details !== undefined && travel?.transport_selected_year_details !== null ? JSON.parse(travel?.transport_selected_year_details) : [],
       hotel_nights: travel?.hotel_nights ?? null,
       other_travel_info: travel?.other_travel_info ?? ""

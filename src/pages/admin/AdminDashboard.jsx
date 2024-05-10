@@ -369,7 +369,7 @@ const AdminDashboard = () => {
                     <input type="text" name="searchByEmail" value={searchByEmail} id="searchByEmail" placeholder="Email" onChange={(e) => setSearchByEmail(e.target.value)} />
                   </div>
                   <button className="submit-btn " type="button" onClick={(e) => searchFilter(e)}>
-                    Submit
+                    Search
                   </button>
                 </div>
               </form>
