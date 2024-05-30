@@ -163,7 +163,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     if (isValid) {
       setDisabled(true);
       let filteredValues = await validateAndFilterFields(values);
-      filteredValues.general_information_id = Number(user?.generalInfoId);
+      filteredValues.general_information_id = user?.generalInfoId;
 
       const response = await dispatch(homeFormSubmit(filteredValues));
       setDisabled(false)

@@ -104,8 +104,8 @@ const General = ({ isEdit, general }) => {
             forest_or_farmland_details,
             ...rest
         } = values;
-
-        const user_id = Number(user.userInfo.user_id);
+        
+        const user_id = user.userInfo.user_id;
         const filteredValues = {
             ...rest,
             ...(num_of_homes >= 1 ? { first_home_country } : {}),

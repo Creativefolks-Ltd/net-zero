@@ -228,7 +228,7 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
 
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
-        const general_information_id = Number(user?.generalInfoId);
+        const general_information_id = user?.generalInfoId;
         setIsSubmitted(true);
         // if (user?.formCompleted === 2) {
         //   handleActiveTab("travel")

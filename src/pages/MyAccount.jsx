@@ -99,7 +99,7 @@ const MyAccount = () => {
 
     if (isValid) {
       setDisabled(true);
-      const user_id = Number(user?.userInfo?.user_id);
+      const user_id = user?.userInfo?.user_id;
 
       const response = await dispatch(
         updateUserDetails({ data: values, user_id })

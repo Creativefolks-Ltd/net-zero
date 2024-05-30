@@ -138,7 +138,7 @@ const Travel = ({ isEdit, travel }) => {
         const data = { formValues: filteredValues, form_id: travel?.id }
         response = await dispatch(travelFormUpdate(data));
       } else {
-        filteredValues.general_information_id = Number(user?.generalInfoId);
+        filteredValues.general_information_id = user?.generalInfoId;
         response = await dispatch(travelFormSubmit(filteredValues));
       }
       setDisabled(false);

@@ -186,7 +186,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
       });
 
       if (result.isConfirmed) {
-        const general_information_id = Number(user?.generalInfoId);
+        const general_information_id = user?.generalInfoId;
 
         await dispatch(homeFormDelete(currentHomeId));
         Swal.fire({

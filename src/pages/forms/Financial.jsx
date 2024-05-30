@@ -18,7 +18,7 @@ const Financial = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setDisabled(true);
-    let values = { general_information_id: Number(user?.generalInfoId), form_status: "Submit" }
+    let values = { general_information_id: user?.generalInfoId, form_status: "Submit" }
 
     const response = await dispatch(finanicialFormSubmit(values));
     setDisabled(false)

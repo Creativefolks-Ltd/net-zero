@@ -19,7 +19,7 @@ const FormActionTabs = ({ activeTab, handleActiveTab, setSelectedHome, homeLengt
   const user = useSelector((state) => state.auth);
   const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
   const submittedFormCount = useSelector((state) => state.users?.submittedFormCount);
-  const general_information_id = Number(user?.generalInfoId);
+  const general_information_id = user?.generalInfoId;
   const formCompleted = Number(user?.formCompleted);
 
   useEffect(() => {

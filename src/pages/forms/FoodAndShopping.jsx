@@ -94,7 +94,7 @@ const FoodAndShopping = ({ isEdit, food }) => {
       const data = { formValues: filteredValues, form_id: food?.id }
       response = await dispatch(foodFormUpdate(data));
     } else {
-      filteredValues.general_information_id = Number(user?.generalInfoId);
+      filteredValues.general_information_id = user?.generalInfoId;
       response = await dispatch(foodFormSubmit(filteredValues));
     }
     setDisabled(false)

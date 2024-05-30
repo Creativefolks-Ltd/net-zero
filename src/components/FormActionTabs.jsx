@@ -24,7 +24,7 @@ const FormActionTabs = ({ selectedTab, homeActiveTab, setHomeActiveTab }) => {
 
   const [activeTab, setActiveTab] = useState(selectedTab);
 
-  const general_information_id = Number(user?.generalInfoId);
+  const general_information_id = user?.generalInfoId;
 
   const showHomeTabs = selectedTab === "home";
   useEffect(() => {

@@ -19,7 +19,7 @@ const FormTabsView = ({ activeTab, handleActiveTab, setSelectedHome, homeLength 
   const user = useSelector((state) => state.auth);
   const homeIds = useSelector((state) => state.users?.homeFormIdList) || [];
 
-  const general_information_id = Number(user?.generalInfoId);
+  const general_information_id = user?.generalInfoId;
 
   useEffect(() => {
     if(general_information_id){
