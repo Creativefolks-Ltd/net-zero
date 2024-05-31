@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../api/axios";
 import { setMessage } from "./message";
-import { logout } from "../reducers/auth";
+import { logout, setEncryptedId } from "../reducers/auth";
 
 
 export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
@@ -15,6 +15,9 @@ export const userLogin = createAsyncThunk('userLogin', async (data, thunkAPI) =>
         return response.data;
 
     } catch (error) {
+        if (error?.response?.data?.data?.user_id) {
+            thunkAPI.dispatch(setEncryptedId(error?.response?.data?.data?.user_id))
+        }
         return error;
     }
 });
@@ -50,6 +53,23 @@ export const forgetPassword = createAsyncThunk('forgetPassword', async (data, th
 export const resetPassword = createAsyncThunk('resetPassword', async (data, thunkAPI) => {
     try {
         const response = await axios.put("/api/reset/password", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const resendVerificationOtp = createAsyncThunk('resendVerificationOtp', async (id, thunkAPI) => {
+    try {
+        const response = await axios.get(`/api/resend/verification/otp/${id}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+export const verifyAccount = createAsyncThunk('verifyAccount', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/verify/account", data);
         return response.data;
     } catch (error) {
         return error;

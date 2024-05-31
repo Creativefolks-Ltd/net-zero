@@ -4064,6 +4064,37 @@ a.view-form-link {
     color: #fff !important;
 }
 
+/*********************** Verify otp section *********************/
+.otp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.otp-inputs input {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.text-green{
+    color: #81C14B;
+}
+.cursor-pointer{
+    cursor: pointer;;
+}
+
 
 @media (max-width: 480px) {
 

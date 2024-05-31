@@ -81,7 +81,7 @@ const AdminDashboard = () => {
 
     if (isValid) {
       setDisabled(true);
-      const user_id = Number(admin?.adminDetails?.user_id);
+      const user_id = admin?.adminDetails?.user_id;
 
       const response = await dispatch(updateAdminDetails({ data: values, user_id }));
       setDisabled(false)

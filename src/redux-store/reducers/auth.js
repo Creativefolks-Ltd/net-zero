@@ -7,6 +7,7 @@ import { updateAdminDetails } from "../actions/admin";
 const initialState = {
     loading: false,
     userInfo: null,
+    encryptedId: null,
     error: null,
     success: false,
     generalInfoId: null,
@@ -28,6 +29,12 @@ const authSlice = createSlice({
         },
         setFormName(state, action) {
             state.formName = action.payload
+        },
+        removeEncryptedId(state, action) {
+            state.encryptedId = null
+        },
+        setEncryptedId(state, action) {
+            state.encryptedId = action.payload
         },
         logout(state) {
             state.loading = false;
@@ -77,7 +84,7 @@ const authSlice = createSlice({
                 state.error = null;
             }).addCase(userSignup.fulfilled, (state, action) => {
                 state.loading = false;
-                state.userInfo = action.payload?.data;
+                state.encryptedId = action.payload?.data?.user_id;
                 state.success = true;
             }).addCase(userSignup.rejected, (state, action) => {
                 state.loading = false;
@@ -134,5 +141,5 @@ const authSlice = createSlice({
     }
 });
 
-export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setFormName } = authSlice.actions;
+export const { loginAction, logout, adminLogout, generalInfo, setFormCompleted, setFormName, removeEncryptedId, setEncryptedId } = authSlice.actions;
 export default authSlice.reducer;

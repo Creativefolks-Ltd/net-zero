@@ -74,12 +74,21 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showSPassword, setShowSPassword] = useState(false)
     const [showSCPassword, setShowSCPassword] = useState(false)
-    const { loading, userInfo, error } = useSelector((state) => state.auth)
+    const { loading, userInfo, error, encryptedId } = useSelector((state) => state.auth)
 
 
     const navigateToNext = () => {
         navigate("/my-account")
     }
+
+    const navigateToVerifyOtp = async (e) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        navigate("/verify-otp")
+    }
+
     const loginFormik = useFormik({
         initialValues: {
             role_id: 2,
@@ -94,7 +103,7 @@ const Login = () => {
             try {
                 const response = await dispatch(userLogin(values))
                 if (!response?.payload?.error && response?.payload?.data) {
-                    navigateToNext();
+                    navigateToNext()
                 } else {
                     Swal.fire({
                         title: "Failed!",
@@ -102,7 +111,9 @@ const Login = () => {
                         icon: "error",
                         showCancelButton: false,
                         confirmButtonColor: "#81c14b",
+                        confirmButtonText: encryptedId ? "Please verify" : "Ok"
                     });
+                    encryptedId !== null && navigateToVerifyOtp();
                 }
             } catch (error) {
                 Swal.fire({
@@ -115,6 +126,7 @@ const Login = () => {
             }
         },
     });
+
     const signupFormik = useFormik({
         initialValues: {
             first_name: '',
@@ -134,7 +146,7 @@ const Login = () => {
             try {
                 const response = await dispatch(userSignup(values));
                 if (!response?.payload?.error && response?.payload?.data) {
-                    navigateToNext();
+                    navigateToVerifyOtp()
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {

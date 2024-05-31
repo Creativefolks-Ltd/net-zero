@@ -26,6 +26,7 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import { userFormReset } from "./redux-store/reducers/user.js";
 import { setHomeCount } from "./redux-store/reducers/forms.js";
 import CookieConsent from "react-cookie-consent";
+import VerifyOtp from "./pages/VerifyOtp.jsx";
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin/*" element={<Dashboard />} />
         </Route>
