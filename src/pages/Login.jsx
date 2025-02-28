@@ -7,10 +7,10 @@ import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import SuccessImg from "../assets/images/Group 9106.png"
 import { Link, useNavigate } from 'react-router-dom';
-import SweetAlert from '../components/SweetAlert';
 import PasswordInput from '../components/PasswordInput'
 import AdminLoginImg from "../assets/images/admin-login.svg"
 import { emailRegex, strongPasswordRegex } from '../helpers/validations/Schema'
+import SweetAlert from '../utils/sweetAlert'
 
 
 const signupValidate = values => {
@@ -101,27 +101,25 @@ const Login = () => {
                 return false
             }
             try {
-                const response = await dispatch(userLogin(values))
-                if (!response?.payload?.error && response?.payload?.data) {
-                    navigateToNext()
-                } else {
-                    Swal.fire({
-                        title: "Failed!",
-                        text: response?.payload?.response?.data?.errorMsg || "Something went wrong!",
-                        icon: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#81c14b",
-                        confirmButtonText: encryptedId ? "Please verify" : "Ok"
+                const response = await dispatch(userLogin(values));
+
+                if (response?.payload?.error) {
+                    SweetAlert({
+                        type: "FAILED",
+                        title: "Login Failed!",
+                        text: response.payload.errorMsg || "Invalid credentials!",
+                        confirmButtonText: encryptedId ? "Please verify" : "OK",
+                        onConfirm: encryptedId ? navigateToVerifyOtp : null,
                     });
-                    encryptedId !== null && navigateToVerifyOtp();
+
+                } else if (response?.payload?.data) {
+                    navigateToNext();
                 }
             } catch (error) {
-                Swal.fire({
-                    title: "Failed!",
+                SweetAlert({
+                    type: "FAILED",
+                    title: "Error!",
                     text: "Something went wrong!",
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#81c14b",
                 });
             }
         },
@@ -159,22 +157,18 @@ const Login = () => {
                         } else {
                             errorMessage = errorMsg?.toString() || "";
                         }
-                        Swal.fire({
-                            title: "Failed!",
-                            html: errorMessage || "Failed to signup, please try again",
-                            icon: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#81c14b",
+                        SweetAlert({
+                            type: "FAILED",
+                            title: "Register Failed!",
+                            text: errorMessage || "Failed to signup, please try again",
                         });
                     }
                 }
             } catch (error) {
-                Swal.fire({
-                    title: "Failed!",
+                SweetAlert({
+                    type: "FAILED",
+                    title: "Error!",
                     text: "Something went wrong!",
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#81c14b",
                 });
             }
         }

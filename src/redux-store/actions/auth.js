@@ -11,16 +11,24 @@ export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
 
 export const userLogin = createAsyncThunk('userLogin', async (data, thunkAPI) => {
     try {
-        const response = await axios.post("/api/login", data, { headers: { "Accept": "application/json", "Content-Type": "application/json" } });
+        const response = await axios.post("/api/login", data, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
         return response.data;
-
     } catch (error) {
+        const errorMsg = error?.response?.data?.errorMsg || "Something went wrong!";
+        
+        // Dispatch encrypted user ID if available
         if (error?.response?.data?.data?.user_id) {
-            thunkAPI.dispatch(setEncryptedId(error?.response?.data?.data?.user_id))
+            thunkAPI.dispatch(setEncryptedId(error.response.data.data.user_id));
         }
-        return error;
+        return thunkAPI.rejectWithValue({ error: true, errorMsg });
     }
 });
+
 
 export const adminLogin = createAsyncThunk('adminLogin', async (data, thunkAPI) => {
     try {

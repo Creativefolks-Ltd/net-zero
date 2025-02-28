@@ -33,7 +33,7 @@ const General = ({ isEdit, general }) => {
         if (details?.countries === undefined || details?.countries?.length === 0) {
             dispatch(getCountry())
         }
-    }, [details?.countries])
+    }, [])
 
     useEffect(() => {
         if (isEdit) {
