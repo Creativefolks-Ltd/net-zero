@@ -5,41 +5,69 @@ const requiredMsg = "This field is required";
 const selectOptionMsg = "Please select one option";
 const numberAllowMsg = "Only numbers are allowed";
 
+const firstNameMin2CharMsg = "First name must be at least 2 characters";
+const firstNameMax25CharMsg = "First name must be at most 25 characters";
+const firstNameRequiredMsg = "Please enter your first name";
+
+const lastNameMin2CharMsg = "Last name must be at least 2 characters";
+const lastNameMax25CharMsg = "Last name must be at most 25 characters";
+const lastNameRequiredMsg = "Please enter your last name";
+
+const emailRequiredMsg = "Please enter your email address";
+const emailInvalidMsg = "Please enter valid email address";
+const emailConfirmationMsg = "Email Confirmation must match with email";
+
+const passwordRequiredMsg = "Please enter your password";
+const passwordMin6CharMsg = "Password must be at least 6 characters";
+const passwordInvalidMsg = "Password must include an uppercase letter, a lowercase letter, a number, and a special character";
+
+const confirmPasswordRequiredMsg = "Confirm Password field is required";
+const confirmPasswordNotMatchMsg = "Confirm Password not matched";
+
+const oldPasswordRequiredMsg = "Old Password field is required";
+
+
+
+const alphabetsAllowMsg = "Only alphabetic characters and hyphens are allowed";
+
 export const strongPasswordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/;
 
 export const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
+export const nameRegex = /^[A-Za-z-]+$/;
+
 export const numberRegex = /^\d*\.?\d+$/;
 
 export const userFormValidation = Yup.object().shape({
-    first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
-    last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
-    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
+    first_name: Yup.string().matches(nameRegex, alphabetsAllowMsg).min(2, firstNameMin2CharMsg).max(25, firstNameMax25CharMsg).required(firstNameRequiredMsg),
+    last_name: Yup.string().matches(nameRegex, alphabetsAllowMsg).min(2, lastNameMin2CharMsg).max(25, lastNameMax25CharMsg).required(lastNameRequiredMsg),
+    email: Yup.string().matches(emailRegex, emailInvalidMsg).required(emailRequiredMsg),
 });
 export const createUserFormValidation = Yup.object().shape({
-    first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required("Please enter your first name"),
-    last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required("Please enter your last name"),
-    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
-    password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
-    cpassword: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('password'), null], 'Confirm Password not matched')
+    first_name: Yup.string().matches(nameRegex, alphabetsAllowMsg).min(2, firstNameMin2CharMsg).max(25, firstNameMax25CharMsg).required(firstNameRequiredMsg),
+    last_name: Yup.string().matches(nameRegex, alphabetsAllowMsg).min(2, lastNameMin2CharMsg).max(25, lastNameMax25CharMsg).required(lastNameRequiredMsg),
+    email: Yup.string().matches(emailRegex, emailInvalidMsg).required(emailRequiredMsg),
+    password: Yup.string().matches(strongPasswordRegex, passwordInvalidMsg).required(passwordRequiredMsg),
+    cpassword: Yup.string().required(confirmPasswordRequiredMsg).oneOf([Yup.ref('password'), null], confirmPasswordNotMatchMsg)
 });
 
 export const changePasswordFormValidation = Yup.object().shape({
-    new_password: Yup.string().matches(strongPasswordRegex, "Password must include an uppercase letter, a lowercase letter, a number, and a special character").required("Please enter your password"),
-    reenter_password: Yup.string().required("Confirm Password field is required").oneOf([Yup.ref('new_password'), null], 'Confirm Password not matched'),
-    old_password: Yup.string().required("Old Password field is required")
+    new_password: Yup.string().matches(strongPasswordRegex, passwordInvalidMsg).required(passwordRequiredMsg),
+    reenter_password: Yup.string().required(confirmPasswordRequiredMsg).oneOf([Yup.ref('new_password'), null], confirmPasswordNotMatchMsg),
+    old_password: Yup.string().required(oldPasswordRequiredMsg)
 });
 
 export const loginFormValidation = Yup.object().shape({
-    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required('Please enter your email'),
-    password: Yup.string().required("Please enter your password"),
+    email: Yup.string().matches(emailRegex, emailInvalidMsg).required(emailRequiredMsg),
+    password: Yup.string().required(passwordRequiredMsg),
 });
 
 export const formvalidation = Yup.object().shape({
-    first_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "First name must be at least 2 characters").max(25, "First name must be at most 25 characters").required(requiredMsg),
-    last_name: Yup.string().matches(/^[A-Za-z]+$/, 'Only alphabetic characters are allowed').min(2, "Last name must be at least 2 characters").max(25, "Last name must be at most 25 characters").required(requiredMsg),
-    email: Yup.string().matches(emailRegex, 'Please enter valid email address').required(requiredMsg),
-    emailConfirmation: Yup.string().email().required(requiredMsg).oneOf([Yup.ref('email'), null], 'Email Confirmation must match with email'),
+    first_name: Yup.string().matches(nameRegex, alphabetsAllowMsg)
+        .min(2, firstNameMin2CharMsg).max(25, firstNameMax25CharMsg).required(requiredMsg),
+    last_name: Yup.string().matches(nameRegex, alphabetsAllowMsg).min(2, lastNameMin2CharMsg).max(25, lastNameMax25CharMsg).required(requiredMsg),
+    email: Yup.string().matches(emailRegex, emailInvalidMsg).required(requiredMsg),
+    emailConfirmation: Yup.string().email().required(requiredMsg).oneOf([Yup.ref('email'), null], emailConfirmationMsg),
     year_of_birth: Yup.string().required(selectOptionMsg),
     country_of_residence: Yup.string().required(selectOptionMsg),
     num_of_homes: Yup.string().required(selectOptionMsg),
@@ -80,7 +108,8 @@ export const homeFormvalidation = (values) => {
     }
 
     //// Electricity
-    if (values?.zero_carbon_energy_tariff === "No" && values?.heating_type?.includes("Electricity")) {
+    // if (values?.zero_carbon_energy_tariff === "No" && values?.heating_type?.includes("Electricity")) {
+    if (values?.heating_type?.includes("Electricity")) {
         if (!values?.electricity_usage_known?.trim()) {
             errors.electricity_usage_known = selectOptionMsg
         }
@@ -389,9 +418,9 @@ export const forgotPasswordValidation = (values) => {
     const errors = {};
 
     if (!values.email?.trim()) {
-        errors.email = 'Email Address field is required';
+        errors.email = emailRequiredMsg;
     } else if (!emailRegex.test(values?.email)) {
-        errors.email = 'Invalid email address';
+        errors.email = emailInvalidMsg;
     }
 
     return errors;
@@ -401,17 +430,17 @@ export const resetPasswordValidation = (values) => {
     const errors = {};
 
     if (!values.password?.trim()) {
-        errors.password = 'Password field is required';
+        errors.password = passwordRequiredMsg;
     } else if (values.password.length < 6) {
-        errors.password = 'Password must be at least 6 characters';
+        errors.password = passwordMin6CharMsg;
     } else if (!strongPasswordRegex?.test(values.password)) {
-        errors.password = 'Password must include an uppercase letter, a lowercase letter, a number, and a special character';
+        errors.password = passwordInvalidMsg;
     }
 
     if (!values.cpassword?.trim()) {
-        errors.cpassword = 'Confirm Password field is required';
+        errors.cpassword = confirmPasswordRequiredMsg;
     } else if (values.password !== values.cpassword) {
-        errors.cpassword = 'Confirm Password not matched';
+        errors.cpassword = confirmPasswordNotMatchMsg;
     }
 
     return errors;

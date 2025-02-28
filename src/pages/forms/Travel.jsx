@@ -52,8 +52,10 @@ const Travel = ({ isEdit, travel }) => {
         partner_offset_flights: travel?.partner_offset_flights ?? "",
         additional_vehicles_by_partner_children: travel?.additional_vehicles_by_partner_children ?? null,
         additional_vehicles_by_partner_detail: travel?.additional_vehicles_by_partner_detail !== undefined ? JSON.parse(travel?.additional_vehicles_by_partner_detail) : [],
-        transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(/,(?![^(]*\))/) : [], 
+        transport_selected_year: travel?.transport_selected_year !== undefined ? travel?.transport_selected_year?.split(/,(?![^(]*\))/) : [],
         transport_selected_year_details: travel?.transport_selected_year_details !== undefined && travel?.transport_selected_year_details !== null ? JSON.parse(travel?.transport_selected_year_details) : [],
+        is_flight_price_fully_paid: travel?.is_flight_price_fully_paid ?? "",
+        flight_cost_split_count: travel?.flight_cost_split_count ?? null,
         hotel_nights: travel?.hotel_nights ?? null,
         other_travel_info: travel?.other_travel_info ?? ""
       })
@@ -79,6 +81,8 @@ const Travel = ({ isEdit, travel }) => {
       additional_vehicles_by_partner_detail: [],
       transport_selected_year: [], //"car,bike.name" //string,
       transport_selected_year_details: [],
+      is_flight_price_fully_paid: "",
+      flight_cost_split_count: null,
       hotel_nights: null,
       other_travel_info: ""
     },
@@ -87,6 +91,24 @@ const Travel = ({ isEdit, travel }) => {
 
     onSubmit: submitHandler
   });
+
+  function shouldShowQuestion8a(values, firstQuestionAnswer) {
+    // Check if the first question is answered "No"
+    if (firstQuestionAnswer !== "No") {
+      return false; // Do not show Question 8a
+    }
+
+    // Check if ANY business flight has a value greater than 0
+    for (const key in values) {
+      if (values[key] && typeof values[key] === "object") {
+        if ("business" in values[key] && values[key].business > 0) {
+          return false; // User has taken at least one business flight
+        }
+      }
+    }
+
+    return true; // Show Question 8a if all business flights are 0
+  }
 
   const validateAndFilterFields = (values) => {
     const {
@@ -99,6 +121,8 @@ const Travel = ({ isEdit, travel }) => {
       transport_selected_year,
       transport_selected_year_details,
       hotel_nights,
+      is_flight_price_fully_paid,
+      flight_cost_split_count,
       ...rest
     } = values;
 
@@ -113,6 +137,10 @@ const Travel = ({ isEdit, travel }) => {
       transport_selected_year: transport_selected_year?.toString(),
       transport_selected_year_details: transport_selected_year_details?.slice(0, Number(transport_selected_year?.length)),
       hotel_nights: Number(hotel_nights),
+      is_flight_price_fully_paid,
+      ...(shouldShowQuestion8a(values, is_flight_price_fully_paid) && flight_cost_split_count
+        ? { flight_cost_split_count: flight_cost_split_count.trim() }
+        : {}),
     };
 
     return filteredValues;
@@ -200,6 +228,7 @@ const Travel = ({ isEdit, travel }) => {
       transport_selected_year_details: updatedTransportDetails,
     });
   };
+
 
   return (
     <>
@@ -689,11 +718,58 @@ const Travel = ({ isEdit, travel }) => {
                     ))}
                   </div>
                 )}
+                <div className="form-div">
+                  <label htmlFor="is_flight_price_fully_paid">
+                    <strong>8.&nbsp;</strong>The user was responsible for the full price of the private jet travel?{" "}
+                  </label>
+                  <div className="col-lg-5">
+                    <div className="sub-btn">
+                      <input
+                        type="radio"
+                        id="is_flight_price_fully_paid_yes"
+                        name="is_flight_price_fully_paid"
+                        value="Yes"
+                        checked={formik.values.is_flight_price_fully_paid === "Yes"}
+                        onChange={formik.handleChange}
+                      />
+                      <label htmlFor="is_flight_price_fully_paid_yes" className={formik.values.is_flight_price_fully_paid === "Yes" ? "active" : ""}>Yes</label>
+                      <input
+                        type="radio"
+                        id="is_flight_price_fully_paid_no"
+                        name="is_flight_price_fully_paid"
+                        value="No"
+                        checked={formik.values.is_flight_price_fully_paid === "No"}
+                        onChange={formik.handleChange}
+                      />
+                      <label htmlFor="is_flight_price_fully_paid_no" className={formik.values.is_flight_price_fully_paid === "No" ? "active" : ""}>
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
 
+                {shouldShowQuestion8a(formik.values, formik.values.is_flight_price_fully_paid) && (
+                  <div className="form-div">
+                    <div className="form-label-div">
+                      <label htmlFor="flight_cost_split_count">
+                        <strong>8a.&nbsp;</strong>how many people the price of the flight was split by.
+                      </label>
+                    </div>
+                    <input
+                      type="text"
+                      id="flight_cost_split_count"
+                      className="form-control"
+                      name={`flight_cost_split_count`}
+                      value={formik.values.flight_cost_split_count}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                )}
                 <div className="Additional-box">
                   <div className="form-div">
                     <label htmlFor="hotel_nights">
-                      <strong>8.&nbsp;</strong>
+                      <strong>9.&nbsp;</strong>
                       How many nights did you spend in hotels, rentals, Airbnb,
                       etc that you paid to stay in but do not own in the
                       selected year? Please include stays in Mettingen.
@@ -709,7 +785,7 @@ const Travel = ({ isEdit, travel }) => {
                     />
                   </div>
                   <label htmlFor="other_travel_info">
-                    <strong>9.&nbsp;</strong>
+                    <strong>10.&nbsp;</strong>
                     Is there any other travel information that you would like to
                     tell us about (e.g. family stays in hotels, spend on
                     transport-related services not otherwise included)? If you

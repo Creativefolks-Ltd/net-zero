@@ -368,7 +368,8 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
               </div>
             </div>
             {/* Electricity Section */}
-            {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type?.includes("Electricity") && (
+            {/* {formik?.values?.zero_carbon_energy_tariff === "No" && formik.values.heating_type?.includes("Electricity") && ( */}
+            {formik.values.heating_type?.includes("Electricity") && (
               <div className="bg-lightgray-color mt-80">
                 <div className="row">
                   <div className="col-lg-12">
@@ -376,7 +377,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                       <div className="card card-par">
                         <h2>Electricity</h2>
 
-                        <div className="form ">
+                        <div className="form">
                           <div className="row">
                             <div className="form-div">
 
