@@ -352,7 +352,7 @@ const HomeFormEdit = ({ home, selectedHome, setSelectedHome, handleActiveTab, Lo
                           <div className="form-div">
                             <div className="form-label-div">
                               <label htmlFor="heating_type">
-                                <strong>2.&nbsp;</strong>Which forms of energy do you use at your home??
+                                <strong>2.&nbsp;</strong>Which forms of energy do you use at your home?
                                 <span>*</span>
                               </label>
                               <p>(Select all that apply)</p>
