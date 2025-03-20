@@ -281,7 +281,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                           <div className="form-div">
                             <div className="form-label-div">
                               <label htmlFor="heating_type">
-                                <strong>2.&nbsp;</strong>How is the home heated?
+                                <strong>2.&nbsp;</strong>which forms of energy do you use at your home?
                                 <span>*</span>
                               </label>
                               <p>(Select all that apply)</p>
