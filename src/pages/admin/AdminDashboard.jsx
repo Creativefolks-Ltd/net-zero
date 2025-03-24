@@ -395,12 +395,12 @@ const AdminDashboard = () => {
                           <td>{moment(form?.created_at).format("DD/MM/YYYY")}</td>
                           <td className="d-flex justify-content-between gap-3 table-td">
                             <div className="d-flex justify-content-between align-items-center table-text">
-                              <p> <Link to={`/admin/form-view/${btoa(form?.id?.toString())}`} className="view-form-link">
+                              <p> <Link to={`/admin/form-view/${btoa(form?.form_id?.toString())}`} className="view-form-link">
                                 View form <img src={arrowImg} />
                               </Link> </p>
                             </div>
-                            <div className={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.id)} /></div>
-                            <div className={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.id)} /></div>
+                            <div className={`table-img ${loading ? "active" : ""}`}><span>PDF</span><img src={share_img} width={36} height={44} onClick={() => downloadHandler(form.form_id)} /></div>
+                            <div className={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.form_id)} /></div>
                           </td>
                         </tr>
                       )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}

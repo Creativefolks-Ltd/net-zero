@@ -215,7 +215,7 @@ const MyAccount = () => {
   };
 
   const navigateToNext = (form) => {
-    dispatch(addGeneralInfo(form.id));
+    dispatch(addGeneralInfo(form.form_id));
     dispatch(setFormCompleted(form.total_forms));
   };
 
@@ -449,7 +449,7 @@ const MyAccount = () => {
                                 <img
                                   src={share_img}
                                   alt=""
-                                  onClick={() => downloadHandler(form.id)}
+                                  onClick={() => downloadHandler(form.form_id)}
                                 />
                               </div>
 
@@ -457,7 +457,7 @@ const MyAccount = () => {
                                 <img
                                   src={delete2_img}
                                   alt=""
-                                  onClick={() => formDeleteHandler(form.id)}
+                                  onClick={() => formDeleteHandler(form.form_id)}
                                 />
                               </div>
                             </div>
@@ -525,7 +525,7 @@ const MyAccount = () => {
                                 Form submitted
                               </span>
 
-                              <Link to={`/form-view/${btoa(form.id)}`}>View form</Link>
+                              <Link to={`/form-view/${btoa(form.form_id)}`}>View form</Link>
 
                             </div>
                             <div className={`accordion-img table-img d-flex align-items-end  ${loading ? "active" : ""}`}>
@@ -534,14 +534,14 @@ const MyAccount = () => {
                                 <img
                                   src={share_img}
                                   alt=""
-                                  onClick={() => downloadHandler(form.id)}
+                                  onClick={() => downloadHandler(form.form_id)}
                                 />
                               </div>
                               <div className="icon-text">
                                 <img
                                   src={delete2_img}
                                   alt=""
-                                  onClick={() => formDeleteHandler(form.id)}
+                                  onClick={() => formDeleteHandler(form.form_id)}
                                 />
                               </div>
                             </div>
