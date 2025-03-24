@@ -498,7 +498,7 @@ const TravelView = ({ travel }) => {
                 )}
                 <div className="form-div">
                   <label htmlFor="is_flight_price_fully_paid">
-                    <strong>8.&nbsp;</strong>Were you responsible for the full price of the private jet travel?{" "}
+                    <strong>8.&nbsp;</strong>Were you responsible for the full price of the private jet travel?
                   </label>
                   <div className="col-lg-5">
                     <div className="sub-btn">
