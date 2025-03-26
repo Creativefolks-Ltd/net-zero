@@ -500,7 +500,7 @@ const TravelView = ({ travel }) => {
                   <label htmlFor="is_flight_price_fully_paid">
                     <strong>8.&nbsp;</strong>Were you responsible for the full price of the private jet travel?
                   </label>
-                  <div className="col-lg-5">
+                  <div className="col-lg-6">
                     <div className="sub-btn">
                       <input
                         type="radio"
@@ -519,6 +519,16 @@ const TravelView = ({ travel }) => {
                       />
                       <label htmlFor="is_flight_price_fully_paid_no" className={formik.values.is_flight_price_fully_paid === "No" ? "active" : ""}>
                         No
+                      </label>
+                      <input
+                        type="radio"
+                        id="is_flight_price_fully_paid_not_applied"
+                        name="is_flight_price_fully_paid"
+                        value="N/A"
+                        defaultChecked={formik.values.is_flight_price_fully_paid === "N/A"}
+                      />
+                      <label htmlFor="is_flight_price_fully_paid_not_applied" className={formik.values.is_flight_price_fully_paid === "N/A" ? "active" : ""}>
+                        N/A
                       </label>
                     </div>
                   </div>
