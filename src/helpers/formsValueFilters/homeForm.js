@@ -78,8 +78,8 @@ const validateAndFilterFields = (values) => {
     };
 
     // Electricity
-    // if (zero_carbon_energy_tariff === "No" && heating_type?.includes("Electricity")) {
-    if (heating_type?.includes("Electricity")) {
+    // if (heating_type?.includes("Electricity")) {
+    if (zero_carbon_energy_tariff === "No" && heating_type?.includes("Electricity")) {
       filteredValues.electricity_usage_known = electricity_usage_known;
 
       if (electricity_usage_known !== "No") {

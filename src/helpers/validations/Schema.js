@@ -108,8 +108,8 @@ export const homeFormvalidation = (values) => {
     }
 
     //// Electricity
-    // if (values?.zero_carbon_energy_tariff === "No" && values?.heating_type?.includes("Electricity")) {
-    if (values?.heating_type?.includes("Electricity")) {
+    // if (values?.heating_type?.includes("Electricity")) {
+    if (values?.zero_carbon_energy_tariff === "No" && values?.heating_type?.includes("Electricity")) {
         if (!values?.electricity_usage_known?.trim()) {
             errors.electricity_usage_known = selectOptionMsg
         }
