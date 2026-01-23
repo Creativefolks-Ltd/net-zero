@@ -231,7 +231,12 @@ const FoodAndShopping = ({ isEdit, food }) => {
                     </p>
                     <label htmlFor="important_purchases_detail">
                       <strong>2.&nbsp;</strong>
-                      Please give details of any other important purchases made in the selected year, such as TVs, laptops, phones and other electronics, domestic appliances, furniture, and home renovations. Please specify the relevant details, such as number and type. You do not need to include second-hand or refurbished items. You may optionally include items purchased by your household members.
+                      Please give details of any other significant purchases made in the selected year.
+                      Examples include:
+                      Electronics: TVs, laptops, phones, tablets, and other devices
+                      Domestic appliances: Washing machines, refrigerators, ovens
+                      Furniture: Sofas, beds, tables, chairs
+                      Home renovations: Kitchen or bathroom refurbishments, flooring upgrades
                     </label>
                     <textarea
                       rows="6"
@@ -244,13 +249,27 @@ const FoodAndShopping = ({ isEdit, food }) => {
                       onBlur={formik.handleBlur}
                       maxLength={1000}
                     ></textarea>
+
+                    <div className="mt-3 d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                      <svg
+                        className="flex-shrink-0 text-gray-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        style={{ width: "28px !important", height: "28px" }}
+                      >
+                        <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                      </svg>
+                      Note: For each item, please specify relevant details such as number, type, or size.
+                      You do not need to include second-hand or refurbished items.
+                      Optionally, you may include purchases made by household members.
+                      If applicable, you can also include the value of works for renovations or details of large purchases (e.g., quantity or weight). We will do our best to estimate emissions associated with these.
+                    </div>
                   </div>
 
                   <div className="form-div">
                     <div className="form-label-div">
                       <label htmlFor="average_pieces_per_quarter">
-                        <strong>3.&nbsp;</strong>On average, how many new pieces of
-                        clothing do you buy each quarter?
+                        <strong>3.&nbsp;</strong>On average, how many new pieces of clothing do you buy each month?
                       </label>
                     </div>
                     <select className="form-control "
@@ -460,11 +479,11 @@ const FoodAndShopping = ({ isEdit, food }) => {
                     ) : null}
                   </>
                 ) : (
-                    <div className="Additional-bottom-btn">
-                      <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Save & Complete Later </button>
-                      <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Continue </button>
-                    </div>
-                  )}
+                  <div className="Additional-bottom-btn">
+                    <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Save & Complete Later </button>
+                    <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Continue </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

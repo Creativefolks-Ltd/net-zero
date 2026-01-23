@@ -40,6 +40,22 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     years.push(year);
   }
 
+  const homeCountryFieldMap = {
+    1: "first_home_country",
+    2: "second_home_country",
+    3: "third_home_country",
+    4: "fourth_home_country",
+    5: "fifth_home_country",
+  };
+
+  useEffect(() => {
+    if (!details || !homeActiveTab) return;
+   
+    const fieldName = homeCountryFieldMap[homeActiveTab];
+    const countryValue = details?.singleForm?.[fieldName] || "";
+    formik.setFieldValue("location", countryValue);
+  }, [homeActiveTab, details]);
+
   useEffect(() => {
     if (details?.countries === undefined || details?.countries?.length === 0) {
       dispatch(getCountry())
@@ -48,6 +64,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
       formik.resetForm();
     })
   }, [details?.countries]);
+
 
   const formik = useFormik({
 
@@ -169,7 +186,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
       setDisabled(false)
       if (!response?.payload?.error && response?.payload?.data) {
         setIsSubmitted(true);
-        
+
         navigateToNext()
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
@@ -360,6 +377,17 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               {formik.errors.zero_carbon_energy_tariff}
                             </span>
                           ) : null}
+                          <div className="mt-3 d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                            <svg
+                              className="flex-shrink-0 text-gray-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              style={{ width: "28px", height: "28px" }}
+                            >
+                              <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                            </svg>
+                            Note: If you are unsure, please check your latest bill to check what type of tariff you are on.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1604,9 +1632,8 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                               <div className="form-label-div">
                                 <label htmlFor="property_features">
                                   <strong>13.&nbsp;</strong>Does the property have any
-                                  of the folllowing?
+                                  of the following?
                                 </label>
-                                <p>(mains supply)</p>
                               </div>
                               <div className="sub-btn">
                                 {home_features.map((type, index) => (
@@ -1872,13 +1899,7 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
                           )}
                           <div className="form-div">
                             <label htmlFor="other_details">
-                              <strong>23.&nbsp;</strong>Is there anything else you
-                              would like to tell us? For Example, What measures
-                              have you taken to improve the sustainability of
-                              your home? Have you had any challenges in doing so?
-                              Has the building has been developed to meet a
-                              particular environmental standard (Passivhaus
-                              standards etc) ? Do you use a heat pump?{" "}
+                              <strong>23.&nbsp;</strong>Is there anything else you would like to tell us? For example, what measures have you taken to improve the sustainability of your home? Have you had any challenges in doing so? Has the building been developed to meet a particular environmental standard (Passivhaus standards etc)? Do you use a heat pump?{" "}
                             </label>
                             <textarea
                               id="other_details"

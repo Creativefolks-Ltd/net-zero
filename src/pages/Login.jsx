@@ -144,7 +144,16 @@ const Login = () => {
             try {
                 const response = await dispatch(userSignup(values));
                 if (!response?.payload?.error && response?.payload?.data) {
-                    navigateToVerifyOtp()
+                    Swal.fire({
+                        icon: "success",
+                        title: "OTP Sent",
+                        text: "Your One-Time Password (OTP) will be sent to your registered email address",
+                        confirmButtonText: "Verify OTP",
+                        confirmButtonColor: "#81c14b",
+                    }).then(() => {
+                        navigateToVerifyOtp();
+                    });
+
                 } else {
                     const errorMsg = response?.payload?.response?.data?.errorMsg;
                     if (errorMsg) {

@@ -140,11 +140,11 @@ const General = ({ isEdit, general }) => {
     }
 
     async function handleSubmit(values) {
+        console.log(values)
         try {
             setDisabled(true)
             let response;
             const filteredValues = await validateAndFilterFields(values);
-
             if (isEdit) {
                 const data = { formValues: filteredValues, form_id: general?.id }
                 response = await dispatch(generalFormUpdate(data));

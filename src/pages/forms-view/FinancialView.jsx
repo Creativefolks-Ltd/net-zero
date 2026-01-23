@@ -21,11 +21,7 @@ const FinancialView = () => {
                 need to provide any details about your Anthos investments.
               </p>
               <p>
-                Please contact your Client Advisor/Investment Specialist to
-                discuss the carbon footprint of your Anthos investments. In case
-                you have any investments managed outside Anthos Private Wealth
-                Management and want to include these in the discussion, please
-                have these details to hand.
+                Please contact your Client Advisor/Investment Specialist to discuss the carbon footprint of your Anthos investments. In case you have any investments managed outside Anthos Private Wealth Management and want to include these in your discussions with your client advisor or investment specialist, please have these details to hand
               </p>
               <div className="form">
                 <form>

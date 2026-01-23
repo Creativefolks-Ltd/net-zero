@@ -339,6 +339,7 @@ export const travelformvalidation = Yup.object().shape({
     short_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
@@ -346,6 +347,7 @@ export const travelformvalidation = Yup.object().shape({
     medium_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
@@ -353,6 +355,7 @@ export const travelformvalidation = Yup.object().shape({
     long_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
@@ -360,6 +363,7 @@ export const travelformvalidation = Yup.object().shape({
     extended_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg).required(requiredMsg),
@@ -368,6 +372,7 @@ export const travelformvalidation = Yup.object().shape({
     partner_children_short_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
@@ -375,6 +380,7 @@ export const travelformvalidation = Yup.object().shape({
     partner_children_medium_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
@@ -382,6 +388,7 @@ export const travelformvalidation = Yup.object().shape({
     partner_children_long_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
@@ -389,6 +396,7 @@ export const travelformvalidation = Yup.object().shape({
     partner_children_extended_flights:
         Yup.object().shape({
             economy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
+            premiumEconomy: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             business: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             firstClass: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),
             private: Yup.string().matches(/^[0-9]+$/, numberAllowMsg),

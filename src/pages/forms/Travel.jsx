@@ -16,23 +16,23 @@ const Travel = ({ isEdit, travel }) => {
   const [completeLater, setCompleteLater] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const vehicalTypes = ["Motorbike", "Bicycle", "Passenger Ferry", "Train", "Private Yacht", "Private hire vehicles (taxis, transfers, limos, etc)", "Helicopter"];
+  const vehicalTypes = ["Motorbike", "Bicycle", "Passenger Ferry", "Train", "Private Yacht", "Helicopter", "Private hire vehicles (taxis, transfers, limos, etc)"];
 
-  const flightStandards = ["Economy", "Business", "First Class", "Private"];
+  const flightStandards = ["Economy", "Premium Economy", "Business", "First Class", "Private"];
 
   const flightTypes = ["Short Flights", "Medium Flights", "Long Flights", "Extended Flights"];
 
   const flights = {
-    short_flights: { economy: '', business: '', firstClass: '', private: '' },
-    medium_flights: { economy: '', business: '', firstClass: '', private: '' },
-    long_flights: { economy: '', business: '', firstClass: '', private: '' },
-    extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+    short_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    medium_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    long_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    extended_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
   };
   const flights2 = {
-    partner_children_short_flights: { economy: '', business: '', firstClass: '', private: '' },
-    partner_children_medium_flights: { economy: '', business: '', firstClass: '', private: '' },
-    partner_children_long_flights: { economy: '', business: '', firstClass: '', private: '' },
-    partner_children_extended_flights: { economy: '', business: '', firstClass: '', private: '' },
+    partner_children_short_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    partner_children_medium_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    partner_children_long_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
+    partner_children_extended_flights: { economy: '', premiumEconomy: '', business: '', firstClass: '', private: '' },
   }
 
   useEffect(() => {
@@ -65,17 +65,17 @@ const Travel = ({ isEdit, travel }) => {
 
   const formik = useFormik({
     initialValues: {
-      short_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      medium_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      long_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      extended_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      short_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      medium_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      long_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      extended_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
       proportion_offset_flights: null,
       how_many_cars: null,
       cars_detail: [],
-      partner_children_short_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      partner_children_medium_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      partner_children_long_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
-      partner_children_extended_flights: { economy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_short_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_medium_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_long_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
+      partner_children_extended_flights: { economy: 0, premiumEconomy: 0, business: 0, firstClass: 0, private: 0 },
       partner_offset_flights: "",
       additional_vehicles_by_partner_children: null,
       additional_vehicles_by_partner_detail: [],
@@ -281,7 +281,7 @@ const Travel = ({ isEdit, travel }) => {
                         <div className="input-row">
                           {Object.keys(flights[flightType]).map((classType, i) => (
                             <div className="input-col" key={`${classType}-${i}`}>
-                              <label className="text-nowrap">{flightStandards[i]}</label>
+                              <label className="text-nowraps">{flightStandards[i]}</label>
                               <input
                                 type="text"
                                 placeholder="00"
@@ -333,6 +333,17 @@ const Travel = ({ isEdit, travel }) => {
                         {formik.errors.proportion_offset_flights}
                       </span>
                     )}
+                  <div className="mt-3 d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                    <svg
+                      className="flex-shrink-0 text-gray-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      style={{ width: "28px", height: "28px" }}
+                    >
+                      <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                    </svg>
+                    Note: The term "offset" refers to actions taken to compensate for the emissions generated by your flights. This typically involves purchasing carbon credits, through the airline or externally, to support projects that reduce the content of or removes greenhouse gases from the atmosphere.
+                  </div>
                 </div>
 
                 <div className="form-div">
@@ -498,7 +509,7 @@ const Travel = ({ isEdit, travel }) => {
                         <div className="input-row">
                           {Object.keys(flights2[flightType]).map((classType, i) => (
                             <div className="input-col" key={`${classType}-${i}`}>
-                              <label className="text-nowrap">{flightStandards[i]}</label>
+                              <label className="text-nowraps">{flightStandards[i]}</label>
                               <input
                                 type="text"
                                 placeholder="00"
@@ -549,6 +560,17 @@ const Travel = ({ isEdit, travel }) => {
                         {formik.errors?.partner_offset_flights}
                       </span>
                     )}
+                  <div className="mt-3 d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                    <svg
+                      className="flex-shrink-0 text-gray-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      style={{ width: "28px", height: "28px" }}
+                    >
+                      <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                    </svg>
+                    Note: The term "offset" refers to actions taken to compensate for the emissions generated by your flights. This typically involves purchasing carbon credits, through the airline or externally, to support projects that reduce the content of or removes greenhouse gases from the atmosphere.
+                  </div>
                 </div>
 
                 <div className="form-div">
@@ -656,8 +678,7 @@ const Travel = ({ isEdit, travel }) => {
                   <div className="form-div">
                     <div className="form-label-div">
                       <label htmlFor="other_dependants">
-                        <strong>7.&nbsp;</strong>Did you use any other form of
-                        transport in the selected year?
+                        <strong>7.&nbsp;</strong>Did you or your partner use any other form of transport in the selected year?
                       </label>
                     </div>
                     <div className="sub-btn">
@@ -677,6 +698,18 @@ const Travel = ({ isEdit, travel }) => {
                           </label>
                         </div>
                       ))}
+                    </div>
+
+                    <div className="d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                      <svg
+                        className="flex-shrink-0 text-gray-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        style={{ width: "28px", height: "28px" }}
+                      >
+                        <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                      </svg>
+                      Note: There is an optional notes section to provide more context about the journeys.
                     </div>
                   </div>
                 </div>
@@ -763,7 +796,7 @@ const Travel = ({ isEdit, travel }) => {
                   <div className="form-div">
                     <div className="form-label-div">
                       <label htmlFor="flight_cost_split_count">
-                        <strong>8a.&nbsp;</strong>how many people the price of the flight was split by.
+                        <strong>8a.&nbsp;</strong>How many people was the price of the flight split by?
                       </label>
                     </div>
                     <input
@@ -794,14 +827,23 @@ const Travel = ({ isEdit, travel }) => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    <div className="mt-3 d-flex align-items-start justify-content-left text-start text-green gap-2 bg-light rounded p-2">
+                      <svg
+                        className="flex-shrink-0 text-gray-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        style={{ width: "28px", height: "28px" }}
+                      >
+                        <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-9-1h2V7H9v2zm0 4h2v-3H9v3z" />
+                      </svg>
+                      Note: Please only input your individual hotel stays, question 10- asks for input about total family hotel stay.
+                    </div>
                   </div>
                   <label htmlFor="other_travel_info">
                     <strong>10.&nbsp;</strong>
                     Is there any other travel information that you would like to
                     tell us about (e.g. family stays in hotels, spend on
-                    transport-related services not otherwise included)? If you
-                    use more than three cars, please also add details of
-                    distance traveled here.
+                    transport-related services not otherwise included)?
                   </label>
                   <textarea
                     id="other_travel_info"

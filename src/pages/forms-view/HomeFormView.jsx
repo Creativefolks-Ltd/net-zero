@@ -1158,9 +1158,8 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                               <div className="form-label-div">
                                 <label htmlFor="property_features">
                                   <strong>13.&nbsp;</strong>Does the property have any
-                                  of the folllowing?
+                                  of the following?
                                 </label>
-                                <p>(mains supply)</p>
                               </div>
                               <div className="sub-btn">
                                 {home_features.map((type, index) => (
@@ -1393,13 +1392,7 @@ const HomeFormView = ({ home, selectedHome, setSelectedHome }) => {
                           )}
                           <div className="form-div">
                             <label htmlFor="other_details">
-                              <strong>23.&nbsp;</strong>Is there anything else you
-                              would like to tell us? For Example, What measures
-                              have you taken to improve the sustainability of
-                              your home? Have you had any challenges in doing so?
-                              Has the building has been developed to meet a
-                              particular environmental standard (Passivhaus
-                              standards etc) ? Do you use a heat pump?{" "}
+                              <strong>23.&nbsp;</strong>Is there anything else you would like to tell us? For example, what measures have you taken to improve the sustainability of your home? Have you had any challenges in doing so? Has the building been developed to meet a particular environmental standard (Passivhaus standards etc)? Do you use a heat pump?
                             </label>
                             <textarea
                               id="other_details"

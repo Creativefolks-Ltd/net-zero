@@ -124,7 +124,12 @@ const FoodAndShoppingView = ({ food }) => {
                                             recommendations more specific.
                                         </p>
                                         <label htmlFor="important_purchases_detail">
-                                            <strong>2.&nbsp;</strong>Please give details of any other important purchases made in the selected year, such as TVs, laptops, phones and other electronics, domestic appliances, furniture, and home renovations. Please specify the relevant details, such as number and type. You do not need to include second-hand or refurbished items. You may optionally include items purchased by your household members.
+                                            <strong>2.&nbsp;</strong>Please give details of any other significant purchases made in the selected year.
+                                            Examples include:
+                                            Electronics: TVs, laptops, phones, tablets, and other devices
+                                            Domestic appliances: Washing machines, refrigerators, ovens
+                                            Furniture: Sofas, beds, tables, chairs
+                                            Home renovations: Kitchen or bathroom refurbishments, flooring upgrades
                                         </label>
                                         <textarea
                                             rows="6"
@@ -143,8 +148,7 @@ const FoodAndShoppingView = ({ food }) => {
                                     <div className="form-div">
                                         <div className="form-label-div">
                                             <label htmlFor="average_pieces_per_quarter">
-                                                <strong>3.&nbsp;</strong>On average, how many new pieces of
-                                                clothing do you buy each quarter?
+                                                <strong>3.&nbsp;</strong>On average, how many new pieces of clothing do you buy each month?
                                             </label>
                                         </div>
                                         <select className="form-control "
@@ -177,10 +181,10 @@ const FoodAndShoppingView = ({ food }) => {
                                             id={"pet_type"}
                                             defaultValue={formik.values.pet_type}
                                             onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur} 
+                                            onBlur={formik.handleBlur}
                                             readOnly
                                             disabled
-                                            >
+                                        >
                                             <option value="">Select option</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
