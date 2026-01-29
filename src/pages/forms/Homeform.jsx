@@ -228,7 +228,6 @@ const Homeform = ({ selectedHome, LocalHomeDelete, setSelectedHome, handleActive
     }
   };
 
-
   const genSlideStyle = (value) => {
     return {
       point: {
