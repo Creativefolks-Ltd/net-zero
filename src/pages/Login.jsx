@@ -138,6 +138,9 @@ const Login = () => {
         validate: signupValidate,
 
         onSubmit: async (values) => {
+            // Signup is temporarily disabled
+            return;
+
             if (!values.first_name || !values.last_name || !values.email || !values.password || !values.cpassword) {
                 return false
             }
@@ -254,7 +257,7 @@ const Login = () => {
                                                             {signupFormik.errors.cpassword && signupFormik.touched.cpassword ? <span className='input-error-msg'>{signupFormik.errors.cpassword}</span> : null}
                                                         </div>
 
-                                                        <button className="submit-btn" type='submit' >Signup {loading ? <div className="spinner-border text-primary" role="status">
+                                                        <button disabled={true} className="submit-btn" type='submit' >Signup {loading ? <div className="spinner-border text-primary" role="status">
                                                         </div> : ''}</button>
                                                     </form>
                                                 </div>
