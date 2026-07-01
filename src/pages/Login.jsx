@@ -200,9 +200,10 @@ const Login = () => {
                                             <li className="nav-item text-center" onClick={() => setLoginActive(true)}>
                                                 <a className={`nav-link btl ${loginActive && "active"}`} id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Sign in</a>
                                             </li>
-                                            <li className="nav-item text-center" onClick={() => setLoginActive(false)}>
+                                            {/* Signup is temporarily disabled */}
+                                            {/*<li className="nav-item text-center" onClick={() => setLoginActive(false)}>
                                                 <a className={`nav-link btr ${!loginActive && "active"}`} id="pills-profile-tab" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">Register</a>
-                                            </li>
+                                            </li>*/}
                                         </ul>
                                         <div className="tab-content" id="pills-tabContent">
                                             <div className={`tab-pane fade ${loginActive && "show active"}`} id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
