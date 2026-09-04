@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { adminLogin, userLogin, userSignup } from "../actions/auth";
+import { adminLogin, mfaVerifyAccount, userLogin, userSignup } from "../actions/auth";
 import { getUserDetails, updateUserDetails } from "../actions/user";
 import { updateAdminDetails } from "../actions/admin";
 
@@ -49,6 +49,7 @@ const authSlice = createSlice({
             state.error = null;
             state.success = false;
             state.adminDetails = null;
+            state.userInfo = null;
         }
     },
     extraReducers: (builder) => {
@@ -57,7 +58,7 @@ const authSlice = createSlice({
             state.error = null;
         }).addCase(adminLogin.fulfilled, (state, action) => {
             state.loading = false;
-            state.adminDetails = action.payload?.data;
+            // state.adminDetails = action.payload?.data;
             state.success = true;
         }).addCase(adminLogin.rejected, (state, action) => {
             state.loading = false;
@@ -65,19 +66,32 @@ const authSlice = createSlice({
             state.success = false;
         })
 
-        // Login
-        builder.addCase(userLogin.pending, (state) => {
+        // MultiFactior Authentication Verify 
+        builder.addCase(mfaVerifyAccount.pending, (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(userLogin.fulfilled, (state, action) => {
+        }).addCase(mfaVerifyAccount.fulfilled, (state, action) => {
             state.loading = false;
             state.userInfo = action.payload?.data;
             state.success = true;
-        }).addCase(userLogin.rejected, (state, action) => {
+        }).addCase(mfaVerifyAccount.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.error.message || "Login failed";
+            state.error = action.error.message || "Verification failed";
             state.success = false;
         })
+            // Login
+            .addCase(userLogin.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            }).addCase(userLogin.fulfilled, (state, action) => {
+                state.loading = false;
+                // state.userInfo = action.payload?.data;
+                state.success = true;
+            }).addCase(userLogin.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Login failed";
+                state.success = false;
+            })
             // Signup
             .addCase(userSignup.pending, (state) => {
                 state.loading = true;
@@ -106,7 +120,7 @@ const authSlice = createSlice({
                 state.error = true;
                 state.loading = false;
             })
-            
+
             // update user details
             .addCase(updateUserDetails.pending, (state, action) => {
                 state.loading = true;
@@ -128,8 +142,8 @@ const authSlice = createSlice({
                 state.loading = true;
             }).addCase(updateAdminDetails.fulfilled, (state, action) => {
                 const updatedFields = (action.payload?.data && action.payload.data[0]) || action.payload?.data;
-                state.adminDetails = {
-                    ...state.adminDetails,
+                state.userInfo = {
+                    ...state.userInfo,
                     ...updatedFields,
                 };
                 state.loading = false;

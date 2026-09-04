@@ -371,21 +371,24 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <button
-                    className="submit-btn"
-                    type="submit"
-                    disabled={disabled}
-                    onClick={(e) => submitHandler(e)}
-                  >
-                    Save{" "}
-                    {disabled ? (
-                      <div
-                        className="spinner-border text-primary"
-                        role="status"
-                      ></div>
-                    ) : (
-                      ""
-                    )}
-                  </button>
+                      className="submit-btn"
+                      type="submit"
+                      disabled={disabled}
+                      onClick={submitHandler}
+                    >
+                      {disabled ? (
+                        <>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save"
+                      )}
+                    </button>
                 </div>
               </form>
             </div>

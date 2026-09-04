@@ -73,7 +73,7 @@ const ChangePassword = ({ isAdmin }) => {
     }
   };
 
-  const email = isAdmin ? user?.adminDetails?.email : user?.userInfo?.email;
+  const email = user?.userInfo?.email;
 
   const formik = useFormik({
     initialValues: {
@@ -133,7 +133,7 @@ const ChangePassword = ({ isAdmin }) => {
                 </div>
                 <div className="col-lg-4 offset-lg-2">
                   <button className="submit-btn" type='submit' disabled={disabled} >
-                    Save new password {disabled ? <div className="spinner-border text-primary" role="status"></div> : ''}</button>
+                    {disabled ? <><div className="spinner-border text-primary" role="status"></div> Saving...</> : 'Update Password'}</button>
                   <div className="admin-header-btn">
                     <Link to={isAdmin ? "/admin/dashboard" : "/my-account"} className="btn">
                       Back

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux-store/actions/auth";
 import Swal from "sweetalert2";
 import { adminLogout } from "../redux-store/reducers/auth";
+import { ROLES } from "../constants";
 
 
 const Header = ({ bgTransparent }) => {
@@ -21,6 +22,10 @@ const Header = ({ bgTransparent }) => {
     const adminPage = location?.pathname.includes("/admin")
 
     const authUser = useSelector((state) => state.auth)
+    const userRole = authUser?.userInfo?.role;
+    const isAdmin = userRole === ROLES.ADMIN;
+    const isUser = userRole === ROLES.USER;
+    const isAuthenticated = isAdmin || isUser;
 
     const logoutHandler = (userType) => {
         Swal.fire({
@@ -51,7 +56,7 @@ const Header = ({ bgTransparent }) => {
     }
 
     const navbarHandler = (status) => {
-        if (authUser?.userInfo || (authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage)) {
+        if (authUser?.userInfo || (authUser?.userInfo && authUser?.userInfo?.role == ROLES.ADMIN && adminPage)) {
             setOpenNavbar(status)
         }
     }
@@ -65,7 +70,7 @@ const Header = ({ bgTransparent }) => {
                         <Link to="/">
                             <img src={homePage ? White_Anthos_logo : Anthos_logo} alt="" className="logo-img" />
                         </Link>
-                        {authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage ? (
+                        {authUser?.userInfo && authUser?.userInfo?.role == ROLES.ADMIN ? (
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
                                     <li className="nav-item"><Link to="/admin/dashboard"> Dashboard</Link></li>
@@ -80,7 +85,7 @@ const Header = ({ bgTransparent }) => {
                                     </li>
                                 </ul>
                             </div>
-                        ) : authUser?.userInfo && (
+                        ) : authUser?.userInfo && authUser?.userInfo?.role == ROLES.USER && (
                             <div className={`nav-items slide-in ${openNavbar ? "active" : ""}`}>
                                 <ul>
                                     <li className="nav-item"><Link to="/my-account"> My Account</Link></li>
@@ -102,22 +107,37 @@ const Header = ({ bgTransparent }) => {
                         {/* )} */}
                         <div className="navbar-toggler">
                             <ul>
-                                {authUser?.adminDetails && authUser?.adminDetails?.role == 1 && adminPage ?
-                                    (
-                                        <>
-                                            <li className='user-img'><img src={User_Icon} alt="" /></li>
-                                            <li className='hamburger' onClick={() => { navbarHandler(true); }}><img src={MenuImage} alt="" />
-                                            </li>
-                                        </>
-                                    ) : authUser?.userInfo ? (
-                                        <>
-                                            <li className='user-img'><Link to="/my-account"><img src={homePage ? White_User_Icon : User_Icon} alt="" /></Link></li>
-                                            <li className='hamburger' onClick={() => { navbarHandler(true) }}><img src={homePage ? WhiteMenuImage : MenuImage} alt="" />
-                                            </li>
-                                        </>
-                                    ) : (
-                                        <li className='hamburger' ><Link to="/login"><img src={homePage ? WhiteMenuImage : MenuImage} alt="" /></Link></li>
-                                    )}
+                                {isAuthenticated ? (
+                                    <>
+                                        <li className="user-img">
+                                            <Link to={isAdmin ? "/admin/dashboard" : "/my-account"}>
+                                                <img
+                                                    src={homePage ? White_User_Icon : User_Icon}
+                                                    alt={isAdmin ? "Admin" : "User"}
+                                                />
+                                            </Link>
+                                        </li>
+
+                                        <li
+                                            className="hamburger"
+                                            onClick={() => navbarHandler(true)}
+                                        >
+                                            <img
+                                                src={homePage ? WhiteMenuImage : MenuImage}
+                                                alt="Menu"
+                                            />
+                                        </li>
+                                    </>
+                                ) : (
+                                    <li className="hamburger">
+                                        <Link to="/login">
+                                            <img
+                                                src={homePage ? WhiteMenuImage : MenuImage}
+                                                alt="Login"
+                                            />
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
 
                         </div>

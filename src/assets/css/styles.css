@@ -129,7 +129,7 @@ input {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment:fixed;
+    background-attachment: fixed;
 }
 
 .nav-items {
@@ -499,6 +499,22 @@ select.form-control:disabled {
     background: #2C2B34;
     transition: 0.5s;
     color: #fff;
+}
+
+.btn-link {
+    border: none;
+    background: none;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    background: none;
+    color: #81c14b;
+    text-decoration: underline;
+}
+.btn.disabled, .btn:disabled, fieldset:disabled .btn{
+    background: #81c14b;
+    color: white;
 }
 
 form.registerform {
@@ -1396,7 +1412,7 @@ select {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment:fixed;
+    background-attachment: fixed;
 }
 
 .economy-row,
@@ -1443,11 +1459,13 @@ select {
 .economy-table .economy-row:first-child .input-block .input-row .input-col label {
     display: block;
 }
+
 .economy-row .input-col label {
     height: 50px;
     margin-bottom: 20px;
     visibility: hidden;
 }
+
 /* .economy-row .input-col label {
     margin-bottom: 40px;
     font-size: 31px !important;
@@ -1458,6 +1476,7 @@ select {
     font-weight: 600;
     font-size: 26px !important;
 }
+
 .economy-row .input-col input[type="text"],
 .economy-table .modal-input-col input[type="text"],
 .modal-input-col select {
@@ -2683,23 +2702,31 @@ select {
     .tab-content {
         padding-left: 25px;
     }
+
     .saved-form-div .historical-div {
         margin-top: 34px;
         padding-left: 1rem;
     }
-    .economy-table .input-block .input-row, .economy-table .modal-input-block .modal-input-row{
+
+    .economy-table .input-block .input-row,
+    .economy-table .modal-input-block .modal-input-row {
         flex-wrap: wrap;
     }
-    .economy-row, .economy-table .modal-row {
+
+    .economy-row,
+    .economy-table .modal-row {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
     }
-    .economy-table .input-block .input-row .input-col, .economy-table .modal-input-block .modal-input-row .modal-input-col {
+
+    .economy-table .input-block .input-row .input-col,
+    .economy-table .modal-input-block .modal-input-row .modal-input-col {
         padding: 0 8px;
         width: 50%;
         margin-bottom: 13px;
     }
+
     .economy-table .economy-row:first-child .input-block .input-row .input-col label {
         margin-bottom: 0px;
         margin-top: 10px;
@@ -3392,6 +3419,10 @@ select {
     }
 
     /****************************/
+    .login-verify-otp-form {
+        padding-bottom: 80px !important;
+    }
+
     .login-form {
         margin: 0;
         background: #F8F8F8;
@@ -4121,11 +4152,14 @@ a.view-form-link {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-.text-green{
+
+.text-green {
     color: #81C14B;
 }
-.cursor-pointer{
-    cursor: pointer;;
+
+.cursor-pointer {
+    cursor: pointer;
+    ;
 }
 
 

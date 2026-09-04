@@ -107,8 +107,27 @@ const Financial = () => {
               </p>
               <div className="form">
                 <form>
-                  {user?.formCompleted >= 4 ? (<button className="submit-btn" type='submit' disabled={disabled} onClick={(e) => submitHandler(e)}>Submit {disabled ? <div className="spinner-border text-primary" role="status">
-                  </div> : ''}</button>) : (
+                  {user?.formCompleted >= 4 ? (
+                    <button
+                      className="submit-btn"
+                      type="submit"
+                      disabled={disabled}
+                      onClick={submitHandler}
+                    >
+                      {disabled ? (
+                        <>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit"
+                      )}
+                    </button>
+                  ) : (
                     <button className="btn" type='button' onClick={() => { CompletePreviousForms() }}>Submit </button>
                   )}
                 </form>

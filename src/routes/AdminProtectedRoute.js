@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Navigate } from 'react-router-dom';
+import { ROLES } from '../constants';
 
 
 const useAdminAuth = () => {
   const user = useSelector((state) => state.auth);
-  return !!user?.adminDetails;
+  return !!user?.userInfo && user?.userInfo?.role === ROLES.ADMIN;
 };
 
 

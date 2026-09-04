@@ -16,8 +16,8 @@ const AdminLogin = () => {
   const user = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false)
 
-  const navigateToNext = () => {
-    navigate("/admin/dashboard");
+  const navigateToNext = (data) => {
+    navigate("/login-verify-otp", { state: { ...data, path: "/admin/dashboard" } });
   };
 
 
@@ -28,7 +28,7 @@ const AdminLogin = () => {
       const response = await dispatch(adminLogin(values));
       setDisabled(false);
       if (!response?.payload?.error && response?.payload?.data) {
-        navigateToNext()
+        navigateToNext(response?.payload?.data)
       } else {
         const errorMsg = response?.payload?.response?.data?.errorMsg;
         if (errorMsg) {
@@ -98,8 +98,24 @@ const AdminLogin = () => {
                           ) : null}
                         </div>
                       </div>
-                      <button className="submit-btn" type='submit' disabled={disabled} >Log in {disabled ? <div className="spinner-border text-primary" role="status">
-                      </div> : ''}</button>
+                      <button
+                        className="submit-btn"
+                        type="submit"
+                        disabled={disabled}
+                      >
+                        {disabled ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            />
+                            Logging in...
+                          </>
+                        ) : (
+                          "Log in"
+                        )}
+                      </button>
                     </div>
 
                   </div>

@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import "./assets/css/styles.css"
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -26,7 +25,9 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import { userFormReset } from "./redux-store/reducers/user.js";
 import { setHomeCount } from "./redux-store/reducers/forms.js";
 import CookieConsent from "react-cookie-consent";
-import VerifyOtp from "./pages/VerifyOtp.jsx";
+import AccountVerifyOtp from "./pages/AccountVerifyOtp.jsx";
+import LoginVerifyOtp from "./pages/LoginVerifyOtp.jsx";
+import PublicRoute from "./routes/PublicRoute.js";
 
 function App() {
   const location = useLocation();
@@ -58,12 +59,12 @@ function App() {
           <Route path="/my-account" element={<ProtectedRoute ><MyAccount /></ProtectedRoute >} />
           <Route path="/form-view/:form_id" element={<ProtectedRoute><AdminView /></ProtectedRoute>} />
           <Route path="/manage-password" element={<ProtectedRoute ><UserChangePassword /></ProtectedRoute >} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/verify-otp" element={<VerifyOtp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+          <Route path="/account-verify-otp" element={<AccountVerifyOtp />} />
+          <Route path="/login-verify-otp" element={<LoginVerifyOtp />} />
+          <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
           <Route path="/admin/*" element={<Dashboard />} />
         </Route>
         <Route path="/forms" element={<ProtectedRoute><FormsLayout /></ProtectedRoute>} />

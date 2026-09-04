@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   const handleModalClose = useRef(null);
 
   const serialNo = (currentPage - 1) * itemsPerPage;
-  const userId = admin?.adminDetails?.user_id
+  const userId = admin?.userInfo?.user_id
 
   useEffect(() => {
     fetchAdminDetails()
@@ -62,9 +62,9 @@ const AdminDashboard = () => {
 
   const formik = useFormik({
     initialValues: {
-      first_name: admin?.adminDetails?.first_name,
-      last_name: admin?.adminDetails?.last_name,
-      email: admin?.adminDetails?.email,
+      first_name: admin?.userInfo?.first_name,
+      last_name: admin?.userInfo?.last_name,
+      email: admin?.userInfo?.email,
     },
     validationSchema: userFormValidation,
     onSubmit: (values) => { },
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
 
     if (isValid) {
       setDisabled(true);
-      const user_id = admin?.adminDetails?.user_id;
+      const user_id = admin?.userInfo?.user_id;
 
       const response = await dispatch(updateAdminDetails({ data: values, user_id }));
       setDisabled(false)
@@ -325,14 +325,23 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <button className="submit-btn " type="button" onClick={(e) => submitHandler(e)} disabled={disabled}>
-                Save {disabled ? (
-                  <div
-                    className="spinner-border text-primary"
-                    role="status"
-                  ></div>
+              <button
+                className="submit-btn"
+                type="button"
+                onClick={submitHandler}
+                disabled={disabled}
+              >
+                {disabled ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    Saving...
+                  </>
                 ) : (
-                  ""
+                  "Save"
                 )}
               </button>
             </div>
@@ -412,7 +421,7 @@ const AdminDashboard = () => {
                 <div className="d-flex justify-content-between">
                   <div className="entries-box">
                     Show
-                    <select onChange={(e)=>setItemsPerPage(e.target.value)} value={itemsPerPage}>
+                    <select onChange={(e) => setItemsPerPage(e.target.value)} value={itemsPerPage}>
                       <option value="10">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>

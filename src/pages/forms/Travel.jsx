@@ -858,10 +858,45 @@ const Travel = ({ isEdit, travel }) => {
                   {user?.formCompleted >= 2 ? (
                     <>
                       <div className="Additional-bottom-btn">
-                        <button className="btn" type='submit' disabled={disabled && completeLater} onClick={() => { setCompleteLater(true) }}>Save & Complete Later {disabled && completeLater ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
-                        <button className="btn" type='submit' disabled={disabled && !completeLater} onClick={() => { setCompleteLater(false) }}>Continue {disabled && !completeLater ? <div className="spinner-border text-primary" role="status">
-                        </div> : ''}</button>
+                        <button
+                          className="btn"
+                          type="submit"
+                          disabled={disabled}
+                          onClick={() => setCompleteLater(true)}
+                        >
+                          {disabled && completeLater ? (
+                            <>
+                              <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                              Saving...
+                            </>
+                          ) : (
+                            "Save & Complete Later"
+                          )}
+                        </button>
+
+                        <button
+                          className="btn"
+                          type="submit"
+                          disabled={disabled}
+                          onClick={() => setCompleteLater(false)}
+                        >
+                          {disabled && !completeLater ? (
+                            <>
+                              <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                              Continuing...
+                            </>
+                          ) : (
+                            "Continue"
+                          )}
+                        </button>
                       </div>
                       {formik.submitCount > 0 && !formik.isValid ? (
                         <span className={`input-error-msg d-flex ${completeLater ? "justify-content-start" : "justify-content-end"}`}>Please fill the required* fields before {completeLater ? "save." : "continuing."}</span>

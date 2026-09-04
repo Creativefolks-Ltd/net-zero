@@ -454,8 +454,24 @@ const AdminView = () => {
                       </select>
                       {formik2.errors.user_id && formik2.touched.user_id ? <span className='input-error-msg'>{formik2.errors.user_id}</span> : null}
                     </div>
-                    <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
+                    <button
+                      className="submit-btn"
+                      type="submit"
+                      disabled={disabled}
+                    >
+                      {disabled ? (
+                        <>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save"
+                      )}
+                    </button>
 
                   </form>
                 </div>
@@ -467,8 +483,24 @@ const AdminView = () => {
                       <input type="text" name="form_name" className={`form-control ${formik.errors.form_name && formik.touched.form_name ? "invalidInput" : ""} `} placeholder="Form  name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.form_name} />
                       {formik.errors.form_name && formik.touched.form_name ? <span className='input-error-msg'>{formik.errors.form_name}</span> : null}
                     </div>
-                    <button className="submit-btn" type='submit' disabled={disabled}>Save {disabled ? <div className="spinner-border text-primary" role="status">
-                    </div> : ''}</button>
+                    <button
+                      className="submit-btn"
+                      type="submit"
+                      disabled={disabled}
+                    >
+                      {disabled ? (
+                        <>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save"
+                      )}
+                    </button>
                   </form>
                 </div>
               )}

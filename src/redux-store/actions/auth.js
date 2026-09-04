@@ -22,9 +22,9 @@ export const userLogin = createAsyncThunk('userLogin', async (data, thunkAPI) =>
         const errorMsg = error?.response?.data?.errorMsg || "Something went wrong!";
         
         // Dispatch encrypted user ID if available
-        if (error?.response?.data?.data?.user_id) {
-            thunkAPI.dispatch(setEncryptedId(error.response.data.data.user_id));
-        }
+        // if (error?.response?.data?.data?.user_id) {
+        //     thunkAPI.dispatch(setEncryptedId(error.response.data.data.user_id));
+        // }
         return thunkAPI.rejectWithValue({ error: true, errorMsg });
     }
 });
@@ -78,6 +78,24 @@ export const resendVerificationOtp = createAsyncThunk('resendVerificationOtp', a
 export const verifyAccount = createAsyncThunk('verifyAccount', async (data, thunkAPI) => {
     try {
         const response = await axios.post("/api/verify/account", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const mfaVerifyAccount = createAsyncThunk('mfaVerifyAccount', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/mfa/verify", data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+});
+
+export const mfaResendAccount = createAsyncThunk('mfaResendAccount', async (data, thunkAPI) => {
+    try {
+        const response = await axios.post("/api/mfa/resend", data);
         return response.data;
     } catch (error) {
         return error;

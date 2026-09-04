@@ -77,8 +77,8 @@ const Login = () => {
     const { loading, userInfo, error, encryptedId } = useSelector((state) => state.auth)
 
 
-    const navigateToNext = () => {
-        navigate("/my-account")
+    const navigateToNext = (data) => {
+        navigate("/login-verify-otp", { state: data })
     }
 
     const navigateToVerifyOtp = async (e) => {
@@ -86,7 +86,7 @@ const Login = () => {
             top: 0,
             behavior: 'smooth'
         });
-        navigate("/verify-otp")
+        navigate("/account-verify-otp")
     }
 
     const loginFormik = useFormik({
@@ -113,7 +113,7 @@ const Login = () => {
                     });
 
                 } else if (response?.payload?.data) {
-                    navigateToNext();
+                    navigateToNext(response?.payload?.data);
                 }
             } catch (error) {
                 SweetAlert({
@@ -138,8 +138,6 @@ const Login = () => {
         validate: signupValidate,
 
         onSubmit: async (values) => {
-            // Signup is temporarily disabled
-            return;
 
             if (!values.first_name || !values.last_name || !values.email || !values.password || !values.cpassword) {
                 return false
@@ -201,9 +199,9 @@ const Login = () => {
                                                 <a className={`nav-link btl ${loginActive && "active"}`} id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Sign in</a>
                                             </li>
                                             {/* Signup is temporarily disabled */}
-                                            {/*<li className="nav-item text-center" onClick={() => setLoginActive(false)}>
+                                            <li className="nav-item text-center" onClick={() => setLoginActive(false)}>
                                                 <a className={`nav-link btr ${!loginActive && "active"}`} id="pills-profile-tab" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">Register</a>
-                                            </li>*/}
+                                            </li>
                                         </ul>
                                         <div className="tab-content" id="pills-tabContent">
                                             <div className={`tab-pane fade ${loginActive && "show active"}`} id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -224,8 +222,26 @@ const Login = () => {
                                                             {loginFormik.errors.password && loginFormik.touched.password ? <span className='input-error-msg'>{loginFormik.errors.password}</span> : null}
                                                         </div>
                                                         <p><Link to="/forgot-password">Forgot your password?</Link></p>
-                                                        <button className="submit-btn " type='submit' >Sign in {loading ? <div className="spinner-border text-primary" role="status">
-                                                        </div> : ''}</button>
+
+                                                        <button
+                                                            disabled={loading}
+                                                            className="submit-btn"
+                                                            type="submit"
+                                                        >
+                                                            {loading ? (
+                                                                <>
+                                                                    <span
+                                                                        className="spinner-border spinner-border-sm me-2"
+                                                                        role="status"
+                                                                        aria-hidden="true"
+                                                                    />
+                                                                    Signing in...
+                                                                </>
+                                                            ) : (
+                                                                "Sign in"
+                                                            )}
+                                                        </button>
+
                                                         <div className='admin-login-icon'>
                                                             <img src={AdminLoginImg} alt="" width={40} height={40} />
                                                             <p><Link to="/admin/login" className='text-decoration-none'> Admin login</Link></p>
@@ -257,9 +273,24 @@ const Login = () => {
                                                             <PasswordInput name="cpassword" className={`form-control ${signupFormik.errors.cpassword && signupFormik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={signupFormik.handleChange} blurHandler={signupFormik.handleBlur} value={signupFormik.values.cpassword} showPassword={showSCPassword} setShowPassword={() => setShowSCPassword(!showSCPassword)} />
                                                             {signupFormik.errors.cpassword && signupFormik.touched.cpassword ? <span className='input-error-msg'>{signupFormik.errors.cpassword}</span> : null}
                                                         </div>
-
-                                                        <button disabled={true} className="submit-btn" type='submit' >Signup {loading ? <div className="spinner-border text-primary" role="status">
-                                                        </div> : ''}</button>
+                                                        <button
+                                                            disabled={loading}
+                                                            className="submit-btn"
+                                                            type="submit"
+                                                        >
+                                                            {loading ? (
+                                                                <>
+                                                                    <span
+                                                                        className="spinner-border spinner-border-sm me-2"
+                                                                        role="status"
+                                                                        aria-hidden="true"
+                                                                    />
+                                                                    Signing up...
+                                                                </>
+                                                            ) : (
+                                                                "Signup"
+                                                            )}
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>

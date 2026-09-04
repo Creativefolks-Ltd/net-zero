@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { resendVerificationOtp, verifyAccount } from '../redux-store/actions/auth';
 import { removeEncryptedId } from '../redux-store/reducers/auth';
 
-const VerifyOtp = () => {
+const AccountVerifyOtp = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userId = useSelector((state) => state.auth.encryptedId)
@@ -199,4 +199,4 @@ const VerifyOtp = () => {
     )
 }
 
-export default VerifyOtp
+export default AccountVerifyOtp
