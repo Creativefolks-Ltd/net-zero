@@ -32,14 +32,20 @@ const adminSlice = createSlice({
             state.isError = true;
             state.isLoading = false;
         })
-            .addCase(getAllForms.pending, (state, action) => {
+            .addCase(getAllForms.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
             }).addCase(getAllForms.fulfilled, (state, action) => {
                 state.getAllForms = action.payload;
                 state.isLoading = false;
             }).addCase(getAllForms.rejected, (state, action) => {
-                state.isError = true;
+                if (action.payload?.cancelled) {
+                    return;
+                }
+
                 state.isLoading = false;
+                state.isError = true;
+                state.getAllForms = [];
             })
 
             .addCase(adminFetchParticularForm.pending, (state, action) => {
@@ -64,13 +70,20 @@ const adminSlice = createSlice({
             })
 
             // Manage Users
-            .addCase(getUsers.pending, (state, action) => {
+            .addCase(getUsers.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
                 state.users = [];
-            }).addCase(getUsers.fulfilled, (state, action) => {
+            })
+            .addCase(getUsers.fulfilled, (state, action) => {
                 state.users = action.payload?.data;
                 state.isLoading = false;
-            }).addCase(getUsers.rejected, (state, action) => {
+            })
+            .addCase(getUsers.rejected, (state, action) => {
+                if (action.payload?.cancelled) {
+                    return;
+                }
+
                 state.isError = true;
                 state.isLoading = false;
                 state.users = [];

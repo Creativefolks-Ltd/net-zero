@@ -37,6 +37,7 @@ const AdminDashboard = () => {
   const [dragOver, setDragOver] = useState(false);
 
   const handleModalClose = useRef(null);
+  const requestRef = useRef(null);
 
   const serialNo = (currentPage - 1) * itemsPerPage;
   const userId = admin?.userInfo?.user_id
@@ -47,13 +48,38 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchFormList();
-  }, [currentPage, searchQuery, orderByAsc, itemsPerPage]);
+
+    return () => {
+      requestRef.current?.abort();
+    };
+  }, [
+    currentPage,
+    searchQuery,
+    orderByAsc,
+    itemsPerPage,
+    sortColumn,
+  ]);
 
   const fetchFormList = () => {
-    const order = orderByAsc ? "asc" : "desc"
-    const params = { itemsPerPage: itemsPerPage, pageNumber: currentPage, query: searchQuery, order: order, sort: sortColumn }
-    dispatch(getAllForms(params));
-  }
+    // Cancel previous request
+    requestRef.current?.abort();
+
+    const order = orderByAsc ? "asc" : "desc";
+
+    const params = {
+      itemsPerPage,
+      pageNumber: currentPage,
+      query: searchQuery,
+      order,
+      sort: sortColumn,
+    };
+
+    const request = dispatch(getAllForms(params));
+
+    requestRef.current = request;
+
+    return request;
+  };
 
   const searchFilter = (e) => {
     setSearchQuery(searchByEmail)
@@ -392,7 +418,22 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {isLoading ? (<tr className="text-center"><td colSpan={4}>loading...</td></tr>) :
+                    {isLoading ? (
+                      <tr>
+                        <td
+                          colSpan={4}
+                          className="text-center py-5"
+                        >
+                          <div className="text-muted d-flex justify-content-center align-items-center">
+                            <span
+                              className="spinner-border spinner-mute spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            />
+                            Loading...
+                          </div>
+                        </td>
+                      </tr>) :
                       allForms?.length > 0 ? allForms?.map((form, index) => (
                         <tr key={index}>
                           {/* <td>{ordinalNumbers[serialNo + index]} form</td> */}
@@ -410,7 +451,19 @@ const AdminDashboard = () => {
                             <div className={`table-img ${loading ? "active" : ""}`}><span>CSV</span><img src={share_img} width={36} height={44} onClick={() => downloadCSVHandler(form.form_id)} /></div>
                           </td>
                         </tr>
-                      )) : (<tr className="text-center"><td colSpan={4}>Data not found</td></tr>)}
+
+                      )) : (
+                        <tr>
+                          <td
+                            colSpan={4}
+                            className="text-center py-5"
+                          >
+                            <div className="text-muted">
+                              No users found.
+                            </div>
+                          </td>
+                        </tr>
+                      )}
                   </tbody>
                 </table>
               </div>

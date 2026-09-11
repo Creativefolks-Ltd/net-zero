@@ -91,9 +91,28 @@ export const updateUserPassword = createAsyncThunk("users/updateUserPassword", a
 export const getAllForms = createAsyncThunk('getAllForms', async (params, thunkAPI) => {
     const { itemsPerPage, pageNumber, query, order, sort } = params
     try {
-        const response = await axios.get(`/api/admin/forms?limit=${itemsPerPage}&page=${pageNumber}&query=${query}&order=${order}&sort=${sort}`);
+        const response = await axios.get("/api/admin/forms", {
+            params: {
+                limit: itemsPerPage,
+                page: pageNumber,
+                query,
+                order,
+                sort,
+            },
+            signal: thunkAPI.signal,
+        });
         return response.data.data;
     } catch (error) {
+        if (
+            error?.code === "ERR_CANCELED" ||
+            error?.name === "CanceledError" ||
+            thunkAPI.signal.aborted
+        ) {
+            return thunkAPI.rejectWithValue({
+                cancelled: true,
+            });
+        }
+
         return TokenExpiredLogout(error, thunkAPI);
     }
 });

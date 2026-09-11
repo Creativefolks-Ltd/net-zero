@@ -38,6 +38,8 @@ function Users() {
     };
 
     const handleSort = (column) => {
+        if (isLoading) return;
+
         setFilter((prev) => ({
             ...prev,
             sort: column,
@@ -186,14 +188,14 @@ function Users() {
                                     <th className="border-0  px-4 py-3 bg-light-green cursor-pointer"
                                         onClick={() => handleSort("email")}>
                                         Email
-                                        {filters.sort === "first_name" && (
+                                        {filters.sort === "email" && (
                                             <span className="ms-2">
                                                 {filters.order === "asc" ? "↑" : "↓"}
                                             </span>
                                         )}
                                     </th>
                                     <th className="border-0  px-4 py-3 bg-light-green cursor-pointer"
-                                        onClick={() => handleSort("email")}>
+                                        onClick={() => handleSort("created_at")}>
                                         Created At
                                         {filters.sort === "created_at" && (
                                             <span className="ms-2">
@@ -224,63 +226,6 @@ function Users() {
                                             </div>
                                         </td>
                                     </tr>
-                                    // Array.from({ length: 5 }).map((_, index) => (
-                                    //     <tr key={index}>
-                                    //         {/* User */}
-                                    //         <td className="px-4 py-3">
-                                    //             <div className="d-flex align-items-center">
-                                    //                 <div
-                                    //                     className="placeholder rounded-circle me-3"
-                                    //                     style={{
-                                    //                         width: "42px",
-                                    //                         height: "42px",
-                                    //                     }}
-                                    //                 />
-
-                                    //                 <div>
-                                    //                     <div
-                                    //                         className="placeholder-glow"
-                                    //                         style={{ width: "140px" }}
-                                    //                     >
-                                    //                         <span className="placeholder col-12 rounded" />
-                                    //                     </div>
-                                    //                 </div>
-                                    //             </div>
-                                    //         </td>
-
-                                    //         {/* Email */}
-                                    //         <td className="px-4">
-                                    //             <div
-                                    //                 className="placeholder-glow"
-                                    //                 style={{ width: "190px" }}
-                                    //             >
-                                    //                 <span className="placeholder col-12 rounded" />
-                                    //             </div>
-                                    //         </td>
-
-                                    //         {/* Created */}
-                                    //         <td className="px-4">
-                                    //             <div
-                                    //                 className="placeholder-glow"
-                                    //                 style={{ width: "100px" }}
-                                    //             >
-                                    //                 <span className="placeholder col-12 rounded" />
-                                    //             </div>
-                                    //         </td>
-
-                                    //         {/* Actions */}
-                                    //         <td className="px-4">
-                                    //             <div className="d-flex justify-content-end me-3">
-                                    //                 <div
-                                    //                     className="placeholder-glow"
-                                    //                     style={{ width: "50px" }}
-                                    //                 >
-                                    //                     <span className="placeholder col-12 rounded" />
-                                    //                 </div>
-                                    //             </div>
-                                    //         </td>
-                                    //     </tr>
-                                    // ))
                                 ) : users?.length > 0 ? (
                                     users.map((user) => (
                                         <tr key={user?.id}>

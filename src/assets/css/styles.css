@@ -2580,6 +2580,12 @@ select {
     height: 25px;
 }
 
+.spinner-mute {
+    color: #2C2B34 !important;
+    width: 25px;
+    height: 25px;
+}
+
 .spinner-green {
     color: #81C14B !important;
     width: 25px;
