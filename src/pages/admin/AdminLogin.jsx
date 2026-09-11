@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginFormValidation } from "../../helpers/validations/Schema";
-import SuccessImg from "../../assets/images/Group 9106.png";
 import Swal from "sweetalert2";
-import { updateAdminDetails } from "../../redux-store/actions/admin";
 import PasswordInput from "../../components/PasswordInput";
-import { adminLogin, userLogin } from "../../redux-store/actions/auth";
+import { adminLogin } from "../../redux-store/actions/auth";
 
 const AdminLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
   const user = useSelector((state) => state.auth);
-  const [showPassword, setShowPassword] = useState(false)
 
   const navigateToNext = (data) => {
     navigate("/login-verify-otp", { state: { ...data, path: "/admin/dashboard" } });
@@ -81,15 +78,35 @@ const AdminLogin = () => {
                     <div className="col-lg-12 admin-dashboard">
                       <div className="information-box">
                         <div className="form-div">
-                          <input type="text" name="email" id="email" placeholder="Email address" className={`${formik.errors.email && formik.touched.email && "invalidInput"}`} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                          <label htmlFor="email" className="mb-2">Email</label>
+                          <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            placeholder="Email address"
+                            className={`border  ${formik.errors.email && formik.touched.email && "invalidInput"}`}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                          />
                           {formik.errors.email && formik.touched.email ? (
                             <span className="input-error-msg">
                               {formik.errors.email}
                             </span>
                           ) : null}
                         </div>
-                        <div className="form-div login-pass-filed">
-                          <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+
+                        <div className="form-div password-field">
+                          <label htmlFor="password" className="mb-2">Password</label>
+                          <PasswordInput
+                            name="password"
+                            id="password"
+                            className={`border form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `}
+                            placeholder="Password"
+                            changeHandler={formik.handleChange}
+                            blurHandler={formik.handleBlur}
+                            value={formik.values.password}
+                          />
                           {formik.errors.password &&
                             formik.touched.password ? (
                             <span className="input-error-msg">

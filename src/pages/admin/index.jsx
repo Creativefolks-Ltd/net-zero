@@ -7,6 +7,7 @@ import CreateNewUser from "./CreateNewUser.jsx";
 import AdminChangePassword from "./AdminChangePassword.jsx";
 import ForgotPassword from "./ForgotPassword.jsx";
 import ResetPassword from "./ResetPassword.jsx";
+import Users from "./Users.jsx";
 
 import AdminProtectedRoute from "../../routes/AdminProtectedRoute.js";
 import PublicRoute from "../../routes/PublicRoute.js";
@@ -19,6 +20,7 @@ function Dashboard() {
             <Route path="login" element={<PublicRoute><AdminLogin /></PublicRoute>} />
             <Route index element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
             <Route path="dashboard" element={<AdminProtectedRoute><AdminDashboard /> </AdminProtectedRoute>} />
+            <Route path="users" element={<AdminProtectedRoute><Users /> </AdminProtectedRoute>} />
             <Route path="form-view/:form_id" element={<AdminProtectedRoute><AdminView /></AdminProtectedRoute>} />
             <Route path="create-user" element={<AdminProtectedRoute><CreateNewUser /></AdminProtectedRoute>} />
             <Route path="manage-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />

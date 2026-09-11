@@ -359,10 +359,8 @@ const AdminDashboard = () => {
                 <h2>Submissions</h2>
               </div>
               <div className="submissions-header-btn">
-                <button className="submit-btn " type="button">
-                  <Link to={"/admin/create-user"}>
-                    Create new user
-                  </Link>
+                <button className="submit-btn" type="button" onClick={() => navigate("/admin/users")}>
+                  Manage Users
                 </button>
                 <button className="submit-btn " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Upload CSV form

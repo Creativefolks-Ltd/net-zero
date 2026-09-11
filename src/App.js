@@ -28,6 +28,7 @@ import CookieConsent from "react-cookie-consent";
 import AccountVerifyOtp from "./pages/AccountVerifyOtp.jsx";
 import LoginVerifyOtp from "./pages/LoginVerifyOtp.jsx";
 import PublicRoute from "./routes/PublicRoute.js";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const location = useLocation();
@@ -81,6 +82,8 @@ function App() {
       >
         We use cookies to personalize content and ads, to provide social media features, and to analyze our traffic.
       </CookieConsent>
+
+      <ToastContainer />
     </div>
   );
 }

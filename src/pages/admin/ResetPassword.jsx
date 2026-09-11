@@ -16,8 +16,6 @@ const ResetPassword = () => {
     const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const [showPassword, setShowPassword] = useState(false)
-    const [showCPassword, setShowCPassword] = useState(false)
     const [disabled, setDisabled] = useState(false)
 
     const adminEmail = params.get('email');
@@ -121,11 +119,11 @@ const ResetPassword = () => {
                                                 <div className="form ">
                                                     <form onSubmit={formik.handleSubmit}>
                                                         <div className="form-div login-pass-filed">
-                                                            <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} showPassword={showPassword} setShowPassword={() => setShowPassword(!showPassword)} />
+                                                            <PasswordInput name="password" className={`form-control ${formik.errors.password && formik.touched.password ? "invalidInput" : ""} `} placeholder="Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.password} />
                                                             {formik.errors.password && formik.touched.password ? <span className='input-error-msg'>{formik.errors.password}</span> : null}
                                                         </div>
                                                         <div className="form-div login-pass-filed">
-                                                            <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} showPassword={showCPassword} setShowPassword={() => setShowCPassword(!showCPassword)} />
+                                                            <PasswordInput name="cpassword" className={`form-control ${formik.errors.cpassword && formik.touched.cpassword ? "invalidInput" : ""} `} placeholder="Confirm Password" changeHandler={formik.handleChange} blurHandler={formik.handleBlur} value={formik.values.cpassword} />
                                                             {formik.errors.cpassword && formik.touched.cpassword ? <span className='input-error-msg'>{formik.errors.cpassword}</span> : null}
                                                         </div>
                                                         <button className="submit-btn" type='submit' disabled={disabled} >Submit {disabled ? <div className="spinner-border text-primary" role="status">

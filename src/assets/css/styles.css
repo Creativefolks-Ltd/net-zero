@@ -80,6 +80,10 @@ img {
     margin-bottom: 80px;
 }
 
+.bg-light-green {
+    background: #e9f5df !important;
+}
+
 .bg-lightgray-color {
     background: #F9FBF6;
 }
@@ -501,6 +505,20 @@ select.form-control:disabled {
     color: #fff;
 }
 
+.btn-sm {
+    font-size: 16px;
+    padding: 15px !important;
+}
+
+.btn-secondary {
+    padding: 15px 40px;
+    border-radius: 15px;
+    transition: 0.5s;
+    color: #2C2B34;
+    background: #ddd;
+    text-decoration: none;
+}
+
 .btn-link {
     border: none;
     background: none;
@@ -512,10 +530,20 @@ select.form-control:disabled {
     color: #81c14b;
     text-decoration: underline;
 }
-.btn.disabled, .btn:disabled, fieldset:disabled .btn{
+
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
     background: #81c14b;
     color: white;
 }
+
+.btn.btn-secondary.disabled,
+.btn.btn-secondary:disabled {
+    background: #ddd !important;
+    color: #2C2B34 !important;
+}
+
 
 form.registerform {
     margin-top: 60px;
@@ -1107,7 +1135,7 @@ select {
     background-position: right 1rem center;
 }
 
-.form input.invalidInput,
+.admin-form input.invalidInput .form input.invalidInput,
 .form select.invalidInput,
 .Additional-box textarea.invalidInput,
 .economy-table input.invalidInput,
@@ -2213,6 +2241,22 @@ select {
     top: 22px;
 }
 
+.password-field {
+    position: relative;
+}
+
+.password-field .fa-eye-slash {
+    position: absolute;
+    right: 15px;
+    top: 52px !important;
+}
+
+.password-field .fa-eye {
+    position: absolute;
+    right: 15px;
+    top: 52px !important;
+}
+
 /********************pagination ********************/
 
 .entries-box {
@@ -2532,6 +2576,12 @@ select {
 /*************spinner**********/
 .spinner-border {
     color: #fff !important;
+    width: 25px;
+    height: 25px;
+}
+
+.spinner-green {
+    color: #81C14B !important;
     width: 25px;
     height: 25px;
 }

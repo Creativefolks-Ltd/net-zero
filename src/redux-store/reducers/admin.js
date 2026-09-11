@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { adminFetchParticularForm, getAdminDetails, getAllForms, getUserList } from "../actions/admin";
+import { adminFetchParticularForm, getAdminDetails, getAllForms, getUserList, getUsers } from "../actions/admin";
 
 
 const adminSlice = createSlice({
@@ -11,6 +11,7 @@ const adminSlice = createSlice({
         getAllForms: {},
         singleForm: {},
         assignUserList: [],
+        users: [],
         isError: false
     },
     reducers: {
@@ -34,8 +35,8 @@ const adminSlice = createSlice({
             .addCase(getAllForms.pending, (state, action) => {
                 state.isLoading = true;
             }).addCase(getAllForms.fulfilled, (state, action) => {
-                state.isLoading = false;
                 state.getAllForms = action.payload;
+                state.isLoading = false;
             }).addCase(getAllForms.rejected, (state, action) => {
                 state.isError = true;
                 state.isLoading = false;
@@ -51,6 +52,7 @@ const adminSlice = createSlice({
                 state.isLoading = false;
             })
 
+            // Users for forms assign
             .addCase(getUserList.pending, (state, action) => {
                 state.isLoading = true;
             }).addCase(getUserList.fulfilled, (state, action) => {
@@ -59,6 +61,19 @@ const adminSlice = createSlice({
             }).addCase(getUserList.rejected, (state, action) => {
                 state.isError = true;
                 state.isLoading = false;
+            })
+
+            // Manage Users
+            .addCase(getUsers.pending, (state, action) => {
+                state.isLoading = true;
+                state.users = [];
+            }).addCase(getUsers.fulfilled, (state, action) => {
+                state.users = action.payload?.data;
+                state.isLoading = false;
+            }).addCase(getUsers.rejected, (state, action) => {
+                state.isError = true;
+                state.isLoading = false;
+                state.users = [];
             })
 
     }

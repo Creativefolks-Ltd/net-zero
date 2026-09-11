@@ -453,3 +453,45 @@ export const resetPasswordValidation = (values) => {
 
     return errors;
 };
+
+export const updateEmailValidation = (values) => {
+    const errors = {};
+
+    const email = values.email?.trim();
+
+    if (!email) {
+        errors.email = emailRequiredMsg;
+    } else if (!emailRegex.test(email)) {
+        errors.email = emailInvalidMsg;
+    }
+
+    if (!values.admin_password?.trim()) {
+        errors.admin_password = "Admin password is required";
+    }
+
+    return errors;
+};
+
+export const updatePasswordValidation = (values) => {
+    const errors = {};
+
+    if (!values.password?.trim()) {
+        errors.password = passwordRequiredMsg;
+    } else if (values.password.length < 6) {
+        errors.password = passwordMin6CharMsg;
+    } else if (!strongPasswordRegex?.test(values.password)) {
+        errors.password = passwordInvalidMsg;
+    }
+
+    if (!values.confirm_password?.trim()) {
+        errors.confirm_password = confirmPasswordRequiredMsg;
+    } else if (values.password !== values.confirm_password) {
+        errors.confirm_password = confirmPasswordNotMatchMsg;
+    }
+
+    if (!values.admin_password?.trim()) {
+        errors.admin_password = "Admin password is required";
+    }
+
+    return errors;
+};
